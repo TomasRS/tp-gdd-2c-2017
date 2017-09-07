@@ -1,4 +1,7 @@
 # TP-GDD-2C-2017
+## Importante
+> Recordar usar el .NET Framework 4.5 cuando importen el proyecto de Visual Studio. Pueden chequearlo dándole click derecho al proyecto -> Propiedades
+
 ### Integrantes
 Nombre y Apellido | Legajo | E-mail | Github | Líder
 ----------------- |------- | ------ | ------ | -----
