@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba
+namespace PagoAgilFrba.Login
 {
-    public partial class LoginForm : Form
+    public partial class EleccionRol : Form
     {
-        public LoginForm()
+        public EleccionRol()
         {
             InitializeComponent();
+            CenterToScreen();
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            (new LoginForm()).Show();
         }
     }
 }
