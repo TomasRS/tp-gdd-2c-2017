@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class EleccionRolModificar : Form
     {
-        public Form1()
+        public EleccionRolModificar()
         {
             InitializeComponent();
+            CenterToScreen();
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new AbmRol().Show();
+            this.Close();
         }
     }
 }
