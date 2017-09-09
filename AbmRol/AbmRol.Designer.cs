@@ -33,12 +33,13 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.modificarRolButton = new System.Windows.Forms.Button();
             this.bajaRolButton = new System.Windows.Forms.Button();
+            this.funcionRolLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // altaRolButton
             // 
             this.altaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.altaRolButton.Location = new System.Drawing.Point(73, 21);
+            this.altaRolButton.Location = new System.Drawing.Point(73, 39);
             this.altaRolButton.Name = "altaRolButton";
             this.altaRolButton.Size = new System.Drawing.Size(118, 43);
             this.altaRolButton.TabIndex = 8;
@@ -58,7 +59,7 @@
             // modificarRolButton
             // 
             this.modificarRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modificarRolButton.Location = new System.Drawing.Point(73, 90);
+            this.modificarRolButton.Location = new System.Drawing.Point(73, 108);
             this.modificarRolButton.Name = "modificarRolButton";
             this.modificarRolButton.Size = new System.Drawing.Size(118, 43);
             this.modificarRolButton.TabIndex = 9;
@@ -68,18 +69,29 @@
             // bajaRolButton
             // 
             this.bajaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bajaRolButton.Location = new System.Drawing.Point(73, 160);
+            this.bajaRolButton.Location = new System.Drawing.Point(73, 178);
             this.bajaRolButton.Name = "bajaRolButton";
             this.bajaRolButton.Size = new System.Drawing.Size(118, 43);
             this.bajaRolButton.TabIndex = 10;
             this.bajaRolButton.Text = "Baja de Rol";
             this.bajaRolButton.UseVisualStyleBackColor = true;
             // 
+            // funcionRolLabel
+            // 
+            this.funcionRolLabel.AutoSize = true;
+            this.funcionRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.funcionRolLabel.Location = new System.Drawing.Point(12, 9);
+            this.funcionRolLabel.Name = "funcionRolLabel";
+            this.funcionRolLabel.Size = new System.Drawing.Size(129, 16);
+            this.funcionRolLabel.TabIndex = 11;
+            this.funcionRolLabel.Text = "Funciones de Rol";
+            // 
             // AbmRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 292);
+            this.Controls.Add(this.funcionRolLabel);
             this.Controls.Add(this.bajaRolButton);
             this.Controls.Add(this.modificarRolButton);
             this.Controls.Add(this.altaRolButton);
@@ -88,6 +100,7 @@
             this.Name = "AbmRol";
             this.Text = "ABM Rol";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -97,6 +110,7 @@
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Button modificarRolButton;
         private System.Windows.Forms.Button bajaRolButton;
+        private System.Windows.Forms.Label funcionRolLabel;
 
     }
 }
