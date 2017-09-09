@@ -23,5 +23,11 @@ namespace PagoAgilFrba.Login
             this.Close();
             (new LoginForm()).Show();
         }
+
+        private void aceptarButton_Click(object sender, EventArgs e)
+        {
+            /*Este boton lleva al menu principal el cual se cargara dependiendo del rol
+            que se tenga por defecto o bien si tiene muchos entonces el que eligio*/
+        }
     }
 }

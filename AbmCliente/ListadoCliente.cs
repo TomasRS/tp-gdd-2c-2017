@@ -10,12 +10,20 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmCliente
 {
-    public partial class AbmCliente : Form
+    public partial class ListadoCliente : Form
     {
-        public AbmCliente()
+        public ListadoCliente()
         {
             InitializeComponent();
             CenterToScreen();
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            nombreTextBox.Clear();
+            apellidoTextBox.Clear();
+            dniTextBox.Clear();
+            //El dataGrid tambien se limpia?
         }
     }
 }

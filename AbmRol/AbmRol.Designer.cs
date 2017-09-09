@@ -38,7 +38,7 @@
             // 
             // altaRolButton
             // 
-            this.altaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.altaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.altaRolButton.Location = new System.Drawing.Point(73, 39);
             this.altaRolButton.Name = "altaRolButton";
             this.altaRolButton.Size = new System.Drawing.Size(118, 43);
@@ -48,7 +48,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.volverButton.Location = new System.Drawing.Point(73, 251);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(118, 29);
@@ -58,7 +58,7 @@
             // 
             // modificarRolButton
             // 
-            this.modificarRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modificarRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modificarRolButton.Location = new System.Drawing.Point(73, 108);
             this.modificarRolButton.Name = "modificarRolButton";
             this.modificarRolButton.Size = new System.Drawing.Size(118, 43);
@@ -68,7 +68,7 @@
             // 
             // bajaRolButton
             // 
-            this.bajaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bajaRolButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bajaRolButton.Location = new System.Drawing.Point(73, 178);
             this.bajaRolButton.Name = "bajaRolButton";
             this.bajaRolButton.Size = new System.Drawing.Size(118, 43);
@@ -79,10 +79,10 @@
             // funcionRolLabel
             // 
             this.funcionRolLabel.AutoSize = true;
-            this.funcionRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.funcionRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.funcionRolLabel.Location = new System.Drawing.Point(12, 9);
             this.funcionRolLabel.Name = "funcionRolLabel";
-            this.funcionRolLabel.Size = new System.Drawing.Size(129, 16);
+            this.funcionRolLabel.Size = new System.Drawing.Size(106, 13);
             this.funcionRolLabel.TabIndex = 11;
             this.funcionRolLabel.Text = "Funciones de Rol";
             // 

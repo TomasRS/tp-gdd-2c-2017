@@ -38,35 +38,36 @@
             // rolLabel
             // 
             this.rolLabel.AutoSize = true;
-            this.rolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rolLabel.Location = new System.Drawing.Point(59, 27);
+            this.rolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rolLabel.Location = new System.Drawing.Point(82, 32);
             this.rolLabel.Name = "rolLabel";
-            this.rolLabel.Size = new System.Drawing.Size(280, 16);
+            this.rolLabel.Size = new System.Drawing.Size(229, 13);
             this.rolLabel.TabIndex = 0;
             this.rolLabel.Text = "Elija el rol con el que se quiere loguear";
             // 
             // rolComboBox
             // 
-            this.rolComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rolComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rolComboBox.FormattingEnabled = true;
-            this.rolComboBox.Location = new System.Drawing.Point(77, 61);
+            this.rolComboBox.Location = new System.Drawing.Point(77, 63);
             this.rolComboBox.Name = "rolComboBox";
-            this.rolComboBox.Size = new System.Drawing.Size(243, 24);
+            this.rolComboBox.Size = new System.Drawing.Size(243, 21);
             this.rolComboBox.TabIndex = 1;
             // 
             // aceptarButton
             // 
-            this.aceptarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aceptarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.aceptarButton.Location = new System.Drawing.Point(77, 105);
             this.aceptarButton.Name = "aceptarButton";
             this.aceptarButton.Size = new System.Drawing.Size(118, 29);
             this.aceptarButton.TabIndex = 2;
             this.aceptarButton.Text = "Aceptar";
             this.aceptarButton.UseVisualStyleBackColor = true;
+            this.aceptarButton.Click += new System.EventHandler(this.aceptarButton_Click);
             // 
             // volverButton
             // 
-            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.volverButton.Location = new System.Drawing.Point(202, 105);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(118, 29);

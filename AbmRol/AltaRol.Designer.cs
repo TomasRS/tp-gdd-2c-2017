@@ -42,20 +42,20 @@
             // tituloLabel
             // 
             this.tituloLabel.AutoSize = true;
-            this.tituloLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituloLabel.Location = new System.Drawing.Point(12, 9);
             this.tituloLabel.Name = "tituloLabel";
-            this.tituloLabel.Size = new System.Drawing.Size(213, 16);
+            this.tituloLabel.Size = new System.Drawing.Size(172, 13);
             this.tituloLabel.TabIndex = 0;
             this.tituloLabel.Text = "Complete los siguentes datos";
             // 
             // nombreLabel
             // 
             this.nombreLabel.AutoSize = true;
-            this.nombreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombreLabel.Location = new System.Drawing.Point(64, 53);
+            this.nombreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nombreLabel.Location = new System.Drawing.Point(13, 55);
             this.nombreLabel.Name = "nombreLabel";
-            this.nombreLabel.Size = new System.Drawing.Size(57, 16);
+            this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 1;
             this.nombreLabel.Text = "Nombre";
             // 
@@ -70,10 +70,10 @@
             // funcionalidadesLabel
             // 
             this.funcionalidadesLabel.AutoSize = true;
-            this.funcionalidadesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.funcionalidadesLabel.Location = new System.Drawing.Point(13, 96);
+            this.funcionalidadesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.funcionalidadesLabel.Location = new System.Drawing.Point(12, 96);
             this.funcionalidadesLabel.Name = "funcionalidadesLabel";
-            this.funcionalidadesLabel.Size = new System.Drawing.Size(108, 16);
+            this.funcionalidadesLabel.Size = new System.Drawing.Size(84, 13);
             this.funcionalidadesLabel.TabIndex = 3;
             this.funcionalidadesLabel.Text = "Funcionalidades";
             // 
@@ -87,8 +87,8 @@
             // 
             // volverButton
             // 
-            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.volverButton.Location = new System.Drawing.Point(325, 246);
+            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volverButton.Location = new System.Drawing.Point(325, 258);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(76, 29);
             this.volverButton.TabIndex = 8;
@@ -97,8 +97,8 @@
             // 
             // actualizarButton
             // 
-            this.actualizarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actualizarButton.Location = new System.Drawing.Point(219, 246);
+            this.actualizarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actualizarButton.Location = new System.Drawing.Point(164, 258);
             this.actualizarButton.Name = "actualizarButton";
             this.actualizarButton.Size = new System.Drawing.Size(86, 29);
             this.actualizarButton.TabIndex = 9;
@@ -107,8 +107,8 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.limpiarButton.Location = new System.Drawing.Point(133, 246);
+            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limpiarButton.Location = new System.Drawing.Point(12, 258);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(67, 29);
             this.limpiarButton.TabIndex = 10;

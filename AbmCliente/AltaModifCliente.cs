@@ -10,9 +10,13 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmCliente
 {
-    public partial class AltaCliente : Form
+    /*Ya que la funcionalidad para alta y modificacion de cliente es practicamente la misma,
+     (lo unico que cambia es el check de "Modificado") podemos reusar la misma UI y en base
+     a si se llego a esta pantalla con la intencion de modificar o dar de alta se muestra o
+     se esconde el checkbox*/
+    public partial class AltaModifCliente : Form
     {
-        public AltaCliente()
+        public AltaModifCliente()
         {
             InitializeComponent();
             CenterToScreen();
@@ -32,7 +36,7 @@ namespace PagoAgilFrba.AbmCliente
             departamentoTextBox.Clear();
             localidadTextBox.Clear();
             codPostalTextBox.Clear();
-
+            habilitadoCheckBox.Checked = false;
         }
     }
 }

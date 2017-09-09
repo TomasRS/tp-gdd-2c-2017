@@ -1,6 +1,6 @@
 ﻿namespace PagoAgilFrba.AbmCliente
 {
-    partial class AltaCliente
+    partial class AltaModifCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaCliente));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaModifCliente));
             this.datosPersonalesGroupBox = new System.Windows.Forms.GroupBox();
-            this.nombreLabel = new System.Windows.Forms.Label();
-            this.apellidoLabel = new System.Windows.Forms.Label();
-            this.dniLabel = new System.Windows.Forms.Label();
-            this.fechaNacimLabel = new System.Windows.Forms.Label();
-            this.nombreTextBox = new System.Windows.Forms.TextBox();
-            this.apellidoTextBox = new System.Windows.Forms.TextBox();
-            this.dniTextBox = new System.Windows.Forms.TextBox();
             this.fechaNacDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.dniTextBox = new System.Windows.Forms.TextBox();
+            this.apellidoTextBox = new System.Windows.Forms.TextBox();
+            this.nombreTextBox = new System.Windows.Forms.TextBox();
+            this.fechaNacimLabel = new System.Windows.Forms.Label();
+            this.dniLabel = new System.Windows.Forms.Label();
+            this.apellidoLabel = new System.Windows.Forms.Label();
+            this.nombreLabel = new System.Windows.Forms.Label();
             this.contactoGroupBox = new System.Windows.Forms.GroupBox();
-            this.mailLabel = new System.Windows.Forms.Label();
-            this.telefonoLabel = new System.Windows.Forms.Label();
-            this.calleLabel = new System.Windows.Forms.Label();
-            this.pisoLabel = new System.Windows.Forms.Label();
-            this.departamentoLabel = new System.Windows.Forms.Label();
-            this.localidadLabel = new System.Windows.Forms.Label();
-            this.codPostalLabel = new System.Windows.Forms.Label();
-            this.mailTextBox = new System.Windows.Forms.TextBox();
-            this.telefonoTextBox = new System.Windows.Forms.TextBox();
-            this.calleTextBox = new System.Windows.Forms.TextBox();
-            this.pisoTextBox = new System.Windows.Forms.TextBox();
-            this.departamentoTextBox = new System.Windows.Forms.TextBox();
-            this.localidadTextBox = new System.Windows.Forms.TextBox();
+            this.numeroTextBox = new System.Windows.Forms.TextBox();
+            this.numeroLabel = new System.Windows.Forms.Label();
             this.codPostalTextBox = new System.Windows.Forms.TextBox();
+            this.localidadTextBox = new System.Windows.Forms.TextBox();
+            this.departamentoTextBox = new System.Windows.Forms.TextBox();
+            this.pisoTextBox = new System.Windows.Forms.TextBox();
+            this.calleTextBox = new System.Windows.Forms.TextBox();
+            this.telefonoTextBox = new System.Windows.Forms.TextBox();
+            this.mailTextBox = new System.Windows.Forms.TextBox();
+            this.codPostalLabel = new System.Windows.Forms.Label();
+            this.localidadLabel = new System.Windows.Forms.Label();
+            this.departamentoLabel = new System.Windows.Forms.Label();
+            this.pisoLabel = new System.Windows.Forms.Label();
+            this.calleLabel = new System.Windows.Forms.Label();
+            this.telefonoLabel = new System.Windows.Forms.Label();
+            this.mailLabel = new System.Windows.Forms.Label();
             this.camposObligatoriosLabel = new System.Windows.Forms.Label();
             this.volverButton = new System.Windows.Forms.Button();
             this.guardarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.numeroLabel = new System.Windows.Forms.Label();
-            this.numeroTextBox = new System.Windows.Forms.TextBox();
+            this.habilitadoCheckBox = new System.Windows.Forms.CheckBox();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.contactoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -81,32 +82,33 @@
             this.datosPersonalesGroupBox.TabStop = false;
             this.datosPersonalesGroupBox.Text = "Datos personales";
             // 
-            // nombreLabel
+            // fechaNacDateTimePicker
             // 
-            this.nombreLabel.AutoSize = true;
-            this.nombreLabel.Location = new System.Drawing.Point(6, 27);
-            this.nombreLabel.Name = "nombreLabel";
-            this.nombreLabel.Size = new System.Drawing.Size(44, 13);
-            this.nombreLabel.TabIndex = 0;
-            this.nombreLabel.Text = "Nombre";
+            this.fechaNacDateTimePicker.Location = new System.Drawing.Point(117, 111);
+            this.fechaNacDateTimePicker.Name = "fechaNacDateTimePicker";
+            this.fechaNacDateTimePicker.Size = new System.Drawing.Size(217, 20);
+            this.fechaNacDateTimePicker.TabIndex = 4;
             // 
-            // apellidoLabel
+            // dniTextBox
             // 
-            this.apellidoLabel.AutoSize = true;
-            this.apellidoLabel.Location = new System.Drawing.Point(6, 58);
-            this.apellidoLabel.Name = "apellidoLabel";
-            this.apellidoLabel.Size = new System.Drawing.Size(44, 13);
-            this.apellidoLabel.TabIndex = 1;
-            this.apellidoLabel.Text = "Apellido";
+            this.dniTextBox.Location = new System.Drawing.Point(117, 83);
+            this.dniTextBox.Name = "dniTextBox";
+            this.dniTextBox.Size = new System.Drawing.Size(217, 20);
+            this.dniTextBox.TabIndex = 3;
             // 
-            // dniLabel
+            // apellidoTextBox
             // 
-            this.dniLabel.AutoSize = true;
-            this.dniLabel.Location = new System.Drawing.Point(6, 86);
-            this.dniLabel.Name = "dniLabel";
-            this.dniLabel.Size = new System.Drawing.Size(26, 13);
-            this.dniLabel.TabIndex = 2;
-            this.dniLabel.Text = "DNI";
+            this.apellidoTextBox.Location = new System.Drawing.Point(117, 55);
+            this.apellidoTextBox.Name = "apellidoTextBox";
+            this.apellidoTextBox.Size = new System.Drawing.Size(217, 20);
+            this.apellidoTextBox.TabIndex = 2;
+            // 
+            // nombreTextBox
+            // 
+            this.nombreTextBox.Location = new System.Drawing.Point(117, 27);
+            this.nombreTextBox.Name = "nombreTextBox";
+            this.nombreTextBox.Size = new System.Drawing.Size(217, 20);
+            this.nombreTextBox.TabIndex = 1;
             // 
             // fechaNacimLabel
             // 
@@ -117,33 +119,32 @@
             this.fechaNacimLabel.TabIndex = 3;
             this.fechaNacimLabel.Text = "Fecha de nacimiento";
             // 
-            // nombreTextBox
+            // dniLabel
             // 
-            this.nombreTextBox.Location = new System.Drawing.Point(117, 27);
-            this.nombreTextBox.Name = "nombreTextBox";
-            this.nombreTextBox.Size = new System.Drawing.Size(217, 20);
-            this.nombreTextBox.TabIndex = 1;
+            this.dniLabel.AutoSize = true;
+            this.dniLabel.Location = new System.Drawing.Point(6, 86);
+            this.dniLabel.Name = "dniLabel";
+            this.dniLabel.Size = new System.Drawing.Size(26, 13);
+            this.dniLabel.TabIndex = 2;
+            this.dniLabel.Text = "DNI";
             // 
-            // apellidoTextBox
+            // apellidoLabel
             // 
-            this.apellidoTextBox.Location = new System.Drawing.Point(117, 55);
-            this.apellidoTextBox.Name = "apellidoTextBox";
-            this.apellidoTextBox.Size = new System.Drawing.Size(217, 20);
-            this.apellidoTextBox.TabIndex = 2;
+            this.apellidoLabel.AutoSize = true;
+            this.apellidoLabel.Location = new System.Drawing.Point(6, 58);
+            this.apellidoLabel.Name = "apellidoLabel";
+            this.apellidoLabel.Size = new System.Drawing.Size(44, 13);
+            this.apellidoLabel.TabIndex = 1;
+            this.apellidoLabel.Text = "Apellido";
             // 
-            // dniTextBox
+            // nombreLabel
             // 
-            this.dniTextBox.Location = new System.Drawing.Point(117, 83);
-            this.dniTextBox.Name = "dniTextBox";
-            this.dniTextBox.Size = new System.Drawing.Size(217, 20);
-            this.dniTextBox.TabIndex = 3;
-            // 
-            // fechaNacDateTimePicker
-            // 
-            this.fechaNacDateTimePicker.Location = new System.Drawing.Point(117, 111);
-            this.fechaNacDateTimePicker.Name = "fechaNacDateTimePicker";
-            this.fechaNacDateTimePicker.Size = new System.Drawing.Size(217, 20);
-            this.fechaNacDateTimePicker.TabIndex = 4;
+            this.nombreLabel.AutoSize = true;
+            this.nombreLabel.Location = new System.Drawing.Point(6, 27);
+            this.nombreLabel.Name = "nombreLabel";
+            this.nombreLabel.Size = new System.Drawing.Size(44, 13);
+            this.nombreLabel.TabIndex = 0;
+            this.nombreLabel.Text = "Nombre";
             // 
             // contactoGroupBox
             // 
@@ -170,59 +171,70 @@
             this.contactoGroupBox.TabStop = false;
             this.contactoGroupBox.Text = "Datos de contacto";
             // 
-            // mailLabel
+            // numeroTextBox
             // 
-            this.mailLabel.AutoSize = true;
-            this.mailLabel.Location = new System.Drawing.Point(6, 28);
-            this.mailLabel.Name = "mailLabel";
-            this.mailLabel.Size = new System.Drawing.Size(26, 13);
-            this.mailLabel.TabIndex = 7;
-            this.mailLabel.Text = "Mail";
+            this.numeroTextBox.Location = new System.Drawing.Point(117, 110);
+            this.numeroTextBox.Name = "numeroTextBox";
+            this.numeroTextBox.Size = new System.Drawing.Size(217, 20);
+            this.numeroTextBox.TabIndex = 16;
             // 
-            // telefonoLabel
+            // numeroLabel
             // 
-            this.telefonoLabel.AutoSize = true;
-            this.telefonoLabel.Location = new System.Drawing.Point(6, 56);
-            this.telefonoLabel.Name = "telefonoLabel";
-            this.telefonoLabel.Size = new System.Drawing.Size(49, 13);
-            this.telefonoLabel.TabIndex = 8;
-            this.telefonoLabel.Text = "Teléfono";
+            this.numeroLabel.AutoSize = true;
+            this.numeroLabel.Location = new System.Drawing.Point(6, 112);
+            this.numeroLabel.Name = "numeroLabel";
+            this.numeroLabel.Size = new System.Drawing.Size(44, 13);
+            this.numeroLabel.TabIndex = 20;
+            this.numeroLabel.Text = "Número";
             // 
-            // calleLabel
+            // codPostalTextBox
             // 
-            this.calleLabel.AutoSize = true;
-            this.calleLabel.Location = new System.Drawing.Point(6, 85);
-            this.calleLabel.Name = "calleLabel";
-            this.calleLabel.Size = new System.Drawing.Size(30, 13);
-            this.calleLabel.TabIndex = 9;
-            this.calleLabel.Text = "Calle";
+            this.codPostalTextBox.Location = new System.Drawing.Point(117, 227);
+            this.codPostalTextBox.Name = "codPostalTextBox";
+            this.codPostalTextBox.Size = new System.Drawing.Size(217, 20);
+            this.codPostalTextBox.TabIndex = 20;
             // 
-            // pisoLabel
+            // localidadTextBox
             // 
-            this.pisoLabel.AutoSize = true;
-            this.pisoLabel.Location = new System.Drawing.Point(6, 142);
-            this.pisoLabel.Name = "pisoLabel";
-            this.pisoLabel.Size = new System.Drawing.Size(57, 13);
-            this.pisoLabel.TabIndex = 10;
-            this.pisoLabel.Text = "Nº de Piso";
+            this.localidadTextBox.Location = new System.Drawing.Point(117, 199);
+            this.localidadTextBox.Name = "localidadTextBox";
+            this.localidadTextBox.Size = new System.Drawing.Size(217, 20);
+            this.localidadTextBox.TabIndex = 19;
             // 
-            // departamentoLabel
+            // departamentoTextBox
             // 
-            this.departamentoLabel.AutoSize = true;
-            this.departamentoLabel.Location = new System.Drawing.Point(6, 172);
-            this.departamentoLabel.Name = "departamentoLabel";
-            this.departamentoLabel.Size = new System.Drawing.Size(74, 13);
-            this.departamentoLabel.TabIndex = 11;
-            this.departamentoLabel.Text = "Departamento";
+            this.departamentoTextBox.Location = new System.Drawing.Point(117, 169);
+            this.departamentoTextBox.Name = "departamentoTextBox";
+            this.departamentoTextBox.Size = new System.Drawing.Size(217, 20);
+            this.departamentoTextBox.TabIndex = 18;
             // 
-            // localidadLabel
+            // pisoTextBox
             // 
-            this.localidadLabel.AutoSize = true;
-            this.localidadLabel.Location = new System.Drawing.Point(6, 202);
-            this.localidadLabel.Name = "localidadLabel";
-            this.localidadLabel.Size = new System.Drawing.Size(53, 13);
-            this.localidadLabel.TabIndex = 12;
-            this.localidadLabel.Text = "Localidad";
+            this.pisoTextBox.Location = new System.Drawing.Point(117, 139);
+            this.pisoTextBox.Name = "pisoTextBox";
+            this.pisoTextBox.Size = new System.Drawing.Size(217, 20);
+            this.pisoTextBox.TabIndex = 17;
+            // 
+            // calleTextBox
+            // 
+            this.calleTextBox.Location = new System.Drawing.Point(117, 82);
+            this.calleTextBox.Name = "calleTextBox";
+            this.calleTextBox.Size = new System.Drawing.Size(217, 20);
+            this.calleTextBox.TabIndex = 7;
+            // 
+            // telefonoTextBox
+            // 
+            this.telefonoTextBox.Location = new System.Drawing.Point(117, 53);
+            this.telefonoTextBox.Name = "telefonoTextBox";
+            this.telefonoTextBox.Size = new System.Drawing.Size(217, 20);
+            this.telefonoTextBox.TabIndex = 6;
+            // 
+            // mailTextBox
+            // 
+            this.mailTextBox.Location = new System.Drawing.Point(117, 25);
+            this.mailTextBox.Name = "mailTextBox";
+            this.mailTextBox.Size = new System.Drawing.Size(217, 20);
+            this.mailTextBox.TabIndex = 5;
             // 
             // codPostalLabel
             // 
@@ -233,54 +245,59 @@
             this.codPostalLabel.TabIndex = 13;
             this.codPostalLabel.Text = "Código postal";
             // 
-            // mailTextBox
+            // localidadLabel
             // 
-            this.mailTextBox.Location = new System.Drawing.Point(117, 25);
-            this.mailTextBox.Name = "mailTextBox";
-            this.mailTextBox.Size = new System.Drawing.Size(217, 20);
-            this.mailTextBox.TabIndex = 5;
+            this.localidadLabel.AutoSize = true;
+            this.localidadLabel.Location = new System.Drawing.Point(6, 202);
+            this.localidadLabel.Name = "localidadLabel";
+            this.localidadLabel.Size = new System.Drawing.Size(53, 13);
+            this.localidadLabel.TabIndex = 12;
+            this.localidadLabel.Text = "Localidad";
             // 
-            // telefonoTextBox
+            // departamentoLabel
             // 
-            this.telefonoTextBox.Location = new System.Drawing.Point(117, 53);
-            this.telefonoTextBox.Name = "telefonoTextBox";
-            this.telefonoTextBox.Size = new System.Drawing.Size(217, 20);
-            this.telefonoTextBox.TabIndex = 6;
+            this.departamentoLabel.AutoSize = true;
+            this.departamentoLabel.Location = new System.Drawing.Point(6, 172);
+            this.departamentoLabel.Name = "departamentoLabel";
+            this.departamentoLabel.Size = new System.Drawing.Size(74, 13);
+            this.departamentoLabel.TabIndex = 11;
+            this.departamentoLabel.Text = "Departamento";
             // 
-            // calleTextBox
+            // pisoLabel
             // 
-            this.calleTextBox.Location = new System.Drawing.Point(117, 82);
-            this.calleTextBox.Name = "calleTextBox";
-            this.calleTextBox.Size = new System.Drawing.Size(217, 20);
-            this.calleTextBox.TabIndex = 7;
+            this.pisoLabel.AutoSize = true;
+            this.pisoLabel.Location = new System.Drawing.Point(6, 142);
+            this.pisoLabel.Name = "pisoLabel";
+            this.pisoLabel.Size = new System.Drawing.Size(57, 13);
+            this.pisoLabel.TabIndex = 10;
+            this.pisoLabel.Text = "Nº de Piso";
             // 
-            // pisoTextBox
+            // calleLabel
             // 
-            this.pisoTextBox.Location = new System.Drawing.Point(117, 139);
-            this.pisoTextBox.Name = "pisoTextBox";
-            this.pisoTextBox.Size = new System.Drawing.Size(217, 20);
-            this.pisoTextBox.TabIndex = 17;
+            this.calleLabel.AutoSize = true;
+            this.calleLabel.Location = new System.Drawing.Point(6, 85);
+            this.calleLabel.Name = "calleLabel";
+            this.calleLabel.Size = new System.Drawing.Size(30, 13);
+            this.calleLabel.TabIndex = 9;
+            this.calleLabel.Text = "Calle";
             // 
-            // departamentoTextBox
+            // telefonoLabel
             // 
-            this.departamentoTextBox.Location = new System.Drawing.Point(117, 169);
-            this.departamentoTextBox.Name = "departamentoTextBox";
-            this.departamentoTextBox.Size = new System.Drawing.Size(217, 20);
-            this.departamentoTextBox.TabIndex = 18;
+            this.telefonoLabel.AutoSize = true;
+            this.telefonoLabel.Location = new System.Drawing.Point(6, 56);
+            this.telefonoLabel.Name = "telefonoLabel";
+            this.telefonoLabel.Size = new System.Drawing.Size(49, 13);
+            this.telefonoLabel.TabIndex = 8;
+            this.telefonoLabel.Text = "Teléfono";
             // 
-            // localidadTextBox
+            // mailLabel
             // 
-            this.localidadTextBox.Location = new System.Drawing.Point(117, 199);
-            this.localidadTextBox.Name = "localidadTextBox";
-            this.localidadTextBox.Size = new System.Drawing.Size(217, 20);
-            this.localidadTextBox.TabIndex = 19;
-            // 
-            // codPostalTextBox
-            // 
-            this.codPostalTextBox.Location = new System.Drawing.Point(117, 227);
-            this.codPostalTextBox.Name = "codPostalTextBox";
-            this.codPostalTextBox.Size = new System.Drawing.Size(217, 20);
-            this.codPostalTextBox.TabIndex = 20;
+            this.mailLabel.AutoSize = true;
+            this.mailLabel.Location = new System.Drawing.Point(6, 28);
+            this.mailLabel.Name = "mailLabel";
+            this.mailLabel.Size = new System.Drawing.Size(26, 13);
+            this.mailLabel.TabIndex = 7;
+            this.mailLabel.Text = "Mail";
             // 
             // camposObligatoriosLabel
             // 
@@ -320,27 +337,23 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
-            // numeroLabel
+            // habilitadoCheckBox
             // 
-            this.numeroLabel.AutoSize = true;
-            this.numeroLabel.Location = new System.Drawing.Point(6, 112);
-            this.numeroLabel.Name = "numeroLabel";
-            this.numeroLabel.Size = new System.Drawing.Size(44, 13);
-            this.numeroLabel.TabIndex = 20;
-            this.numeroLabel.Text = "Número";
+            this.habilitadoCheckBox.AutoSize = true;
+            this.habilitadoCheckBox.Location = new System.Drawing.Point(273, 438);
+            this.habilitadoCheckBox.Name = "habilitadoCheckBox";
+            this.habilitadoCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.habilitadoCheckBox.Size = new System.Drawing.Size(73, 17);
+            this.habilitadoCheckBox.TabIndex = 24;
+            this.habilitadoCheckBox.Text = "Habilitado";
+            this.habilitadoCheckBox.UseVisualStyleBackColor = true;
             // 
-            // numeroTextBox
-            // 
-            this.numeroTextBox.Location = new System.Drawing.Point(117, 110);
-            this.numeroTextBox.Name = "numeroTextBox";
-            this.numeroTextBox.Size = new System.Drawing.Size(217, 20);
-            this.numeroTextBox.TabIndex = 16;
-            // 
-            // AltaCliente
+            // AltaModifCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 508);
+            this.Controls.Add(this.habilitadoCheckBox);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
             this.Controls.Add(this.volverButton);
@@ -350,8 +363,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AltaCliente";
-            this.Text = "Alta de Cliente";
+            this.Name = "AltaModifCliente";
+            this.Text = "Alta y modificación de Cliente";
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.contactoGroupBox.ResumeLayout(false);
@@ -393,5 +406,6 @@
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.TextBox numeroTextBox;
         private System.Windows.Forms.Label numeroLabel;
+        private System.Windows.Forms.CheckBox habilitadoCheckBox;
     }
 }

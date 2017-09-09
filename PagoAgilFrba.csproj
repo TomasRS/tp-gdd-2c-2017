@@ -47,17 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\AbmCliente.cs">
+    <Compile Include="AbmCliente\ListadoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\AbmCliente.Designer.cs">
-      <DependentUpon>AbmCliente.cs</DependentUpon>
+    <Compile Include="AbmCliente\ListadoCliente.Designer.cs">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCliente\AltaCliente.cs">
+    <Compile Include="AbmCliente\AltaModifCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\AltaCliente.Designer.cs">
-      <DependentUpon>AltaCliente.cs</DependentUpon>
+    <Compile Include="AbmCliente\AltaModifCliente.Designer.cs">
+      <DependentUpon>AltaModifCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmEmpresa\Form1.cs">
       <SubType>Form</SubType>
@@ -140,8 +140,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\HashSHA256.cs" />
-    <EmbeddedResource Include="AbmCliente\AltaCliente.resx">
-      <DependentUpon>AltaCliente.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\ListadoCliente.resx">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\AltaModifCliente.resx">
+      <DependentUpon>AltaModifCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
@@ -191,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Excepciones\" />
+    <Folder Include="Menu Principal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -39,16 +39,16 @@
             // elegirRolLabel
             // 
             this.elegirRolLabel.AutoSize = true;
-            this.elegirRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.elegirRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.elegirRolLabel.Location = new System.Drawing.Point(9, 9);
             this.elegirRolLabel.Name = "elegirRolLabel";
-            this.elegirRolLabel.Size = new System.Drawing.Size(224, 16);
+            this.elegirRolLabel.Size = new System.Drawing.Size(182, 13);
             this.elegirRolLabel.TabIndex = 0;
             this.elegirRolLabel.Text = "Elija el rol que quiere modificar";
             // 
             // modificarButton
             // 
-            this.modificarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modificarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modificarButton.Location = new System.Drawing.Point(12, 267);
             this.modificarButton.Name = "modificarButton";
             this.modificarButton.Size = new System.Drawing.Size(118, 29);
@@ -58,7 +58,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.volverButton.Location = new System.Drawing.Point(273, 267);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(118, 29);
