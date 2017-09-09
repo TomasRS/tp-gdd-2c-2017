@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PagoAgilFrba.Utils
 {
-    class HashSHA256
+    public class HashSHA256
     {
         public static String getHash(String password)
         {

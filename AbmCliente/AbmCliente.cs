@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmCliente
 {
-    public partial class Form1 : Form
+    public partial class AbmCliente : Form
     {
-        public Form1()
+        public AbmCliente()
         {
             InitializeComponent();
+            CenterToScreen();
         }
     }
 }
