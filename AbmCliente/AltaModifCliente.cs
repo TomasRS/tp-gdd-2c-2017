@@ -38,5 +38,10 @@ namespace PagoAgilFrba.AbmCliente
             codPostalTextBox.Clear();
             habilitadoCheckBox.Checked = false;
         }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

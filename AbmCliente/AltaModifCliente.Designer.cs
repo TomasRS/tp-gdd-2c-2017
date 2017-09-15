@@ -317,6 +317,7 @@
             this.volverButton.TabIndex = 21;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // guardarButton
             // 

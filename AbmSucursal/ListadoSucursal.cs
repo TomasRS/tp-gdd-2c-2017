@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmSucursal
 {
-    public partial class Form1 : Form
+    public partial class ListadoSucursal : Form
     {
-        public Form1()
+        public ListadoSucursal()
         {
             InitializeComponent();
+            CenterToScreen();
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            nombreTextBox.Clear();
+            direccionTextBox.Clear();
+            codPostalTextBox.Clear();
         }
     }
 }

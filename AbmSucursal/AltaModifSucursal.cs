@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.AbmCliente
+namespace PagoAgilFrba.AbmSucursal
 {
-    public partial class ListadoCliente : Form
+    public partial class AltaModifSucursal : Form
     {
-        public ListadoCliente()
+        public AltaModifSucursal()
         {
             InitializeComponent();
             CenterToScreen();
@@ -21,14 +21,8 @@ namespace PagoAgilFrba.AbmCliente
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             nombreTextBox.Clear();
-            apellidoTextBox.Clear();
-            dniTextBox.Clear();
-            //El dataGrid tambien se limpia?
-        }
-
-        private void volverButton_Click(object sender, EventArgs e)
-        {
-
+            direccionTextBox.Clear();
+            codPostalTextBox.Clear();
         }
     }
 }
