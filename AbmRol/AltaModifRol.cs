@@ -10,19 +10,22 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmRol
 {
-    public partial class EleccionRolModificar : Form
+    public partial class AltaModifRol : Form
     {
-        public EleccionRolModificar()
+        public AltaModifRol()
         {
             InitializeComponent();
             CenterToScreen();
         }
 
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            nombreTextBox.Clear();
+        }
+
         private void volverButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new AbmRol().Show();
-            this.Close();
+
         }
     }
 }

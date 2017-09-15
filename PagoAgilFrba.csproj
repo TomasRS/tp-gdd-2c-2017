@@ -59,53 +59,53 @@
     <Compile Include="AbmCliente\AltaModifCliente.Designer.cs">
       <DependentUpon>AltaModifCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmEmpresa\AltaModifEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmEmpresa\AltaModifEmpresa.Designer.cs">
+      <DependentUpon>AltaModifEmpresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmEmpresa\ListadoEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmEmpresa\ListadoEmpresa.Designer.cs">
       <DependentUpon>ListadoEmpresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmFactura\Form1.cs">
+    <Compile Include="AbmFactura\AltaModifFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmFactura\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmFactura\AltaModifFactura.Designer.cs">
+      <DependentUpon>AltaModifFactura.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\AbmRol.cs">
+    <Compile Include="AbmFactura\ListadoFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\AbmRol.Designer.cs">
-      <DependentUpon>AbmRol.cs</DependentUpon>
+    <Compile Include="AbmFactura\ListadoFacturas.Designer.cs">
+      <DependentUpon>ListadoFacturas.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\AltaRol.cs">
+    <Compile Include="AbmRol\AltaModifRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\AltaRol.Designer.cs">
-      <DependentUpon>AltaRol.cs</DependentUpon>
+    <Compile Include="AbmRol\AltaModifRol.Designer.cs">
+      <DependentUpon>AltaModifRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\BajaRol.cs">
+    <Compile Include="AbmRol\ListadoRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\BajaRol.Designer.cs">
-      <DependentUpon>BajaRol.cs</DependentUpon>
+    <Compile Include="AbmRol\ListadoRol.Designer.cs">
+      <DependentUpon>ListadoRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\EleccionRolModificar.cs">
+    <Compile Include="AbmSucursal\AltaModifSucursal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\EleccionRolModificar.Designer.cs">
-      <DependentUpon>EleccionRolModificar.cs</DependentUpon>
+    <Compile Include="AbmSucursal\AltaModifSucursal.Designer.cs">
+      <DependentUpon>AltaModifSucursal.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\ModificarRol.cs">
+    <Compile Include="AbmSucursal\ListadoSucursal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\ModificarRol.Designer.cs">
-      <DependentUpon>ModificarRol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AbmSucursal\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmSucursal\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmSucursal\ListadoSucursal.Designer.cs">
+      <DependentUpon>ListadoSucursal.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>
@@ -119,11 +119,11 @@
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu Principal\MenuPrincipal.cs">
       <SubType>Form</SubType>
@@ -152,23 +152,32 @@
     <EmbeddedResource Include="AbmCliente\AltaModifCliente.resx">
       <DependentUpon>AltaModifCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmEmpresa\AltaModifEmpresa.resx">
+      <DependentUpon>AltaModifEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmEmpresa\ListadoEmpresa.resx">
       <DependentUpon>ListadoEmpresa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\AbmRol.resx">
-      <DependentUpon>AbmRol.cs</DependentUpon>
+    <EmbeddedResource Include="AbmFactura\AltaModifFactura.resx">
+      <DependentUpon>AltaModifFactura.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\AltaRol.resx">
-      <DependentUpon>AltaRol.cs</DependentUpon>
+    <EmbeddedResource Include="AbmFactura\ListadoFacturas.resx">
+      <DependentUpon>ListadoFacturas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\BajaRol.resx">
-      <DependentUpon>BajaRol.cs</DependentUpon>
+    <EmbeddedResource Include="AbmRol\AltaModifRol.resx">
+      <DependentUpon>AltaModifRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\EleccionRolModificar.resx">
-      <DependentUpon>EleccionRolModificar.cs</DependentUpon>
+    <EmbeddedResource Include="AbmRol\ListadoRol.resx">
+      <DependentUpon>ListadoRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\ModificarRol.resx">
-      <DependentUpon>ModificarRol.cs</DependentUpon>
+    <EmbeddedResource Include="AbmSucursal\AltaModifSucursal.resx">
+      <DependentUpon>AltaModifSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\ListadoSucursal.resx">
+      <DependentUpon>ListadoSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\EleccionRol.resx">
       <DependentUpon>EleccionRol.cs</DependentUpon>
@@ -206,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Excepciones\" />
+    <Folder Include="Modelo\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

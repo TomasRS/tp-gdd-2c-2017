@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.ListadoEstadistico
+namespace PagoAgilFrba.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class ListadoRol : Form
     {
-        public Form1()
+        public ListadoRol()
         {
             InitializeComponent();
+            CenterToScreen();
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

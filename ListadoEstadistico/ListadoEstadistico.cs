@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.AbmEmpresa
+namespace PagoAgilFrba.ListadoEstadistico
 {
-    public partial class AltaModifEmpresa : Form
+    public partial class ListadoEstadistico : Form
     {
-        public AltaModifEmpresa()
+        public ListadoEstadistico()
         {
             InitializeComponent();
             CenterToScreen();
@@ -20,9 +20,10 @@ namespace PagoAgilFrba.AbmEmpresa
 
         private void limpiarButton_Click(object sender, EventArgs e)
         {
-            nombreTextBox.Clear();
-            cuitTextBox.Clear();
-            direccionTextBox.Clear();
+            anioTextBox.Clear();
+            trimestreComboBox.SelectedIndex = -1;
+            tipoListadoComboBox.SelectedIndex = -1;
+            estadisticasDataGridView.DataSource = null;
         }
     }
 }

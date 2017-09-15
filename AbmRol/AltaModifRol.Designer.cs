@@ -1,6 +1,6 @@
 ﻿namespace PagoAgilFrba.AbmRol
 {
-    partial class AltaRol
+    partial class AltaModifRol
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaRol));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaModifRol));
             this.tituloLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
             this.nombreTextBox = new System.Windows.Forms.TextBox();
@@ -37,6 +37,7 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.actualizarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.habilitadoCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tituloLabel
@@ -53,7 +54,7 @@
             // 
             this.nombreLabel.AutoSize = true;
             this.nombreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombreLabel.Location = new System.Drawing.Point(13, 55);
+            this.nombreLabel.Location = new System.Drawing.Point(13, 47);
             this.nombreLabel.Name = "nombreLabel";
             this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 1;
@@ -62,16 +63,16 @@
             // nombreTextBox
             // 
             this.nombreTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombreTextBox.Location = new System.Drawing.Point(133, 50);
+            this.nombreTextBox.Location = new System.Drawing.Point(105, 42);
             this.nombreTextBox.Name = "nombreTextBox";
-            this.nombreTextBox.Size = new System.Drawing.Size(268, 22);
+            this.nombreTextBox.Size = new System.Drawing.Size(193, 22);
             this.nombreTextBox.TabIndex = 2;
             // 
             // funcionalidadesLabel
             // 
             this.funcionalidadesLabel.AutoSize = true;
             this.funcionalidadesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.funcionalidadesLabel.Location = new System.Drawing.Point(12, 96);
+            this.funcionalidadesLabel.Location = new System.Drawing.Point(12, 88);
             this.funcionalidadesLabel.Name = "funcionalidadesLabel";
             this.funcionalidadesLabel.Size = new System.Drawing.Size(84, 13);
             this.funcionalidadesLabel.TabIndex = 3;
@@ -80,25 +81,26 @@
             // funcionalidadesListBox
             // 
             this.funcionalidadesListBox.FormattingEnabled = true;
-            this.funcionalidadesListBox.Location = new System.Drawing.Point(133, 96);
+            this.funcionalidadesListBox.Location = new System.Drawing.Point(105, 88);
             this.funcionalidadesListBox.Name = "funcionalidadesListBox";
-            this.funcionalidadesListBox.Size = new System.Drawing.Size(268, 124);
+            this.funcionalidadesListBox.Size = new System.Drawing.Size(193, 124);
             this.funcionalidadesListBox.TabIndex = 4;
             // 
             // volverButton
             // 
             this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.volverButton.Location = new System.Drawing.Point(325, 258);
+            this.volverButton.Location = new System.Drawing.Point(222, 258);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(76, 29);
             this.volverButton.TabIndex = 8;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // actualizarButton
             // 
             this.actualizarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actualizarButton.Location = new System.Drawing.Point(164, 258);
+            this.actualizarButton.Location = new System.Drawing.Point(112, 258);
             this.actualizarButton.Name = "actualizarButton";
             this.actualizarButton.Size = new System.Drawing.Size(86, 29);
             this.actualizarButton.TabIndex = 9;
@@ -114,12 +116,25 @@
             this.limpiarButton.TabIndex = 10;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
-            // AltaRol
+            // habilitadoCheckBox
+            // 
+            this.habilitadoCheckBox.AutoSize = true;
+            this.habilitadoCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.habilitadoCheckBox.Location = new System.Drawing.Point(105, 223);
+            this.habilitadoCheckBox.Name = "habilitadoCheckBox";
+            this.habilitadoCheckBox.Size = new System.Drawing.Size(73, 17);
+            this.habilitadoCheckBox.TabIndex = 11;
+            this.habilitadoCheckBox.Text = "Habilitado";
+            this.habilitadoCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // AltaModifRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 299);
+            this.ClientSize = new System.Drawing.Size(312, 299);
+            this.Controls.Add(this.habilitadoCheckBox);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.actualizarButton);
             this.Controls.Add(this.volverButton);
@@ -129,8 +144,8 @@
             this.Controls.Add(this.nombreLabel);
             this.Controls.Add(this.tituloLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AltaRol";
-            this.Text = "Alta de Rol";
+            this.Name = "AltaModifRol";
+            this.Text = "Alta y modificación de Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,6 +161,7 @@
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Button actualizarButton;
         private System.Windows.Forms.Button limpiarButton;
+        private System.Windows.Forms.CheckBox habilitadoCheckBox;
 
     }
 }
