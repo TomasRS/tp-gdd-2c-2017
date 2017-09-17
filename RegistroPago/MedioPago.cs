@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.RegistroPago
 {
-    public partial class Form1 : Form
+    public partial class MedioPago : Form
     {
-        public Form1()
+        public MedioPago()
         {
             InitializeComponent();
+            CenterToScreen();
+        }
+
+        private void MedioPago_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
