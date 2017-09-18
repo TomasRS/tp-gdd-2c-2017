@@ -107,6 +107,18 @@
     <Compile Include="AbmSucursal\ListadoSucursal.Designer.cs">
       <DependentUpon>ListadoSucursal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Devolucion\DevolucionFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionFactura.Designer.cs">
+      <DependentUpon>DevolucionFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionRendicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionRendicion.Designer.cs">
+      <DependentUpon>DevolucionRendicion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,17 +145,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistroPago\Form1.cs">
+    <Compile Include="RegistroPago\MedioPago.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistroPago\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="RegistroPago\MedioPago.Designer.cs">
+      <DependentUpon>MedioPago.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion\Form1.cs">
+    <Compile Include="RegistroPago\RegistroPagoFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="RegistroPago\RegistroPagoFacturas.Designer.cs">
+      <DependentUpon>RegistroPagoFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion\RendicionFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion\RendicionFacturas.Designer.cs">
+      <DependentUpon>RendicionFacturas.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\HashSHA256.cs" />
     <EmbeddedResource Include="AbmCliente\ListadoCliente.resx">
@@ -176,6 +194,12 @@
     <EmbeddedResource Include="AbmSucursal\ListadoSucursal.resx">
       <DependentUpon>ListadoSucursal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\DevolucionFactura.resx">
+      <DependentUpon>DevolucionFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\DevolucionRendicion.resx">
+      <DependentUpon>DevolucionRendicion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
@@ -197,6 +221,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistroPago\MedioPago.resx">
+      <DependentUpon>MedioPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroPago\RegistroPagoFacturas.resx">
+      <DependentUpon>RegistroPagoFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion\RendicionFacturas.resx">
+      <DependentUpon>RendicionFacturas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

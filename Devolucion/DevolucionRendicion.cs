@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PagoAgilFrba.Rendicion
+namespace PagoAgilFrba.Devolucion
 {
-    public partial class Form1 : Form
+    public partial class DevolucionRendicion : Form
     {
-        public Form1()
+        public DevolucionRendicion()
         {
             InitializeComponent();
+            CenterToScreen();
         }
     }
 }
