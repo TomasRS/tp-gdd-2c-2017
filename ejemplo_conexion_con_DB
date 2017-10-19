@@ -1,0 +1,40 @@
+Ejemplo de conexion con base de datos (por using) y mandar una query en
+
+En C#:
+ejemplo() {
+//La linea de abajo toma el ConnectionString del tag con name="HTMLParserContext" del app.config
+ using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HTMLParserContext"].ConnectionString))
+            {
+                try
+                {
+                    string sql = "SELECT 1";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    conn.Open();
+                    int result = (int)cmd.ExecuteScalar();
+
+                    if (result.Equals(1))
+                    {
+                        DBIsOnline = true;
+                        showSquare(greenSquare);
+                    }
+                    else
+                    {
+                        DBIsOnline = false;
+                        showSquare(redSquare);
+                    } 
+                }
+                catch (SqlException)
+                {
+                    DBIsOnline = false;
+                    showSquare(redSquare);
+                }
+            }
+}
+
+En el App.config:
+<connectionStrings>
+    <add name="HTMLParserContext"
+         connectionString="Data Source=hoevsa740\sqlexpress;Initial Catalog=TestParser; Integrated Security=True; MultipleActiveResultSets=True"
+         providerName="System.Data.SqlClient"/>
+    <!--<add name="DBParsedFile" connectionString="metadata=res://*/BackendLogic.DBParsedFile .csdl|res://*/BackendLogic.DBParsedFile.ssdl|res://*/BackendLogic.DBParsedFile .msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=HOEVSA740;initial catalog=Testing;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />-->
+</connectionStrings>
