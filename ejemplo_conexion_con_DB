@@ -1,4 +1,4 @@
-Ejemplo de conexion con base de datos (por using) y mandar una query en
+Ejemplo de conexion con base de datos (por using)
 
 En C#:
 ejemplo() {
@@ -36,5 +36,4 @@ En el App.config:
     <add name="HTMLParserContext"
          connectionString="Data Source=hoevsa740\sqlexpress;Initial Catalog=TestParser; Integrated Security=True; MultipleActiveResultSets=True"
          providerName="System.Data.SqlClient"/>
-    <!--<add name="DBParsedFile" connectionString="metadata=res://*/BackendLogic.DBParsedFile .csdl|res://*/BackendLogic.DBParsedFile.ssdl|res://*/BackendLogic.DBParsedFile .msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=HOEVSA740;initial catalog=Testing;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />-->
 </connectionStrings>
