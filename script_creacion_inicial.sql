@@ -230,6 +230,13 @@ ALTER TABLE [GAME_OF_CODE].[Rubro] ADD CONSTRAINT id_empresa FOREIGN KEY (id_emp
 *         MIGRACION           *
 ******************************/
 
+/** Migracion de Clientes **/
+INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
+			SELECT DISTINCT Cliente-Nombre, Cliente-Apellido, Cliente-Dni, Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, Cliente-Fecha_Nac
+			FROM gd_esquema.Maestra
+			WHERE Cliente-Dni IS NOT NULL
+
+	
 /** FIN MIGRACION **/
 
 -- CREACION DE VISTAS
