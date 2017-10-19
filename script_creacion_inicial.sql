@@ -129,6 +129,7 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_factura] INT IDENTITY(1,1) PRIMARY KEY,
 	[numero_factura] INT NOT NULL,
 	[fecha_alta] [datetime] NOT NULL,
+	[monto_total] INT NOT NULL,
 	[fecha_vencimiento] [datetime] NOT NULL
 )
 
@@ -236,7 +237,32 @@ INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo
 			FROM gd_esquema.Maestra
 			WHERE Cliente-Dni IS NOT NULL
 
-	
+
+INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total ,fecha_vencimiento)
+			SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
+			FROM gd_esquema.Maestra
+			WHERE Nro_Factura IS NOT NULL
+
+			
+INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad)
+			SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad
+			FROM gd.esquema_Maestra
+			WHERE ItemFactura_Monto IS NOT NULL
+			
+
+INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion)
+			SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion
+			FROM gd.esquema_Maestra
+			WHERE Empresa_Cuit IS NOT NULL
+			
+			
+INSERT INTO GAME_OF_CODE.Rubro (id_empresa, descripcion)
+			SELECT DISTINCT Empresa_Rubro, Rubro_Descripcion
+			FROM gd.esquema_Maestra
+			WHERE Empresa_Rubro IS NOT NULL
+			
+
+			
 /** FIN MIGRACION **/
 
 -- CREACION DE VISTAS
