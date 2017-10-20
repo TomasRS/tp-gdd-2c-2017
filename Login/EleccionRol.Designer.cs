@@ -89,6 +89,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EleccionRol";
             this.Text = "Elección de Rol";
+            this.Load += new System.EventHandler(this.EleccionRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
