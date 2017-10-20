@@ -9,9 +9,9 @@ namespace PagoAgilFrba.Utils
 {
     class PopupMessage
     {
-        public static void ShowMessage(string content, string title, MessageBoxIcon icon)
+        public static void ShowMessage(string content, MessageBoxIcon icon)
         {
-            MessageBox.Show(content, title, MessageBoxButtons.OK, icon);
+            MessageBox.Show(content, "Información", MessageBoxButtons.OK, icon);
         }
     }
 }

@@ -168,6 +168,7 @@
     <Compile Include="Rendicion\RendicionFacturas.Designer.cs">
       <DependentUpon>RendicionFacturas.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsuarioSesion.cs" />
     <Compile Include="Utils\HashSHA256.cs" />
     <Compile Include="Utils\PopupMessage.cs" />
     <EmbeddedResource Include="AbmCliente\ListadoCliente.resx">

@@ -35,5 +35,16 @@ namespace PagoAgilFrba.DataProvider
             SqlDataReader reader = command.ExecuteReader();
             return reader;
         }
+
+        public bool readFrom(SqlDataReader reader_parameter)
+        {
+            return reader_parameter.Read();
+        }
+
+        /// <summary>Close the reader opened with the previous method (if the reader is not closed it will fail in the next execution)</summary>
+        public void closeReader(SqlDataReader reader)
+        {
+            reader.Close();
+        }
     }
 }
