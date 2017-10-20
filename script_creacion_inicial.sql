@@ -71,7 +71,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.
 CREATE TABLE [GAME_OF_CODE].[Usuario] (
     [id_usuario] INT IDENTITY(1,1) PRIMARY KEY,
     [username] [nvarchar](50),
-    [password] [nvarchar](150) NOT NULL default '565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3',  --OK en SHA 256
+    [password] [nvarchar](150) NOT NULL,
     [estado_habilitacion] [bit] NOT NULL DEFAULT 1,
     [intentos_fallidos] [tinyint] DEFAULT 0,
 )
