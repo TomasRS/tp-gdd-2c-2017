@@ -73,7 +73,7 @@ namespace PagoAgilFrba
                 if (cantidadDeRoles > 1)
                 {
                     this.Hide();
-                    new EleccionRol().ShowDialog();
+                    new EleccionRol().Show();
                     this.Close();
                 }
                 else
@@ -91,7 +91,7 @@ namespace PagoAgilFrba
                     }
 
                     this.Hide();
-                    new MenuPrincipal().ShowDialog();
+                    new MenuPrincipal().Show();
                     this.Close();
                 }
             }
