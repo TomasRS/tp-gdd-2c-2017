@@ -1,4 +1,4 @@
-# TP-GDD-2C-2017
+﻿# TP-GDD-2C-2017
 [![Build Status](https://travis-ci.com/TomasRS/tp-gdd-2c-2017.svg?token=x8i3wwaW3bUTi6cU8yZK&branch=master)](https://travis-ci.com/TomasRS/tp-gdd-2c-2017)
 ## Importante
 > Recordar usar el .NET Framework 4.5 cuando importen el proyecto de Visual Studio. Pueden chequearlo dándole click derecho al proyecto -> Propiedades
@@ -19,3 +19,4 @@ Adrián Mansilla | 153.961-9 | adriancaslagnr@gmail.com | [Click acá](https://g
 * [Enunciado TP-2C-2017](https://drive.google.com/file/d/0B_t8j3nOHeJcbXFQdVhfN1FyX1E/view)
 * [Git Cheatsheet](https://drive.google.com/file/d/0B_k1QNSnaW5UcTFTTlFoY3h5NWM/view?usp=sharing)
 * [MarkDown CheatSheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf) (Hoja de estilo Markdown, para que se vean bien los README.md como este)
+* [Google Drive - Estrategia](https://docs.google.com/document/d/1bDcIU4IbteI8onxQYTK2v4LGKrlOMhyKwyyvvBcFl24/edit?usp=sharing) (Convertir a PDF una vez terminado y borrar este link)
