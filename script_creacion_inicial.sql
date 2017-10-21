@@ -192,10 +192,6 @@ ALTER TABLE [GAME_OF_CODE].[Detalle_Factura] ADD CONSTRAINT id_factura FOREIGN K
 
 ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
 
-ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
-
-ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
-
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
 
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
@@ -203,6 +199,8 @@ ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT id_sucursal FOREIGN
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_cliente FOREIGN KEY (id_cliente) REFERENCES [GAME_OF_CODE].[Cliente](id_cliente)
 
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
+
+ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_devolucion FOREIGN KEY (id_devolucion) REFERENCES [GAME_OF_CODE].[Devolucion](id_devolucion)
 
 ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
 
