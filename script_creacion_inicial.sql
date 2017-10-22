@@ -208,7 +208,7 @@ ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT id_pago_facturas F
 
 ALTER TABLE [GAME_OF_CODE].[Medio_de_Pago] ADD CONSTRAINT id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
-ALTER TABLE [GAME_OF_CODE].[Rubro] ADD CONSTRAINT id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
+ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
 
 /** FIN CREACION DE TABLAS **/
 
