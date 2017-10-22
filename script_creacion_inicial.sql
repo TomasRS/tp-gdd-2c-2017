@@ -13,56 +13,95 @@ GO
 
 /** VALIDACION DE TABLAS **/
 
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Factura'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Detalle_Factura DROP CONSTRAINT Detalle_Factura_id_factura;
+    DROP TABLE GAME_OF_CODE.Detalle_Factura
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Medio_de_Pago DROP CONSTRAINT Medio_de_Pago_id_pago_facturas;
+    DROP TABLE GAME_OF_CODE.Medio_de_Pago
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_rendicion;
+	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_pago_facturas;
+	DROP TABLE GAME_OF_CODE.Detalle_Rendicion
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Pago_de_Facturas'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_factura;
+	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_sucursal;
+    DROP TABLE GAME_OF_CODE.Pago_de_Facturas
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Factura'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_cliente;
+	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_empresa;
+	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_devolucion;
+    DROP TABLE GAME_OF_CODE.Factura
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_usuario;
+    DROP TABLE GAME_OF_CODE.Devolucion
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario_por_Sucursal'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_usuario;
+	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_sucursal;
+    DROP TABLE GAME_OF_CODE.Usuario_por_Sucursal
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol_por_Usuario'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Rol_por_Usuario DROP CONSTRAINT Rol_por_Usuario_id_usuario;
+	ALTER TABLE GAME_OF_CODE.Rol_por_Usuario DROP CONSTRAINT Rol_por_Usuario_id_rol;
+	DROP TABLE GAME_OF_CODE.Rol_por_Usuario
+END	
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Funcionalidad_por_Rol'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_funcionalidad;
+	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_rol;
+    DROP TABLE GAME_OF_CODE.Funcionalidad_por_Rol
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Empresa'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Empresa DROP CONSTRAINT Empresa_id_rubro;
+    DROP TABLE GAME_OF_CODE.Empresa
+END
+	
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Cliente'))
+    DROP TABLE GAME_OF_CODE.Cliente
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario'))
     DROP TABLE GAME_OF_CODE.Usuario
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol_por_Usuario'))
-    DROP TABLE GAME_OF_CODE.Rol_por_Usuario
-	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol'))
-    DROP TABLE GAME_OF_CODE.Rol	
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Funcionalidad_por_Rol'))
-    DROP TABLE GAME_OF_CODE.Funcionalidad_por_Rol
-	
+    DROP TABLE GAME_OF_CODE.Rol
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Funcionalidad'))
     DROP TABLE GAME_OF_CODE.Funcionalidad
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario_por_Sucursal'))
-    DROP TABLE GAME_OF_CODE.Usuario_por_Sucursal
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rendicion'))
+    DROP TABLE GAME_OF_CODE.Rendicion
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Sucursal'))
     DROP TABLE GAME_OF_CODE.Sucursal
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Factura'))
-    DROP TABLE GAME_OF_CODE.Detalle_Factura
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
-    DROP TABLE GAME_OF_CODE.Devolucion
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Pago_de_Facturas'))
-    DROP TABLE GAME_OF_CODE.Pago_de_Facturas
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Factura'))
-    DROP TABLE GAME_OF_CODE.Factura
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Cliente'))
-    DROP TABLE GAME_OF_CODE.Cliente
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rendicion'))
-    DROP TABLE GAME_OF_CODE.Rendicion
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
-    DROP TABLE GAME_OF_CODE.Detalle_Rendicion
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
-    DROP TABLE GAME_OF_CODE.Medio_de_Pago
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Empresa'))
-    DROP TABLE GAME_OF_CODE.Empresa
-	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rubro'))
     DROP TABLE GAME_OF_CODE.Rubro
+
 	
 /** FIN VALIDACION DE TABLAS **/
 
@@ -77,7 +116,9 @@ CREATE TABLE [GAME_OF_CODE].[Usuario] (
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rol_por_Usuario] (
-    [id_rol_por_usuario] INT IDENTITY(1,1) PRIMARY KEY
+    [id_rol_por_usuario] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_usuario] INT NOT NULL,
+	[id_rol] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rol] (
@@ -87,7 +128,9 @@ CREATE TABLE [GAME_OF_CODE].[Rol] (
 )
 
 CREATE TABLE [GAME_OF_CODE].[Funcionalidad_por_Rol] (
-    [id_funcionalidad_por_rol] INT IDENTITY(1,1) PRIMARY KEY
+    [id_funcionalidad_por_rol] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_rol] INT NOT NULL,
+	[id_funcionalidad] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Funcionalidad] (
@@ -96,7 +139,9 @@ CREATE TABLE [GAME_OF_CODE].[Funcionalidad] (
 )
 
 CREATE TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] (
-	[id_usuario_por_sucursal] INT IDENTITY(1,1) PRIMARY KEY
+	[id_usuario_por_sucursal] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_usuario] INT NOT NULL,
+	[id_sucursal] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Sucursal] (
@@ -109,6 +154,7 @@ CREATE TABLE [GAME_OF_CODE].[Sucursal] (
 
 CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 	[id_detalle_factura] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_factura] INT NOT NULL,
 	[item_factura] [nvarchar](50) NOT  NULL,
 	[monto_unitario] INT NOT NULL,
 	[cantidad] INT NOT NULL
@@ -116,17 +162,23 @@ CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 
 CREATE TABLE [GAME_OF_CODE].[Devolucion] (
 	[id_devolucion] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_usuario] INT NOT NULL,
 	[motivo] [nvarchar](255) NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Pago_de_Facturas] (
 	[id_pago_facturas] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_factura] INT NOT NULL,
+	[id_sucursal] INT NOT NULL,
 	[fecha_cobro] [datetime] NOT NULL,
 	[importe] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_factura] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_cliente] INT NOT NULL,
+	[id_empresa] INT NOT NULL,
+	[id_devolucion] INT NOT NULL,
 	[numero_factura] INT NOT NULL,
 	[fecha_alta] [datetime] NOT NULL,
 	[monto_total] INT NOT NULL,
@@ -153,16 +205,20 @@ CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 )
 
 CREATE TABLE [GAME_OF_CODE].[Detalle_Rendicion] (
-	[id_detalle_rendicion] INT IDENTITY(1,1) PRIMARY KEY
+	[id_detalle_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_rendicion] INT NOT NULL,
+	[id_pago_facturas] INT NOT NULL,
 )
 
 CREATE TABLE [GAME_OF_CODE].[Medio_de_Pago] (
 	[id_medio_pago] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_pago_facturas] INT NOT NULL,
 	[descripcion] [nvarchar](50) NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [id_empresa] INT IDENTITY(1,1) PRIMARY KEY,
+	[id_rubro] INT NOT NULL,
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
@@ -176,39 +232,39 @@ CREATE TABLE [GAME_OF_CODE].[Rubro] (
 
 /* FKs */
 
-ALTER TABLE [GAME_OF_CODE].[Rol_por_Usuario] ADD CONSTRAINT id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
+ALTER TABLE [GAME_OF_CODE].[Rol_por_Usuario] ADD CONSTRAINT Rol_por_Usuario_id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
 
-ALTER TABLE [GAME_OF_CODE].[Rol_por_Usuario] ADD CONSTRAINT id_rol FOREIGN KEY (id_rol) REFERENCES [GAME_OF_CODE].[Rol](id_rol)
+ALTER TABLE [GAME_OF_CODE].[Rol_por_Usuario] ADD CONSTRAINT Rol_por_Usuario_id_rol FOREIGN KEY (id_rol) REFERENCES [GAME_OF_CODE].[Rol](id_rol)
 
-ALTER TABLE [GAME_OF_CODE].[Funcionalidad_por_Rol] ADD CONSTRAINT id_funcionalidad FOREIGN KEY (id_funcionalidad) REFERENCES [GAME_OF_CODE].[Funcionalidad](id_funcionalidad)
+ALTER TABLE [GAME_OF_CODE].[Funcionalidad_por_Rol] ADD CONSTRAINT Funcionalidad_por_Rol_id_funcionalidad FOREIGN KEY (id_funcionalidad) REFERENCES [GAME_OF_CODE].[Funcionalidad](id_funcionalidad)
 
-ALTER TABLE [GAME_OF_CODE].[Funcionalidad_por_Rol] ADD CONSTRAINT id_rol FOREIGN KEY (id_rol) REFERENCES [GAME_OF_CODE].[Rol](id_rol)
+ALTER TABLE [GAME_OF_CODE].[Funcionalidad_por_Rol] ADD CONSTRAINT Funcionalidad_por_Rol_id_rol FOREIGN KEY (id_rol) REFERENCES [GAME_OF_CODE].[Rol](id_rol)
 
-ALTER TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] ADD CONSTRAINT id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
+ALTER TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] ADD CONSTRAINT Usuario_por_Sucursal_id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
 
-ALTER TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] ADD CONSTRAINT id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
+ALTER TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] ADD CONSTRAINT Usuario_por_Sucursal_id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
 
-ALTER TABLE [GAME_OF_CODE].[Detalle_Factura] ADD CONSTRAINT id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
+ALTER TABLE [GAME_OF_CODE].[Detalle_Factura] ADD CONSTRAINT Detalle_Factura_id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
 
-ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
+ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT Devolucion_id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
 
-ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
+ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
 
-ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
+ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
 
-ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_cliente FOREIGN KEY (id_cliente) REFERENCES [GAME_OF_CODE].[Cliente](id_cliente)
+ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_cliente FOREIGN KEY (id_cliente) REFERENCES [GAME_OF_CODE].[Cliente](id_cliente)
 
-ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
+ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
 
-ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT id_devolucion FOREIGN KEY (id_devolucion) REFERENCES [GAME_OF_CODE].[Devolucion](id_devolucion)
+ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_devolucion FOREIGN KEY (id_devolucion) REFERENCES [GAME_OF_CODE].[Devolucion](id_devolucion)
 
-ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
+ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
 
-ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
+ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
-ALTER TABLE [GAME_OF_CODE].[Medio_de_Pago] ADD CONSTRAINT id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
+ALTER TABLE [GAME_OF_CODE].[Medio_de_Pago] ADD CONSTRAINT Medio_de_Pago_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
-ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
+ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
 
 /** FIN CREACION DE TABLAS **/
 
@@ -236,6 +292,12 @@ INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo
 			WHERE Cliente-Dni IS NOT NULL
 
 
+INSERT INTO GAME_OF_CODE.Rubro (id_empresa, descripcion)
+			SELECT DISTINCT Empresa_Rubro, Rubro_Descripcion
+			FROM gd.esquema_Maestra
+			WHERE Empresa_Rubro IS NOT NULL
+
+/*
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total ,fecha_vencimiento)
 			SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
 			FROM gd_esquema.Maestra
@@ -252,12 +314,7 @@ INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion)
 			SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion
 			FROM gd.esquema_Maestra
 			WHERE Empresa_Cuit IS NOT NULL
-			
-			
-INSERT INTO GAME_OF_CODE.Rubro (id_empresa, descripcion)
-			SELECT DISTINCT Empresa_Rubro, Rubro_Descripcion
-			FROM gd.esquema_Maestra
-			WHERE Empresa_Rubro IS NOT NULL
+*/
 			
 
 			
