@@ -118,12 +118,6 @@
     <Compile Include="Devolucion\DevolucionFactura.Designer.cs">
       <DependentUpon>DevolucionFactura.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devolucion\DevolucionRendicion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Devolucion\DevolucionRendicion.Designer.cs">
-      <DependentUpon>DevolucionRendicion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,9 +197,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\DevolucionFactura.resx">
       <DependentUpon>DevolucionFactura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Devolucion\DevolucionRendicion.resx">
-      <DependentUpon>DevolucionRendicion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
