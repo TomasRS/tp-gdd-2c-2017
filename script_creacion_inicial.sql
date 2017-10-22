@@ -286,18 +286,27 @@ ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY
 ******************************/
 
 /** Migracion de Clientes **/
-INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
-			SELECT DISTINCT Cliente-Nombre, Cliente-Apellido, Cliente-Dni, Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, Cliente-Fecha_Nac
+
+
+INSERT INTO GAME_OF_CODE.Rubro (descripcion)
+			SELECT DISTINCT Rubro_Descripcion
 			FROM gd_esquema.Maestra
-			WHERE Cliente-Dni IS NOT NULL
+			WHERE Rubro_Descripcion IS NOT NULL
 
 
-INSERT INTO GAME_OF_CODE.Rubro (id_empresa, descripcion)
-			SELECT DISTINCT Empresa_Rubro, Rubro_Descripcion
-			FROM gd.esquema_Maestra
-			WHERE Empresa_Rubro IS NOT NULL
+INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro, estado_habilitacion)
+   SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro, 1
+   FROM gd_esquema.Maestra
+   WHERE Empresa_Nombre IS NOT NULL
+     AND Empresa_Cuit IS NOT NULL
 
 /*
+INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
+			SELECT DISTINCT Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, Cliente_Fecha_Nac
+			FROM gd_esquema.Maestra
+			WHERE Cliente_Dni IS NOT NULL
+			
+
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total ,fecha_vencimiento)
 			SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
 			FROM gd_esquema.Maestra
@@ -308,12 +317,6 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad)
 			SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad
 			FROM gd.esquema_Maestra
 			WHERE ItemFactura_Monto IS NOT NULL
-			
-
-INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion)
-			SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion
-			FROM gd.esquema_Maestra
-			WHERE Empresa_Cuit IS NOT NULL
 */
 			
 
