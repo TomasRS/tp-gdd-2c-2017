@@ -154,35 +154,35 @@ CREATE TABLE [GAME_OF_CODE].[Sucursal] (
 
 CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 	[id_detalle_factura] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_factura] INT NOT NULL,
 	[item_factura] [nvarchar](50) NOT  NULL,
 	[monto_unitario] INT NOT NULL,
-	[cantidad] INT NOT NULL
+	[cantidad] INT NOT NULL,
+	[id_factura] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Devolucion] (
 	[id_devolucion] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_usuario] INT NOT NULL,
-	[motivo] [nvarchar](255) NOT NULL
+	[motivo] [nvarchar](255) NOT NULL,
+	[id_usuario] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Pago_de_Facturas] (
 	[id_pago_facturas] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_factura] INT NOT NULL,
-	[id_sucursal] INT NOT NULL,
 	[fecha_cobro] [datetime] NOT NULL,
-	[importe] INT NOT NULL
+	[importe] INT NOT NULL,
+	[id_factura] INT NOT NULL,
+	[id_sucursal] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_factura] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_cliente] INT NOT NULL,
-	[id_empresa] INT NOT NULL,
-	[id_devolucion] INT NOT NULL,
 	[numero_factura] INT NOT NULL,
 	[fecha_alta] [datetime] NOT NULL,
 	[monto_total] INT NOT NULL,
-	[fecha_vencimiento] [datetime] NOT NULL
+	[fecha_vencimiento] [datetime] NOT NULL,
+	[id_cliente] INT NOT NULL,
+	[id_empresa] INT NOT NULL,
+	[id_devolucion] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Cliente] (
@@ -212,17 +212,17 @@ CREATE TABLE [GAME_OF_CODE].[Detalle_Rendicion] (
 
 CREATE TABLE [GAME_OF_CODE].[Medio_de_Pago] (
 	[id_medio_pago] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_pago_facturas] INT NOT NULL,
-	[descripcion] [nvarchar](50) NOT NULL
+	[descripcion] [nvarchar](50) NOT NULL,
+	[id_pago_facturas] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [id_empresa] INT IDENTITY(1,1) PRIMARY KEY,
-	[id_rubro] INT NOT NULL,
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
-	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
+	[estado_habilitacion] [bit] NOT NULL DEFAULT 1,
+	[id_rubro] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rubro] (
@@ -294,31 +294,43 @@ INSERT INTO GAME_OF_CODE.Rubro (descripcion)
 			WHERE Rubro_Descripcion IS NOT NULL
 
 
+INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal, estado_habilitacion)
+	SELECT DISTINCT Sucursal_Nombre, Sucursal_Dirección, Sucursal_Codigo_Postal, 1
+	FROM gd_esquema.Maestra
+	WHERE Sucursal_Nombre IS NOT NULL
+	  AND Sucursal_Codigo_Postal IS NOT NULL
+
+
+INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
+	SELECT DISTINCT [Cliente-Nombre], [Cliente-Apellido], [Cliente-Dni], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
+	FROM gd_esquema.Maestra
+	WHERE [Cliente-Nombre] IS NOT NULL
+	  AND [Cliente-Apellido] IS NOT NULL
+	  AND [Cliente-Dni] IS NOT NULL
+	  AND Cliente_Mail IS NOT NULL
+
+
 INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro, estado_habilitacion)
    SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro, 1
    FROM gd_esquema.Maestra
    WHERE Empresa_Nombre IS NOT NULL
      AND Empresa_Cuit IS NOT NULL
 
-/*
-INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
-			SELECT DISTINCT Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, Cliente_Fecha_Nac
-			FROM gd_esquema.Maestra
-			WHERE Cliente_Dni IS NOT NULL
-			
 
-INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total ,fecha_vencimiento)
-			SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
-			FROM gd_esquema.Maestra
-			WHERE Nro_Factura IS NOT NULL
+INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento)
+	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
+	FROM gd_esquema.Maestra
+	WHERE Nro_Factura IS NOT NULL
+	  AND Factura_Fecha IS NOT NULL
+	  AND Factura_Total IS NOT NULL
+	  AND Factura_Fecha_Vencimiento IS NOT NULL
 
-			
+
 INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad)
-			SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad
-			FROM gd.esquema_Maestra
-			WHERE ItemFactura_Monto IS NOT NULL
-*/
-			
+	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad
+	FROM gd_esquema.Maestra
+	WHERE ItemFactura_Monto IS NOT NULL
+	  AND ItemFactura_Cantidad IS NOT NULL
 
 			
 /** FIN MIGRACION **/
