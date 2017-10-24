@@ -2,17 +2,19 @@
 USE [GD2C2017]
 GO
 
+
 /** CREACION DE SCHEMA **/
+
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'GAME_OF_CODE')
 BEGIN
     EXEC ('CREATE SCHEMA GAME_OF_CODE AUTHORIZATION gd')
 END
 GO
+
 /** FIN CREACION DE SCHEMA**/
 
 
 /** VALIDACION DE TABLAS **/
-
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Factura'))
 BEGIN
@@ -101,12 +103,12 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rubro'))
     DROP TABLE GAME_OF_CODE.Rubro
-
 	
 /** FIN VALIDACION DE TABLAS **/
 
 
 /** CREACION DE TABLAS **/
+
 CREATE TABLE [GAME_OF_CODE].[Usuario] (
     [id_usuario] INT IDENTITY(1,1) PRIMARY KEY,
     [username] [nvarchar](50),
@@ -154,7 +156,7 @@ CREATE TABLE [GAME_OF_CODE].[Sucursal] (
 
 CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 	[id_detalle_factura] INT IDENTITY(1,1) PRIMARY KEY,
-	[item_factura] [nvarchar](50) NOT  NULL,
+	[item_factura] [nvarchar](50) NOT NULL DEFAULT 'Producto',
 	[monto_unitario] INT NOT NULL,
 	[cantidad] INT NOT NULL,
 	[id_factura] INT NOT NULL
@@ -182,7 +184,7 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[fecha_vencimiento] [datetime] NOT NULL,
 	[id_cliente] INT NOT NULL,
 	[id_empresa] INT NOT NULL,
-	[id_devolucion] INT NOT NULL
+	[id_devolucion] INT
 )
 
 CREATE TABLE [GAME_OF_CODE].[Cliente] (
@@ -190,8 +192,8 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
     [nombre] [nvarchar](255) NOT NULL,
     [apellido] [nvarchar](255) NOT NULL,
     [dni] [NUMERIC](18, 0) NOT NULL,
-	[mail] [nvarchar](255) UNIQUE NOT NULL,
-	[telefono] [NUMERIC](18,0) NOT NULL,
+	[mail] [nvarchar](255) NOT NULL,
+	[telefono] [NUMERIC](18,0) NOT NULL DEFAULT 0,
 	[direccion] [nvarchar](150) NOT NULL,
 	[codigo_postal] INT NOT NULL,
     [cli_fecha_nac] [datetime] NOT NULL
@@ -229,6 +231,7 @@ CREATE TABLE [GAME_OF_CODE].[Rubro] (
 	[id_rubro] INT IDENTITY(1,1) PRIMARY KEY,
 	[descripcion] [nvarchar](50) NOT NULL
 )
+
 
 /* FKs */
 
@@ -274,32 +277,28 @@ ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
-
 /** CREACION DE FUNCIONES Y PROCEDURES **/
 
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
-
 
 
 /******************************
 *         MIGRACION           *
 ******************************/
 
-/** Migracion de Clientes **/
 
+/** Migracion de Clientes **/
 
 INSERT INTO GAME_OF_CODE.Rubro (descripcion)
 			SELECT DISTINCT Rubro_Descripcion
 			FROM gd_esquema.Maestra
 			WHERE Rubro_Descripcion IS NOT NULL
 
-
-INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal, estado_habilitacion)
-	SELECT DISTINCT Sucursal_Nombre, Sucursal_Dirección, Sucursal_Codigo_Postal, 1
+INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
+	SELECT DISTINCT Sucursal_Nombre, Sucursal_Dirección, Sucursal_Codigo_Postal
 	FROM gd_esquema.Maestra
 	WHERE Sucursal_Nombre IS NOT NULL
 	  AND Sucursal_Codigo_Postal IS NOT NULL
-
 
 INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
 	SELECT DISTINCT [Cliente-Nombre], [Cliente-Apellido], [Cliente-Dni], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
@@ -309,31 +308,31 @@ INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo
 	  AND [Cliente-Dni] IS NOT NULL
 	  AND Cliente_Mail IS NOT NULL
 
-
-INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro, estado_habilitacion)
-   SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro, 1
+INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro)
+   SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro
    FROM gd_esquema.Maestra
    WHERE Empresa_Nombre IS NOT NULL
      AND Empresa_Cuit IS NOT NULL
 
-
-INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento)
-	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento
-	FROM gd_esquema.Maestra
+INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
+	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
+	FROM gd_esquema.Maestra A, GAME_OF_CODE.Cliente B, GAME_OF_CODE.Empresa C
 	WHERE Nro_Factura IS NOT NULL
-	  AND Factura_Fecha IS NOT NULL
-	  AND Factura_Total IS NOT NULL
-	  AND Factura_Fecha_Vencimiento IS NOT NULL
+      AND Factura_Fecha IS NOT NULL
+      AND Factura_Total IS NOT NULL
+      AND Factura_Fecha_Vencimiento IS NOT NULL
+	  AND A.[Cliente-Dni] = B.dni
+	  AND A.empresa_cuit = C.emp_cuit
 
-
-INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad)
-	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad
-	FROM gd_esquema.Maestra
+INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
+	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad, B.id_factura
+	FROM gd_esquema.Maestra A, GAME_OF_CODE.Factura B
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
-
+	  AND A.Nro_Factura = B.numero_factura
 			
 /** FIN MIGRACION **/
+
 
 -- CREACION DE VISTAS
 
