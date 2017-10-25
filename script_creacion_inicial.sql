@@ -381,4 +381,7 @@ DECLARE @id_admin INT
 EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id_admin output   
 
 INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
-    VALUES(1, @id_admin)
+    VALUES	(1, @id_admin),
+			(2, @id_admin)
+
+

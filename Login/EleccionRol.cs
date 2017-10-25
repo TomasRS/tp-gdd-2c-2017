@@ -29,7 +29,7 @@ namespace PagoAgilFrba.Login
         private void volverButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            new LoginForm().Show();
+            new LoginForm().ShowDialog();
         }
 
         private void EleccionRol_Load(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace PagoAgilFrba.Login
             UsuarioSesion.Usuario.rol = rolElegido;
 
             this.Hide();
-            new MenuPrincipal().Show();
+            new MenuPrincipal().ShowDialog();
             this.Close();
         }
 
