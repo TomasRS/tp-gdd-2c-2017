@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.Menu_Principal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,13 @@ namespace PagoAgilFrba.Devolucion
         {
             InitializeComponent();
             CenterToScreen();
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new MenuPrincipal().ShowDialog();
+            this.Close();
         }
     }
 }

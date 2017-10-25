@@ -61,6 +61,7 @@
             this.volverButton.TabIndex = 9;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // label1
             // 

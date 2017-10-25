@@ -84,6 +84,7 @@
             this.volverButton.TabIndex = 28;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // camposObligatoriosLabel
             // 
@@ -115,6 +116,7 @@
             // 
             // rubroComboBox
             // 
+            this.rubroComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rubroComboBox.FormattingEnabled = true;
             this.rubroComboBox.Location = new System.Drawing.Point(117, 113);
             this.rubroComboBox.Name = "rubroComboBox";

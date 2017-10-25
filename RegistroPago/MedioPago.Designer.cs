@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MedioPago));
             this.label1 = new System.Windows.Forms.Label();
             this.medioDePagoGroupBox = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.efectivoRadioButton = new System.Windows.Forms.RadioButton();
             this.pagarButton = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.volverButton = new System.Windows.Forms.Button();
             this.medioDePagoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +59,17 @@
             this.medioDePagoGroupBox.TabStop = false;
             this.medioDePagoGroupBox.Text = "Medios de pago disponibles";
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(122, 60);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(83, 17);
+            this.radioButton1.TabIndex = 3;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Otra forma...";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
             // efectivoRadioButton
             // 
             this.efectivoRadioButton.AutoSize = true;
@@ -79,17 +90,6 @@
             this.pagarButton.Text = "Pagar y finalizar";
             this.pagarButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(122, 60);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(83, 17);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Otra forma...";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // volverButton
             // 
             this.volverButton.Location = new System.Drawing.Point(189, 164);
@@ -98,6 +98,7 @@
             this.volverButton.TabIndex = 4;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // MedioPago
             // 

@@ -92,7 +92,7 @@ namespace PagoAgilFrba
                     }
 
                     this.Hide();
-                    new MenuPrincipal().Show();
+                    new MenuPrincipal().ShowDialog();
                     this.Close();
                 }
             }
@@ -138,8 +138,13 @@ namespace PagoAgilFrba
                         parametros.Add(new SqlParameter("@username", username));
                         String deshabilitar = "UPDATE GAME_OF_CODE.Usuario SET estado_habilitacion = 0 WHERE username = @username";
                         QueryBuilder.Instance.build(deshabilitar, parametros).ExecuteNonQuery();
+                        PopupMessage.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".\n" + "El usuario fue deshabilitado.", MessageBoxIcon.Exclamation);
                     }
-                    PopupMessage.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".", MessageBoxIcon.Exclamation);
+                    else
+                    {
+                        PopupMessage.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".", MessageBoxIcon.Exclamation);
+                    }
+                    
                 }
                 else
                 {

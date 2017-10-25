@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DevolucionFactura));
             this.datosFacturaGroupBox = new System.Windows.Forms.GroupBox();
-            this.numFacturaLabel = new System.Windows.Forms.Label();
-            this.empresaLabel = new System.Windows.Forms.Label();
-            this.numFacturaTextBox = new System.Windows.Forms.TextBox();
-            this.empresaComboBox = new System.Windows.Forms.ComboBox();
-            this.buscarFacturaButton = new System.Windows.Forms.Button();
-            this.facturaDataGridView = new System.Windows.Forms.DataGridView();
-            this.clienteLabel = new System.Windows.Forms.Label();
             this.clienteComboBox = new System.Windows.Forms.ComboBox();
+            this.clienteLabel = new System.Windows.Forms.Label();
+            this.buscarFacturaButton = new System.Windows.Forms.Button();
+            this.empresaComboBox = new System.Windows.Forms.ComboBox();
+            this.numFacturaTextBox = new System.Windows.Forms.TextBox();
+            this.empresaLabel = new System.Windows.Forms.Label();
+            this.numFacturaLabel = new System.Windows.Forms.Label();
+            this.facturaDataGridView = new System.Windows.Forms.DataGridView();
             this.devolverFacturaButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.volverButton = new System.Windows.Forms.Button();
@@ -61,56 +61,14 @@
             this.datosFacturaGroupBox.TabStop = false;
             this.datosFacturaGroupBox.Text = "Datos de factura paga para devolución";
             // 
-            // numFacturaLabel
+            // clienteComboBox
             // 
-            this.numFacturaLabel.AutoSize = true;
-            this.numFacturaLabel.Location = new System.Drawing.Point(6, 31);
-            this.numFacturaLabel.Name = "numFacturaLabel";
-            this.numFacturaLabel.Size = new System.Drawing.Size(95, 13);
-            this.numFacturaLabel.TabIndex = 0;
-            this.numFacturaLabel.Text = "Número de factura";
-            // 
-            // empresaLabel
-            // 
-            this.empresaLabel.AutoSize = true;
-            this.empresaLabel.Location = new System.Drawing.Point(6, 63);
-            this.empresaLabel.Name = "empresaLabel";
-            this.empresaLabel.Size = new System.Drawing.Size(48, 13);
-            this.empresaLabel.TabIndex = 1;
-            this.empresaLabel.Text = "Empresa";
-            // 
-            // numFacturaTextBox
-            // 
-            this.numFacturaTextBox.Location = new System.Drawing.Point(125, 28);
-            this.numFacturaTextBox.Name = "numFacturaTextBox";
-            this.numFacturaTextBox.Size = new System.Drawing.Size(184, 20);
-            this.numFacturaTextBox.TabIndex = 2;
-            // 
-            // empresaComboBox
-            // 
-            this.empresaComboBox.FormattingEnabled = true;
-            this.empresaComboBox.Location = new System.Drawing.Point(125, 60);
-            this.empresaComboBox.Name = "empresaComboBox";
-            this.empresaComboBox.Size = new System.Drawing.Size(184, 21);
-            this.empresaComboBox.TabIndex = 3;
-            // 
-            // buscarFacturaButton
-            // 
-            this.buscarFacturaButton.Location = new System.Drawing.Point(436, 54);
-            this.buscarFacturaButton.Name = "buscarFacturaButton";
-            this.buscarFacturaButton.Size = new System.Drawing.Size(100, 30);
-            this.buscarFacturaButton.TabIndex = 35;
-            this.buscarFacturaButton.Text = "Buscar factura";
-            this.buscarFacturaButton.UseVisualStyleBackColor = true;
-            // 
-            // facturaDataGridView
-            // 
-            this.facturaDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.facturaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.facturaDataGridView.Location = new System.Drawing.Point(12, 146);
-            this.facturaDataGridView.Name = "facturaDataGridView";
-            this.facturaDataGridView.Size = new System.Drawing.Size(653, 64);
-            this.facturaDataGridView.TabIndex = 1;
+            this.clienteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clienteComboBox.FormattingEnabled = true;
+            this.clienteComboBox.Location = new System.Drawing.Point(125, 93);
+            this.clienteComboBox.Name = "clienteComboBox";
+            this.clienteComboBox.Size = new System.Drawing.Size(184, 21);
+            this.clienteComboBox.TabIndex = 37;
             // 
             // clienteLabel
             // 
@@ -121,13 +79,57 @@
             this.clienteLabel.TabIndex = 36;
             this.clienteLabel.Text = "Cliente";
             // 
-            // clienteComboBox
+            // buscarFacturaButton
             // 
-            this.clienteComboBox.FormattingEnabled = true;
-            this.clienteComboBox.Location = new System.Drawing.Point(125, 93);
-            this.clienteComboBox.Name = "clienteComboBox";
-            this.clienteComboBox.Size = new System.Drawing.Size(184, 21);
-            this.clienteComboBox.TabIndex = 37;
+            this.buscarFacturaButton.Location = new System.Drawing.Point(436, 54);
+            this.buscarFacturaButton.Name = "buscarFacturaButton";
+            this.buscarFacturaButton.Size = new System.Drawing.Size(100, 30);
+            this.buscarFacturaButton.TabIndex = 35;
+            this.buscarFacturaButton.Text = "Buscar factura";
+            this.buscarFacturaButton.UseVisualStyleBackColor = true;
+            // 
+            // empresaComboBox
+            // 
+            this.empresaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.empresaComboBox.FormattingEnabled = true;
+            this.empresaComboBox.Location = new System.Drawing.Point(125, 60);
+            this.empresaComboBox.Name = "empresaComboBox";
+            this.empresaComboBox.Size = new System.Drawing.Size(184, 21);
+            this.empresaComboBox.TabIndex = 3;
+            // 
+            // numFacturaTextBox
+            // 
+            this.numFacturaTextBox.Location = new System.Drawing.Point(125, 28);
+            this.numFacturaTextBox.Name = "numFacturaTextBox";
+            this.numFacturaTextBox.Size = new System.Drawing.Size(184, 20);
+            this.numFacturaTextBox.TabIndex = 2;
+            // 
+            // empresaLabel
+            // 
+            this.empresaLabel.AutoSize = true;
+            this.empresaLabel.Location = new System.Drawing.Point(6, 63);
+            this.empresaLabel.Name = "empresaLabel";
+            this.empresaLabel.Size = new System.Drawing.Size(48, 13);
+            this.empresaLabel.TabIndex = 1;
+            this.empresaLabel.Text = "Empresa";
+            // 
+            // numFacturaLabel
+            // 
+            this.numFacturaLabel.AutoSize = true;
+            this.numFacturaLabel.Location = new System.Drawing.Point(6, 31);
+            this.numFacturaLabel.Name = "numFacturaLabel";
+            this.numFacturaLabel.Size = new System.Drawing.Size(95, 13);
+            this.numFacturaLabel.TabIndex = 0;
+            this.numFacturaLabel.Text = "Número de factura";
+            // 
+            // facturaDataGridView
+            // 
+            this.facturaDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.facturaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.facturaDataGridView.Location = new System.Drawing.Point(12, 146);
+            this.facturaDataGridView.Name = "facturaDataGridView";
+            this.facturaDataGridView.Size = new System.Drawing.Size(653, 64);
+            this.facturaDataGridView.TabIndex = 1;
             // 
             // devolverFacturaButton
             // 
@@ -155,8 +157,9 @@
             this.volverButton.TabIndex = 40;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
-            // MenuDevolucion
+            // DevolucionFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,7 +170,7 @@
             this.Controls.Add(this.facturaDataGridView);
             this.Controls.Add(this.datosFacturaGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MenuDevolucion";
+            this.Name = "DevolucionFactura";
             this.Text = "Devolución de facturas";
             this.datosFacturaGroupBox.ResumeLayout(false);
             this.datosFacturaGroupBox.PerformLayout();

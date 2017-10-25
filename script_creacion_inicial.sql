@@ -359,8 +359,59 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND A.Nro_Factura = B.numero_factura
-			
+
+
+
+
 /** FIN MIGRACION **/
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+/** Inserto usuario administrador para manejar la app (admin:w23e) **/
+INSERT INTO GAME_OF_CODE.Rol (nombre)
+	VALUES ('Administrador')
+
+
+DECLARE @id_admin INT
+EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id_admin output   
+
+INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
+    VALUES	(1, @id_admin)
+
+
+/** Alta de Funcionalidades **/
+
+INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
+    VALUES  ('Alta de clientes'),
+            ('Modificación y baja de clientes'),
+            ('Alta de empresas'),
+            ('Modificación y baja de empresas'),
+            ('Alta de facturas'),
+            ('Modificación y baja de facturas'),
+            ('Alta de roles'),
+            ('Modificación y baja de roles'),
+            ('Alta de sucursales'),
+            ('Modificación y baja de sucursales'),
+            ('Devolución de facturas pagas'),
+            ('Listado estadístico'),
+            ('Pagar facturas'),
+            ('Realizar rendicion de facturas')
+
+-- Agrego al administrador todas las funcionalidades del sistema
+
+BEGIN TRANSACTION
+        DECLARE @cont int;
+        SET @cont = 0;
+        
+        WHILE((SELECT COUNT(*) FROM GAME_OF_CODE.Funcionalidad) > @cont)
+        BEGIN
+                SET @cont = @cont + 1;
+                INSERT INTO GAME_OF_CODE.Funcionalidad_por_Rol(id_funcionalidad, id_rol)
+                    VALUES (@cont, (SELECT id_rol FROM GAME_OF_CODE.Rol WHERE nombre = 'Administrador'))
+        END
+COMMIT
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 -- CREACION DE VISTAS
@@ -368,20 +419,4 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 -- FIN DE CREACION DE VISTAS
 
 -- CREACION DE TRIGGERS
-
-
-
-/** Inserto usuario administrador para manejar la app (admin:w23e) **/
-INSERT INTO GAME_OF_CODE.Rol (nombre)
-	VALUES ('Administrador'),
-		   ('Cobrador')
-
-
-DECLARE @id_admin INT
-EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id_admin output   
-
-INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
-    VALUES	(1, @id_admin),
-			(2, @id_admin)
-
 

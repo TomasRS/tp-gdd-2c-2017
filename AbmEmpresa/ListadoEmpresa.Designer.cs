@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoEmpresa));
             this.empresasDataGridView = new System.Windows.Forms.DataGridView();
             this.filtroGroupBox = new System.Windows.Forms.GroupBox();
+            this.rubroComboBox = new System.Windows.Forms.ComboBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.volverButton = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.rubroLabel = new System.Windows.Forms.Label();
             this.cuitLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
-            this.rubroComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).BeginInit();
             this.filtroGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +70,15 @@
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
             // 
+            // rubroComboBox
+            // 
+            this.rubroComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rubroComboBox.FormattingEnabled = true;
+            this.rubroComboBox.Location = new System.Drawing.Point(242, 91);
+            this.rubroComboBox.Name = "rubroComboBox";
+            this.rubroComboBox.Size = new System.Drawing.Size(184, 21);
+            this.rubroComboBox.TabIndex = 9;
+            // 
             // limpiarButton
             // 
             this.limpiarButton.Location = new System.Drawing.Point(17, 137);
@@ -97,6 +106,7 @@
             this.volverButton.TabIndex = 6;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // cuitTextBox
             // 
@@ -138,14 +148,6 @@
             this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 0;
             this.nombreLabel.Text = "Nombre";
-            // 
-            // rubroComboBox
-            // 
-            this.rubroComboBox.FormattingEnabled = true;
-            this.rubroComboBox.Location = new System.Drawing.Point(242, 91);
-            this.rubroComboBox.Name = "rubroComboBox";
-            this.rubroComboBox.Size = new System.Drawing.Size(184, 21);
-            this.rubroComboBox.TabIndex = 9;
             // 
             // ListadoEmpresa
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.Menu_Principal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,13 @@ namespace PagoAgilFrba.ListadoEstadistico
             trimestreComboBox.SelectedIndex = -1;
             tipoListadoComboBox.SelectedIndex = -1;
             estadisticasDataGridView.DataSource = null;
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new MenuPrincipal().ShowDialog();
+            this.Close();
         }
     }
 }

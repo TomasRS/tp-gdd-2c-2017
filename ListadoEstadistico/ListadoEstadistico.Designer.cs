@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoEstadistico));
             this.estadisticasDataGridView = new System.Windows.Forms.DataGridView();
             this.filtroGroupBox = new System.Windows.Forms.GroupBox();
+            this.tipoListadoComboBox = new System.Windows.Forms.ComboBox();
+            this.trimestreComboBox = new System.Windows.Forms.ComboBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.volverButton = new System.Windows.Forms.Button();
@@ -38,8 +40,6 @@
             this.tipoListadoLabel = new System.Windows.Forms.Label();
             this.trimestreLabel = new System.Windows.Forms.Label();
             this.anioLabel = new System.Windows.Forms.Label();
-            this.trimestreComboBox = new System.Windows.Forms.ComboBox();
-            this.tipoListadoComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.estadisticasDataGridView)).BeginInit();
             this.filtroGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +70,24 @@
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
             // 
+            // tipoListadoComboBox
+            // 
+            this.tipoListadoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipoListadoComboBox.FormattingEnabled = true;
+            this.tipoListadoComboBox.Location = new System.Drawing.Point(247, 91);
+            this.tipoListadoComboBox.Name = "tipoListadoComboBox";
+            this.tipoListadoComboBox.Size = new System.Drawing.Size(184, 21);
+            this.tipoListadoComboBox.TabIndex = 11;
+            // 
+            // trimestreComboBox
+            // 
+            this.trimestreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.trimestreComboBox.FormattingEnabled = true;
+            this.trimestreComboBox.Location = new System.Drawing.Point(247, 57);
+            this.trimestreComboBox.Name = "trimestreComboBox";
+            this.trimestreComboBox.Size = new System.Drawing.Size(184, 21);
+            this.trimestreComboBox.TabIndex = 10;
+            // 
             // limpiarButton
             // 
             this.limpiarButton.Location = new System.Drawing.Point(17, 137);
@@ -97,6 +115,7 @@
             this.volverButton.TabIndex = 6;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // anioTextBox
             // 
@@ -131,22 +150,6 @@
             this.anioLabel.Size = new System.Drawing.Size(26, 13);
             this.anioLabel.TabIndex = 0;
             this.anioLabel.Text = "Año";
-            // 
-            // trimestreComboBox
-            // 
-            this.trimestreComboBox.FormattingEnabled = true;
-            this.trimestreComboBox.Location = new System.Drawing.Point(247, 57);
-            this.trimestreComboBox.Name = "trimestreComboBox";
-            this.trimestreComboBox.Size = new System.Drawing.Size(184, 21);
-            this.trimestreComboBox.TabIndex = 10;
-            // 
-            // tipoListadoComboBox
-            // 
-            this.tipoListadoComboBox.FormattingEnabled = true;
-            this.tipoListadoComboBox.Location = new System.Drawing.Point(247, 91);
-            this.tipoListadoComboBox.Name = "tipoListadoComboBox";
-            this.tipoListadoComboBox.Size = new System.Drawing.Size(184, 21);
-            this.tipoListadoComboBox.TabIndex = 11;
             // 
             // ListadoEstadistico
             // 

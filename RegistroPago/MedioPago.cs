@@ -22,5 +22,12 @@ namespace PagoAgilFrba.RegistroPago
         {
 
         }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new RegistroPagoFacturas().ShowDialog();
+            this.Close();
+        }
     }
 }

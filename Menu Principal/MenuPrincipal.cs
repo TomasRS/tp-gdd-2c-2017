@@ -74,7 +74,7 @@ namespace PagoAgilFrba.Menu_Principal
             String accionElegida = accionesComboBox.SelectedValue.ToString();
 
             this.Hide();
-            funcionalidades[accionElegida].Show();
+            funcionalidades[accionElegida].ShowDialog();
             this.Close();
         }
     }

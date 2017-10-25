@@ -38,9 +38,9 @@
             this.codPostalTextBox = new System.Windows.Forms.TextBox();
             this.direccionTextBox = new System.Windows.Forms.TextBox();
             this.nombreTextBox = new System.Windows.Forms.TextBox();
+            this.codPostalLabel = new System.Windows.Forms.Label();
             this.direccionLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
-            this.codPostalLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +82,7 @@
             this.volverButton.TabIndex = 34;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // camposObligatoriosLabel
             // 
@@ -130,6 +131,15 @@
             this.nombreTextBox.Size = new System.Drawing.Size(217, 20);
             this.nombreTextBox.TabIndex = 1;
             // 
+            // codPostalLabel
+            // 
+            this.codPostalLabel.AutoSize = true;
+            this.codPostalLabel.Location = new System.Drawing.Point(6, 86);
+            this.codPostalLabel.Name = "codPostalLabel";
+            this.codPostalLabel.Size = new System.Drawing.Size(72, 13);
+            this.codPostalLabel.TabIndex = 2;
+            this.codPostalLabel.Text = "Código Postal";
+            // 
             // direccionLabel
             // 
             this.direccionLabel.AutoSize = true;
@@ -147,15 +157,6 @@
             this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 0;
             this.nombreLabel.Text = "Nombre";
-            // 
-            // codPostalLabel
-            // 
-            this.codPostalLabel.AutoSize = true;
-            this.codPostalLabel.Location = new System.Drawing.Point(6, 86);
-            this.codPostalLabel.Name = "codPostalLabel";
-            this.codPostalLabel.Size = new System.Drawing.Size(72, 13);
-            this.codPostalLabel.TabIndex = 2;
-            this.codPostalLabel.Text = "Código Postal";
             // 
             // AltaModifSucursal
             // 

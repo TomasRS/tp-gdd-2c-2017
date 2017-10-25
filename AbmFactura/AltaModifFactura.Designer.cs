@@ -35,6 +35,9 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.camposObligatoriosLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox = new System.Windows.Forms.GroupBox();
+            this.fechaVencDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fechaVencLabel = new System.Windows.Forms.Label();
+            this.empresaComboBox = new System.Windows.Forms.ComboBox();
             this.fechaAltaFactDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.nroFacturaTextBox = new System.Windows.Forms.TextBox();
             this.clienteTextBox = new System.Windows.Forms.TextBox();
@@ -42,9 +45,6 @@
             this.numeroFacturaLabel = new System.Windows.Forms.Label();
             this.empresaLabel = new System.Windows.Forms.Label();
             this.clienteLabel = new System.Windows.Forms.Label();
-            this.empresaComboBox = new System.Windows.Forms.ComboBox();
-            this.fechaVencLabel = new System.Windows.Forms.Label();
-            this.fechaVencDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.itemsDataGridView = new System.Windows.Forms.DataGridView();
             this.datosPersonalesGroupBox.SuspendLayout();
@@ -90,6 +90,7 @@
             this.volverButton.TabIndex = 28;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // camposObligatoriosLabel
             // 
@@ -120,6 +121,31 @@
             this.datosPersonalesGroupBox.TabIndex = 25;
             this.datosPersonalesGroupBox.TabStop = false;
             this.datosPersonalesGroupBox.Text = "Datos de la factura";
+            // 
+            // fechaVencDateTimePicker
+            // 
+            this.fechaVencDateTimePicker.Location = new System.Drawing.Point(158, 139);
+            this.fechaVencDateTimePicker.Name = "fechaVencDateTimePicker";
+            this.fechaVencDateTimePicker.Size = new System.Drawing.Size(217, 20);
+            this.fechaVencDateTimePicker.TabIndex = 7;
+            // 
+            // fechaVencLabel
+            // 
+            this.fechaVencLabel.AutoSize = true;
+            this.fechaVencLabel.Location = new System.Drawing.Point(6, 145);
+            this.fechaVencLabel.Name = "fechaVencLabel";
+            this.fechaVencLabel.Size = new System.Drawing.Size(112, 13);
+            this.fechaVencLabel.TabIndex = 6;
+            this.fechaVencLabel.Text = "Fecha de vencimiento";
+            // 
+            // empresaComboBox
+            // 
+            this.empresaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.empresaComboBox.FormattingEnabled = true;
+            this.empresaComboBox.Location = new System.Drawing.Point(158, 55);
+            this.empresaComboBox.Name = "empresaComboBox";
+            this.empresaComboBox.Size = new System.Drawing.Size(217, 21);
+            this.empresaComboBox.TabIndex = 5;
             // 
             // fechaAltaFactDateTimePicker
             // 
@@ -177,30 +203,6 @@
             this.clienteLabel.Size = new System.Drawing.Size(39, 13);
             this.clienteLabel.TabIndex = 0;
             this.clienteLabel.Text = "Cliente";
-            // 
-            // empresaComboBox
-            // 
-            this.empresaComboBox.FormattingEnabled = true;
-            this.empresaComboBox.Location = new System.Drawing.Point(158, 55);
-            this.empresaComboBox.Name = "empresaComboBox";
-            this.empresaComboBox.Size = new System.Drawing.Size(217, 21);
-            this.empresaComboBox.TabIndex = 5;
-            // 
-            // fechaVencLabel
-            // 
-            this.fechaVencLabel.AutoSize = true;
-            this.fechaVencLabel.Location = new System.Drawing.Point(6, 145);
-            this.fechaVencLabel.Name = "fechaVencLabel";
-            this.fechaVencLabel.Size = new System.Drawing.Size(112, 13);
-            this.fechaVencLabel.TabIndex = 6;
-            this.fechaVencLabel.Text = "Fecha de vencimiento";
-            // 
-            // fechaVencDateTimePicker
-            // 
-            this.fechaVencDateTimePicker.Location = new System.Drawing.Point(158, 139);
-            this.fechaVencDateTimePicker.Name = "fechaVencDateTimePicker";
-            this.fechaVencDateTimePicker.Size = new System.Drawing.Size(217, 20);
-            this.fechaVencDateTimePicker.TabIndex = 7;
             // 
             // groupBox1
             // 

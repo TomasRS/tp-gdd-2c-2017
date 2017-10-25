@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoSucursal));
             this.empresasDataGridView = new System.Windows.Forms.DataGridView();
             this.filtroGroupBox = new System.Windows.Forms.GroupBox();
+            this.codPostalTextBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.volverButton = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.codPostalLabel = new System.Windows.Forms.Label();
             this.direccionLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
-            this.codPostalTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).BeginInit();
             this.filtroGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +70,13 @@
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
             // 
+            // codPostalTextBox
+            // 
+            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
+            this.codPostalTextBox.Name = "codPostalTextBox";
+            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
+            this.codPostalTextBox.TabIndex = 9;
+            // 
             // limpiarButton
             // 
             this.limpiarButton.Location = new System.Drawing.Point(17, 137);
@@ -97,6 +104,7 @@
             this.volverButton.TabIndex = 6;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // direccionTextBox
             // 
@@ -138,13 +146,6 @@
             this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 0;
             this.nombreLabel.Text = "Nombre";
-            // 
-            // codPostalTextBox
-            // 
-            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
-            this.codPostalTextBox.Name = "codPostalTextBox";
-            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
-            this.codPostalTextBox.TabIndex = 9;
             // 
             // ListadoSucursal
             // 
