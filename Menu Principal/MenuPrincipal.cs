@@ -22,8 +22,6 @@ namespace PagoAgilFrba.Menu_Principal
             InitializeComponent();
             CenterToScreen();
 
-            //Llenar diccionario de funcionalidades, para las clases de alta, mandar por parametro una clase Crear
-            //o algo asi, para que sepa que la UI la tiene que mostrar sin el checkbox de habilitado
             funcionalidades.Add("Alta de clientes", new AbmCliente.AltaModifCliente());
             funcionalidades.Add("Modificación y baja de clientes", new AbmCliente.ListadoCliente());
             funcionalidades.Add("Alta de empresas", new AbmEmpresa.AltaModifEmpresa());
