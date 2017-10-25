@@ -54,7 +54,7 @@ namespace PagoAgilFrba
 
             if (QueryHelper.Instance.readFrom(reader))
             {
-                PopupMessage.ShowMessage("Bienvenido" + reader["username"] + ".", MessageBoxIcon.Information);
+                PopupMessage.ShowMessage("Bienvenido " + reader["username"] + ".", MessageBoxIcon.Information);
 
                 UsuarioSesion.Usuario.nombre = (String)reader["username"];
                 UsuarioSesion.Usuario.id = (Int32)reader["id_usuario"];
@@ -66,6 +66,7 @@ namespace PagoAgilFrba
                 QueryBuilder.Instance.build(clearIntentosFallidos, parametros).ExecuteNonQuery();
 
                 //Consulta roles
+                // ESTO ES LO QUE FALLA!
                 String consultaRoles = "SELECT COUNT(id_rol) FROM GAME_OF_CODE.Rol_por_Usuario WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario";
                 int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
 

@@ -114,8 +114,7 @@ CREATE TABLE [GAME_OF_CODE].[Usuario] (
     [username] [nvarchar](50),
     [password] [nvarchar](150) NOT NULL,
     [estado_habilitacion] [bit] NOT NULL DEFAULT 1,
-    [intentos_fallidos] [tinyint] DEFAULT 0,
-	[es_admin] [bit] NOT NULL DEFAULT 0
+    [intentos_fallidos] [tinyint] DEFAULT 0
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rol_por_Usuario] (
@@ -274,12 +273,26 @@ ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY
 
 
 /** VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS**/
-
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_usuario_con_valores') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_usuario_con_valores
+GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
 /** CREACION DE FUNCIONES Y PROCEDURES **/
-
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_usuario_con_valores
+    @username nvarchar(50),
+    @password nvarchar(150),
+    @usuario_id INT OUTPUT
+AS
+BEGIN
+    INSERT INTO GAME_OF_CODE.Usuario 
+        (username, password) 
+    VALUES 
+        (@username, @password)
+    SET @usuario_id = SCOPE_IDENTITY(); 
+END
+GO
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 
@@ -344,3 +357,11 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 
 
 /** Inserto usuario administrador para manejar la app (admin:w23e) **/
+INSERT INTO GAME_OF_CODE.Rol
+	VALUES ('Administrador', 1)
+
+DECLARE @id INT
+EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id output   
+
+INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
+    VALUES(1, @id)

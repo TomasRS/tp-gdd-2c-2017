@@ -13,7 +13,7 @@ namespace PagoAgilFrba.DataProvider
     {
         private static String CONNECTION_STRING = "GD2C2017";
         private static String SCHEMA = "GAME_OF_CODE";
-        private static String DATABASE = "GD1C2017";
+        private static String DATABASE = "GD2C2017";
         private static String USER_ID = "gd";
 
         private static ConnectionManager instance;
