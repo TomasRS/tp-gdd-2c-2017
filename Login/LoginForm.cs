@@ -67,7 +67,9 @@ namespace PagoAgilFrba
 
                 //Consulta roles
                 // ESTO ES LO QUE FALLA!
-                String consultaRoles = "SELECT COUNT(id_rol) FROM GAME_OF_CODE.Rol_por_Usuario WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario";
+                parametros.Clear();
+                //String consultaRoles = "SELECT COUNT(id_rol) FROM GAME_OF_CODE.Rol_por_Usuario WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario";
+                String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
                 int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
 
                 //Si es mas de un rol muestra la pantalla de eleccion de roles, sino no

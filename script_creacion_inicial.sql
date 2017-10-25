@@ -111,7 +111,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.
 
 CREATE TABLE [GAME_OF_CODE].[Usuario] (
     [id_usuario] INT IDENTITY(1,1) PRIMARY KEY,
-    [username] [nvarchar](50),
+    [username] [nvarchar](50) UNIQUE NOT NULL,
     [password] [nvarchar](150) NOT NULL,
     [estado_habilitacion] [bit] NOT NULL DEFAULT 1,
     [intentos_fallidos] [tinyint] DEFAULT 0
@@ -276,6 +276,10 @@ ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_usuario_con_valores') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_usuario_con_valores
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.get_cantidad_roles_de_usuario') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.get_cantidad_roles_de_usuario
+GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -293,6 +297,17 @@ BEGIN
     SET @usuario_id = SCOPE_IDENTITY(); 
 END
 GO
+
+CREATE PROCEDURE GAME_OF_CODE.get_cantidad_roles_de_usuario
+(
+    @username nvarchar(50)
+)
+AS
+BEGIN
+	SELECT COUNT(id_rol) FROM GAME_OF_CODE.Rol_por_Usuario WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario
+END
+GO
+	
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 
@@ -357,11 +372,13 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 
 
 /** Inserto usuario administrador para manejar la app (admin:w23e) **/
-INSERT INTO GAME_OF_CODE.Rol
-	VALUES ('Administrador', 1)
+INSERT INTO GAME_OF_CODE.Rol (nombre)
+	VALUES ('Administrador'),
+		   ('Cobrador')
 
-DECLARE @id INT
-EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id output   
+
+DECLARE @id_admin INT
+EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id_admin output   
 
 INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
-    VALUES(1, @id)
+    VALUES(1, @id_admin)
