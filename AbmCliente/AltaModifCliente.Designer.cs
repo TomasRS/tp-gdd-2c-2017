@@ -59,7 +59,6 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.guardarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.habilitadoCheckBox = new System.Windows.Forms.CheckBox();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.contactoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -338,23 +337,11 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
-            // habilitadoCheckBox
-            // 
-            this.habilitadoCheckBox.AutoSize = true;
-            this.habilitadoCheckBox.Location = new System.Drawing.Point(273, 438);
-            this.habilitadoCheckBox.Name = "habilitadoCheckBox";
-            this.habilitadoCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.habilitadoCheckBox.Size = new System.Drawing.Size(73, 17);
-            this.habilitadoCheckBox.TabIndex = 24;
-            this.habilitadoCheckBox.Text = "Habilitado";
-            this.habilitadoCheckBox.UseVisualStyleBackColor = true;
-            // 
             // AltaModifCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 508);
-            this.Controls.Add(this.habilitadoCheckBox);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
             this.Controls.Add(this.volverButton);
@@ -407,6 +394,5 @@
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.TextBox numeroTextBox;
         private System.Windows.Forms.Label numeroLabel;
-        private System.Windows.Forms.CheckBox habilitadoCheckBox;
     }
 }

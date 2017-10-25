@@ -37,7 +37,6 @@ namespace PagoAgilFrba.AbmCliente
             departamentoTextBox.Clear();
             localidadTextBox.Clear();
             codPostalTextBox.Clear();
-            habilitadoCheckBox.Checked = false;
         }
 
         private void volverButton_Click(object sender, EventArgs e)

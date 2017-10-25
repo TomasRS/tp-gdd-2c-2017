@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaModifEmpresa));
-            this.habilitadoCheckBox = new System.Windows.Forms.CheckBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.guardarButton = new System.Windows.Forms.Button();
             this.volverButton = new System.Windows.Forms.Button();
@@ -45,17 +44,6 @@
             this.nombreLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // habilitadoCheckBox
-            // 
-            this.habilitadoCheckBox.AutoSize = true;
-            this.habilitadoCheckBox.Location = new System.Drawing.Point(273, 170);
-            this.habilitadoCheckBox.Name = "habilitadoCheckBox";
-            this.habilitadoCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.habilitadoCheckBox.Size = new System.Drawing.Size(73, 17);
-            this.habilitadoCheckBox.TabIndex = 31;
-            this.habilitadoCheckBox.Text = "Habilitado";
-            this.habilitadoCheckBox.UseVisualStyleBackColor = true;
             // 
             // limpiarButton
             // 
@@ -185,7 +173,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 241);
-            this.Controls.Add(this.habilitadoCheckBox);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
             this.Controls.Add(this.volverButton);
@@ -203,7 +190,6 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox habilitadoCheckBox;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button guardarButton;
         private System.Windows.Forms.Button volverButton;
