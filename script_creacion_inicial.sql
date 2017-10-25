@@ -115,6 +115,7 @@ CREATE TABLE [GAME_OF_CODE].[Usuario] (
     [password] [nvarchar](150) NOT NULL,
     [estado_habilitacion] [bit] NOT NULL DEFAULT 1,
     [intentos_fallidos] [tinyint] DEFAULT 0,
+	[es_admin] [bit] NOT NULL DEFAULT 0
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rol_por_Usuario] (
