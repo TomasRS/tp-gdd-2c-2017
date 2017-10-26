@@ -201,7 +201,7 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
 
 CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 	[id_rendicion] INT PRIMARY KEY,
-	[fecha_rendicion] INT NOT NULL,
+	[fecha_rendicion] [datetime] NOT NULL,
 	[importe_total] INT NOT NULL,
 	[porcentaje_comision] INT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
@@ -330,6 +330,16 @@ INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
 	WHERE Sucursal_Nombre IS NOT NULL
 	  AND Sucursal_Codigo_Postal IS NOT NULL
 
+INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, importe_total, porcentaje_comision, cant_facturas_rendidas)
+	SELECT  Rendicion_Nro,
+			Rendicion_Fecha,
+			SUM (ItemRendicion_Importe),
+            0,
+            COUNT (Rendicion_Nro)
+	FROM gd_esquema.Maestra
+	WHERE Rendicion_Nro IS NOT NULL
+	GROUP BY Rendicion_Nro, Rendicion_Fecha
+
 INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
 	SELECT DISTINCT [Cliente-Nombre], [Cliente-Apellido], [Cliente-Dni], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
 	FROM gd_esquema.Maestra
@@ -360,9 +370,6 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND A.Nro_Factura = B.numero_factura
-
-
-
 
 /** FIN MIGRACION **/
 
