@@ -200,9 +200,10 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rendicion] (
-	[id_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
-	[porcentaje_comision] INT NOT NULL,
+	[id_rendicion] INT PRIMARY KEY,
+	[fecha_rendicion] INT NOT NULL,
 	[importe_total] INT NOT NULL,
+	[porcentaje_comision] INT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
 )
 
