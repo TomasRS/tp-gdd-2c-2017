@@ -28,13 +28,13 @@ namespace PagoAgilFrba
         {
             if (usernameTextBox.Text == "")
             {
-                PopupMessage.ShowMessage("Debe ingresar un usuario.", MessageBoxIcon.Warning);
+                Util.ShowMessage("Debe ingresar un usuario.", MessageBoxIcon.Warning);
                 return;
             }
 
             if (passwordTextBox.Text == "")
             {
-                PopupMessage.ShowMessage("Debe ingresar una contraseña.", MessageBoxIcon.Warning);
+                Util.ShowMessage("Debe ingresar una contraseña.", MessageBoxIcon.Warning);
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace PagoAgilFrba
 
             if (QueryHelper.Instance.readFrom(reader))
             {
-                PopupMessage.ShowMessage("Bienvenido " + reader["username"] + ".", MessageBoxIcon.Information);
+                Util.ShowMessage("Bienvenido " + reader["username"] + ".", MessageBoxIcon.Information);
 
                 UsuarioSesion.Usuario.nombre = (String)reader["username"];
                 UsuarioSesion.Usuario.id = (Int32)reader["id_usuario"];
@@ -87,7 +87,7 @@ namespace PagoAgilFrba
                     UsuarioSesion.Usuario.rol = rolUser;
                     if (UsuarioSesion.Usuario.rol == null)
                     {
-                        PopupMessage.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
+                        Util.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -116,7 +116,7 @@ namespace PagoAgilFrba
 
                     if (userDeshabilitado.Read())
                     {
-                        PopupMessage.ShowMessage("El usuario está deshabilitado.", MessageBoxIcon.Information);
+                        Util.ShowMessage("El usuario está deshabilitado.", MessageBoxIcon.Information);
                         return;
                     }
 
@@ -138,17 +138,17 @@ namespace PagoAgilFrba
                         parametros.Add(new SqlParameter("@username", username));
                         String deshabilitar = "UPDATE GAME_OF_CODE.Usuario SET estado_habilitacion = 0 WHERE username = @username";
                         QueryBuilder.Instance.build(deshabilitar, parametros).ExecuteNonQuery();
-                        PopupMessage.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".\n" + "El usuario fue deshabilitado.", MessageBoxIcon.Exclamation);
+                        Util.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".\n" + "El usuario fue deshabilitado.", MessageBoxIcon.Exclamation);
                     }
                     else
                     {
-                        PopupMessage.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".", MessageBoxIcon.Exclamation);
+                        Util.ShowMessage("Contraseña incorrecta." + '\n' + "Intentos fallidos: " + intentosFallidos + ".", MessageBoxIcon.Exclamation);
                     }
                     
                 }
                 else
                 {
-                    PopupMessage.ShowMessage("El usuario no existe.", MessageBoxIcon.Exclamation);
+                    Util.ShowMessage("El usuario no existe.", MessageBoxIcon.Exclamation);
                 }
             }
         }

@@ -326,6 +326,7 @@
             this.guardarButton.TabIndex = 22;
             this.guardarButton.Text = "Guardar";
             this.guardarButton.UseVisualStyleBackColor = true;
+            this.guardarButton.Click += new System.EventHandler(this.guardarButton_Click);
             // 
             // limpiarButton
             // 
@@ -353,6 +354,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifCliente";
             this.Text = "Alta y modificación de Cliente";
+            this.Load += new System.EventHandler(this.AltaModifCliente_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.contactoGroupBox.ResumeLayout(false);
