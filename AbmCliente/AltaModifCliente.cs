@@ -1,5 +1,7 @@
 ﻿using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Excepciones;
 using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Modelo;
 using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
@@ -84,7 +86,40 @@ namespace PagoAgilFrba.AbmCliente
             String codigoPostal = codPostalTextBox.Text;
 
             // Crear Cliente
-            
+            try
+            {
+                Cliente cliente = new Cliente();
+                cliente.setNombre(nombre);
+                cliente.setApellido(apellido);
+                cliente.setDNI(dni);
+                cliente.setMail(mail);
+                cliente.setTelefono(telefono);
+                cliente.setDireccion(calle + " " + numeroCalle);
+                cliente.setNumeroPiso(numeroPiso);
+                cliente.setDepartamento(departamento);
+                cliente.setLocalidad(localidad);
+                cliente.setCodigoPostal(codigoPostal);
+                cliente.setFechaNacimiento(fechaNacimiento);
+
+                idCliente = mapper.CrearCliente(cliente);
+                if (idCliente > 0)
+                    Util.ShowMessage("Se dio de alta el cliente correctamente.", MessageBoxIcon.Information);
+            }
+            catch (FormatoInvalidoException exception)
+            {
+                Util.ShowMessage("Datos mal ingresados en: " + exception.Message, MessageBoxIcon.Error);
+                return;
+            }
+            catch (ClienteYaExisteException)
+            {
+                Util.ShowMessage("No se puede crear el cliente porque ya existe un cliente con ese mail.", MessageBoxIcon.Error);
+                return;
+            }
+            catch (FechaPasadaException)
+            {
+                Util.ShowMessage("Fecha no válida. Ingrese una fecha pasada.", MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void AltaModifCliente_Load(object sender, EventArgs e)
