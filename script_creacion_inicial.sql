@@ -195,9 +195,6 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
 	[mail] [nvarchar](255) NOT NULL,
 	[telefono] [NUMERIC](18,0) NOT NULL DEFAULT 0,
 	[direccion] [nvarchar](150) NOT NULL,
-	[nro_piso] INT DEFAULT -1,
-	[departamento] [nvarchar](255) DEFAULT -1,
-	[localidad] [nvarchar](255) DEFAULT -1,
 	[codigo_postal] INT NOT NULL,
     [cli_fecha_nac] [datetime] NOT NULL,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
@@ -324,18 +321,15 @@ CREATE PROCEDURE GAME_OF_CODE.pr_crear_cliente
     @mail nvarchar(255),
     @telefono numeric(18,0),
 	@direccion nvarchar(150),
-	@nro_piso int,
-	@departamento nvarchar(255),
-	@localidad nvarchar(255),
 	@codigo_postal int,
 	@cli_fecha_nac datetime,
     @id int OUTPUT
 AS
 BEGIN
     INSERT INTO GAME_OF_CODE.Cliente
-        (nombre, apellido, dni, mail, telefono, direccion, nro_piso, departamento, localidad, codigo_postal, cli_fecha_nac) 
+        (nombre, apellido, dni, mail, telefono, direccion, codigo_postal, cli_fecha_nac) 
     VALUES 
-        (@nombre, @apellido, @dni, @mail, @telefono, @direccion, @nro_piso, @departamento, @localidad, @codigo_postal, @cli_fecha_nac);
+        (@nombre, @apellido, @dni, @mail, @telefono, @direccion, @codigo_postal, @cli_fecha_nac);
     SET @id = SCOPE_IDENTITY();
 END
 GO
