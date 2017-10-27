@@ -18,7 +18,7 @@ namespace PagoAgilFrba.Modelo
         private DateTime fechaNacimiento;
         private String mail;
         private String telefono;
-        private String direccion;
+        private String direccionCompleta;
         private String calle;
         private String numero;
         private String nroPiso;
@@ -57,22 +57,8 @@ namespace PagoAgilFrba.Modelo
         }
         public void setDireccion(string direccion)
         {
-            if(Util.EsNumero(direccion.Split(' ').Last()))
-                this.direccion = direccion;
-            else
-                throw new FormatoInvalidoException("número de calle. El formato debe ser numérico y sin espacios.");
+             this.direccionCompleta = direccion;
         }
-        public void setNumeroPiso(string nroPiso)
-        {
-            if (Util.EsNumero(nroPiso))
-                this.nroPiso = nroPiso;
-            else
-                throw new FormatoInvalidoException("número de piso. Debe ser un número.");
-        }
-        public void setDepartamento(string departamento)
-        { this.departamento = departamento; }
-        public void setLocalidad(string localidad)
-        { this.localidad = localidad; }
         public void setCodigoPostal(string codPostal)
         {
             if(Util.EsNumero(codPostal))
@@ -87,7 +73,7 @@ namespace PagoAgilFrba.Modelo
         public DateTime getFechaNacimiento()                { return this.fechaNacimiento; }
         public String getMail()                             { return this.mail; }
         public String getTelefono()                         { return this.telefono; }
-        public String getDireccion()                        { return this.direccion; }
+        public String getDireccion()                        { return this.direccionCompleta; }
         public String getCalle()                            { return this.calle; }
         public String getNumero()                           { return this.numero; }
         public String getNumeroPiso()                       { return this.nroPiso; }
@@ -129,10 +115,7 @@ namespace PagoAgilFrba.Modelo
             parametros.Add(new SqlParameter("@dni", this.dni));
             parametros.Add(new SqlParameter("@mail", this.mail));
             parametros.Add(new SqlParameter("@telefono", this.telefono));
-            parametros.Add(new SqlParameter("@direccion", this.direccion));
-            parametros.Add(new SqlParameter("@nro_piso", this.nroPiso));
-            parametros.Add(new SqlParameter("@departamento", this.departamento));
-            parametros.Add(new SqlParameter("@localidad", this.localidad));
+            parametros.Add(new SqlParameter("@direccion", this.direccionCompleta));
             parametros.Add(new SqlParameter("@codigo_postal", this.codigoPostal));
             parametros.Add(new SqlParameter("@cli_fecha_nac", this.fechaNacimiento));
             return parametros;
@@ -147,10 +130,7 @@ namespace PagoAgilFrba.Modelo
             this.fechaNacimiento = Convert.ToDateTime(reader["cli_fecha_nac"]);
             this.mail = Convert.ToString(reader["mail"]);
             this.telefono = Convert.ToString(reader["telefono"]);
-            this.direccion = Convert.ToString(reader["direccion"]);
-            this.nroPiso = Convert.ToString(reader["nro_piso"]);
-            this.departamento = Convert.ToString(reader["departamento"]);
-            this.localidad = Convert.ToString(reader["localidad"]);
+            this.direccionCompleta = Convert.ToString(reader["direccion"]);
             this.codigoPostal = Convert.ToString(reader["codigo_postal"]);
         }
 

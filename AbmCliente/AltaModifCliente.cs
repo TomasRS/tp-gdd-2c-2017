@@ -78,6 +78,7 @@ namespace PagoAgilFrba.AbmCliente
             DateTime.TryParse(fechaNacDateTimePicker.Text, out fechaNacimiento);
             String mail = mailTextBox.Text;
             String telefono = telefonoTextBox.Text;
+            String direccionCompleta;
             String calle = calleTextBox.Text;
             String numeroCalle = numeroTextBox.Text;
             String numeroPiso = pisoTextBox.Text;
@@ -85,7 +86,29 @@ namespace PagoAgilFrba.AbmCliente
             String localidad = localidadTextBox.Text;
             String codigoPostal = codPostalTextBox.Text;
 
+            if (!Util.EsNombreValido(nombre) || !Util.EsNombreValido(apellido))
+            {
+                Util.ShowMessage("Los campos nombre y apellido deben ser alfabéticos.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (calle.Equals("-") || numeroCalle.Equals("-"))
+            {
+                Util.ShowMessage("Los campos calle y número de calle tienen que tener valores", MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (localidad.Equals("-"))
+            {
+                Util.ShowMessage("La localidad no puede estar vacía.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (!Util.EsEmailValido(mail))
+            {
+                Util.ShowMessage("El email tiene un formato no válido.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             // Crear Cliente
+            #region
             try
             {
                 Cliente cliente = new Cliente();
@@ -94,10 +117,8 @@ namespace PagoAgilFrba.AbmCliente
                 cliente.setDNI(dni);
                 cliente.setMail(mail);
                 cliente.setTelefono(telefono);
-                cliente.setDireccion(calle + " " + numeroCalle);
-                cliente.setNumeroPiso(numeroPiso);
-                cliente.setDepartamento(departamento);
-                cliente.setLocalidad(localidad);
+                direccionCompleta = generarDireccionCompleta(calle, numeroCalle, numeroPiso, departamento, localidad);
+                cliente.setDireccion(direccionCompleta);
                 cliente.setCodigoPostal(codigoPostal);
                 cliente.setFechaNacimiento(fechaNacimiento);
 
@@ -120,6 +141,40 @@ namespace PagoAgilFrba.AbmCliente
                 Util.ShowMessage("Fecha no válida. Ingrese una fecha pasada.", MessageBoxIcon.Error);
                 return;
             }
+            #endregion
+        }
+
+        private String generarDireccionCompleta(string calle, string nroCalle, string nroPiso, string departamento, string localidad)
+        {
+            validarTiposDeDatos(calle, nroCalle, nroPiso, localidad);
+            if (!esGuion(nroPiso))
+                nroPiso = ", Piso " + nroPiso;
+            else
+                nroPiso = "";
+
+            if (!esGuion(departamento))
+                departamento = ", Dpto " + departamento;
+            else
+                departamento = "";
+
+            return calle + " " + nroCalle + nroPiso + departamento + ", " + localidad;
+        }
+
+        private void validarTiposDeDatos(string calle, string nroCalle, string nroPiso, string localidad)
+        {
+            if(Util.EsNumero(calle))
+                throw new FormatoInvalidoException("calle. Deben ser solo letras.");
+            if (!Util.EsNumero(nroCalle))
+                throw new FormatoInvalidoException("número de calle. Debe ser numérico y sin espacios.");
+            if(!Util.EsNumero(nroPiso) && !esGuion(nroPiso))
+                throw new FormatoInvalidoException("número de piso. Debe ser numérico y sin espacios.");
+            if (Util.EsNumero(localidad))
+                throw new FormatoInvalidoException("localidad. No pueden ser únicamente números.");
+        }
+
+        private Boolean esGuion(string valor)
+        {
+            return valor.Equals("-");
         }
 
         private void AltaModifCliente_Load(object sender, EventArgs e)

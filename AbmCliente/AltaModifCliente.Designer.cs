@@ -59,6 +59,8 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.guardarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.contactoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -304,13 +306,13 @@
             this.camposObligatoriosLabel.ForeColor = System.Drawing.Color.Red;
             this.camposObligatoriosLabel.Location = new System.Drawing.Point(12, 439);
             this.camposObligatoriosLabel.Name = "camposObligatoriosLabel";
-            this.camposObligatoriosLabel.Size = new System.Drawing.Size(169, 13);
+            this.camposObligatoriosLabel.Size = new System.Drawing.Size(209, 13);
             this.camposObligatoriosLabel.TabIndex = 20;
-            this.camposObligatoriosLabel.Text = "Todos los campos son obligatorios";
+            this.camposObligatoriosLabel.Text = "Todos los campos deben ser completados.";
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(265, 465);
+            this.volverButton.Location = new System.Drawing.Point(266, 506);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 21;
@@ -320,7 +322,7 @@
             // 
             // guardarButton
             // 
-            this.guardarButton.Location = new System.Drawing.Point(138, 465);
+            this.guardarButton.Location = new System.Drawing.Point(139, 506);
             this.guardarButton.Name = "guardarButton";
             this.guardarButton.Size = new System.Drawing.Size(100, 30);
             this.guardarButton.TabIndex = 22;
@@ -330,7 +332,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(12, 465);
+            this.limpiarButton.Location = new System.Drawing.Point(13, 506);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(100, 30);
             this.limpiarButton.TabIndex = 23;
@@ -338,11 +340,33 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(12, 463);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(298, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "En caso de que Nº de piso y Departamento no correspondan,";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(13, 478);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(226, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "completar dichos campos con un guión medio.";
+            // 
             // AltaModifCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 508);
+            this.ClientSize = new System.Drawing.Size(377, 548);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
             this.Controls.Add(this.volverButton);
@@ -396,5 +420,7 @@
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.TextBox numeroTextBox;
         private System.Windows.Forms.Label numeroLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
