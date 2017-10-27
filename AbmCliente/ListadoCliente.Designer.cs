@@ -151,6 +151,7 @@
             this.clientesDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.clientesDataGridView.Size = new System.Drawing.Size(1061, 351);
             this.clientesDataGridView.TabIndex = 1;
+            this.clientesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientesDataGridView_CellContentClick);
             // 
             // ListadoCliente
             // 

@@ -93,7 +93,7 @@ namespace PagoAgilFrba.AbmCliente
             clientesDataGridView.Columns["id_cliente"].Visible = false;
         }
 
-        private void clientesDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void clientesDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Controla que la celda que se clickeo fue la de modificar
             if (e.ColumnIndex == clientesDataGridView.Columns["Modificar"].Index && e.RowIndex >= 0)
