@@ -32,8 +32,82 @@ namespace PagoAgilFrba.DataProvider
             return (int)parametroOutput.Value;
         }
 
+        public DataTable SelectDataTable(String que, String deDonde, String condiciones)
+        {
+            return this.SelectDataTableConUsuario(que, deDonde, condiciones);
+        }
+
+        public DataTable SelectDataTableConUsuario(String que, String deDonde, String condiciones)
+        {
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@idUsuario", UsuarioSesion.Usuario.id));
+            command = QueryBuilder.Instance.build("SELECT " + que + " FROM " + deDonde + " WHERE " + condiciones, parametros);
+            command.CommandTimeout = 0;
+            DataSet datos = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            adapter.Fill(datos);
+            return datos.Tables[0];
+        }
+
+        public Mapeable Obtener(Decimal id, Type clase)
+        {
+            Mapeable objeto = (Mapeable)Activator.CreateInstance(clase);
+            query = objeto.GetQueryObtener();
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            SqlDataReader reader = QueryBuilder.Instance.build(query, parametros).ExecuteReader();
+            if (reader.Read())
+            {
+                objeto.CargarInformacion(reader);
+                return objeto;
+            }
+            return objeto;
+        }
 
 
+        /*
+         * 
+         *  GET TABLE QUERIES 
+         * 
+         */
+        public Cliente ObtenerCliente(int idCliente)
+        {
+            Cliente objeto = new Cliente();
+            Type clase = objeto.GetType();
+            return (Cliente)this.Obtener(idCliente, clase);
+        }
+
+        /*
+         * 
+         *  DELETE QUERIES (deshabilitar)
+         *
+         */
+        public Boolean EliminarCliente(int id, String enDonde)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = 0 WHERE id_cliente = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+         
+        /*
+         * 
+         *  SELECT TABLE QUERIES 
+         *
+         */
+        public DataTable SelectClientesParaFiltro()
+        {
+            return this.SelectClientesParaFiltroConFiltro("");
+        }
+
+        public DataTable SelectClientesParaFiltroConFiltro(String filtro)
+        {
+            return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento'"
+                , "GAME_OF_CODE.Cliente cli"
+                , "cli.estado_habilitacion = 1 " + filtro);
+        }
         //-------------------------------------------------------------
         /** Clientes **/
 

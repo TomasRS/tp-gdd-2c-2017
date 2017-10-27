@@ -33,6 +33,12 @@ namespace PagoAgilFrba.AbmCliente
             InitializeComponent();
             CenterToScreen();
         }
+        public void ShowDialog(String idClienteAModificar)
+        {
+            this.idCliente = Convert.ToInt32(idCliente);
+            this.ShowDialog();
+            CargarDatos();
+        }
 
         private void limpiarButton_Click(object sender, EventArgs e)
         {
@@ -190,6 +196,25 @@ namespace PagoAgilFrba.AbmCliente
             campos.Add(departamentoTextBox);
             campos.Add(localidadTextBox);
             campos.Add(codPostalTextBox);
+        }
+
+        private void CargarDatos()
+        {
+            Cliente cliente = mapper.ObtenerCliente(idCliente);
+
+            nombreTextBox.Text = cliente.getNombre();
+            apellidoTextBox.Text = cliente.getApellido();
+            dniTextBox.Text = cliente.getDNI();
+            fechaNacDateTimePicker.Text = Convert.ToString(cliente.getFechaNacimiento());
+            mailTextBox.Text = cliente.getMail();
+            telefonoTextBox.Text = cliente.getTelefono();
+            cliente.splitearDireccion();
+            calleTextBox.Text = cliente.getCalle();
+            numeroTextBox.Text = cliente.getCalle();
+            pisoTextBox.Text = cliente.getNumeroPiso();
+            departamentoTextBox.Text = cliente.getDepartamento();
+            localidadTextBox.Text = cliente.getLocalidad();
+            codPostalTextBox.Text = cliente.getCodigoPostal();
         }
     }
 }

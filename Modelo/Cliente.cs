@@ -81,6 +81,29 @@ namespace PagoAgilFrba.Modelo
         public String getLocalidad()                        { return this.localidad; }
         public String getCodigoPostal()                     { return this.codigoPostal; }
 
+        public void splitearDireccion()
+        {
+            String direccion = getDireccion();
+            List<string> valores = direccion.Split(',').ToList();
+
+            //Asigno primero la calle y numero, que siempre van a estar, y las elimino de la lista
+            this.calle = valores.First().Split(' ').First();
+            this.numero = valores.First().Split(' ').Last();
+            valores.RemoveAt(0);
+
+            valores.ForEach(valor => setearAtributoCorrespondiente(valor));
+        }
+
+        public void setearAtributoCorrespondiente(string valor)
+        {
+            if (valor.StartsWith(" Piso"))
+                this.nroPiso = valor.Split(' ').Last();
+            else if (valor.StartsWith(" Dpto"))
+                this.departamento = valor.Split(' ').Last();
+            else
+                this.localidad = valor.Replace(" ", "");
+        }
+
 
         #region Miembros de Comunicable
 
