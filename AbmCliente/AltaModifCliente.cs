@@ -25,19 +25,20 @@ namespace PagoAgilFrba.AbmCliente
         private int idUsuario;
         private int idCliente;
         private IList<TextBox> campos = new List<TextBox>();
+        private TipoDeAccion tipoAccion;
 
 
-
-        public AltaModifCliente()
+        public AltaModifCliente(TipoDeAccion tipoAccion)
         {
+            this.tipoAccion = tipoAccion;
             InitializeComponent();
             CenterToScreen();
         }
+
         public void ShowDialog(String idClienteAModificar)
         {
-            this.idCliente = Convert.ToInt32(idCliente);
+            this.idCliente = Convert.ToInt32(idClienteAModificar);
             this.ShowDialog();
-            CargarDatos();
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -65,16 +66,31 @@ namespace PagoAgilFrba.AbmCliente
 
         private void guardarButton_Click(object sender, EventArgs e)
         {
+            tipoAccion.accion(this);
+        }
+
+        public void darDeAltaCliente()
+        {
             if (!Util.CamposEstanLlenos(campos))
             {
                 Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
                 return;
             }
 
-            guardarInformacion();
+            guardarInformacion("crear");
+        }
+        public void guardarModificacion()
+        {
+            if (!Util.CamposEstanLlenos(campos))
+            {
+                Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            guardarInformacion("modificar");
         }
 
-        private void guardarInformacion()
+        private void guardarInformacion(string accion)
         {
             // Asigno en variables los campos de entrada
             String nombre = nombreTextBox.Text;
@@ -128,9 +144,16 @@ namespace PagoAgilFrba.AbmCliente
                 cliente.setCodigoPostal(codigoPostal);
                 cliente.setFechaNacimiento(fechaNacimiento);
 
-                idCliente = mapper.CrearCliente(cliente);
+                if (accion.Equals("crear"))
+                    idCliente = mapper.CrearCliente(cliente);
+                else if (accion.Equals("modificar"))
+                    mapper.ModificarCliente(cliente);
+
                 if (idCliente > 0)
-                    Util.ShowMessage("Se dio de alta el cliente correctamente.", MessageBoxIcon.Information);
+                    Util.ShowMessage("Cliente guardado correctamente.", MessageBoxIcon.Information);
+
+                if (accion.Equals("modificar"))
+                    this.Close();
             }
             catch (FormatoInvalidoException exception)
             {
@@ -139,7 +162,7 @@ namespace PagoAgilFrba.AbmCliente
             }
             catch (ClienteYaExisteException)
             {
-                Util.ShowMessage("No se puede crear el cliente porque ya existe un cliente con ese mail.", MessageBoxIcon.Error);
+                Util.ShowMessage("No se puede guardar el cliente porque ya existe un cliente con ese mail.", MessageBoxIcon.Error);
                 return;
             }
             catch (FechaPasadaException)
@@ -196,9 +219,11 @@ namespace PagoAgilFrba.AbmCliente
             campos.Add(departamentoTextBox);
             campos.Add(localidadTextBox);
             campos.Add(codPostalTextBox);
+
+            tipoAccion.cargarDatosSiCorresponde(this);
         }
 
-        private void CargarDatos()
+        public void CargarDatos()
         {
             Cliente cliente = mapper.ObtenerCliente(idCliente);
 

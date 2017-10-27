@@ -1,5 +1,6 @@
 ﻿using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Modelo;
 using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,7 @@ namespace PagoAgilFrba.AbmCliente
             if (e.ColumnIndex == clientesDataGridView.Columns["Modificar"].Index && e.RowIndex >= 0)
             {
                 String idClienteAModificar = clientesDataGridView.Rows[e.RowIndex].Cells["id_cliente"].Value.ToString();
-                new AltaModifCliente().ShowDialog(idClienteAModificar);
+                new AltaModifCliente(new Modificacion()).ShowDialog(idClienteAModificar);
                 CargarClientes();
                 return;
             }

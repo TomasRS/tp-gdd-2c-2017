@@ -32,6 +32,36 @@ namespace PagoAgilFrba.DataProvider
             return (int)parametroOutput.Value;
         }
 
+        public Boolean Modificar(Decimal id, Mapeable objeto)
+        {
+            query = objeto.GetQueryModificar();
+            parametros.Clear();
+            parametros = objeto.GetParametros();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            if (filasAfectadas == 1) return true;
+            if (filasAfectadas == 2) return true;
+            return false;
+        }
+
+        public Mapeable Obtener(int id, Type clase)
+        {
+            Mapeable objeto = (Mapeable)Activator.CreateInstance(clase);
+            query = objeto.GetQueryObtener();
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            SqlDataReader reader = QueryBuilder.Instance.build(query, parametros).ExecuteReader();
+            if (reader.Read())
+            {
+                objeto.CargarInformacion(reader);
+                return objeto;
+            }
+            return objeto;
+        }
+
+
+
+
         public DataTable SelectDataTable(String que, String deDonde, String condiciones)
         {
             return this.SelectDataTableConUsuario(que, deDonde, condiciones);
@@ -50,22 +80,7 @@ namespace PagoAgilFrba.DataProvider
             return datos.Tables[0];
         }
 
-        public Mapeable Obtener(Decimal id, Type clase)
-        {
-            Mapeable objeto = (Mapeable)Activator.CreateInstance(clase);
-            query = objeto.GetQueryObtener();
-            parametros.Clear();
-            parametros.Add(new SqlParameter("@id", id));
-            SqlDataReader reader = QueryBuilder.Instance.build(query, parametros).ExecuteReader();
-            if (reader.Read())
-            {
-                objeto.CargarInformacion(reader);
-                return objeto;
-            }
-            return objeto;
-        }
-
-
+        
         /*
          * 
          *  GET TABLE QUERIES 
@@ -118,6 +133,11 @@ namespace PagoAgilFrba.DataProvider
                 throw new ClienteYaExisteException();
 
             return this.Crear(cliente);
+        }
+
+        public void ModificarCliente(Cliente cliente)
+        {
+            this.Modificar(cliente.getID(),cliente);
         }
 
         private Boolean existeCliente(string mail)

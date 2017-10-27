@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Modelo;
 
 namespace PagoAgilFrba.Menu_Principal
 {
@@ -22,7 +23,7 @@ namespace PagoAgilFrba.Menu_Principal
             InitializeComponent();
             CenterToScreen();
 
-            funcionalidades.Add("Alta de clientes", new AbmCliente.AltaModifCliente());
+            funcionalidades.Add("Alta de clientes", new AbmCliente.AltaModifCliente(new Alta()));
             funcionalidades.Add("Modificación y baja de clientes", new AbmCliente.ListadoCliente());
             funcionalidades.Add("Alta de empresas", new AbmEmpresa.AltaModifEmpresa());
             funcionalidades.Add("Modificación y baja de empresas", new AbmEmpresa.ListadoEmpresa());

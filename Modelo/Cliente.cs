@@ -67,6 +67,7 @@ namespace PagoAgilFrba.Modelo
                 throw new FormatoInvalidoException("código postal. El formato debe ser numérico y sin espacios.");
         }
 
+        public int getID()                                  { return this.id; }
         public String getNombre()                           { return this.nombre; }
         public String getApellido()                         { return this.apellido; }
         public String getDNI()                              { return this.dni; }
@@ -84,24 +85,43 @@ namespace PagoAgilFrba.Modelo
         public void splitearDireccion()
         {
             String direccion = getDireccion();
-            List<string> valores = direccion.Split(',').ToList();
+            string[] valores = direccion.Split(',');
 
-            //Asigno primero la calle y numero, que siempre van a estar, y las elimino de la lista
-            this.calle = valores.First().Split(' ').First();
-            this.numero = valores.First().Split(' ').Last();
-            valores.RemoveAt(0);
+            if (valores != null)
+            {
+                List<string> valoresEnLista = valores.ToList();
+                this.calle = valoresEnLista.First().Split(' ').First();
+                this.numero = valoresEnLista.First().Split(' ').Last();
+                valoresEnLista.RemoveAt(0);
 
-            valores.ForEach(valor => setearAtributoCorrespondiente(valor));
+                valoresEnLista.ForEach(valor => setearAtributoCorrespondiente(valor));
+
+                if (nroPiso == null)
+                    nroPiso = "-";
+                if (departamento == null)
+                    departamento = "-";
+                if (localidad == null)
+                    localidad = "-";
+            }
+            else
+            {
+                //En los casos de las direcciones de la maestra, no me esta reconociendo bien
+                //el numero de la calle. Chequear bien eso
+
+                this.calle = direccion.Split(' ').First();
+                this.numero = direccion.Split(' ').Last();
+            }
+            
         }
 
         public void setearAtributoCorrespondiente(string valor)
         {
-            if (valor.StartsWith(" Piso"))
+            if (valor.Contains("Piso"))
                 this.nroPiso = valor.Split(' ').Last();
-            else if (valor.StartsWith(" Dpto"))
+            else if (valor.Contains("Dpto"))
                 this.departamento = valor.Split(' ').Last();
             else
-                this.localidad = valor.Replace(" ", "");
+                this.localidad = valor.Substring(1);
         }
 
 
@@ -116,14 +136,12 @@ namespace PagoAgilFrba.Modelo
         string Mapeable.GetQueryModificar()
         {
             if (activo)
-                return "UPDATE GAME_OF_CODE.Cliente SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, cli_activo = @activo WHERE cli_id = @id ";
+                return "UPDATE GAME_OF_CODE.Cliente SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, mail = @mail, telefono = @telefono, direccion @direccion, localidad @localidad, codigo_postal @codigo_postal WHERE id_cliente = @id ";
             else
-                return "UPDATE GAME_OF_CODE.Clientes SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, cli_activo = @activo WHERE cli_id = @id";
-
-
+                return "UPDATE GAME_OF_CODE.Clientes SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, estado_habilitacion = @activo WHERE id_cliente = @id";
         }
 
-        //Falta terminar el obtener
+
         string Mapeable.GetQueryObtener()
         {
             return "SELECT * FROM GAME_OF_CODE.Cliente WHERE id_cliente = @id";

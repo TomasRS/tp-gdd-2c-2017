@@ -146,8 +146,11 @@
     <Compile Include="Menu Principal\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\Alta.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
+    <Compile Include="Modelo\Modificacion.cs" />
+    <Compile Include="Modelo\TipoDeAccion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroPago\MedioPago.cs">
