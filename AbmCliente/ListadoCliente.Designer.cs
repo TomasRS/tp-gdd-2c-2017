@@ -146,6 +146,7 @@
             this.clientesDataGridView.AllowUserToDeleteRows = false;
             this.clientesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.clientesDataGridView.Location = new System.Drawing.Point(12, 202);
+            this.clientesDataGridView.MultiSelect = false;
             this.clientesDataGridView.Name = "clientesDataGridView";
             this.clientesDataGridView.ReadOnly = true;
             this.clientesDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;

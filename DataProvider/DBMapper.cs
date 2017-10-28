@@ -101,15 +101,15 @@ namespace PagoAgilFrba.DataProvider
          *  DELETE QUERIES (deshabilitar)
          *
          */
-        public Boolean EliminarCliente(int id, String enDonde)
+        public Boolean CambiarHabilitacionCliente(int id, String enDonde, int nuevoEstadoHabilitacion)
         {
-            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = 0 WHERE id_cliente = @id";
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_cliente = @id";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id", id));
             int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
             return filasAfectadas.Equals(1);
         }
-         
+
         /*
          * 
          *  SELECT TABLE QUERIES 
@@ -122,9 +122,9 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectClientesParaFiltroConFiltro(String filtro)
         {
-            return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento'"
+            return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento', cli.estado_habilitacion"
                 , "GAME_OF_CODE.Cliente cli"
-                , "cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0" + filtro);
+                , "cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0 " + filtro);
         }
         //-------------------------------------------------------------
         /** Clientes **/

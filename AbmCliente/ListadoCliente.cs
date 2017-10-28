@@ -29,12 +29,24 @@ namespace PagoAgilFrba.AbmCliente
             clientesDataGridView.DataSource = mapper.SelectClientesParaFiltro();
             CargarColumnaModificacion();
             CargarColumnaEliminar();
+            DeshabilitarSortHeaders();
+        }
+
+        private void DeshabilitarSortHeaders()
+        {
+            foreach (DataGridViewColumn column in clientesDataGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void CargarColumnaModificacion()
         {
             if (clientesDataGridView.Columns.Contains("Modificar"))
                 clientesDataGridView.Columns.Remove("Modificar");
+
+            //clientesDataGridView.Columns.Add("Modificar", "Modificación");
+            //agregarBotonesModificar();
             DataGridViewButtonColumn botonColumnaModificar = new DataGridViewButtonColumn();
             botonColumnaModificar.Text = "Modificar";
             botonColumnaModificar.Name = "Modificar";
@@ -46,11 +58,40 @@ namespace PagoAgilFrba.AbmCliente
         {
             if (clientesDataGridView.Columns.Contains("Eliminar"))
                 clientesDataGridView.Columns.Remove("Eliminar");
-            DataGridViewButtonColumn botonColumnaEliminar = new DataGridViewButtonColumn();
-            botonColumnaEliminar.Text = "Eliminar";
-            botonColumnaEliminar.Name = "Eliminar";
-            botonColumnaEliminar.UseColumnTextForButtonValue = true;
-            clientesDataGridView.Columns.Add(botonColumnaEliminar);
+
+            clientesDataGridView.Columns.Add("Eliminar", "Eliminar/Habilitar");
+            agregarBotonesEliminar();
+
+            //DataGridViewButtonColumn botonColumnaEliminar = new DataGridViewButtonColumn();
+            //botonColumnaEliminar.Text = "Eliminar";
+            //botonColumnaEliminar.Name = "Eliminar";
+            //botonColumnaEliminar.UseColumnTextForButtonValue = true;
+            //clientesDataGridView.Columns.Add(botonColumnaEliminar);
+        }
+
+        private void agregarBotonesModificar()
+        {
+            foreach (DataGridViewRow row in clientesDataGridView.Rows)
+            {
+                DataGridViewButtonCell boton = new DataGridViewButtonCell();
+                boton.Value = "Modificar";
+                row.Cells["Modificar"] = boton;
+            }
+            
+        }
+        private void agregarBotonesEliminar()
+        {
+            foreach (DataGridViewRow row in clientesDataGridView.Rows)
+            {
+                DataGridViewButtonCell boton = new DataGridViewButtonCell();
+                Boolean valorHabilitacion = (Boolean)row.Cells["estado_habilitacion"].Value;
+                if (valorHabilitacion)
+                    boton.Value = "Eliminar";
+                else
+                    boton.Value = "Habilitar";
+
+                row.Cells["Eliminar"] = boton;
+            }
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -72,6 +113,8 @@ namespace PagoAgilFrba.AbmCliente
         {
             String filtro = CalcularFiltro();
             clientesDataGridView.DataSource = mapper.SelectClientesParaFiltroConFiltro(filtro);
+            CargarColumnaModificacion();
+            CargarColumnaEliminar();
         }
 
         private String CalcularFiltro()
@@ -92,6 +135,7 @@ namespace PagoAgilFrba.AbmCliente
         private void OcultarColumnasQueNoDebenVerse()
         {
             clientesDataGridView.Columns["id_cliente"].Visible = false;
+            clientesDataGridView.Columns["estado_habilitacion"].Visible = false;
         }
 
         private void clientesDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -107,9 +151,17 @@ namespace PagoAgilFrba.AbmCliente
             if (e.ColumnIndex == clientesDataGridView.Columns["Eliminar"].Index && e.RowIndex >= 0)
             {
                 String idClienteAEliminar = clientesDataGridView.Rows[e.RowIndex].Cells["id_cliente"].Value.ToString();
-                Boolean resultado = mapper.EliminarCliente(Convert.ToInt32(idClienteAEliminar), "Cliente");
-                if (resultado)
+                Boolean valorHabilitacion = (Boolean)clientesDataGridView.Rows[e.RowIndex].Cells["estado_habilitacion"].Value;
+                if (valorHabilitacion)
+                {
+                    Boolean resultado = mapper.CambiarHabilitacionCliente(Convert.ToInt32(idClienteAEliminar), "Cliente", 0);
                     Util.ShowMessage("Se eliminó el cliente correctamente.", MessageBoxIcon.Information);
+                }
+                else
+                {
+                    Boolean resultado = mapper.CambiarHabilitacionCliente(Convert.ToInt32(idClienteAEliminar), "Cliente", 1);
+                    Util.ShowMessage("Se habilitó el cliente correctamente.", MessageBoxIcon.Information);
+                }
                 
                 CargarClientes();
                 return;
