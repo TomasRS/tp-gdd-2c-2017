@@ -90,8 +90,7 @@ namespace PagoAgilFrba.Modelo
             if (valores != null)
             {
                 List<string> valoresEnLista = valores.ToList();
-                this.calle = valoresEnLista.First().Split(' ').First();
-                this.numero = valoresEnLista.First().Split(' ').Last();
+                llenarCampoCalleYDireccion(valoresEnLista.First());
                 valoresEnLista.RemoveAt(0);
 
                 valoresEnLista.ForEach(valor => setearAtributoCorrespondiente(valor));
@@ -105,11 +104,7 @@ namespace PagoAgilFrba.Modelo
             }
             else
             {
-                //En los casos de las direcciones de la maestra, no me esta reconociendo bien
-                //el numero de la calle. Chequear bien eso
-
-                this.calle = direccion.Split(' ').First();
-                this.numero = direccion.Split(' ').Last();
+                llenarCampoCalleYDireccion(direccion);
             }
             
         }
@@ -125,6 +120,15 @@ namespace PagoAgilFrba.Modelo
         }
 
 
+        private void llenarCampoCalleYDireccion(string direccion)
+        {
+            List<string> valoresDireccion = direccion.Split(' ').ToList();
+            this.numero = valoresDireccion.Last();
+            valoresDireccion.RemoveAt(valoresDireccion.Count() - 1);
+            this.calle = String.Join(" ", valoresDireccion);
+        }
+
+
         #region Miembros de Comunicable
 
         string Mapeable.GetQueryCrear()
@@ -135,10 +139,8 @@ namespace PagoAgilFrba.Modelo
         //Falta terminar el modificar
         string Mapeable.GetQueryModificar()
         {
-            if (activo)
-                return "UPDATE GAME_OF_CODE.Cliente SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, mail = @mail, telefono = @telefono, direccion @direccion, localidad @localidad, codigo_postal @codigo_postal WHERE id_cliente = @id ";
-            else
-                return "UPDATE GAME_OF_CODE.Clientes SET nombre = @nombre, apellido = @apellido, dni = @dni, cli_fecha_nac = @fecha_nacimiento, estado_habilitacion = @activo WHERE id_cliente = @id";
+            return "GAME_OF_CODE.pr_modificar_cliente";
+            //return "UPDATE GAME_OF_CODE.Cliente SET nombre = @nombre, apellido = @apellido, dni = @dni, mail = @mail, telefono = @telefono, direccion @direccion, codigo_postal @codigo_postal, cli_fecha_nac = @cli_fecha_nac WHERE id_cliente = @id";
         }
 
 

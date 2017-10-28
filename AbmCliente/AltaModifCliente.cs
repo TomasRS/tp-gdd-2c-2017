@@ -147,7 +147,7 @@ namespace PagoAgilFrba.AbmCliente
                 if (accion.Equals("crear"))
                     idCliente = mapper.CrearCliente(cliente);
                 else if (accion.Equals("modificar"))
-                    mapper.ModificarCliente(cliente);
+                    idCliente = mapper.ModificarCliente(cliente, idCliente);
 
                 if (idCliente > 0)
                     Util.ShowMessage("Cliente guardado correctamente.", MessageBoxIcon.Information);
@@ -235,7 +235,7 @@ namespace PagoAgilFrba.AbmCliente
             telefonoTextBox.Text = cliente.getTelefono();
             cliente.splitearDireccion();
             calleTextBox.Text = cliente.getCalle();
-            numeroTextBox.Text = cliente.getCalle();
+            numeroTextBox.Text = cliente.getNumero();
             pisoTextBox.Text = cliente.getNumeroPiso();
             departamentoTextBox.Text = cliente.getDepartamento();
             localidadTextBox.Text = cliente.getLocalidad();

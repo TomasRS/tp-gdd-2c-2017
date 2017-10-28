@@ -286,6 +286,10 @@ GO
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_cliente') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_cliente
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_cliente') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_cliente
+GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -331,6 +335,26 @@ BEGIN
     VALUES 
         (@nombre, @apellido, @dni, @mail, @telefono, @direccion, @codigo_postal, @cli_fecha_nac);
     SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_cliente
+	@nombre nvarchar(255),
+    @apellido nvarchar(255),
+    @dni numeric(18,0),
+    @mail nvarchar(255),
+    @telefono numeric(18,0),
+	@direccion nvarchar(150),
+	@codigo_postal int,
+	@cli_fecha_nac datetime,
+    @id int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Cliente
+	SET nombre = @nombre, apellido = @apellido, dni = @dni, mail = @mail, telefono = @telefono, direccion = @direccion, codigo_postal = @codigo_postal, cli_fecha_nac = @cli_fecha_nac
+	WHERE id_cliente = @id
+	SET @id_output = SCOPE_IDENTITY();
 END
 GO
 

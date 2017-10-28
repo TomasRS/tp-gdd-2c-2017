@@ -32,16 +32,19 @@ namespace PagoAgilFrba.DataProvider
             return (int)parametroOutput.Value;
         }
 
-        public Boolean Modificar(Decimal id, Mapeable objeto)
+        public int Modificar(Decimal id, Mapeable objeto)
         {
             query = objeto.GetQueryModificar();
             parametros.Clear();
             parametros = objeto.GetParametros();
             parametros.Add(new SqlParameter("@id", id));
-            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
-            if (filasAfectadas == 1) return true;
-            if (filasAfectadas == 2) return true;
-            return false;
+            parametroOutput = new SqlParameter("@id_output", SqlDbType.Int);
+            parametroOutput.Direction = ParameterDirection.Output;
+            parametros.Add(parametroOutput);
+            command = QueryBuilder.Instance.build(query, parametros);
+            command.CommandType = CommandType.StoredProcedure;
+            int rowsAffected = command.ExecuteNonQuery();
+            return rowsAffected;
         }
 
         public Mapeable Obtener(int id, Type clase)
@@ -135,9 +138,9 @@ namespace PagoAgilFrba.DataProvider
             return this.Crear(cliente);
         }
 
-        public void ModificarCliente(Cliente cliente)
+        public int ModificarCliente(Cliente cliente, int idCliente)
         {
-            this.Modificar(cliente.getID(),cliente);
+            return this.Modificar(idCliente,cliente);
         }
 
         private Boolean existeCliente(string mail)
