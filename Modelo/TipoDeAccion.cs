@@ -10,7 +10,7 @@ namespace PagoAgilFrba.Modelo
 {
     public interface TipoDeAccion
     {
-        void accion(AltaModifCliente form);
-        void cargarDatosSiCorresponde(AltaModifCliente form);
+        void accion(AbstractForm form);
+        void cargarDatosSiCorresponde(AbstractForm form);
     }
 }

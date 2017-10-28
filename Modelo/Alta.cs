@@ -10,12 +10,12 @@ namespace PagoAgilFrba.Modelo
 {
     public class Alta : TipoDeAccion
     {
-        public void accion(AltaModifCliente form)
+        public void accion(AbstractForm form)
         {
-            form.darDeAltaCliente();
+            form.darDeAlta();
         }
 
-        public void cargarDatosSiCorresponde(AltaModifCliente form)
+        public void cargarDatosSiCorresponde(AbstractForm form)
         {
 
         }

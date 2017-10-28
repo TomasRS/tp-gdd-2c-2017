@@ -9,12 +9,12 @@ namespace PagoAgilFrba.Modelo
 {
     public class Modificacion : TipoDeAccion
     {
-        public void accion(AltaModifCliente form)
+        public void accion(AbstractForm form)
         {
             form.guardarModificacion();
         }
 
-        public void cargarDatosSiCorresponde(AltaModifCliente form)
+        public void cargarDatosSiCorresponde(AbstractForm form)
         {
             form.CargarDatos();
         }

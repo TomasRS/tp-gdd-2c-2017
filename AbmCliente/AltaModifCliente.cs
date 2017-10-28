@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace PagoAgilFrba.AbmCliente
 {
-    public partial class AltaModifCliente : Form
+    public partial class AltaModifCliente : AbstractForm
     {
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private String username;
@@ -69,7 +69,7 @@ namespace PagoAgilFrba.AbmCliente
             tipoAccion.accion(this);
         }
 
-        public void darDeAltaCliente()
+        public override void darDeAlta()
         {
             if (!Util.CamposEstanLlenos(campos))
             {
@@ -79,7 +79,7 @@ namespace PagoAgilFrba.AbmCliente
 
             guardarInformacion("crear");
         }
-        public void guardarModificacion()
+        public override void guardarModificacion()
         {
             if (!Util.CamposEstanLlenos(campos))
             {
@@ -223,7 +223,7 @@ namespace PagoAgilFrba.AbmCliente
             tipoAccion.cargarDatosSiCorresponde(this);
         }
 
-        public void CargarDatos()
+        public override void CargarDatos()
         {
             Cliente cliente = mapper.ObtenerCliente(idCliente);
 

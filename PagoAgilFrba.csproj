@@ -146,6 +146,9 @@
     <Compile Include="Menu Principal\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\AbstractForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modelo\Alta.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
