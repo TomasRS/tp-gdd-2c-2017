@@ -62,12 +62,6 @@ namespace PagoAgilFrba.AbmCliente
 
             clientesDataGridView.Columns.Add("Eliminar", "Eliminar/Habilitar");
             agregarBotonesEliminar();
-
-            //DataGridViewButtonColumn botonColumnaEliminar = new DataGridViewButtonColumn();
-            //botonColumnaEliminar.Text = "Eliminar";
-            //botonColumnaEliminar.Name = "Eliminar";
-            //botonColumnaEliminar.UseColumnTextForButtonValue = true;
-            //clientesDataGridView.Columns.Add(botonColumnaEliminar);
         }
 
         private void agregarBotonesModificar()
