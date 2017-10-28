@@ -122,7 +122,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectClientesParaFiltroConFiltro(String filtro)
         {
-            return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento', cli.estado_habilitacion"
+            return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento', cli.estado_habilitacion 'Habilitado'"
                 , "GAME_OF_CODE.Cliente cli"
                 , "(cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0) " + filtro);
         }

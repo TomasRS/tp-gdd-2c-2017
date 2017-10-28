@@ -79,7 +79,7 @@ namespace PagoAgilFrba.AbmCliente
             foreach (DataGridViewRow row in clientesDataGridView.Rows)
             {
                 DataGridViewButtonCell boton = new DataGridViewButtonCell();
-                Boolean valorHabilitacion = (Boolean)row.Cells["estado_habilitacion"].Value;
+                Boolean valorHabilitacion = (Boolean)row.Cells["Habilitado"].Value;
                 if (valorHabilitacion)
                     boton.Value = "Eliminar";
                 else
@@ -129,7 +129,6 @@ namespace PagoAgilFrba.AbmCliente
         private void OcultarColumnasQueNoDebenVerse()
         {
             clientesDataGridView.Columns["id_cliente"].Visible = false;
-            clientesDataGridView.Columns["estado_habilitacion"].Visible = false;
         }
 
         private void clientesDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -145,7 +144,7 @@ namespace PagoAgilFrba.AbmCliente
             if (e.ColumnIndex == clientesDataGridView.Columns["Eliminar"].Index && e.RowIndex >= 0)
             {
                 String idClienteAEliminar = clientesDataGridView.Rows[e.RowIndex].Cells["id_cliente"].Value.ToString();
-                Boolean valorHabilitacion = (Boolean)clientesDataGridView.Rows[e.RowIndex].Cells["estado_habilitacion"].Value;
+                Boolean valorHabilitacion = (Boolean)clientesDataGridView.Rows[e.RowIndex].Cells["Habilitado"].Value;
                 if (valorHabilitacion)
                 {
                     Boolean resultado = mapper.CambiarHabilitacionCliente(Convert.ToInt32(idClienteAEliminar), "Cliente", 0);

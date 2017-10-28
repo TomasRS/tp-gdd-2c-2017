@@ -57,7 +57,7 @@
             this.filtroGroupBox.Controls.Add(this.nombreLabel);
             this.filtroGroupBox.Location = new System.Drawing.Point(12, 12);
             this.filtroGroupBox.Name = "filtroGroupBox";
-            this.filtroGroupBox.Size = new System.Drawing.Size(1061, 184);
+            this.filtroGroupBox.Size = new System.Drawing.Size(1156, 184);
             this.filtroGroupBox.TabIndex = 0;
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
@@ -74,7 +74,7 @@
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(481, 137);
+            this.buscarButton.Location = new System.Drawing.Point(513, 137);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(100, 30);
             this.buscarButton.TabIndex = 7;
@@ -84,7 +84,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(943, 137);
+            this.volverButton.Location = new System.Drawing.Point(1031, 137);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 6;
@@ -94,21 +94,21 @@
             // 
             // dniTextBox
             // 
-            this.dniTextBox.Location = new System.Drawing.Point(441, 96);
+            this.dniTextBox.Location = new System.Drawing.Point(471, 98);
             this.dniTextBox.Name = "dniTextBox";
             this.dniTextBox.Size = new System.Drawing.Size(184, 20);
             this.dniTextBox.TabIndex = 5;
             // 
             // apellidoTextBox
             // 
-            this.apellidoTextBox.Location = new System.Drawing.Point(441, 62);
+            this.apellidoTextBox.Location = new System.Drawing.Point(471, 64);
             this.apellidoTextBox.Name = "apellidoTextBox";
             this.apellidoTextBox.Size = new System.Drawing.Size(184, 20);
             this.apellidoTextBox.TabIndex = 4;
             // 
             // nombreTextBox
             // 
-            this.nombreTextBox.Location = new System.Drawing.Point(441, 29);
+            this.nombreTextBox.Location = new System.Drawing.Point(471, 31);
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(184, 20);
             this.nombreTextBox.TabIndex = 3;
@@ -116,7 +116,7 @@
             // dniLabel
             // 
             this.dniLabel.AutoSize = true;
-            this.dniLabel.Location = new System.Drawing.Point(371, 99);
+            this.dniLabel.Location = new System.Drawing.Point(401, 101);
             this.dniLabel.Name = "dniLabel";
             this.dniLabel.Size = new System.Drawing.Size(26, 13);
             this.dniLabel.TabIndex = 2;
@@ -125,7 +125,7 @@
             // apellidoLabel
             // 
             this.apellidoLabel.AutoSize = true;
-            this.apellidoLabel.Location = new System.Drawing.Point(371, 65);
+            this.apellidoLabel.Location = new System.Drawing.Point(401, 67);
             this.apellidoLabel.Name = "apellidoLabel";
             this.apellidoLabel.Size = new System.Drawing.Size(44, 13);
             this.apellidoLabel.TabIndex = 1;
@@ -134,7 +134,7 @@
             // nombreLabel
             // 
             this.nombreLabel.AutoSize = true;
-            this.nombreLabel.Location = new System.Drawing.Point(371, 32);
+            this.nombreLabel.Location = new System.Drawing.Point(401, 34);
             this.nombreLabel.Name = "nombreLabel";
             this.nombreLabel.Size = new System.Drawing.Size(44, 13);
             this.nombreLabel.TabIndex = 0;
@@ -150,7 +150,7 @@
             this.clientesDataGridView.Name = "clientesDataGridView";
             this.clientesDataGridView.ReadOnly = true;
             this.clientesDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.clientesDataGridView.Size = new System.Drawing.Size(1061, 351);
+            this.clientesDataGridView.Size = new System.Drawing.Size(1156, 351);
             this.clientesDataGridView.TabIndex = 1;
             this.clientesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientesDataGridView_CellContentClick);
             // 
@@ -158,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1086, 566);
+            this.ClientSize = new System.Drawing.Size(1180, 566);
             this.Controls.Add(this.clientesDataGridView);
             this.Controls.Add(this.filtroGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
