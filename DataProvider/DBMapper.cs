@@ -73,7 +73,7 @@ namespace PagoAgilFrba.DataProvider
         public DataTable SelectDataTableConUsuario(String que, String deDonde, String condiciones)
         {
             parametros.Clear();
-            parametros.Add(new SqlParameter("@idUsuario", UsuarioSesion.Usuario.id));
+            //parametros.Add(new SqlParameter("@idUsuario", UsuarioSesion.Usuario.id));
             command = QueryBuilder.Instance.build("SELECT " + que + " FROM " + deDonde + " WHERE " + condiciones, parametros);
             command.CommandTimeout = 0;
             DataSet datos = new DataSet();
@@ -124,7 +124,7 @@ namespace PagoAgilFrba.DataProvider
         {
             return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento', cli.estado_habilitacion"
                 , "GAME_OF_CODE.Cliente cli"
-                , "cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0 " + filtro);
+                , "(cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0) " + filtro);
         }
         //-------------------------------------------------------------
         /** Clientes **/

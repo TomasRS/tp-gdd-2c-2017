@@ -30,6 +30,7 @@ namespace PagoAgilFrba.AbmCliente
             CargarColumnaModificacion();
             CargarColumnaEliminar();
             DeshabilitarSortHeaders();
+            OcultarColumnasQueNoDebenVerse();
         }
 
         private void DeshabilitarSortHeaders()
@@ -129,7 +130,6 @@ namespace PagoAgilFrba.AbmCliente
         private void ListadoCliente_Load(object sender, EventArgs e)
         {
             CargarClientes();
-            OcultarColumnasQueNoDebenVerse();
         }
 
         private void OcultarColumnasQueNoDebenVerse()
