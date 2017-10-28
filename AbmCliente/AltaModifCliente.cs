@@ -66,27 +66,20 @@ namespace PagoAgilFrba.AbmCliente
 
         private void guardarButton_Click(object sender, EventArgs e)
         {
+            if (!Util.CamposEstanLlenos(campos))
+            {
+                Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
+                return;
+            }
             tipoAccion.accion(this);
         }
 
         public override void darDeAlta()
         {
-            if (!Util.CamposEstanLlenos(campos))
-            {
-                Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
-                return;
-            }
-
             guardarInformacion("crear");
         }
         public override void guardarModificacion()
         {
-            if (!Util.CamposEstanLlenos(campos))
-            {
-                Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
-                return;
-            }
-
             guardarInformacion("modificar");
         }
 

@@ -63,6 +63,7 @@
             this.guardarButton.TabIndex = 29;
             this.guardarButton.Text = "Guardar";
             this.guardarButton.UseVisualStyleBackColor = true;
+            this.guardarButton.Click += new System.EventHandler(this.guardarButton_Click);
             // 
             // volverButton
             // 
@@ -181,6 +182,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifEmpresa";
             this.Text = "Alta y modificación de empresa";
+            this.Load += new System.EventHandler(this.AltaModifEmpresa_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.ResumeLayout(false);
