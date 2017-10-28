@@ -17,7 +17,7 @@ namespace PagoAgilFrba.Modelo
 
         public void cargarDatosSiCorresponde(AbstractForm form)
         {
-
+            //No se implementa
         }
     }
 }

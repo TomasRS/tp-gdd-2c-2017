@@ -151,7 +151,37 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        /** Empresas **/
 
+        public int CrearEmpresa(Empresa empresa)
+        {
+            if (existeEmpresaConCuit(empresa.getCuit()))
+                throw new CuitYaExisteException();
+
+            return this.Crear(empresa);
+        }
+
+        public int ModificarEmpresa(Empresa empresa, int idEmpresa)
+        {
+            return this.Modificar(idEmpresa, empresa);
+        }
+
+        private Boolean existeEmpresaConCuit(String cuit)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Empresa WHERE emp_cuit = @cuit";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@cuit", cuit));
+            return ControlDeUnicidad(query, parametros);
+        }
+
+        public int getIDRubro(String rubroDescripcion)
+        {
+            query = "SELECT id_rubro FROM GAME_OF_CODE.Rubro WHERE descripcion = @descripcion";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@descripcion", rubroDescripcion));
+            int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return id;
+        }
 
         /*
         *
@@ -159,7 +189,7 @@ namespace PagoAgilFrba.DataProvider
         *
         */
 
-        private bool ControlDeUnicidad(String query, IList<SqlParameter> parametros)
+        private Boolean ControlDeUnicidad(String query, IList<SqlParameter> parametros)
         {
             int cantidad = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return cantidad > 0;

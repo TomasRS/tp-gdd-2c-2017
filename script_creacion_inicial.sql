@@ -225,8 +225,8 @@ CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
-	[estado_habilitacion] [bit] NOT NULL DEFAULT 1,
-	[id_rubro] INT NOT NULL
+	[id_rubro] INT NOT NULL,
+	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rubro] (
@@ -289,6 +289,10 @@ GO
 
 IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_cliente') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_cliente
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_empresa') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_empresa
 GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
@@ -355,6 +359,22 @@ BEGIN
 	SET nombre = @nombre, apellido = @apellido, dni = @dni, mail = @mail, telefono = @telefono, direccion = @direccion, codigo_postal = @codigo_postal, cli_fecha_nac = @cli_fecha_nac
 	WHERE id_cliente = @id
 	SET @id_output = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_empresa
+	@nombre nvarchar(255),
+	@emp_cuit nvarchar(50),
+	@emp_direccion nvarchar(255),
+	@id_rubro int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Empresa
+		(nombre, emp_cuit, emp_direccion, id_rubro)
+	VALUES
+		(@nombre, @emp_cuit, @emp_direccion, @id_rubro);
+	SET @id = SCOPE_IDENTITY();
 END
 GO
 
