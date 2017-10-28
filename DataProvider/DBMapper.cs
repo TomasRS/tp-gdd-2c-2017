@@ -124,7 +124,7 @@ namespace PagoAgilFrba.DataProvider
         {
             return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento'"
                 , "GAME_OF_CODE.Cliente cli"
-                , "cli.estado_habilitacion = 1 " + filtro);
+                , "cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0" + filtro);
         }
         //-------------------------------------------------------------
         /** Clientes **/
