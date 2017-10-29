@@ -49,12 +49,12 @@ namespace PagoAgilFrba.Modelo
 
         string Mapeable.GetQueryModificar()
         {
-            return "UPDATE GAME_OF_CODE.Empresas SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro WHERE id_empresa = @id";
+            return "UPDATE GAME_OF_CODE.Empresa SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro WHERE id_empresa = @id";
         }
 
         public string GetQueryObtener()
         {
-            return "SELECT * FROM GAME_OF_CODE.Empresas WHERE id_empresa = @id";
+            return "SELECT * FROM GAME_OF_CODE.Empresa WHERE id_empresa = @id";
         }
 
         IList<System.Data.SqlClient.SqlParameter> Mapeable.GetParametros()

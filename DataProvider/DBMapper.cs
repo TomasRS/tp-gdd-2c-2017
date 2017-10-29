@@ -96,6 +96,13 @@ namespace PagoAgilFrba.DataProvider
             return (Cliente)this.Obtener(idCliente, clase);
         }
 
+        public Empresa ObtenerEmpresa(int idEmpresa)
+        {
+            Empresa objeto = new Empresa();
+            Type clase = objeto.GetType();
+            return (Empresa)this.Obtener(idEmpresa, clase);
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -202,6 +209,15 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@descripcion", rubroDescripcion));
             int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return id;
+        }
+
+        public String getDescripcionRubro(int idRubro)
+        {
+            query = "SELECT descripcion FROM GAME_OF_CODE.Rubro WHERE id_rubro = @id_rubro";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_rubro", idRubro));
+            String descripcionRubro = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return descripcionRubro;
         }
 
         /*

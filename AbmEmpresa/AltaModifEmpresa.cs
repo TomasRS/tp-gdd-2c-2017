@@ -112,7 +112,12 @@ namespace PagoAgilFrba.AbmEmpresa
         
         public override void CargarDatos()
         {
-            throw new NotImplementedException();
+            Empresa empresa = mapper.ObtenerEmpresa(idEmpresa);
+
+            nombreTextBox.Text = empresa.getNombre();
+            cuitTextBox.Text = empresa.getCuit();
+            direccionTextBox.Text = empresa.getDireccion();
+            rubroComboBox.Text = mapper.getDescripcionRubro(empresa.getIDRubro());
         }
 
         private void guardarButton_Click(object sender, EventArgs e)
