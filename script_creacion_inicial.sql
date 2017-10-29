@@ -3,6 +3,8 @@ USE [GD2C2017]
 GO
 
 
+
+
 /** CREACION DE SCHEMA **/
 
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'GAME_OF_CODE')
