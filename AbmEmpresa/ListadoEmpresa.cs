@@ -38,6 +38,8 @@ namespace PagoAgilFrba.AbmEmpresa
         {
             nombreTextBox.Clear();
             cuitTextBox.Clear();
+            rubroComboBox.SelectedIndex = 0;
+            CargarEmpresas();
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -63,9 +65,17 @@ namespace PagoAgilFrba.AbmEmpresa
             DataTable rubros = new DataTable();
             data_adapter.Fill(rubros);
 
+            rubros.Columns.Add("Ninguno");
+
             rubroComboBox.ValueMember = "id_rubro";
             rubroComboBox.DisplayMember = "descripcion";
             rubroComboBox.DataSource = rubros;
+
+            DataRow dr = rubros.NewRow();
+            dr["descripcion"] = "Ninguno";
+
+            rubros.Rows.InsertAt(dr, 0);
+
             rubroComboBox.SelectedIndex = 0;
         }
 
@@ -165,7 +175,10 @@ namespace PagoAgilFrba.AbmEmpresa
             String filtro = "";
             if (nombreTextBox.Text != "") filtro += "AND " + "emp.nombre LIKE '" + nombreTextBox.Text + "%'";
             if (cuitTextBox.Text != "") filtro += "AND " + "emp.emp_cuit LIKE '" + cuitTextBox.Text + "%'";
-            //if (rubroComboBox.Text != "") filtro += "AND cli.rubro" + " LIKE '" + rubroComboBox.Text + "%'";
+
+            if (rubroComboBox.Text != "Ninguno")
+                filtro += "AND emp.id_rubro = " + rubroComboBox.SelectedValue.ToString();
+
             return filtro;
         }
     }
