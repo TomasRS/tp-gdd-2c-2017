@@ -143,7 +143,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectEmpresasParaFiltroConFiltro(String filtro)
         {
-            return this.SelectDataTable("emp.id_empresa, emp.nombre Nombre, emp.emp_cuit CUIT, emp.emp_direccion Dirección, emp.estado_habilitacion 'Habilitado', (SELECT descripcion FROM GAME_OF_CODE.Rubro WHERE id_rubro = emp.id_rubro) 'Rubro'"
+            return this.SelectDataTable("emp.id_empresa, emp.nombre Nombre, emp.emp_cuit CUIT, emp.emp_direccion Dirección, (SELECT descripcion FROM GAME_OF_CODE.Rubro WHERE id_rubro = emp.id_rubro) 'Rubro', emp.estado_habilitacion 'Habilitado'"
               , "GAME_OF_CODE.Empresa emp"
               , "(emp.estado_habilitacion = 1 OR emp.estado_habilitacion = 0) " + filtro);
         }

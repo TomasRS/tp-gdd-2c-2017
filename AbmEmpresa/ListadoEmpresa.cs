@@ -137,6 +137,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 Boolean valorHabilitacion = (Boolean)empresasDataGridView.Rows[e.RowIndex].Cells["Habilitado"].Value;
                 if (valorHabilitacion)
                 {
+                    //Chequear que no tenga facturas pendientes de rendicion
                     Boolean resultado = mapper.CambiarHabilitacionEmpresa(Convert.ToInt32(idEmpresaAModificar), "Empresa", 0);
                     Util.ShowMessage("Se eliminó la empresa correctamente.", MessageBoxIcon.Information);
                 }
