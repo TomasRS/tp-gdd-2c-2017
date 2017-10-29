@@ -31,6 +31,12 @@ namespace PagoAgilFrba.AbmEmpresa
             CenterToScreen();
         }
 
+        public void ShowDialog(String idEmpresaAModificar)
+        {
+            this.idEmpresa = Convert.ToInt32(idEmpresaAModificar);
+            this.ShowDialog();
+        }
+
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             nombreTextBox.Clear();

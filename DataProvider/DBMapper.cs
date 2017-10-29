@@ -110,6 +110,15 @@ namespace PagoAgilFrba.DataProvider
             return filasAfectadas.Equals(1);
         }
 
+        public Boolean CambiarHabilitacionEmpresa(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_empresa = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
         /*
          * 
          *  SELECT TABLE QUERIES 
@@ -125,6 +134,18 @@ namespace PagoAgilFrba.DataProvider
             return this.SelectDataTable("cli.id_cliente, cli.nombre Nombre, cli.apellido Apellido, cli.dni Documento, cli.mail Mail, cli.telefono Teléfono, cli.direccion Dirección, cli.codigo_postal 'Código Postal', cli.cli_fecha_nac 'Fecha de Nacimiento', cli.estado_habilitacion 'Habilitado'"
                 , "GAME_OF_CODE.Cliente cli"
                 , "(cli.estado_habilitacion = 1 OR cli.estado_habilitacion = 0) " + filtro);
+        }
+
+        public DataTable SelectEmpresasParaFiltro()
+        {
+            return this.SelectEmpresasParaFiltroConFiltro("");
+        }
+
+        public DataTable SelectEmpresasParaFiltroConFiltro(String filtro)
+        {
+            return this.SelectDataTable("emp.id_empresa, emp.nombre Nombre, emp.emp_cuit CUIT, emp.emp_direccion Dirección, emp.estado_habilitacion 'Habilitado', (SELECT descripcion FROM GAME_OF_CODE.Rubro WHERE id_rubro = emp.id_rubro) 'Rubro'"
+              , "GAME_OF_CODE.Empresa emp"
+              , "(emp.estado_habilitacion = 1 OR emp.estado_habilitacion = 0) " + filtro);
         }
         //-------------------------------------------------------------
         /** Clientes **/
