@@ -8,7 +8,6 @@ Nombre y Apellido | Legajo | E-mail | Github | Líder
 ----------------- |------- | ------ | ------ | -----
 Tomás Rodríguez Saavedra | 147.248-3 | tomas_rs@hotmail.com | [Click acá](https://github.com/TomasRS) | ✔
 Julián Romero Llanos | 141.456-2 | romerollanos.julian@gmail.com | [Click acá](https://github.com/RomeroLlanosJulian) | ✖
-Cristian Baltazar | 141.505-0 | baltazar.crstn@gmail.com | [Click acá](https://github.com/cbaltazar) | ✖
 
 ### Links útiles
 * [Visual Studio 2012](https://groups.google.com/forum/#!topic/gestiondedatos/JtVeli37uQM)
