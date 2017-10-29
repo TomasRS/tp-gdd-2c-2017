@@ -140,7 +140,6 @@ namespace PagoAgilFrba.Modelo
         string Mapeable.GetQueryModificar()
         {
             return "GAME_OF_CODE.pr_modificar_cliente";
-            //return "UPDATE GAME_OF_CODE.Cliente SET nombre = @nombre, apellido = @apellido, dni = @dni, mail = @mail, telefono = @telefono, direccion @direccion, codigo_postal @codigo_postal, cli_fecha_nac = @cli_fecha_nac WHERE id_cliente = @id";
         }
 
 

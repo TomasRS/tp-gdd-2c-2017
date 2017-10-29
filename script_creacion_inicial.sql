@@ -294,6 +294,10 @@ GO
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_empresa') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_empresa
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_empresa') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_empresa
+GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -375,6 +379,22 @@ BEGIN
 	VALUES
 		(@nombre, @emp_cuit, @emp_direccion, @id_rubro);
 	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_empresa
+	@nombre nvarchar(255),
+	@emp_cuit nvarchar(50),
+	@emp_direccion nvarchar(255),
+	@id_rubro int,
+	@id int, /*id_empresa*/
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Empresa
+	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro
+	WHERE id_empresa = @id
+	SET @id_output = SCOPE_IDENTITY();
 END
 GO
 
