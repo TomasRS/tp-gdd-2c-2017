@@ -76,6 +76,11 @@ namespace PagoAgilFrba.AbmEmpresa
                 Util.ShowMessage("Ya existe una empresa con ese cuit.", MessageBoxIcon.Error);
                 return;
             }
+            catch (FormatoInvalidoException exception)
+            {
+                Util.ShowMessage("Datos mal ingresados en: " + exception.Message, MessageBoxIcon.Error);
+                return;
+            }
             #endregion
         }
 

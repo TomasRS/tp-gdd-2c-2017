@@ -49,5 +49,19 @@ namespace PagoAgilFrba.Utils
         {
             return Regex.IsMatch(nombre, @"^[a-zA-Zá-úÁ-Ú\s]+$");
         }
+
+        public static Boolean EsCuitValido(String cuit)
+        {
+            List<string> partesCuit = cuit.Split('-').ToList();
+            return partesCuit.Count().Equals(3) && partesCuit.All(unaParte => EsNumero(unaParte)) && ValidarLongitudPartesCuit(partesCuit);
+        }
+
+        private static Boolean ValidarLongitudPartesCuit(List<string> partesCuit)
+        {
+            int longitudPrimeraParte = partesCuit.First().Length;
+            int longitudMedia = partesCuit.ElementAt(1).Length;
+            int longitudUltimaParte = partesCuit.Last().Length;
+            return (longitudPrimeraParte.Equals(1) || longitudPrimeraParte.Equals(2)) && longitudMedia.Equals(8) && longitudUltimaParte.Equals(1);
+        }
     }
 }

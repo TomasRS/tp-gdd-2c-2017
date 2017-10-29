@@ -1,4 +1,6 @@
 ﻿using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Excepciones;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -26,7 +28,13 @@ namespace PagoAgilFrba.Modelo
         public void setNombre(String nombre)
         { this.nombre = nombre; }
         public void setCuit(String cuit)
-        { this.cuit = cuit; }
+        {
+            if (Util.EsCuitValido(cuit))
+                this.cuit = cuit;
+            else
+                throw new FormatoInvalidoException("CUIT. El formato válido para CUIT es numérico y con guiones: XX-XXXXXXXX-X ó X-XXXXXXXX-X.");
+        }
+
         public void setDireccion(String direccion)
         { this.direccion = direccion; }
         public void setIDRubro(int idRubro)
