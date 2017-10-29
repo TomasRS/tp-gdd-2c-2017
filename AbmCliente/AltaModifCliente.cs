@@ -26,7 +26,7 @@ namespace PagoAgilFrba.AbmCliente
         private int idCliente;
         private IList<TextBox> campos = new List<TextBox>();
         private TipoDeAccion tipoAccion;
-
+        Cliente cliente;
 
         public AltaModifCliente(TipoDeAccion tipoAccion)
         {
@@ -74,16 +74,7 @@ namespace PagoAgilFrba.AbmCliente
             tipoAccion.accion(this);
         }
 
-        public override void darDeAlta()
-        {
-            guardarInformacion("crear");
-        }
-        public override void guardarModificacion()
-        {
-            guardarInformacion("modificar");
-        }
-
-        private void guardarInformacion(string accion)
+        public override void guardarInformacion()
         {
             // Asigno en variables los campos de entrada
             String nombre = nombreTextBox.Text;
@@ -126,7 +117,7 @@ namespace PagoAgilFrba.AbmCliente
             #region
             try
             {
-                Cliente cliente = new Cliente();
+                cliente = new Cliente();
                 cliente.setNombre(nombre);
                 cliente.setApellido(apellido);
                 cliente.setDNI(dni);
@@ -137,16 +128,7 @@ namespace PagoAgilFrba.AbmCliente
                 cliente.setCodigoPostal(codigoPostal);
                 cliente.setFechaNacimiento(fechaNacimiento);
 
-                if (accion.Equals("crear"))
-                    idCliente = mapper.CrearCliente(cliente);
-                else if (accion.Equals("modificar"))
-                    idCliente = mapper.ModificarCliente(cliente, idCliente);
-
-                if (idCliente > 0)
-                    Util.ShowMessage("Cliente guardado correctamente.", MessageBoxIcon.Information);
-
-                if (accion.Equals("modificar"))
-                    this.Close();
+                tipoAccion.trigger(this);
             }
             catch (FormatoInvalidoException exception)
             {
@@ -164,6 +146,22 @@ namespace PagoAgilFrba.AbmCliente
                 return;
             }
             #endregion
+        }
+
+        public override void Crear()
+        {
+            idCliente = mapper.CrearCliente(cliente);
+            if (idCliente > 0)
+                Util.ShowMessage("Cliente guardado correctamente.", MessageBoxIcon.Information);
+        }
+        public override void Modificar()
+        {
+            idCliente = mapper.ModificarCliente(cliente, idCliente);
+            if (idCliente > 0)
+            {
+                Util.ShowMessage("Cliente guardado correctamente.", MessageBoxIcon.Information);
+                this.Close();
+            }
         }
 
         private String generarDireccionCompleta(string calle, string nroCalle, string nroPiso, string departamento, string localidad)

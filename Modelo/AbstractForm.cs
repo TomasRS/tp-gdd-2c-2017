@@ -16,11 +16,15 @@ namespace PagoAgilFrba.Modelo
     #endif
 
         #if DEBUG
-            public virtual void darDeAlta()
+            public virtual void guardarInformacion()
             {
                 throw new NotImplementedException();
             }
-            public virtual void guardarModificacion()
+            public virtual void Crear()
+            {
+                throw new NotImplementedException();
+            }
+            public virtual void Modificar()
             {
                 throw new NotImplementedException();
             }
@@ -29,8 +33,9 @@ namespace PagoAgilFrba.Modelo
                 throw new NotImplementedException();
             }
         #else
-            public abstract void darDeAlta();
-            public abstract void guardarModificacion();
+            public abstract void guardarInformacion();
+            public abstract void Crear();
+            public abstract void Modificar();
             public abstract void CargarDatos();
         #endif
 

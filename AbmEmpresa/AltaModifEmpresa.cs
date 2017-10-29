@@ -22,6 +22,7 @@ namespace PagoAgilFrba.AbmEmpresa
         private int idEmpresa;
         private IList<TextBox> campos = new List<TextBox>();
         private TipoDeAccion tipoAccion;
+        private Empresa empresa;
 
         public AltaModifEmpresa(TipoDeAccion tipoAccion)
         {
@@ -44,17 +45,7 @@ namespace PagoAgilFrba.AbmEmpresa
             this.Close();
         }
 
-        public override void darDeAlta()
-        {
-            guardarInformacion("crear");
-        }
-
-        public override void guardarModificacion()
-        {
-            guardarInformacion("modificar");
-        }
-
-        private void guardarInformacion(String accion)
+        public override void guardarInformacion()
         {
             //Completar logica
             String nombre = nombreTextBox.Text;
@@ -66,22 +57,13 @@ namespace PagoAgilFrba.AbmEmpresa
             #region
             try
             {
-                Empresa empresa = new Empresa();
+                empresa = new Empresa();
                 empresa.setNombre(nombre);
                 empresa.setCuit(cuit);
                 empresa.setDireccion(direccion);
                 empresa.setIDRubro(mapper.getIDRubro(rubro));
 
-                if (accion.Equals("crear"))
-                    idEmpresa = mapper.CrearEmpresa(empresa);
-                else if (accion.Equals("modificar"))
-                    idEmpresa = mapper.ModificarEmpresa(empresa, idEmpresa);
-
-                if (idEmpresa > 0)
-                    Util.ShowMessage("Empresa guardada correctamente.", MessageBoxIcon.Information);
-
-                if (accion.Equals("modificar"))
-                    this.Close();
+                tipoAccion.trigger(this);
             }
             catch (CuitYaExisteException)
             {
@@ -91,6 +73,21 @@ namespace PagoAgilFrba.AbmEmpresa
             #endregion
         }
 
+        public override void Crear()
+        {
+            idEmpresa = mapper.CrearEmpresa(empresa);
+            if (idEmpresa > 0)
+                Util.ShowMessage("Empresa guardada correctamente.", MessageBoxIcon.Information);
+        }
+        public override void Modificar()
+        {
+            idEmpresa = mapper.ModificarEmpresa(empresa, idEmpresa);
+            if (idEmpresa > 0)
+            {
+                Util.ShowMessage("Empresa guardada correctamente.", MessageBoxIcon.Information);
+                this.Close();
+            }
+        }
         private void CargarRubros()
         {
             string query = "SELECT id_rubro, descripcion from GAME_OF_CODE.Rubro";

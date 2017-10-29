@@ -12,12 +12,17 @@ namespace PagoAgilFrba.Modelo
     {
         public void accion(AbstractForm form)
         {
-            form.darDeAlta();
+            form.guardarInformacion();
         }
 
         public void cargarDatosSiCorresponde(AbstractForm form)
         {
             //No se implementa
+        }
+
+        public void trigger(AbstractForm form)
+        {
+            form.Crear();
         }
     }
 }
