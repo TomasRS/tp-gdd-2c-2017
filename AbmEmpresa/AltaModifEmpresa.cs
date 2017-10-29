@@ -109,6 +109,11 @@ namespace PagoAgilFrba.AbmEmpresa
             rubroComboBox.DataSource = rubros;
             rubroComboBox.SelectedIndex = 0;
         }
+        
+        public override void CargarDatos()
+        {
+            throw new NotImplementedException();
+        }
 
         private void guardarButton_Click(object sender, EventArgs e)
         {
