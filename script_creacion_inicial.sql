@@ -3,8 +3,6 @@ USE [GD2C2017]
 GO
 
 
-
-
 /** CREACION DE SCHEMA **/
 
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'GAME_OF_CODE')
@@ -21,63 +19,68 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Factura'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Detalle_Factura DROP CONSTRAINT Detalle_Factura_id_factura;
+    DROP TABLE GAME_OF_CODE.Detalle_Factura
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Medio_de_Pago DROP CONSTRAINT Medio_de_Pago_id_pago_facturas;
+    DROP TABLE GAME_OF_CODE.Medio_de_Pago
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_rendicion;
 	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_pago_facturas;
+	DROP TABLE GAME_OF_CODE.Detalle_Rendicion
 END
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Pago_de_Facturas'))
-BEGIN
-	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_factura;
-	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_sucursal;
-END																								   
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Factura'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_cliente;
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_empresa;
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_devolucion;
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_Id_Pago;
+	DROP TABLE GAME_OF_CODE.Factura
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Pago_de_Facturas'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_sucursal;
+	DROP TABLE GAME_OF_CODE.Pago_de_Facturas
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_usuario;
+    DROP TABLE GAME_OF_CODE.Devolucion
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario_por_Sucursal'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_usuario;
 	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_sucursal;
+    DROP TABLE GAME_OF_CODE.Usuario_por_Sucursal
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol_por_Usuario'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Rol_por_Usuario DROP CONSTRAINT Rol_por_Usuario_id_usuario;
 	ALTER TABLE GAME_OF_CODE.Rol_por_Usuario DROP CONSTRAINT Rol_por_Usuario_id_rol;
+	DROP TABLE GAME_OF_CODE.Rol_por_Usuario
 END	
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Funcionalidad_por_Rol'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_funcionalidad;
 	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_rol;
+    DROP TABLE GAME_OF_CODE.Funcionalidad_por_Rol
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Empresa'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Empresa DROP CONSTRAINT Empresa_id_rubro;
+    DROP TABLE GAME_OF_CODE.Empresa
 END
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Cliente'))
@@ -420,6 +423,14 @@ INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro)
    WHERE Empresa_Nombre IS NOT NULL
      AND Empresa_Cuit IS NOT NULL
 
+SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
+INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas,fecha_cobro,id_sucursal, importe)
+	SELECT DISTINCT  pago_nro, Pago_Fecha, B.id_sucursal,0
+	FROM gd_esquema.Maestra A, GAME_OF_CODE.Sucursal B
+	WHERE A.Pago_nro IS NOT NULL
+    AND B.nombre = A.Sucursal_Nombre order by Pago_nro
+SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
+
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
 	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
 	FROM gd_esquema.Maestra A, GAME_OF_CODE.Cliente B, GAME_OF_CODE.Empresa C
@@ -493,4 +504,3 @@ COMMIT
 -- FIN DE CREACION DE VISTAS
 
 -- CREACION DE TRIGGERS
-
