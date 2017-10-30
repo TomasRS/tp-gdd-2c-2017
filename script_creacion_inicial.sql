@@ -22,12 +22,6 @@ BEGIN
     DROP TABLE GAME_OF_CODE.Detalle_Factura
 END
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
-BEGIN
-	ALTER TABLE GAME_OF_CODE.Medio_de_Pago DROP CONSTRAINT Medio_de_Pago_id_pago_facturas;
-    DROP TABLE GAME_OF_CODE.Medio_de_Pago
-END
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_rendicion;
@@ -47,7 +41,13 @@ END
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Pago_de_Facturas'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_sucursal;
+	ALTER TABLE GAME_OF_CODE.Pago_de_Facturas DROP CONSTRAINT Pago_de_Facturas_id_medio_pago;
 	DROP TABLE GAME_OF_CODE.Pago_de_Facturas
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
+BEGIN
+    DROP TABLE GAME_OF_CODE.Medio_de_Pago
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
@@ -172,7 +172,8 @@ CREATE TABLE [GAME_OF_CODE].[Pago_de_Facturas] (
 	[id_pago_facturas] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_cobro] [datetime] NOT NULL,
 	[importe] INT NOT NULL,
-	[id_sucursal] INT NOT NULL
+	[id_sucursal] INT NOT NULL,
+	[id_medio_pago] INT
 )
 
 CREATE TABLE [GAME_OF_CODE].[Factura] (
@@ -216,8 +217,7 @@ CREATE TABLE [GAME_OF_CODE].[Detalle_Rendicion] (
 
 CREATE TABLE [GAME_OF_CODE].[Medio_de_Pago] (
 	[id_medio_pago] INT IDENTITY(1,1) PRIMARY KEY,
-	[descripcion] [nvarchar](50) NOT NULL,
-	[id_pago_facturas] INT NOT NULL
+	[descripcion] [nvarchar](50) NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Empresa] (
@@ -257,6 +257,8 @@ ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_Id_Pago FOREIGN KEY 
 
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
 
+ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_medio_pago FOREIGN KEY (id_medio_pago) REFERENCES [GAME_OF_CODE].[Medio_de_Pago](id_medio_pago)
+
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_cliente FOREIGN KEY (id_cliente) REFERENCES [GAME_OF_CODE].[Cliente](id_cliente)
 
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
@@ -266,8 +268,6 @@ ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_devolucion FOREIG
 ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
 
 ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
-
-ALTER TABLE [GAME_OF_CODE].[Medio_de_Pago] ADD CONSTRAINT Medio_de_Pago_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
 ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
 
@@ -408,16 +408,21 @@ GO
 
 /** Migracion de Clientes **/
 
+INSERT INTO GAME_OF_CODE.Medio_de_Pago(descripcion)
+	SELECT DISTINCT FormaPagoDescripcion 
+	  FROM gd_esquema.Maestra
+	 WHERE FormaPagoDescripcion IS NOT NULL;
+
 INSERT INTO GAME_OF_CODE.Rubro (descripcion)
 			SELECT DISTINCT Rubro_Descripcion
-			FROM gd_esquema.Maestra
-			WHERE Rubro_Descripcion IS NOT NULL
+			  FROM gd_esquema.Maestra
+			 WHERE Rubro_Descripcion IS NOT NULL
 
 INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
-	SELECT DISTINCT Sucursal_Nombre, Sucursal_Direcci髇, Sucursal_Codigo_Postal
-	FROM gd_esquema.Maestra
-	WHERE Sucursal_Nombre IS NOT NULL
-	  AND Sucursal_Codigo_Postal IS NOT NULL
+	SELECT DISTINCT Sucursal_Nombre, Sucursal_Direcci贸n, Sucursal_Codigo_Postal
+	  FROM gd_esquema.Maestra
+	 WHERE Sucursal_Nombre IS NOT NULL
+	   AND Sucursal_Codigo_Postal IS NOT NULL
 
 INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, importe_total, porcentaje_comision, cant_facturas_rendidas)
 	SELECT  Rendicion_Nro,
@@ -425,41 +430,72 @@ INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, importe_total
 			SUM (ItemRendicion_Importe),
             0,
             COUNT (Rendicion_Nro)
-	FROM gd_esquema.Maestra
-	WHERE Rendicion_Nro IS NOT NULL
-	GROUP BY Rendicion_Nro, Rendicion_Fecha
+	  FROM gd_esquema.Maestra
+	 WHERE Rendicion_Nro IS NOT NULL
+	 GROUP BY Rendicion_Nro, Rendicion_Fecha
 
 INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo_postal, cli_fecha_nac)
 	SELECT DISTINCT [Cliente-Nombre], [Cliente-Apellido], [Cliente-Dni], Cliente_Mail, Cliente_Direccion, Cliente_Codigo_Postal, [Cliente-Fecha_Nac]
-	FROM gd_esquema.Maestra
-	WHERE [Cliente-Nombre] IS NOT NULL
-	  AND [Cliente-Apellido] IS NOT NULL
-	  AND [Cliente-Dni] IS NOT NULL
-	  AND Cliente_Mail IS NOT NULL
+	  FROM gd_esquema.Maestra
+	 WHERE [Cliente-Nombre] IS NOT NULL
+	   AND [Cliente-Apellido] IS NOT NULL
+	   AND [Cliente-Dni] IS NOT NULL
+	   AND Cliente_Mail IS NOT NULL
 
 INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro)
    SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro
-   FROM gd_esquema.Maestra
-   WHERE Empresa_Nombre IS NOT NULL
-     AND Empresa_Cuit IS NOT NULL
+     FROM gd_esquema.Maestra
+    WHERE Empresa_Nombre IS NOT NULL
+      AND Empresa_Cuit IS NOT NULL
 
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
-INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas,fecha_cobro,id_sucursal, importe)
-	SELECT DISTINCT  pago_nro, Pago_Fecha, B.id_sucursal,0
-	FROM gd_esquema.Maestra A, GAME_OF_CODE.Sucursal B
-	WHERE A.Pago_nro IS NOT NULL
-    AND B.nombre = A.Sucursal_Nombre order by Pago_nro
+INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas,fecha_cobro,id_sucursal, importe, id_medio_pago)
+    SELECT A.Pago_nro, A.Pago_Fecha, B.id_sucursal ,sum(A.ItemFactura_Monto * A.ItemFactura_Cantidad), C.id_medio_pago
+	  FROM gd_esquema.Maestra A, GAME_OF_CODE.Sucursal B, GAME_OF_CODE.Medio_de_Pago C
+	 WHERE B.nombre = A.Sucursal_Nombre 
+	   AND C.descripcion = A.FormaPagoDescripcion
+	 GROUP BY Pago_nro, B.id_sucursal, A.Pago_Fecha, C.id_medio_pago
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
-INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
-	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
-	FROM gd_esquema.Maestra A, GAME_OF_CODE.Cliente B, GAME_OF_CODE.Empresa C
-	WHERE Nro_Factura IS NOT NULL
-      AND Factura_Fecha IS NOT NULL
-      AND Factura_Total IS NOT NULL
-      AND Factura_Fecha_Vencimiento IS NOT NULL
-	  AND A.[Cliente-Dni] = B.dni
-	  AND A.empresa_cuit = C.emp_cuit
+/*Debido a que en la tabla maestra se encontraron para una misma facturas items asociados a un numero
+  de pago, y otros items sin asociar a un numero de pago, se opto por cagar primero las facturas donde
+  se registren items que esten asociados a un numero de pago, y luego cargar aquellas que no esten asociadas
+  a un numero de pago.
+	  
+  Por esta inconsistencia en los datos, ya que se supone que si un item esta pago para una factura, el resto de los items
+  de esa misma factura deber铆an estan pagos, es que se tuvo que realizar este preoceso con 2 inserts.
+	  
+  NOTA: En el segundo insert solo se van a insertar aquellas facturas cuyos items no registren pago, y que a su vez
+  no hayan sido cargadas en el insert anterior, ya que como la tabla maestra presenta la inconsistencia anteriormente mencionada,
+  existen registros con numeros de facturas asociados a un numero de pago y a su vez no asociados a un numero de pago.*/
+
+/*PRIMER INSERT: 
+  Primero se insertan las facturas que est茅n asociadas a un n煤merpo de pago
+*/
+	INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa, id_pago) 
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto*ItemFactura_Cantidad),Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa, A.Pago_nro
+	FROM gd_esquema.Maestra A
+	INNER JOIN GAME_OF_CODE.Cliente B ON A.[Cliente-Dni] = B.dni
+	INNER JOIN GAME_OF_CODE.Empresa C ON A.Empresa_Cuit = C.emp_cuit
+	INNER JOIN GAME_OF_CODE.Pago_de_Facturas D ON D.id_pago_facturas = Pago_nro
+	WHERE A.ItemFactura_Cantidad IS NOT NULL
+	  AND A.ItemFactura_Monto IS NOT NULL
+	  AND Pago_nro IS NOT NULL
+	GROUP BY Nro_Factura, Factura_Fecha, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa, A.Pago_nro
+
+/*SEGUNDO INSERT: 
+  Se insertan aquellas facturas que no hayan sido insertadas en el paso anterior
+*/
+	INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto*ItemFactura_Cantidad),Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
+	FROM gd_esquema.Maestra A
+	INNER JOIN GAME_OF_CODE.Cliente B ON A.[Cliente-Dni] = B.dni
+	INNER JOIN GAME_OF_CODE.Empresa C ON A.Empresa_Cuit = C.emp_cuit
+	WHERE A.ItemFactura_Cantidad IS NOT NULL
+	  AND A.ItemFactura_Monto IS NOT NULL
+	  AND A.Pago_nro IS NULL --Se verifica que no este pagado
+	  AND A.Nro_Factura NOT IN (SELECT numero_factura FROM GAME_OF_CODE.Factura) --Se verifica que no este insertada
+	GROUP BY Nro_Factura, Factura_Fecha, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
 
 INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad, B.id_factura
@@ -467,6 +503,12 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND A.Nro_Factura = B.numero_factura
+	 
+INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_pago_facturas)
+	SELECT distinct id_rendicion, id_pago_facturas
+	FROM gd_esquema.Maestra
+	INNER JOIN GAME_OF_CODE.Pago_de_Facturas ON  id_pago_facturas = Pago_nro
+	INNER JOIN GAME_OF_CODE.Rendicion C ON id_rendicion = Rendicion_Nro
 
 /** FIN MIGRACION **/
 
@@ -487,17 +529,17 @@ INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
 
 INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
     VALUES  ('Alta de clientes'),
-            ('Modificaci髇 y baja de clientes'),
+            ('Modificaci贸n y baja de clientes'),
             ('Alta de empresas'),
-            ('Modificaci髇 y baja de empresas'),
+            ('Modificaci贸n y baja de empresas'),
             ('Alta de facturas'),
-            ('Modificaci髇 y baja de facturas'),
+            ('Modificaci贸n y baja de facturas'),
             ('Alta de roles'),
-            ('Modificaci髇 y baja de roles'),
+            ('Modificaci贸n y baja de roles'),
             ('Alta de sucursales'),
-            ('Modificaci髇 y baja de sucursales'),
-            ('Devoluci髇 de facturas pagas'),
-            ('Listado estad韘tico'),
+            ('Modificaci贸n y baja de sucursales'),
+            ('Devoluci贸n de facturas pagas'),
+            ('Listado estad铆stico'),
             ('Pagar facturas'),
             ('Realizar rendicion de facturas')
 
