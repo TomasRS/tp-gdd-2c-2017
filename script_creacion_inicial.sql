@@ -451,15 +451,45 @@ INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas,fecha_cobro,id_sucurs
 	GROUP BY Pago_nro, B.id_sucursal, A.Pago_Fecha
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
-INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
-	SELECT DISTINCT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
-	FROM gd_esquema.Maestra A, GAME_OF_CODE.Cliente B, GAME_OF_CODE.Empresa C
-	WHERE Nro_Factura IS NOT NULL
-      AND Factura_Fecha IS NOT NULL
-      AND Factura_Total IS NOT NULL
-      AND Factura_Fecha_Vencimiento IS NOT NULL
-	  AND A.[Cliente-Dni] = B.dni
-	  AND A.empresa_cuit = C.emp_cuit
+/*Debido a que en la tabla maestra se encontraron para una misma facturas items asociados a un numero
+  de pago, y otros items sin asociar a un numero de pago, se opto por cagar primero las facturas donde
+  se registren items que esten asociados a un numero de pago, y luego cargar aquellas que no esten asociadas
+  a un numero de pago.
+	  
+  Por esta inconsistencia en los datos, ya que se supone que si un item esta pago para una factura, el resto de los items
+  de esa misma factura deberían estan pagos, es que se tuvo que realizar este preoceso con 2 inserts.
+	  
+  NOTA: En el segundo insert solo se van a insertar aquellas facturas cuyos items no registren pago, y que a su vez
+  no hayan sido cargadas en el insert anterior, ya que como la tabla maestra presenta la inconsistencia anteriormente mencionada,
+  existen registros con numeros de facturas asociados a un numero de pago y a su vez no asociados a un numero de pago.*/
+
+/*PRIMER INSERT: 
+  Primero se insertan las facturas que estén asociadas a un númerpo de pago
+*/
+	INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa, id_pago) 
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto*ItemFactura_Cantidad),Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa, A.Pago_nro
+	FROM gd_esquema.Maestra A
+	INNER JOIN GAME_OF_CODE.Cliente B ON A.[Cliente-Dni] = B.dni
+	INNER JOIN GAME_OF_CODE.Empresa C ON A.Empresa_Cuit = C.emp_cuit
+	INNER JOIN GAME_OF_CODE.Pago_de_Facturas D ON D.id_pago_facturas = Pago_nro
+	WHERE A.ItemFactura_Cantidad IS NOT NULL
+	  AND A.ItemFactura_Monto IS NOT NULL
+	  AND Pago_nro IS NOT NULL
+	GROUP BY Nro_Factura, Factura_Fecha, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa, A.Pago_nro
+
+/*SEGUNDO INSERT: 
+  Se insertan aquellas facturas que no hayan sido insertadas en el paso anterior
+*/
+	INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto*ItemFactura_Cantidad),Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
+	FROM gd_esquema.Maestra A
+	INNER JOIN GAME_OF_CODE.Cliente B ON A.[Cliente-Dni] = B.dni
+	INNER JOIN GAME_OF_CODE.Empresa C ON A.Empresa_Cuit = C.emp_cuit
+	WHERE A.ItemFactura_Cantidad IS NOT NULL
+	  AND A.ItemFactura_Monto IS NOT NULL
+	  AND A.Pago_nro IS NULL --Se verifica que no este pagado
+	  AND A.Nro_Factura NOT IN (SELECT numero_factura FROM GAME_OF_CODE.Factura) --Se verifica que no este insertada
+	GROUP BY Nro_Factura, Factura_Fecha, Factura_Fecha_Vencimiento, B.id_cliente, C.id_empresa
 
 INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad, B.id_factura
