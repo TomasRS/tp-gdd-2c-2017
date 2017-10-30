@@ -414,7 +414,7 @@ INSERT INTO GAME_OF_CODE.Rubro (descripcion)
 			WHERE Rubro_Descripcion IS NOT NULL
 
 INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
-	SELECT DISTINCT Sucursal_Nombre, Sucursal_Direcci髇, Sucursal_Codigo_Postal
+	SELECT DISTINCT Sucursal_Nombre, Sucursal_Direcci贸n, Sucursal_Codigo_Postal
 	FROM gd_esquema.Maestra
 	WHERE Sucursal_Nombre IS NOT NULL
 	  AND Sucursal_Codigo_Postal IS NOT NULL
@@ -445,10 +445,10 @@ INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro)
 
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
 INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas,fecha_cobro,id_sucursal, importe)
-	SELECT DISTINCT  pago_nro, Pago_Fecha, B.id_sucursal,0
+	SELECT A.Pago_nro, A.Pago_Fecha, B.id_sucursal ,sum(A.ItemFactura_Monto * A.ItemFactura_Cantidad) 
 	FROM gd_esquema.Maestra A, GAME_OF_CODE.Sucursal B
-	WHERE A.Pago_nro IS NOT NULL
-    AND B.nombre = A.Sucursal_Nombre order by Pago_nro
+	WHERE B.nombre = A.Sucursal_Nombre 
+	GROUP BY Pago_nro, B.id_sucursal, A.Pago_Fecha
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa) 
@@ -487,17 +487,17 @@ INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
 
 INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
     VALUES  ('Alta de clientes'),
-            ('Modificaci髇 y baja de clientes'),
+            ('Modificaci贸n y baja de clientes'),
             ('Alta de empresas'),
-            ('Modificaci髇 y baja de empresas'),
+            ('Modificaci贸n y baja de empresas'),
             ('Alta de facturas'),
-            ('Modificaci髇 y baja de facturas'),
+            ('Modificaci贸n y baja de facturas'),
             ('Alta de roles'),
-            ('Modificaci髇 y baja de roles'),
+            ('Modificaci贸n y baja de roles'),
             ('Alta de sucursales'),
-            ('Modificaci髇 y baja de sucursales'),
-            ('Devoluci髇 de facturas pagas'),
-            ('Listado estad韘tico'),
+            ('Modificaci贸n y baja de sucursales'),
+            ('Devoluci贸n de facturas pagas'),
+            ('Listado estad铆stico'),
             ('Pagar facturas'),
             ('Realizar rendicion de facturas')
 
