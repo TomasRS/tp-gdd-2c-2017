@@ -144,6 +144,17 @@ namespace PagoAgilFrba.AbmEmpresa
 
             CargarRubros();
             tipoAccion.cargarDatosSiCorresponde(this);
+            tipoAccion.setearTituloVentana(this);
+        }
+
+        public override void setearTituloCreacion()
+        {
+            this.Text = "Alta de empresa";
+        }
+
+        public override void setearTituloModificacion()
+        {
+            this.Text = "Modificación de empresa";
         }
     }
 }

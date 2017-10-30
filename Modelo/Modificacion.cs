@@ -23,5 +23,10 @@ namespace PagoAgilFrba.Modelo
         {
             form.Modificar();
         }
+
+        public void setearTituloVentana(AbstractForm form)
+        {
+            form.setearTituloModificacion();
+        }
     }
 }

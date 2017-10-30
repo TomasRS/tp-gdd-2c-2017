@@ -13,5 +13,6 @@ namespace PagoAgilFrba.Modelo
         void accion(AbstractForm form);
         void cargarDatosSiCorresponde(AbstractForm form);
         void trigger(AbstractForm form);
+        void setearTituloVentana(AbstractForm form);
     }
 }
