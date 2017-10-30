@@ -32,7 +32,7 @@ namespace PagoAgilFrba.Modelo
             if (Util.EsCuitValido(cuit))
                 this.cuit = cuit;
             else
-                throw new FormatoInvalidoException("CUIT. El formato válido para CUIT es numérico y con guiones: XX-XXXXXXXX-X ó X-XXXXXXXX-X.");
+                throw new FormatoInvalidoException("CUIT. El formato válido para CUIT es numérico y con guiones: xx-xxxxxxxx-x ó x-xxxxxxxx-x.");
         }
 
         public void setDireccion(String direccion)
