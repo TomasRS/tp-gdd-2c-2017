@@ -497,6 +497,12 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (monto_unitario, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND A.Nro_Factura = B.numero_factura
+	 
+INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_pago_facturas)
+	SELECT distinct id_rendicion, id_pago_facturas
+	FROM gd_esquema.Maestra
+	INNER JOIN GAME_OF_CODE.Pago_de_Facturas ON  id_pago_facturas = Pago_nro
+	INNER JOIN GAME_OF_CODE.Rendicion C ON id_rendicion = Rendicion_Nro
 
 /** FIN MIGRACION **/
 
