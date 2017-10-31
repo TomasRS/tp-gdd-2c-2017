@@ -41,7 +41,7 @@ namespace PagoAgilFrba.Modelo
             public abstract void Crear();
             public abstract void Modificar();
             public abstract void CargarDatos();
-            public abstract void setearTituloVentana();
+            public abstract void setearTituloCreacion();
             public abstract void setearTituloModificacion();
         #endif
 

@@ -63,15 +63,20 @@ namespace PagoAgilFrba.AbmRol
                 return;
             }
 
-            if (Util.EsNombreValido(nombreTextBox.Text))
-                tipoAccion.trigger(this);
-            else
-                Util.ShowMessage("El nombre debe ser alfabético.", MessageBoxIcon.Exclamation);
+            guardarInformacion();
         }
 
         public override void CargarDatos()
         {
-            
+            //Implementar
+        }
+
+        public override void guardarInformacion()
+        {
+            if (Util.EsNombreValido(nombreTextBox.Text))
+                tipoAccion.trigger(this);
+            else
+                Util.ShowMessage("El nombre debe ser alfabético.", MessageBoxIcon.Exclamation);
         }
 
         public override void Crear()
@@ -93,6 +98,12 @@ namespace PagoAgilFrba.AbmRol
                 QueryBuilder.Instance.build(queryRolFuncionalidad, parametros).ExecuteNonQuery();
             }
             Util.ShowMessage("El rol fue creado correctamente.", MessageBoxIcon.Information);
+        }
+
+        public override void Modificar()
+        {
+            //Implementar
+            throw new NotImplementedException();
         }
 
         private List<string> getDescripcionesListBox()
