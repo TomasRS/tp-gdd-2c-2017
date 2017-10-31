@@ -61,10 +61,10 @@
             // 
             // nombreTextBox
             // 
-            this.nombreTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nombreTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nombreTextBox.Location = new System.Drawing.Point(105, 42);
             this.nombreTextBox.Name = "nombreTextBox";
-            this.nombreTextBox.Size = new System.Drawing.Size(193, 22);
+            this.nombreTextBox.Size = new System.Drawing.Size(193, 20);
             this.nombreTextBox.TabIndex = 2;
             // 
             // funcionalidadesLabel
@@ -79,6 +79,7 @@
             // 
             // funcionalidadesListBox
             // 
+            this.funcionalidadesListBox.CheckOnClick = true;
             this.funcionalidadesListBox.FormattingEnabled = true;
             this.funcionalidadesListBox.Location = new System.Drawing.Point(105, 88);
             this.funcionalidadesListBox.Name = "funcionalidadesListBox";
@@ -99,19 +100,20 @@
             // actualizarButton
             // 
             this.actualizarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actualizarButton.Location = new System.Drawing.Point(105, 307);
+            this.actualizarButton.Location = new System.Drawing.Point(114, 307);
             this.actualizarButton.Name = "actualizarButton";
             this.actualizarButton.Size = new System.Drawing.Size(86, 29);
             this.actualizarButton.TabIndex = 9;
             this.actualizarButton.Text = "Guardar";
             this.actualizarButton.UseVisualStyleBackColor = true;
+            this.actualizarButton.Click += new System.EventHandler(this.actualizarButton_Click);
             // 
             // limpiarButton
             // 
             this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.limpiarButton.Location = new System.Drawing.Point(12, 307);
             this.limpiarButton.Name = "limpiarButton";
-            this.limpiarButton.Size = new System.Drawing.Size(67, 29);
+            this.limpiarButton.Size = new System.Drawing.Size(76, 29);
             this.limpiarButton.TabIndex = 10;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
@@ -133,6 +135,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifRol";
             this.Text = "Alta y modificación de Rol";
+            this.Load += new System.EventHandler(this.AltaModifRol_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
