@@ -1,4 +1,7 @@
 ﻿using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Modelo;
+using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,16 +11,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace PagoAgilFrba.AbmSucursal
 {
-    public partial class AltaModifSucursal : Form
+    public partial class AltaModifSucursal : AbstractForm
     {
-        public AltaModifSucursal()
-        {
-            InitializeComponent();
-            CenterToScreen();
-        }
+        //private DBMapper mapper = new DBMapper();
+        //private int idSucursal;
+        //private IList<TextBox> campos = new List<TextBox>();
+        //private TipoDeAccion tipoAccion;
+        //private Sucursal sucursal;
+
+        //public AltaModifSucursal(TipoDeAccion tipoAccion)
+        //{
+        //    this.tipoAccion = tipoAccion;
+        //    InitializeComponent();
+        //    CenterToScreen();
+        //}
 
         private void limpiarButton_Click(object sender, EventArgs e)
         {
@@ -32,5 +43,21 @@ namespace PagoAgilFrba.AbmSucursal
             new MenuPrincipal().ShowDialog();
             this.Close();
         }
+
+        //public override void guardarInformacion()
+        //{
+        //    String nombre = nombreTextBox.Text;
+        //    String direccion = direccionTextBox.Text;
+        //    String codPostal = codPostalTextBox.Text;
+        //}
+
+        //public override void Crear()
+        //{
+        //    idSucursal = mapper.CrearSucursal(sucursal);
+        //    if (idSucursal > 0)
+        //        Util.ShowMessage("Sucursal guardada correctamente.", MessageBoxIcon.Information);
+        //}
+
+
     }
 }

@@ -220,6 +220,24 @@ namespace PagoAgilFrba.DataProvider
             return descripcionRubro;
         }
 
+        ///** Sucursales **/
+
+        //public int CrearSucursal(Sucursal sucursal)
+        //{
+        //    if (existeSucursalConCodPostal(sucursal.getCodPostal()))
+        //        throw new CodigoPostalYaExisteException();
+
+        //    return this.Crear(sucursal);
+        //}
+
+        //private Boolean existeSucursalConCodPostal(String codPostal)
+        //{
+        //    query = "SELECT COUNT(*) FROM GAME_OF_CODE.Sucursal WHERE codigo_postal = @codPostal";
+        //    parametros.Clear();
+        //    parametros.Add(new SqlParameter("@codPostal", codPostal));
+        //    return ControlDeUnicidad(query, parametros);
+        //}
+
         /*
         *
         *   TABLE UNIQUE CONTROL 
