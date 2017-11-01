@@ -126,6 +126,15 @@ namespace PagoAgilFrba.DataProvider
             return filasAfectadas.Equals(1);
         }
 
+        public Boolean CambiarHabilitacionRol(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_rol = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
         /*
          * 
          *  SELECT TABLE QUERIES 
@@ -154,6 +163,19 @@ namespace PagoAgilFrba.DataProvider
               , "GAME_OF_CODE.Empresa emp"
               , "(emp.estado_habilitacion = 1 OR emp.estado_habilitacion = 0) " + filtro);
         }
+
+        public DataTable SelectRolesParaFiltro()
+        {
+            return this.SelectRolesParaFiltroConFiltro("");
+        }
+
+        public DataTable SelectRolesParaFiltroConFiltro(String filtro)
+        {
+            return this.SelectDataTable("r.id_rol, r.nombre Nombre, r.estado_habilitacion 'Habilitado'"
+                ,"GAME_OF_CODE.Rol r"
+                , "(r.estado_habilitacion = 1 OR r.estado_habilitacion = 0)");
+        }
+
         //-------------------------------------------------------------
         /** Clientes **/
 

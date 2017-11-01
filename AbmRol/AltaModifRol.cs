@@ -21,6 +21,7 @@ namespace PagoAgilFrba.AbmRol
         private TipoDeAccion tipoAccion;
         private SqlCommand command { get; set; }
         private IList<SqlParameter> parametros = new List<SqlParameter>();
+        private int idRol;
 
         public AltaModifRol(TipoDeAccion tipoAccion)
         {
@@ -28,7 +29,11 @@ namespace PagoAgilFrba.AbmRol
             InitializeComponent();
             CenterToScreen();
         }
-
+        public void ShowDialog(String idRolAModificar)
+        {
+            this.idRol = Convert.ToInt32(idRolAModificar);
+            this.ShowDialog();
+        }
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             nombreTextBox.Clear();
