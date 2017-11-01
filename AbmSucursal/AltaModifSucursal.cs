@@ -44,19 +44,40 @@ namespace PagoAgilFrba.AbmSucursal
             this.Close();
         }
 
-        //public override void guardarInformacion()
-        //{
-        //    String nombre = nombreTextBox.Text;
-        //    String direccion = direccionTextBox.Text;
-        //    String codPostal = codPostalTextBox.Text;
-        //}
+        public override void guardarInformacion()
+        {
+            //String nombre = nombreTextBox.Text;
+            //String direccion = direccionTextBox.Text;
+            //String codPostal = codPostalTextBox.Text;
+        }
 
-        //public override void Crear()
-        //{
-        //    idSucursal = mapper.CrearSucursal(sucursal);
-        //    if (idSucursal > 0)
-        //        Util.ShowMessage("Sucursal guardada correctamente.", MessageBoxIcon.Information);
-        //}
+        public override void Crear()
+        {
+            //idSucursal = mapper.CrearSucursal(sucursal);
+            //if (idSucursal > 0)
+            //    Util.ShowMessage("Sucursal guardada correctamente.", MessageBoxIcon.Information);
+        }
+
+        public override void Modificar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void setearTituloCreacion()
+        {
+            this.Text = "Alta de sucursales";
+        }
+
+        public override void setearTituloModificacion()
+        {
+            this.Text = "Modificación de sucursales";
+        }
+
+        public override void CargarDatos()
+        {
+            //Este metodo es para cuando le das click en modificar en el listado, que te cargue los datos en la pantalla (ver el CargarDatos de otros ABM)
+            throw new NotImplementedException();
+        }
 
 
     }
