@@ -155,6 +155,7 @@
     <Compile Include="Modelo\Empresa.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
     <Compile Include="Modelo\Modificacion.cs" />
+    <Compile Include="Modelo\Rol.cs" />
     <Compile Include="Modelo\TipoDeAccion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

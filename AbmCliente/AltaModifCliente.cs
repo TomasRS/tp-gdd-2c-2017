@@ -212,6 +212,7 @@ namespace PagoAgilFrba.AbmCliente
             campos.Add(codPostalTextBox);
 
             tipoAccion.cargarDatosSiCorresponde(this);
+            tipoAccion.setearTituloVentana(this);
         }
 
         public override void CargarDatos()
@@ -231,6 +232,16 @@ namespace PagoAgilFrba.AbmCliente
             departamentoTextBox.Text = cliente.getDepartamento();
             localidadTextBox.Text = cliente.getLocalidad();
             codPostalTextBox.Text = cliente.getCodigoPostal();
+        }
+
+        public override void setearTituloCreacion()
+        {
+            this.Text = "Alta de clientes";
+        }
+
+        public override void setearTituloModificacion()
+        {
+            this.Text = "Modificación de clientes";
         }
     }
 }

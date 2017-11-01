@@ -24,5 +24,10 @@ namespace PagoAgilFrba.Modelo
         {
             form.Crear();
         }
+
+        public void setearTituloVentana(AbstractForm form)
+        {
+            form.setearTituloCreacion();
+        }
     }
 }

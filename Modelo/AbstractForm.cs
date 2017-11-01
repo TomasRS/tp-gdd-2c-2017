@@ -32,11 +32,17 @@ namespace PagoAgilFrba.Modelo
             {
                 throw new NotImplementedException();
             }
+            public virtual void setearTituloCreacion()
+            { throw new NotImplementedException(); }
+            public virtual void setearTituloModificacion()
+            { throw new NotImplementedException(); }
         #else
             public abstract void guardarInformacion();
             public abstract void Crear();
             public abstract void Modificar();
             public abstract void CargarDatos();
+            public abstract void setearTituloCreacion();
+            public abstract void setearTituloModificacion();
         #endif
 
         }

@@ -103,6 +103,25 @@ namespace PagoAgilFrba.DataProvider
             return (Empresa)this.Obtener(idEmpresa, clase);
         }
 
+        public Rol ObtenerRol(int idRol)
+        {
+            Rol objeto = new Rol();
+            Type clase = objeto.GetType();
+            return (Rol)this.Obtener(idRol, clase);
+        }
+
+        public DataSet getFuncionalidadesDelRol(int idRol)
+        {
+            DataSet funcionalidades = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@id_rol", idRol));
+            command = QueryBuilder.Instance.build("SELECT DISTINCT f.descripcion from GAME_OF_CODE.Funcionalidad f, GAME_OF_CODE.Funcionalidad_por_Rol fr WHERE f.id_funcionalidad = fr.id_funcionalidad AND fr.id_rol = @id_rol", parametros);
+            adapter.SelectCommand = command;
+            adapter.Fill(funcionalidades);
+            return funcionalidades;
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -120,6 +139,15 @@ namespace PagoAgilFrba.DataProvider
         public Boolean CambiarHabilitacionEmpresa(int id, String enDonde, int nuevoEstadoHabilitacion)
         {
             query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_empresa = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
+        public Boolean CambiarHabilitacionRol(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_rol = @id";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id", id));
             int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
@@ -154,6 +182,19 @@ namespace PagoAgilFrba.DataProvider
               , "GAME_OF_CODE.Empresa emp"
               , "(emp.estado_habilitacion = 1 OR emp.estado_habilitacion = 0) " + filtro);
         }
+
+        public DataTable SelectRolesParaFiltro()
+        {
+            return this.SelectRolesParaFiltroConFiltro("");
+        }
+
+        public DataTable SelectRolesParaFiltroConFiltro(String filtro)
+        {
+            return this.SelectDataTable("r.id_rol, r.nombre Nombre, r.estado_habilitacion 'Habilitado'"
+                ,"GAME_OF_CODE.Rol r"
+                , "(r.estado_habilitacion = 1 OR r.estado_habilitacion = 0)");
+        }
+
         //-------------------------------------------------------------
         /** Clientes **/
 

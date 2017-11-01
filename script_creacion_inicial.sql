@@ -528,7 +528,7 @@ INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
             ('Devolución de facturas pagas'),
             ('Listado estadístico'),
             ('Pagar facturas'),
-            ('Realizar rendicion de facturas')
+            ('Realizar rendición de facturas')
 
 -- Agrego al administrador todas las funcionalidades del sistema
 

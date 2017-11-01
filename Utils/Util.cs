@@ -63,5 +63,10 @@ namespace PagoAgilFrba.Utils
             int longitudUltimaParte = partesCuit.Last().Length;
             return (longitudPrimeraParte.Equals(1) || longitudPrimeraParte.Equals(2)) && longitudMedia.Equals(8) && longitudUltimaParte.Equals(1);
         }
+
+        public static Boolean HayAlMenosAlgoSeleccionadoEnListBox(CheckedListBox listBox)
+        {
+            return listBox.CheckedItems.Count >= 1;
+        }
     }
 }

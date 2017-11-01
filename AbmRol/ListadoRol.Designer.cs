@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoRol));
             this.elegirRolLabel = new System.Windows.Forms.Label();
             this.volverButton = new System.Windows.Forms.Button();
-            this.resultadoBusquedaDataGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadoBusquedaDataGridView)).BeginInit();
+            this.RolesDataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.RolesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // elegirRolLabel
@@ -48,7 +48,7 @@
             // volverButton
             // 
             this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.volverButton.Location = new System.Drawing.Point(135, 264);
+            this.volverButton.Location = new System.Drawing.Point(175, 262);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(118, 29);
             this.volverButton.TabIndex = 9;
@@ -56,26 +56,31 @@
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
-            // resultadoBusquedaDataGridView
+            // RolesDataGridView
             // 
-            this.resultadoBusquedaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadoBusquedaDataGridView.Location = new System.Drawing.Point(12, 38);
-            this.resultadoBusquedaDataGridView.Name = "resultadoBusquedaDataGridView";
-            this.resultadoBusquedaDataGridView.Size = new System.Drawing.Size(379, 213);
-            this.resultadoBusquedaDataGridView.TabIndex = 10;
+            this.RolesDataGridView.AllowUserToAddRows = false;
+            this.RolesDataGridView.AllowUserToDeleteRows = false;
+            this.RolesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RolesDataGridView.Location = new System.Drawing.Point(12, 38);
+            this.RolesDataGridView.Name = "RolesDataGridView";
+            this.RolesDataGridView.ReadOnly = true;
+            this.RolesDataGridView.Size = new System.Drawing.Size(445, 213);
+            this.RolesDataGridView.TabIndex = 10;
+            this.RolesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientesDataGridView_CellContentClick);
             // 
             // ListadoRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 303);
-            this.Controls.Add(this.resultadoBusquedaDataGridView);
+            this.ClientSize = new System.Drawing.Size(469, 303);
+            this.Controls.Add(this.RolesDataGridView);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.elegirRolLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoRol";
             this.Text = "Listado de roles";
-            ((System.ComponentModel.ISupportInitialize)(this.resultadoBusquedaDataGridView)).EndInit();
+            this.Load += new System.EventHandler(this.ListadoRol_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.RolesDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +90,7 @@
 
         private System.Windows.Forms.Label elegirRolLabel;
         private System.Windows.Forms.Button volverButton;
-        private System.Windows.Forms.DataGridView resultadoBusquedaDataGridView;
+        private System.Windows.Forms.DataGridView RolesDataGridView;
 
     }
 }
