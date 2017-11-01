@@ -73,6 +73,7 @@ namespace PagoAgilFrba.AbmRol
             guardarInformacion();
         }
 
+        //Metodos para cargar los datos en la UI
         public override void CargarDatos()
         {
             rol = mapper.ObtenerRol(idRol);
@@ -98,6 +99,7 @@ namespace PagoAgilFrba.AbmRol
             funcionalidadesCheckedListBox.SetItemChecked(index, true);
         }
 
+        //Metodo implementado del abstract tanto para crear como modificar
         public override void guardarInformacion()
         {
             if (Util.EsNombreValido(nombreTextBox.Text))
@@ -106,6 +108,7 @@ namespace PagoAgilFrba.AbmRol
                 Util.ShowMessage("El nombre debe ser alfabético.", MessageBoxIcon.Exclamation);
         }
 
+        //Metodo de crear
         public override void Crear()
         {
             String queryRol = "INSERT INTO GAME_OF_CODE.Rol(nombre, estado_habilitacion) VALUES (@rol, 1)";
@@ -127,6 +130,7 @@ namespace PagoAgilFrba.AbmRol
             Util.ShowMessage("El rol fue creado correctamente.", MessageBoxIcon.Information);
         }
 
+        //Metodos de modificar
         public override void Modificar()
         {
             if (nombreTextBox.Text != "")

@@ -74,18 +74,18 @@
             // 
             this.tipoListadoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoListadoComboBox.FormattingEnabled = true;
-            this.tipoListadoComboBox.Location = new System.Drawing.Point(247, 91);
+            this.tipoListadoComboBox.Location = new System.Drawing.Point(208, 92);
             this.tipoListadoComboBox.Name = "tipoListadoComboBox";
-            this.tipoListadoComboBox.Size = new System.Drawing.Size(184, 21);
+            this.tipoListadoComboBox.Size = new System.Drawing.Size(248, 21);
             this.tipoListadoComboBox.TabIndex = 11;
             // 
             // trimestreComboBox
             // 
             this.trimestreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.trimestreComboBox.FormattingEnabled = true;
-            this.trimestreComboBox.Location = new System.Drawing.Point(247, 57);
+            this.trimestreComboBox.Location = new System.Drawing.Point(208, 58);
             this.trimestreComboBox.Name = "trimestreComboBox";
-            this.trimestreComboBox.Size = new System.Drawing.Size(184, 21);
+            this.trimestreComboBox.Size = new System.Drawing.Size(248, 21);
             this.trimestreComboBox.TabIndex = 10;
             // 
             // limpiarButton
@@ -119,15 +119,15 @@
             // 
             // anioTextBox
             // 
-            this.anioTextBox.Location = new System.Drawing.Point(247, 24);
+            this.anioTextBox.Location = new System.Drawing.Point(208, 25);
             this.anioTextBox.Name = "anioTextBox";
-            this.anioTextBox.Size = new System.Drawing.Size(184, 20);
+            this.anioTextBox.Size = new System.Drawing.Size(248, 20);
             this.anioTextBox.TabIndex = 3;
             // 
             // tipoListadoLabel
             // 
             this.tipoListadoLabel.AutoSize = true;
-            this.tipoListadoLabel.Location = new System.Drawing.Point(161, 94);
+            this.tipoListadoLabel.Location = new System.Drawing.Point(122, 95);
             this.tipoListadoLabel.Name = "tipoListadoLabel";
             this.tipoListadoLabel.Size = new System.Drawing.Size(76, 13);
             this.tipoListadoLabel.TabIndex = 2;
@@ -136,7 +136,7 @@
             // trimestreLabel
             // 
             this.trimestreLabel.AutoSize = true;
-            this.trimestreLabel.Location = new System.Drawing.Point(161, 60);
+            this.trimestreLabel.Location = new System.Drawing.Point(122, 61);
             this.trimestreLabel.Name = "trimestreLabel";
             this.trimestreLabel.Size = new System.Drawing.Size(50, 13);
             this.trimestreLabel.TabIndex = 1;
@@ -145,7 +145,7 @@
             // anioLabel
             // 
             this.anioLabel.AutoSize = true;
-            this.anioLabel.Location = new System.Drawing.Point(161, 27);
+            this.anioLabel.Location = new System.Drawing.Point(122, 28);
             this.anioLabel.Name = "anioLabel";
             this.anioLabel.Size = new System.Drawing.Size(26, 13);
             this.anioLabel.TabIndex = 0;
@@ -161,6 +161,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoEstadistico";
             this.Text = "Listado estadístico";
+            this.Load += new System.EventHandler(this.ListadoEstadistico_Load);
             ((System.ComponentModel.ISupportInitialize)(this.estadisticasDataGridView)).EndInit();
             this.filtroGroupBox.ResumeLayout(false);
             this.filtroGroupBox.PerformLayout();
