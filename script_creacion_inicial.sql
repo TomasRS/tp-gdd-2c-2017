@@ -309,7 +309,7 @@ CREATE PROCEDURE GAME_OF_CODE.get_cantidad_roles_de_usuario
 )
 AS
 BEGIN
-	SELECT COUNT(id_rol) FROM GAME_OF_CODE.Rol_por_Usuario WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario
+	SELECT COUNT(ru.id_rol) FROM GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Rol r WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = 'admin') = id_usuario AND ru.id_rol = r.id_rol AND r.estado_habilitacion = 1
 END
 GO
 
