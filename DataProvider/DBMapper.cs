@@ -122,6 +122,15 @@ namespace PagoAgilFrba.DataProvider
             return funcionalidades;
         }
 
+        public String getNombreRol(int idRol)
+        {
+            query = "SELECT nombre FROM GAME_OF_CODE.Rol WHERE id_rol = @id_rol";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_rol", idRol));
+            String descripcion = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return descripcion;
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
