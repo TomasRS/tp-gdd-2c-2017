@@ -28,8 +28,9 @@ namespace PagoAgilFrba.Login
 
         private void volverButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             new LoginForm().ShowDialog();
+            this.Close();
         }
 
         private void EleccionRol_Load(object sender, EventArgs e)
