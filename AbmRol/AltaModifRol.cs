@@ -20,8 +20,10 @@ namespace PagoAgilFrba.AbmRol
         private IList<TextBox> campos = new List<TextBox>();
         private TipoDeAccion tipoAccion;
         private SqlCommand command { get; set; }
+        private DBMapper mapper = new DBMapper();
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private int idRol;
+        private Rol rol;
 
         public AltaModifRol(TipoDeAccion tipoAccion)
         {
@@ -73,7 +75,29 @@ namespace PagoAgilFrba.AbmRol
 
         public override void CargarDatos()
         {
-            //Implementar
+            rol = mapper.ObtenerRol(idRol);
+
+            nombreTextBox.Text = rol.getNombre();
+            tildarFuncionalidadesQueTiene(mapper.getFuncionalidadesDelRol(idRol));
+        }
+
+        private void tildarFuncionalidadesQueTiene(DataSet funcionalidadesDelRol)
+        {
+            CheckedListBox funcionalidadesDelRolListBox = new CheckedListBox();
+            funcionalidadesDelRolListBox.DataSource = funcionalidadesDelRol.Tables[0].DefaultView;
+            funcionalidadesDelRolListBox.ValueMember = "descripcion";
+
+            foreach (var item in funcionalidadesDelRolListBox.Items)
+            {
+                var row = (item as DataRowView).Row;
+                checkearFuncionalidadDeLaLista(row["descripcion"].ToString());
+            }
+        }
+
+        private void checkearFuncionalidadDeLaLista(String descripcion)
+        {
+            int index = funcionalidadesListBox.Items.IndexOf(descripcion);
+            funcionalidadesListBox.SetItemCheckState(index, CheckState.Checked);
         }
 
         public override void guardarInformacion()
@@ -108,7 +132,6 @@ namespace PagoAgilFrba.AbmRol
         public override void Modificar()
         {
             //Implementar
-            throw new NotImplementedException();
         }
 
         private List<string> getDescripcionesListBox()

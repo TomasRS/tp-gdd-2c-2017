@@ -103,6 +103,25 @@ namespace PagoAgilFrba.DataProvider
             return (Empresa)this.Obtener(idEmpresa, clase);
         }
 
+        public Rol ObtenerRol(int idRol)
+        {
+            Rol objeto = new Rol();
+            Type clase = objeto.GetType();
+            return (Rol)this.Obtener(idRol, clase);
+        }
+
+        public DataSet getFuncionalidadesDelRol(int idRol)
+        {
+            DataSet funcionalidades = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@id_rol", idRol));
+            command = QueryBuilder.Instance.build("SELECT DISTINCT f.descripcion from GAME_OF_CODE.Funcionalidad f, GAME_OF_CODE.Funcionalidad_por_Rol fr WHERE f.id_funcionalidad = fr.id_funcionalidad AND fr.id_rol = @id_rol", parametros);
+            adapter.SelectCommand = command;
+            adapter.Fill(funcionalidades);
+            return funcionalidades;
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
