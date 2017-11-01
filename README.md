@@ -10,6 +10,7 @@ Tomás Rodríguez Saavedra | 147.248-3 | tomas_rs@hotmail.com | [Click acá](htt
 Julián Romero Llanos | 141.456-2 | romerollanos.julian@gmail.com | [Click acá](https://github.com/RomeroLlanosJulian) | ✖
 
 ### Links útiles
+* [Herramienta para editar DER](http://www.yworks.com/downloads#yEd)
 * [Visual Studio 2012](https://groups.google.com/forum/#!topic/gestiondedatos/JtVeli37uQM)
 * [SQL Server 2012 Inglés](https://www.microsoft.com/en-US/download/details.aspx?id=29062)
 * [SQL Server 2012 Español](https://www.microsoft.com/es-ES/download/details.aspx?id=29062)
