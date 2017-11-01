@@ -43,9 +43,9 @@ namespace PagoAgilFrba.AbmRol
         }
         private void limpiarFuncionalidades()
         {
-            for (int i = 0; i < funcionalidadesListBox.Items.Count; i++)
+            for (int i = 0; i < funcionalidadesCheckedListBox.Items.Count; i++)
             {
-                funcionalidadesListBox.SetItemChecked(i, false);
+                funcionalidadesCheckedListBox.SetItemChecked(i, false);
             }
         }
 
@@ -64,7 +64,7 @@ namespace PagoAgilFrba.AbmRol
                 return;
             }
 
-            if (!Util.HayAlMenosAlgoSeleccionadoEnListBox(funcionalidadesListBox))
+            if (!Util.HayAlMenosAlgoSeleccionadoEnListBox(funcionalidadesCheckedListBox))
             {
                 Util.ShowMessage("Debe seleccionar al menos una funcionalidad.", MessageBoxIcon.Exclamation);
                 return;
@@ -83,21 +83,19 @@ namespace PagoAgilFrba.AbmRol
 
         private void tildarFuncionalidadesQueTiene(DataSet funcionalidadesDelRol)
         {
-            CheckedListBox funcionalidadesDelRolListBox = new CheckedListBox();
-            funcionalidadesDelRolListBox.DataSource = funcionalidadesDelRol.Tables[0].DefaultView;
-            funcionalidadesDelRolListBox.ValueMember = "descripcion";
+            List<String> funcionalidadesACheckear = funcionalidadesDelRol.Tables[0].AsEnumerable().Select(r=> r.Field<string>("descripcion")).ToList();
 
-            foreach (var item in funcionalidadesDelRolListBox.Items)
+            for (int i = 0; i < funcionalidadesCheckedListBox.Items.Count; i++)
             {
-                var row = (item as DataRowView).Row;
-                checkearFuncionalidadDeLaLista(row["descripcion"].ToString());
+                if (funcionalidadesACheckear.Contains(((System.Data.DataRowView)(funcionalidadesCheckedListBox.Items[i])).Row.ItemArray[0].ToString()))
+                    funcionalidadesCheckedListBox.SetItemCheckState(i, CheckState.Checked);
             }
         }
 
-        private void checkearFuncionalidadDeLaLista(String descripcion)
+        private void checkearFuncionalidadDeLaLista(String unaFuncionalidad)
         {
-            int index = funcionalidadesListBox.Items.IndexOf(descripcion);
-            funcionalidadesListBox.SetItemCheckState(index, CheckState.Checked);
+            int index = funcionalidadesCheckedListBox.Items.IndexOf(unaFuncionalidad);
+            funcionalidadesCheckedListBox.SetItemChecked(index, true);
         }
 
         public override void guardarInformacion()
@@ -116,7 +114,7 @@ namespace PagoAgilFrba.AbmRol
             parametros.Add(new SqlParameter("@rol", nombreRol));
             QueryBuilder.Instance.build(queryRol, parametros).ExecuteNonQuery();
 
-            foreach (DataRowView funcionalidad in funcionalidadesListBox.CheckedItems)
+            foreach (DataRowView funcionalidad in funcionalidadesCheckedListBox.CheckedItems)
             {
                 parametros.Clear();
                 parametros.Add(new SqlParameter("@rol", nombreRol));
@@ -137,7 +135,7 @@ namespace PagoAgilFrba.AbmRol
         private List<string> getDescripcionesListBox()
         {
             List<string> descripciones = new List<string>();
-            System.Windows.Forms.ListBox.SelectedObjectCollection coleccion = funcionalidadesListBox.SelectedItems;
+            System.Windows.Forms.ListBox.SelectedObjectCollection coleccion = funcionalidadesCheckedListBox.SelectedItems;
             foreach (Object objeto in coleccion)
             {
                 descripciones.Add(objeto.ToString());
@@ -172,8 +170,8 @@ namespace PagoAgilFrba.AbmRol
             command = QueryBuilder.Instance.build("SELECT DISTINCT descripcion FROM GAME_OF_CODE.Funcionalidad", parametros);
             adapter.SelectCommand = command;
             adapter.Fill(funcionalidades);
-            funcionalidadesListBox.DataSource = funcionalidades.Tables[0].DefaultView;
-            funcionalidadesListBox.ValueMember = "descripcion";
+            funcionalidadesCheckedListBox.DataSource = funcionalidades.Tables[0].DefaultView;
+            funcionalidadesCheckedListBox.ValueMember = "descripcion";
         }
     }
 }
