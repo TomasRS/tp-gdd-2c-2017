@@ -106,6 +106,7 @@
             this.buscarButton.TabIndex = 7;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // volverButton
             // 

@@ -1,5 +1,6 @@
 ﻿using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,6 +73,95 @@ namespace PagoAgilFrba.ListadoEstadistico
             tipoListadoComboBox.DataSource = tiposDeListados;
             tipoListadoComboBox.ValueMember = "tiposDeListados";
             tipoListadoComboBox.SelectedIndex = -1;
+        }
+
+        //Metodo buscar
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            if (!Util.EsNumero(anioTextBox.Text))
+            {
+                Util.ShowMessage("El formato del año debe ser numérico.", MessageBoxIcon.Exclamation);
+                return;
+            }
+                
+            String anio = anioTextBox.Text;
+            String trimestre = trimestreComboBox.Text;
+            String tipoDeListado = tipoListadoComboBox.Text;
+
+            String fechaDeInicio = ObtenerFechaDeInicio(anio, trimestre);
+            String fechaDeFin = ObtenerFechaDeFin(anio, trimestre);
+            String fechaMedia = ObtenerFechaMedia(anio, trimestre);
+        }
+
+
+        //Metodos extras
+        private String ObtenerFechaDeInicio(string anio, string trimestre)
+        {
+            String dia = "01";
+            String mes = ObtenerMesInicio(trimestre);
+            return dia + "/" + mes + "/" + anio;
+        }
+
+        private string ObtenerMesInicio(string trimestre)
+        {
+            switch (trimestre[0])
+            {
+                case '1':
+                    return "01"; //Enero
+                case '2':
+                    return "04"; //Abril
+                case '3':
+                    return "07"; //Julio
+                case '4':
+                    return "10"; //Octubre
+            }
+            throw new Exception("No se pudo obtener el mes");
+        }
+
+        private String ObtenerFechaDeFin(string anio, string trimestre)
+        {
+            String dia = "01";
+            String mes = ObtenerMesFin(trimestre);
+            return dia + "/" + mes + "/" + anio;
+        }
+
+        private string ObtenerMesFin(string trimestre)
+        {
+            switch (trimestre[0])
+            {
+                case '1':
+                    return "03"; //Marzo
+                case '2':
+                    return "06"; //Junio
+                case '3':
+                    return "09"; //Septiembre
+                case '4':
+                    return "12"; //Diciembre
+            }
+            throw new Exception("No se pudo obtener el mes");
+        }
+
+        private String ObtenerFechaMedia(string anio, string trimestre)
+        {
+            String dia = "01";
+            String mes = ObtenerMesMedio(trimestre);
+            return dia + "/" + mes + "/" + anio;
+        }
+
+        private string ObtenerMesMedio(string trimestre)
+        {
+            switch (trimestre[0])
+            {
+                case '1':
+                    return "02";
+                case '2':
+                    return "05";
+                case '3':
+                    return "08";
+                case '4':
+                    return "11";
+            }
+            throw new Exception("No se pudo obtener el mes");
         }
     }
 }
