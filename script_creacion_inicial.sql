@@ -174,7 +174,8 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_cliente] INT NOT NULL,
 	[id_empresa] INT NOT NULL,
 	[id_pago] INT,
-	[id_devolucion] INT
+	[id_devolucion] INT,
+	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
 
 CREATE TABLE [GAME_OF_CODE].[Cliente] (

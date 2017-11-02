@@ -153,6 +153,7 @@
     <Compile Include="Modelo\Alta.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Empresa.cs" />
+    <Compile Include="Modelo\Factura.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
     <Compile Include="Modelo\Modificacion.cs" />
     <Compile Include="Modelo\Rol.cs" />
