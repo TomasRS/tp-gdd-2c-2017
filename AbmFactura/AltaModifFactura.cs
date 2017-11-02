@@ -35,6 +35,7 @@ namespace PagoAgilFrba.AbmFactura
             fechaAltaFactDateTimePicker.Text = "";
             fechaVencDateTimePicker.Text = "";
             empresaComboBox.SelectedIndex = -1;
+            itemsDataGridView.Rows.Clear();
         }
         private void volverButton_Click(object sender, EventArgs e)
         {
@@ -42,6 +43,14 @@ namespace PagoAgilFrba.AbmFactura
             new MenuPrincipal().ShowDialog();
             this.Close();
         }
+        private void DeshabilitarSortHeaders()
+        {
+            foreach (DataGridViewColumn column in itemsDataGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
         public override void setearTituloCreacion()
         {
             this.Text = "Alta de factura";
@@ -77,6 +86,8 @@ namespace PagoAgilFrba.AbmFactura
             campos.Add(nroFacturaTextBox);
 
             CargarEmpresas();
+            CargarColumnasItems();
+            DeshabilitarSortHeaders();
             tipoAccion.cargarDatosSiCorresponde(this);
             tipoAccion.setearTituloVentana(this);
         }
@@ -95,6 +106,12 @@ namespace PagoAgilFrba.AbmFactura
             empresaComboBox.DisplayMember = "nombre";
             empresaComboBox.DataSource = rubros;
             empresaComboBox.SelectedIndex = 0;
+        }
+        private void CargarColumnasItems()
+        {
+            itemsDataGridView.Columns.Add("item_factura", "Item factura");
+            itemsDataGridView.Columns.Add("cantidad", "Cantidad");
+            itemsDataGridView.Columns.Add("monto_unitario", "Monto unitario");
         }
     }
 }

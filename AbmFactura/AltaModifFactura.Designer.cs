@@ -204,6 +204,7 @@
             // 
             // itemsDataGridView
             // 
+            this.itemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.itemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.itemsDataGridView.Location = new System.Drawing.Point(6, 22);
             this.itemsDataGridView.Name = "itemsDataGridView";
