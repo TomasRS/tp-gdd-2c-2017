@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -68,6 +69,32 @@ namespace PagoAgilFrba.AbmFactura
         public override void Modificar()
         {
             throw new NotImplementedException();
+        }
+
+        private void AltaModifFactura_Load(object sender, EventArgs e)
+        {
+            campos.Add(clienteTextBox);
+            campos.Add(nroFacturaTextBox);
+
+            CargarEmpresas();
+            tipoAccion.cargarDatosSiCorresponde(this);
+            tipoAccion.setearTituloVentana(this);
+        }
+
+        private void CargarEmpresas()
+        {
+            string query = "SELECT id_empresa, nombre from GAME_OF_CODE.Empresa";
+
+            SqlCommand cmd = new SqlCommand(query, ConnectionManager.Instance.getConnection());
+
+            SqlDataAdapter data_adapter = new SqlDataAdapter(cmd);
+            DataTable rubros = new DataTable();
+            data_adapter.Fill(rubros);
+
+            empresaComboBox.ValueMember = "id_empresa";
+            empresaComboBox.DisplayMember = "nombre";
+            empresaComboBox.DataSource = rubros;
+            empresaComboBox.SelectedIndex = 0;
         }
     }
 }

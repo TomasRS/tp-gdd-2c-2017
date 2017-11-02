@@ -224,6 +224,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifFactura";
             this.Text = "Alta y modificación de factura";
+            this.Load += new System.EventHandler(this.AltaModifFactura_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
