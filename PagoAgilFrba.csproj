@@ -122,6 +122,7 @@
     <Compile Include="Excepciones\ClienteYaExisteException.cs" />
     <Compile Include="Excepciones\CuitYaExisteException.cs" />
     <Compile Include="Excepciones\FechaPasadaException.cs" />
+    <Compile Include="Excepciones\FechaFuturaException.cs" />
     <Compile Include="Excepciones\FormatoInvalidoException.cs" />
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>

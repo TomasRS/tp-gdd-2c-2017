@@ -34,6 +34,13 @@ namespace PagoAgilFrba.Utils
             return !(comparacion >= 0);
         }
 
+        public static Boolean EsFechaVencimientoValida(DateTime dateTime)
+        {
+            DateTime dateNow = DateConfig.getInstance().getCurrentDate();
+            int comparacion = dateTime.CompareTo(dateNow);
+            return comparacion >= 0;
+        }
+
         public static Boolean EsEmailValido(string email)
         {
             try {

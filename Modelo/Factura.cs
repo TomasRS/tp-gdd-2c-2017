@@ -1,4 +1,6 @@
 ﻿using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Excepciones;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,6 +20,7 @@ namespace PagoAgilFrba.Modelo
         private DateTime fechaVencimientoFactura;
         private Boolean activo;
         private int montoTotal;
+        //private List<ItemFactura> itemsFactura;
 
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private DBMapper mapper = new DBMapper();
@@ -26,9 +29,27 @@ namespace PagoAgilFrba.Modelo
         public void setID(int id) { this.id = id; }
         public void setCliente(int idCliente) { this.idCliente = idCliente; }
         public void setEmpresa(int idEmpresa) { this.idEmpresa = idEmpresa; }
-        public void setNumeroFactura(String numeroFactura) { this.numeroFactura = numeroFactura; }
-        public void setFechaAltaFactura(DateTime fechaAlta) { this.fechaAltaFactura = fechaAlta; }
-        public void setFechaVencimientoFactura(DateTime fechaVenc) { this.fechaVencimientoFactura = fechaVenc; }
+        public void setNumeroFactura(String numeroFactura)
+        {
+            if (Util.EsNumero(numeroFactura))
+                this.numeroFactura = numeroFactura;
+            else
+                throw new FormatoInvalidoException("número de factura. Debe ser numérico.");
+        }
+        public void setFechaAltaFactura(DateTime fechaAlta)
+        {
+            if (Util.EsFechaPasada(fechaAlta))
+                this.fechaAltaFactura = fechaAlta;
+            else
+                throw new FechaPasadaException();
+        }
+        public void setFechaVencimientoFactura(DateTime fechaVenc)
+        {
+            if (Util.EsFechaVencimientoValida(fechaVenc))
+                this.fechaVencimientoFactura = fechaVenc;
+            else
+                throw new FechaFuturaException("La fecha de vencimiento debe ser una fecha futura.");
+        }
         public void setActivo(Boolean activo) { this.activo = activo; }
 
         //--------------------Getters---------------------

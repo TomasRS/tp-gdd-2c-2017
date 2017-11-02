@@ -69,6 +69,7 @@
             this.guardarButton.TabIndex = 29;
             this.guardarButton.Text = "Guardar";
             this.guardarButton.UseVisualStyleBackColor = true;
+            this.guardarButton.Click += new System.EventHandler(this.guardarButton_Click);
             // 
             // volverButton
             // 

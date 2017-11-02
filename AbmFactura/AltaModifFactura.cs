@@ -1,6 +1,8 @@
 ﻿using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Excepciones;
 using PagoAgilFrba.Menu_Principal;
 using PagoAgilFrba.Modelo;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,6 +53,9 @@ namespace PagoAgilFrba.AbmFactura
             }
         }
 
+
+        //------------Implementacion metodos del abstract----------
+
         public override void setearTituloCreacion()
         {
             this.Text = "Alta de factura";
@@ -60,12 +65,49 @@ namespace PagoAgilFrba.AbmFactura
             this.Text = "Modificación de factura";
         }
 
-        public override void CargarDatos()
+        public override void guardarInformacion()
         {
-            throw new NotImplementedException();
+            String mailCliente = clienteTextBox.Text;
+            String empresa = empresaComboBox.Text;
+            String numeroFactura = nroFacturaTextBox.Text;
+            DateTime fechaAlta;
+            DateTime.TryParse(fechaAltaFactDateTimePicker.Text, out fechaAlta);
+            DateTime fechaVenc;
+            DateTime.TryParse(fechaVencDateTimePicker.Text, out fechaVenc);
+            //Pasar la tabla de items a una List<ItemFactura> o algo asi
+
+            //Crear factura
+            #region
+            try
+            {
+                factura = new Factura();
+                //factura.setIDCliente(mapper.getIDCliente(mailCliente));
+                factura.setNumeroFactura(numeroFactura);
+                factura.setFechaAltaFactura(fechaAlta);
+                factura.setFechaVencimientoFactura(fechaVenc);
+                //Agregar a la factura los items que tengo en la lista comentada de arriba
+
+                tipoAccion.trigger(this);
+            }
+            catch (FechaFuturaException e)
+            {
+                Util.ShowMessage(e.Message, MessageBoxIcon.Error);
+                return;
+            }
+            catch (FechaPasadaException)
+            {
+                Util.ShowMessage("La fecha de alta no puede ser una fecha futura.", MessageBoxIcon.Error);
+                return;
+            }
+            catch (FormatoInvalidoException e)
+            {
+                Util.ShowMessage("Datos mal ingresados en: " + e.Message, MessageBoxIcon.Error);
+                return;
+            }
+            #endregion
         }
 
-        public override void guardarInformacion()
+        public override void CargarDatos()
         {
             throw new NotImplementedException();
         }
@@ -80,6 +122,8 @@ namespace PagoAgilFrba.AbmFactura
             throw new NotImplementedException();
         }
 
+
+        //--------------------Extras-------------------------------------
         private void AltaModifFactura_Load(object sender, EventArgs e)
         {
             campos.Add(clienteTextBox);
@@ -112,6 +156,17 @@ namespace PagoAgilFrba.AbmFactura
             itemsDataGridView.Columns.Add("item_factura", "Item factura");
             itemsDataGridView.Columns.Add("cantidad", "Cantidad");
             itemsDataGridView.Columns.Add("monto_unitario", "Monto unitario");
+        }
+
+        private void guardarButton_Click(object sender, EventArgs e)
+        {
+            if (!Util.CamposEstanLlenos(campos))
+            {
+                Util.ShowMessage("Todos los campos son obligatorios.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            tipoAccion.accion(this);
         }
     }
 }
