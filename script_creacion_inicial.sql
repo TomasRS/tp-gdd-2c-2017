@@ -286,6 +286,11 @@ GO
 IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_empresa') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_factura
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -385,6 +390,26 @@ BEGIN
 	SET @id_output = SCOPE_IDENTITY();
 END
 GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_factura
+	@numero_factura int,
+	@fecha_alta DATETIME,
+	@monto_total int,
+	@fecha_vencimiento DATETIME,
+	@id_cliente int,
+	@id_empresa int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Factura
+		(numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente, id_empresa)
+	VALUES
+		(@numero_factura, @fecha_alta, @monto_total, @fecha_vencimiento, @id_cliente, @id_empresa);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+
 
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 

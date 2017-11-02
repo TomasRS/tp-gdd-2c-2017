@@ -229,6 +229,15 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        public int getIDCliente(String mailCliente)
+        {
+            query = "SELECT id_cliente FROM GAME_OF_CODE.Cliente WHERE mail = @mail";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@mail", mailCliente));
+            int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return id;
+        }
+
         /** Empresas **/
 
         public int CrearEmpresa(Empresa empresa)
@@ -287,6 +296,28 @@ namespace PagoAgilFrba.DataProvider
         //    parametros.Add(new SqlParameter("@codPostal", codPostal));
         //    return ControlDeUnicidad(query, parametros);
         //}
+
+
+        //* Facturas*//
+        public int CrearFactura(Factura factura)
+        {
+            if (existeFacturaParaEmpresa(factura))
+                throw new YaExisteNumeroFacturaParaEmpresa();
+
+            return this.Crear(factura);
+        }
+
+        public Boolean existeFacturaParaEmpresa(Factura factura)
+        {
+            String nroFactura = factura.getNumFactura();
+            int idEmpresa = factura.getIDEmpresa();
+
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            return ControlDeUnicidad(query, parametros);
+        }
 
         /*
         *

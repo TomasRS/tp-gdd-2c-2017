@@ -81,7 +81,8 @@ namespace PagoAgilFrba.AbmFactura
             try
             {
                 factura = new Factura();
-                //factura.setIDCliente(mapper.getIDCliente(mailCliente));
+                factura.setIDCliente(mapper.getIDCliente(mailCliente));
+                factura.setIDEmpresa((int)empresaComboBox.SelectedValue);
                 factura.setNumeroFactura(numeroFactura);
                 factura.setFechaAltaFactura(fechaAlta);
                 factura.setFechaVencimientoFactura(fechaVenc);
@@ -104,6 +105,11 @@ namespace PagoAgilFrba.AbmFactura
                 Util.ShowMessage("Datos mal ingresados en: " + e.Message, MessageBoxIcon.Error);
                 return;
             }
+            catch (YaExisteNumeroFacturaParaEmpresa)
+            {
+                Util.ShowMessage("Ya existe una factura con número " + numeroFactura + "para la empresa " + empresa, MessageBoxIcon.Error);
+                return;
+            }
             #endregion
         }
 
@@ -114,12 +120,19 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void Crear()
         {
-            throw new NotImplementedException();
+            idFactura = mapper.CrearFactura(factura);
+            if (idFactura > 0)
+                Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
         }
 
         public override void Modificar()
         {
-            throw new NotImplementedException();
+            //idFactura = mapper.ModificarFactura(factura, idFactura);
+            if (idFactura > 0)
+            {
+                Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
+                this.Close();
+            }
         }
 
 

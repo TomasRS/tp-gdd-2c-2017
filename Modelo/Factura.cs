@@ -27,8 +27,8 @@ namespace PagoAgilFrba.Modelo
 
         //--------------------Setters---------------------
         public void setID(int id) { this.id = id; }
-        public void setCliente(int idCliente) { this.idCliente = idCliente; }
-        public void setEmpresa(int idEmpresa) { this.idEmpresa = idEmpresa; }
+        public void setIDCliente(int idCliente) { this.idCliente = idCliente; }
+        public void setIDEmpresa(int idEmpresa) { this.idEmpresa = idEmpresa; }
         public void setNumeroFactura(String numeroFactura)
         {
             if (Util.EsNumero(numeroFactura))

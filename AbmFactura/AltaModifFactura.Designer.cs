@@ -189,9 +189,9 @@
             this.clienteLabel.AutoSize = true;
             this.clienteLabel.Location = new System.Drawing.Point(6, 27);
             this.clienteLabel.Name = "clienteLabel";
-            this.clienteLabel.Size = new System.Drawing.Size(39, 13);
+            this.clienteLabel.Size = new System.Drawing.Size(77, 13);
             this.clienteLabel.TabIndex = 0;
-            this.clienteLabel.Text = "Cliente";
+            this.clienteLabel.Text = "Mail del cliente";
             // 
             // groupBox1
             // 
