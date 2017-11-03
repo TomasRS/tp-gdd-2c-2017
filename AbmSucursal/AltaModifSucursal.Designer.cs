@@ -61,6 +61,7 @@
             this.guardarButton.TabIndex = 35;
             this.guardarButton.Text = "Guardar";
             this.guardarButton.UseVisualStyleBackColor = true;
+            this.guardarButton.Click += new System.EventHandler(this.guardarButton_Click);
             // 
             // volverButton
             // 
@@ -159,6 +160,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifSucursal";
             this.Text = "Alta y modificación de sucursal";
+            this.Load += new System.EventHandler(this.AltaModifSucursal_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.ResumeLayout(false);

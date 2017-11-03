@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoSucursal));
-            this.empresasDataGridView = new System.Windows.Forms.DataGridView();
+            this.sucursalesDataGridView = new System.Windows.Forms.DataGridView();
             this.filtroGroupBox = new System.Windows.Forms.GroupBox();
             this.codPostalTextBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
@@ -40,17 +40,21 @@
             this.codPostalLabel = new System.Windows.Forms.Label();
             this.direccionLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sucursalesDataGridView)).BeginInit();
             this.filtroGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // empresasDataGridView
+            // sucursalesDataGridView
             // 
-            this.empresasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.empresasDataGridView.Location = new System.Drawing.Point(12, 202);
-            this.empresasDataGridView.Name = "empresasDataGridView";
-            this.empresasDataGridView.Size = new System.Drawing.Size(638, 288);
-            this.empresasDataGridView.TabIndex = 5;
+            this.sucursalesDataGridView.AllowUserToAddRows = false;
+            this.sucursalesDataGridView.AllowUserToDeleteRows = false;
+            this.sucursalesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sucursalesDataGridView.Location = new System.Drawing.Point(12, 202);
+            this.sucursalesDataGridView.Name = "sucursalesDataGridView";
+            this.sucursalesDataGridView.ReadOnly = true;
+            this.sucursalesDataGridView.Size = new System.Drawing.Size(638, 288);
+            this.sucursalesDataGridView.TabIndex = 5;
+            this.sucursalesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sucursalesDataGridView_CellContentClick );
             // 
             // filtroGroupBox
             // 
@@ -70,13 +74,6 @@
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
             // 
-            // codPostalTextBox
-            // 
-            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
-            this.codPostalTextBox.Name = "codPostalTextBox";
-            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
-            this.codPostalTextBox.TabIndex = 9;
-            // 
             // limpiarButton
             // 
             this.limpiarButton.Location = new System.Drawing.Point(17, 137);
@@ -95,6 +92,7 @@
             this.buscarButton.TabIndex = 7;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // volverButton
             // 
@@ -105,6 +103,13 @@
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
+            // 
+            // codPostalTextBox
+            // 
+            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
+            this.codPostalTextBox.Name = "codPostalTextBox";
+            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
+            this.codPostalTextBox.TabIndex = 5;
             // 
             // direccionTextBox
             // 
@@ -127,7 +132,7 @@
             this.codPostalLabel.Name = "codPostalLabel";
             this.codPostalLabel.Size = new System.Drawing.Size(36, 13);
             this.codPostalLabel.TabIndex = 2;
-            this.codPostalLabel.Text = "Rubro";
+            this.codPostalLabel.Text = "Codigo Postal";
             // 
             // direccionLabel
             // 
@@ -152,12 +157,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 497);
-            this.Controls.Add(this.empresasDataGridView);
+            this.Controls.Add(this.sucursalesDataGridView);
             this.Controls.Add(this.filtroGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoSucursal";
             this.Text = "Listado de Sucursales";
-            ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).EndInit();
+            this.Load += new System.EventHandler(this.ListadoSucursal_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.sucursalesDataGridView)).EndInit();
             this.filtroGroupBox.ResumeLayout(false);
             this.filtroGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -166,7 +172,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView empresasDataGridView;
+        private System.Windows.Forms.DataGridView sucursalesDataGridView;
         private System.Windows.Forms.GroupBox filtroGroupBox;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button buscarButton;

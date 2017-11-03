@@ -122,6 +122,13 @@ namespace PagoAgilFrba.DataProvider
             return funcionalidades;
         }
 
+        public Sucursal ObtenerSucursal(int idSucursal)
+        {
+            Sucursal objeto = new Sucursal();
+            Type clase = objeto.GetType();
+            return (Sucursal)this.Obtener(idSucursal, clase);
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -148,6 +155,15 @@ namespace PagoAgilFrba.DataProvider
         public Boolean CambiarHabilitacionRol(int id, String enDonde, int nuevoEstadoHabilitacion)
         {
             query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_rol = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
+        public Boolean CambiarHabilitacionSucursal(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_sucursal = @id";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id", id));
             int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
@@ -193,6 +209,18 @@ namespace PagoAgilFrba.DataProvider
             return this.SelectDataTable("r.id_rol, r.nombre Nombre, r.estado_habilitacion 'Habilitado'"
                 ,"GAME_OF_CODE.Rol r"
                 , "(r.estado_habilitacion = 1 OR r.estado_habilitacion = 0)");
+        }
+
+        public DataTable SelectSucursalesParaFiltro()
+        {
+            return this.SelectSucursalesParaFiltroConFiltro("");
+        }
+
+        public DataTable SelectSucursalesParaFiltroConFiltro(String filtro)
+        {
+            return this.SelectDataTable("S.id_sucursal, S.nombre Nombre, S.direccion Direccion, S.codigo_postal CodPostal, S.estado_habilitacion 'Habilitado'"
+                , "GAME_OF_CODE.Sucursal S"
+                , "(S.estado_habilitacion = 1 OR S.estado_habilitacion = 0)" + filtro);
         }
 
         //-------------------------------------------------------------
@@ -261,23 +289,28 @@ namespace PagoAgilFrba.DataProvider
             return descripcionRubro;
         }
 
-        ///** Sucursales **/
+        /** Sucursales **/
 
-        //public int CrearSucursal(Sucursal sucursal)
-        //{
-        //    if (existeSucursalConCodPostal(sucursal.getCodPostal()))
-        //        throw new CodigoPostalYaExisteException();
+        public int CrearSucursal(Sucursal sucursal)
+        {
+            if (existeSucursalConCodPostal(sucursal.getCodPostal()))
+                throw new CodigoPostalYaExisteException();
 
-        //    return this.Crear(sucursal);
-        //}
+            return this.Crear(sucursal);
+        }
 
-        //private Boolean existeSucursalConCodPostal(String codPostal)
-        //{
-        //    query = "SELECT COUNT(*) FROM GAME_OF_CODE.Sucursal WHERE codigo_postal = @codPostal";
-        //    parametros.Clear();
-        //    parametros.Add(new SqlParameter("@codPostal", codPostal));
-        //    return ControlDeUnicidad(query, parametros);
-        //}
+        public int ModificarSucursal(Sucursal sucursal, int idSucursal)
+        {
+            return this.Modificar(idSucursal, sucursal);
+        }
+
+        private Boolean existeSucursalConCodPostal(String codPostal)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Sucursal WHERE codigo_postal = @codPostal";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@codPostal", codPostal));
+            return ControlDeUnicidad(query, parametros);
+        }
 
         /*
         *

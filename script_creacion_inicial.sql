@@ -285,6 +285,15 @@ GO
 IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_empresa') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_sucursal') IS NOT NULL)
+	DROP PROCEDURE GAME_OF_CODE.pr_crear_sucursal
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_sucursal') IS NOT NULL)
+	DROP PROCEDURE GAME_OF_CODE.pr_modificar_sucursal
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -381,6 +390,36 @@ BEGIN
 	UPDATE GAME_OF_CODE.Empresa
 	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro
 	WHERE id_empresa = @id
+	SET @id_output = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_sucursal
+	@nombre nvarchar(255),
+	@direccion nvarchar(50),
+	@codigo_postal nvarchar(255),
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Sucursal
+		(nombre, direccion, codigo_postal)
+	VALUES
+		(@nombre, @direccion, @codigo_postal);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_sucursal
+	@nombre nvarchar(255),
+	@direccion nvarchar(50),
+	@codigo_postal nvarchar(255),
+	@id int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Sucursal
+	SET nombre = @nombre, direccion = @direccion, codigo_postal = @codigo_postal
+	WHERE id_sucursal = @id
 	SET @id_output = SCOPE_IDENTITY();
 END
 GO

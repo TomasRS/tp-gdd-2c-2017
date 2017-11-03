@@ -120,6 +120,7 @@
       <DependentUpon>DevolucionFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Excepciones\ClienteYaExisteException.cs" />
+    <Compile Include="Excepciones\CodigoPostalYaExisteException.cs" />
     <Compile Include="Excepciones\CuitYaExisteException.cs" />
     <Compile Include="Excepciones\FechaPasadaException.cs" />
     <Compile Include="Excepciones\FormatoInvalidoException.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Modelo\Mapeable.cs" />
     <Compile Include="Modelo\Modificacion.cs" />
     <Compile Include="Modelo\Rol.cs" />
+    <Compile Include="Modelo\Sucursal.cs" />
     <Compile Include="Modelo\TipoDeAccion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
