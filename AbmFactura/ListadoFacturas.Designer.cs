@@ -37,15 +37,17 @@
             // 
             // facturasDataGridView
             // 
+            this.facturasDataGridView.AllowUserToAddRows = false;
+            this.facturasDataGridView.AllowUserToDeleteRows = false;
             this.facturasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.facturasDataGridView.Location = new System.Drawing.Point(12, 48);
             this.facturasDataGridView.Name = "facturasDataGridView";
-            this.facturasDataGridView.Size = new System.Drawing.Size(638, 288);
+            this.facturasDataGridView.Size = new System.Drawing.Size(912, 371);
             this.facturasDataGridView.TabIndex = 5;
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(283, 350);
+            this.volverButton.Location = new System.Drawing.Point(406, 429);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 9;
@@ -67,10 +69,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 392);
+            this.ClientSize = new System.Drawing.Size(936, 467);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.facturasDataGridView);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoFacturas";
             this.Text = "Listado de Facturas";
