@@ -31,6 +31,11 @@ namespace PagoAgilFrba.AbmFactura
             InitializeComponent();
             CenterToScreen();
         }
+        public void ShowDialog(String idFacturaAModificar)
+        {
+            this.idFactura = Convert.ToInt32(idFacturaAModificar);
+            this.ShowDialog();
+        }
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             clienteTextBox.Clear();
@@ -125,7 +130,23 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void CargarDatos()
         {
-            throw new NotImplementedException();
+            Factura factura = mapper.ObtenerFactura(idFactura);
+
+            clienteTextBox.Text = mapper.getMailCliente(factura.getIDCliente());
+            empresaComboBox.SelectedText = mapper.getNombreEmpresa(factura.getIDEmpresa());
+            nroFacturaTextBox.Text = factura.getNumFactura();
+            fechaAltaFactDateTimePicker.Text = factura.getFechaAlta().ToString();
+            fechaVencDateTimePicker.Text = factura.getFechaVenc().ToString();
+
+            popularItems();
+        }
+
+        private void popularItems()
+        {
+            DataTable facturasDataTable = mapper.SelectItemsFactura(idFactura);
+            itemsDataGridView.Columns.Clear();
+            itemsDataGridView.DataSource = null;
+            itemsDataGridView.DataSource = facturasDataTable;
         }
 
         public override void Crear()

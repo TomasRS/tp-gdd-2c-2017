@@ -48,10 +48,10 @@ namespace PagoAgilFrba.Modelo
         }
         public void setFechaVencimientoFactura(DateTime fechaVenc)
         {
-            if (Util.EsFechaVencimientoValida(fechaVenc))
+            if (Util.EsFechaVencimientoValida(fechaVenc, fechaAltaFactura))
                 this.fechaVencimientoFactura = fechaVenc;
             else
-                throw new FechaFuturaException("La fecha de vencimiento debe ser una fecha futura.");
+                throw new FechaFuturaException("La fecha de vencimiento debe ser una fecha igual o mayor a la de alta.");
         }
         public void setItemsFactura(List<ItemFactura> items)
         { this.itemsFactura = items; }

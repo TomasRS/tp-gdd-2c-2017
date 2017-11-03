@@ -138,6 +138,13 @@ namespace PagoAgilFrba.DataProvider
             return (Sucursal)this.Obtener(idSucursal, clase);
         }
 
+        public Factura ObtenerFactura(int idFactura)
+        {
+            Factura objeto = new Factura();
+            Type clase = objeto.GetType();
+            return (Factura)this.Obtener(idFactura, clase);
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -173,6 +180,15 @@ namespace PagoAgilFrba.DataProvider
         public Boolean CambiarHabilitacionSucursal(int id, String enDonde, int nuevoEstadoHabilitacion)
         {
             query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_sucursal = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
+        public Boolean CambiarHabilitacionFactura(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_factura = @id";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id", id));
             int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
@@ -238,6 +254,14 @@ namespace PagoAgilFrba.DataProvider
                 , "GAME_OF_CODE.Factura F, GAME_OF_CODE.Empresa E, GAME_OF_CODE.Cliente C"
                 , "(F.estado_habilitacion = 1 OR F.estado_habilitacion = 0) AND (E.id_empresa = F.id_empresa) AND (F.id_cliente = C.id_cliente) AND (F.id_pago IS NULL) ORDER BY F.numero_factura asc");
         }
+
+        public DataTable SelectItemsFactura(int idFactura)
+        {
+            return this.SelectDataTable("I.item_factura 'Item factura', I.cantidad 'Cantidad', I.monto_unitario 'Monto unitario'"
+                , "GAME_OF_CODE.Detalle_Factura I"
+                , "I.id_factura = " + idFactura);
+        }
+
         //-------------------------------------------------------------
         /** Clientes **/
 
@@ -270,6 +294,15 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@mail", mailCliente));
             int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return id;
+        }
+
+        public String getMailCliente(int idCliente)
+        {
+            query = "SELECT mail FROM GAME_OF_CODE.Cliente WHERE id_cliente = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", idCliente));
+            String mailDelCliente = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return mailDelCliente;
         }
 
         /** Empresas **/
@@ -309,6 +342,15 @@ namespace PagoAgilFrba.DataProvider
             query = "SELECT descripcion FROM GAME_OF_CODE.Rubro WHERE id_rubro = @id_rubro";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id_rubro", idRubro));
+            String descripcionRubro = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return descripcionRubro;
+        }
+
+        public String getNombreEmpresa(int idEmpresa)
+        {
+            query = "SELECT nombre FROM GAME_OF_CODE.Empresa WHERE id_empresa = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", idEmpresa));
             String descripcionRubro = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return descripcionRubro;
         }

@@ -1,5 +1,7 @@
 ﻿using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Modelo;
+using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,6 +82,36 @@ namespace PagoAgilFrba.AbmFactura
             }
         }
 
+        private void facturasDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Controla que la celda que se clickeo fue la de modificar
+            if (e.ColumnIndex == facturasDataGridView.Columns["Modificar"].Index && e.RowIndex >= 0)
+            {
+                String idFacturaAModificar = facturasDataGridView.Rows[e.RowIndex].Cells["id_factura"].Value.ToString();
+                new AltaModifFactura(new Modificacion()).ShowDialog(idFacturaAModificar);
+                CargarFacturas();
+                return;
+            }
+            if (e.ColumnIndex == facturasDataGridView.Columns["Eliminar"].Index && e.RowIndex >= 0)
+            {
+                String idFacturaAModificar = facturasDataGridView.Rows[e.RowIndex].Cells["id_factura"].Value.ToString();
+                Boolean valorHabilitacion = (Boolean)facturasDataGridView.Rows[e.RowIndex].Cells["Habilitado"].Value;
+                if (valorHabilitacion)
+                {
+                    Boolean resultado = mapper.CambiarHabilitacionFactura(Convert.ToInt32(idFacturaAModificar), "Factura", 0);
+                    Util.ShowMessage("Se eliminó la factura correctamente.", MessageBoxIcon.Information);
+                }
+                else
+                {
+                    Boolean resultado = mapper.CambiarHabilitacionFactura(Convert.ToInt32(idFacturaAModificar), "Factura", 1);
+                    Util.ShowMessage("Se habilitó la factura correctamente.", MessageBoxIcon.Information);
+                }
+
+                CargarFacturas();
+                return;
+            }
+        }
+        //-------------------------------------------------------------------------
         private void DeshabilitarSortHeaders()
         {
             foreach (DataGridViewColumn column in facturasDataGridView.Columns)

@@ -45,6 +45,7 @@
             this.facturasDataGridView.Name = "facturasDataGridView";
             this.facturasDataGridView.Size = new System.Drawing.Size(1050, 371);
             this.facturasDataGridView.TabIndex = 5;
+            this.facturasDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.facturasDataGridView_CellContentClick);
             // 
             // volverButton
             // 
