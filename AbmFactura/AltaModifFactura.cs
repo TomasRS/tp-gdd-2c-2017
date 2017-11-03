@@ -203,7 +203,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            for (int i = 0; i <= itemsDataGridView.Rows.Count - 2; i++)
+            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
                 {
@@ -229,7 +229,7 @@ namespace PagoAgilFrba.AbmFactura
         private int calcularMontoTotal()
         {
             int montoFinal = 0;
-            for (int i = 0; i < itemsDataGridView.Rows.Count - 2; i++)
+            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
             {
                 montoFinal += (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["cantidad"].Value.ToString())) * (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["monto_unitario"].Value.ToString()));
             }
