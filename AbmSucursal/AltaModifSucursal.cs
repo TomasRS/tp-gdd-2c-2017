@@ -94,6 +94,7 @@ namespace PagoAgilFrba.AbmSucursal
             if (idSucursal > 0)
             {
                 Util.ShowMessage("Sucursal guardada correctamente.", MessageBoxIcon.Information);
+                this.Close();
             }
         }
 
@@ -134,6 +135,8 @@ namespace PagoAgilFrba.AbmSucursal
         public override void setearTituloModificacion()
         {
             this.Text = "Modificación de sucursales";
+            volverButton.Visible = false;
+            limpiarButton.Visible = false;
         }
 
     }

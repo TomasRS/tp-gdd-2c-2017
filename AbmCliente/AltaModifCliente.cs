@@ -242,6 +242,8 @@ namespace PagoAgilFrba.AbmCliente
         public override void setearTituloModificacion()
         {
             this.Text = "Modificación de clientes";
+            limpiarButton.Visible = false;
+            volverButton.Visible = false;
         }
     }
 }

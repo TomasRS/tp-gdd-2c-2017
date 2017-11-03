@@ -64,6 +64,8 @@ namespace PagoAgilFrba.AbmFactura
         public override void setearTituloModificacion()
         {
             this.Text = "Modificación de factura";
+            limpiarButton.Visible = false;
+            volverButton.Visible = false;
         }
 
         public override void guardarInformacion()

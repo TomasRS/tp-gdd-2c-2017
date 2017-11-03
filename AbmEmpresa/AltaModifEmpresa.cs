@@ -154,6 +154,8 @@ namespace PagoAgilFrba.AbmEmpresa
         public override void setearTituloModificacion()
         {
             this.Text = "Modificación de empresa";
+            volverButton.Visible = false;
+            limpiarButton.Visible = false;
         }
     }
 }

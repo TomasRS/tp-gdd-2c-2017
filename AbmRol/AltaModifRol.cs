@@ -236,6 +236,8 @@ namespace PagoAgilFrba.AbmRol
         public override void setearTituloModificacion()
         {
             this.Text = "Modificación de rol";
+            volverButton.Visible = false;
+            limpiarButton.Visible = false;
         }
 
         private void AltaModifRol_Load(object sender, EventArgs e)
