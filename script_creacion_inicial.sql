@@ -291,6 +291,10 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_crear_factura') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_factura
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_item_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_item_factura
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -409,7 +413,21 @@ BEGIN
 END
 GO
 
-
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_item_factura
+	@item_factura nvarchar(50),
+	@monto_unitario int,
+	@cantidad int,
+	@id_factura int,
+	@id int output
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Detalle_Factura
+		(item_factura, monto_unitario, cantidad, id_factura)
+	VALUES
+		(@item_factura, @monto_unitario, @cantidad, @id_factura)
+	SET @id = SCOPE_IDENTITY();
+END
+GO
 
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 

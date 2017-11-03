@@ -23,6 +23,7 @@ namespace PagoAgilFrba.AbmFactura
         private IList<TextBox> campos = new List<TextBox>();
         private TipoDeAccion tipoAccion;
         private Factura factura;
+        private List<ItemFactura> itemsFactura;
 
         public AltaModifFactura(TipoDeAccion tipoAccion)
         {
@@ -74,19 +75,26 @@ namespace PagoAgilFrba.AbmFactura
             DateTime.TryParse(fechaAltaFactDateTimePicker.Text, out fechaAlta);
             DateTime fechaVenc;
             DateTime.TryParse(fechaVencDateTimePicker.Text, out fechaVenc);
-            //Pasar la tabla de items a una List<ItemFactura> o algo asi
-
+            
             //Crear factura
             #region
             try
             {
+                itemsFactura = armarListaItemsFactura();
                 factura = new Factura();
                 factura.setIDCliente(mapper.getIDCliente(mailCliente));
                 factura.setIDEmpresa((int)empresaComboBox.SelectedValue);
                 factura.setNumeroFactura(numeroFactura);
+                factura.setMontoTotal(calcularMontoTotal());
                 factura.setFechaAltaFactura(fechaAlta);
                 factura.setFechaVencimientoFactura(fechaVenc);
-                //Agregar a la factura los items que tengo en la lista comentada de arriba
+                factura.setItemsFactura(itemsFactura);
+
+                if (itemsFactura.Count.Equals(0))
+                {
+                    Util.ShowMessage("Debe añadir al menos un item factura en el listado de items.", MessageBoxIcon.Exclamation);
+                    return;
+                }
 
                 tipoAccion.trigger(this);
             }
@@ -107,7 +115,7 @@ namespace PagoAgilFrba.AbmFactura
             }
             catch (YaExisteNumeroFacturaParaEmpresa)
             {
-                Util.ShowMessage("Ya existe una factura con número " + numeroFactura + "para la empresa " + empresa, MessageBoxIcon.Error);
+                Util.ShowMessage("Ya existe una factura con número " + numeroFactura + " para la empresa \"" + empresa + "\".", MessageBoxIcon.Error);
                 return;
             }
             #endregion
@@ -122,7 +130,16 @@ namespace PagoAgilFrba.AbmFactura
         {
             idFactura = mapper.CrearFactura(factura);
             if (idFactura > 0)
+            {
+                itemsFactura.ForEach(unItemFactura => crearItemFactura(unItemFactura));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
+            }   
+        }
+
+        public void crearItemFactura(ItemFactura item)
+        {
+            item.setIDFactura(idFactura);
+            mapper.CrearDetalleFactura(item, idFactura);
         }
 
         public override void Modificar()
@@ -180,6 +197,43 @@ namespace PagoAgilFrba.AbmFactura
             }
 
             tipoAccion.accion(this);
+        }
+
+        private List<ItemFactura> armarListaItemsFactura()
+        {
+            List<ItemFactura> items = new List<ItemFactura>();
+
+            for (int i = 0; i <= itemsDataGridView.Rows.Count - 2; i++)
+            {
+                if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
+                {
+                    ItemFactura item = new ItemFactura();
+                    item.setDescripcion(itemsDataGridView.Rows[i].Cells["item_factura"].Value.ToString());
+                    item.setCantidad(itemsDataGridView.Rows[i].Cells["cantidad"].Value.ToString());
+                    item.setMontoUnitario(itemsDataGridView.Rows[i].Cells["monto_unitario"].Value.ToString());
+                    item.setIDFactura(idFactura);
+                    items.Add(item);
+                }
+                else
+                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            }
+
+            return items;
+        }
+
+        private Boolean camposDeItemLlenos(DataGridViewRow row)
+        {
+            return row.Cells["item_factura"].Value != null && row.Cells["cantidad"].Value != null && row.Cells["monto_unitario"].Value != null;
+        }
+
+        private int calcularMontoTotal()
+        {
+            int montoFinal = 0;
+            for (int i = 0; i < itemsDataGridView.Rows.Count - 2; i++)
+            {
+                montoFinal += (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["cantidad"].Value.ToString())) * (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["monto_unitario"].Value.ToString()));
+            }
+            return montoFinal;
         }
     }
 }

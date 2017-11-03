@@ -20,15 +20,18 @@ namespace PagoAgilFrba.Modelo
         private DateTime fechaVencimientoFactura;
         private Boolean activo;
         private int montoTotal;
-        //private List<ItemFactura> itemsFactura;
+        private List<ItemFactura> itemsFactura;
 
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private DBMapper mapper = new DBMapper();
 
         //--------------------Setters---------------------
-        public void setID(int id) { this.id = id; }
-        public void setIDCliente(int idCliente) { this.idCliente = idCliente; }
-        public void setIDEmpresa(int idEmpresa) { this.idEmpresa = idEmpresa; }
+        public void setID(int id)
+        { this.id = id; }
+        public void setIDCliente(int idCliente)
+        { this.idCliente = idCliente; }
+        public void setIDEmpresa(int idEmpresa)
+        { this.idEmpresa = idEmpresa; }
         public void setNumeroFactura(String numeroFactura)
         {
             if (Util.EsNumero(numeroFactura))
@@ -50,16 +53,23 @@ namespace PagoAgilFrba.Modelo
             else
                 throw new FechaFuturaException("La fecha de vencimiento debe ser una fecha futura.");
         }
-        public void setActivo(Boolean activo) { this.activo = activo; }
+        public void setItemsFactura(List<ItemFactura> items)
+        { this.itemsFactura = items; }
+        public void setActivo(Boolean activo)
+        { this.activo = activo; }
+        public void setMontoTotal(int montoTotal)
+        { this.montoTotal = montoTotal; }
 
         //--------------------Getters---------------------
-        public int getID() { return this.id; }
-        public int getIDCliente() { return this.idCliente; }
-        public int getIDEmpresa() { return this.idEmpresa; }
-        public String getNumFactura() { return this.numeroFactura; }
-        public DateTime getFechaAlta() { return this.fechaAltaFactura; }
-        public DateTime getFechaVenc() { return this.fechaVencimientoFactura; }
-        public Boolean getActivo() { return this.activo; }
+        public int getID()                          { return this.id; }
+        public int getIDCliente()                   { return this.idCliente; }
+        public int getIDEmpresa()                   { return this.idEmpresa; }
+        public String getNumFactura()               { return this.numeroFactura; }
+        public DateTime getFechaAlta()              { return this.fechaAltaFactura; }
+        public DateTime getFechaVenc()              { return this.fechaVencimientoFactura; }
+        public List<ItemFactura> getItemsFactura()  { return this.itemsFactura; }
+        public Boolean getActivo()                  { return this.activo; }
+        public int getMontoTotal()                  { return this.montoTotal; }
 
 
 

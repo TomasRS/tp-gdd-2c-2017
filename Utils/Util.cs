@@ -27,6 +27,13 @@ namespace PagoAgilFrba.Utils
             return long.TryParse(unNumero, out number1);
         }
 
+        public static int getNumeroFromString(String numero)
+        {
+            int number = 0;
+            int.TryParse(numero, out number);
+            return number;
+        }
+
         public static Boolean EsFechaPasada(DateTime dateTime)
         {
             DateTime dateNow = DateConfig.getInstance().getCurrentDate();

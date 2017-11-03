@@ -307,6 +307,11 @@ namespace PagoAgilFrba.DataProvider
             return this.Crear(factura);
         }
 
+        public int CrearDetalleFactura(ItemFactura itemFactura, int idFactura)
+        {
+            return this.Crear(itemFactura);
+        }
+
         public Boolean existeFacturaParaEmpresa(Factura factura)
         {
             String nroFactura = factura.getNumFactura();
