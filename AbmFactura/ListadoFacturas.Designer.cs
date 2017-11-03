@@ -29,33 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoFacturas));
-            this.empresasDataGridView = new System.Windows.Forms.DataGridView();
-            this.buscarButton = new System.Windows.Forms.Button();
+            this.facturasDataGridView = new System.Windows.Forms.DataGridView();
             this.volverButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // empresasDataGridView
+            // facturasDataGridView
             // 
-            this.empresasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.empresasDataGridView.Location = new System.Drawing.Point(12, 48);
-            this.empresasDataGridView.Name = "empresasDataGridView";
-            this.empresasDataGridView.Size = new System.Drawing.Size(638, 288);
-            this.empresasDataGridView.TabIndex = 5;
-            // 
-            // buscarButton
-            // 
-            this.buscarButton.Location = new System.Drawing.Point(418, 12);
-            this.buscarButton.Name = "buscarButton";
-            this.buscarButton.Size = new System.Drawing.Size(100, 30);
-            this.buscarButton.TabIndex = 8;
-            this.buscarButton.Text = "Buscar";
-            this.buscarButton.UseVisualStyleBackColor = true;
+            this.facturasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.facturasDataGridView.Location = new System.Drawing.Point(12, 48);
+            this.facturasDataGridView.Name = "facturasDataGridView";
+            this.facturasDataGridView.Size = new System.Drawing.Size(638, 288);
+            this.facturasDataGridView.TabIndex = 5;
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(550, 12);
+            this.volverButton.Location = new System.Drawing.Point(283, 350);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 9;
@@ -77,15 +67,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 350);
+            this.ClientSize = new System.Drawing.Size(667, 392);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.volverButton);
-            this.Controls.Add(this.buscarButton);
-            this.Controls.Add(this.empresasDataGridView);
+            this.Controls.Add(this.facturasDataGridView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoFacturas";
             this.Text = "Listado de Facturas";
-            ((System.ComponentModel.ISupportInitialize)(this.empresasDataGridView)).EndInit();
+            this.Load += new System.EventHandler(this.ListadoFacturas_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,8 +83,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView empresasDataGridView;
-        private System.Windows.Forms.Button buscarButton;
+        private System.Windows.Forms.DataGridView facturasDataGridView;
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Label label1;
     }

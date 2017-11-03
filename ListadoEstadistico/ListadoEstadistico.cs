@@ -91,6 +91,8 @@ namespace PagoAgilFrba.ListadoEstadistico
             String fechaDeInicio = ObtenerFechaDeInicio(anio, trimestre);
             String fechaDeFin = ObtenerFechaDeFin(anio, trimestre);
             String fechaMedia = ObtenerFechaMedia(anio, trimestre);
+
+
         }
 
 

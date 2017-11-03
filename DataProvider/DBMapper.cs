@@ -232,6 +232,12 @@ namespace PagoAgilFrba.DataProvider
                 , "(S.estado_habilitacion = 1 OR S.estado_habilitacion = 0)" + filtro);
         }
 
+        public DataTable SelectFacturasParaFiltro()
+        {
+            return this.SelectDataTable("F.id_factura, F.numero_factura 'Número factura', F.fecha_alta 'Fecha de alta', F.monto_total 'Monto total', F.fecha_vencimiento 'Fecha de vencimiento', E.nombre 'Nombre empresa', C.nombre 'Nombre cliente', F.estado_habilitacion 'Habilitado'"
+                , "GAME_OF_CODE.Factura F, GAME_OF_CODE.Empresa E, GAME_OF_CODE.Cliente C"
+                , "(F.estado_habilitacion = 1 OR F.estado_habilitacion = 0) AND (E.id_empresa = F.id_empresa) AND (F.id_cliente = C.id_cliente)");
+        }
         //-------------------------------------------------------------
         /** Clientes **/
 
