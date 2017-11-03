@@ -27,11 +27,25 @@ namespace PagoAgilFrba.Utils
             return long.TryParse(unNumero, out number1);
         }
 
+        public static int getNumeroFromString(String numero)
+        {
+            int number = 0;
+            int.TryParse(numero, out number);
+            return number;
+        }
+
         public static Boolean EsFechaPasada(DateTime dateTime)
         {
             DateTime dateNow = DateConfig.getInstance().getCurrentDate();
             int comparacion = dateTime.CompareTo(dateNow);
             return !(comparacion >= 0);
+        }
+
+        public static Boolean EsFechaVencimientoValida(DateTime dateTime)
+        {
+            DateTime dateNow = DateConfig.getInstance().getCurrentDate();
+            int comparacion = dateTime.CompareTo(dateNow);
+            return comparacion >= 0;
         }
 
         public static Boolean EsEmailValido(string email)

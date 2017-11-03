@@ -43,9 +43,9 @@ namespace PagoAgilFrba.AbmRol
         }
         private void limpiarFuncionalidades()
         {
-            for (int i = 0; i < funcionalidadesListBox.Items.Count; i++)
+            for (int i = 0; i < funcionalidadesCheckedListBox.Items.Count; i++)
             {
-                funcionalidadesListBox.SetItemChecked(i, false);
+                funcionalidadesCheckedListBox.SetItemChecked(i, false);
             }
         }
 
@@ -64,7 +64,7 @@ namespace PagoAgilFrba.AbmRol
                 return;
             }
 
-            if (!Util.HayAlMenosAlgoSeleccionadoEnListBox(funcionalidadesListBox))
+            if (!Util.HayAlMenosAlgoSeleccionadoEnListBox(funcionalidadesCheckedListBox))
             {
                 Util.ShowMessage("Debe seleccionar al menos una funcionalidad.", MessageBoxIcon.Exclamation);
                 return;
@@ -73,6 +73,7 @@ namespace PagoAgilFrba.AbmRol
             guardarInformacion();
         }
 
+        //Metodos para cargar los datos en la UI
         public override void CargarDatos()
         {
             rol = mapper.ObtenerRol(idRol);
@@ -83,23 +84,22 @@ namespace PagoAgilFrba.AbmRol
 
         private void tildarFuncionalidadesQueTiene(DataSet funcionalidadesDelRol)
         {
-            CheckedListBox funcionalidadesDelRolListBox = new CheckedListBox();
-            funcionalidadesDelRolListBox.DataSource = funcionalidadesDelRol.Tables[0].DefaultView;
-            funcionalidadesDelRolListBox.ValueMember = "descripcion";
+            List<String> funcionalidadesACheckear = funcionalidadesDelRol.Tables[0].AsEnumerable().Select(r=> r.Field<string>("descripcion")).ToList();
 
-            foreach (var item in funcionalidadesDelRolListBox.Items)
+            for (int i = 0; i < funcionalidadesCheckedListBox.Items.Count; i++)
             {
-                var row = (item as DataRowView).Row;
-                checkearFuncionalidadDeLaLista(row["descripcion"].ToString());
+                if (funcionalidadesACheckear.Contains(((System.Data.DataRowView)(funcionalidadesCheckedListBox.Items[i])).Row.ItemArray[0].ToString()))
+                    funcionalidadesCheckedListBox.SetItemCheckState(i, CheckState.Checked);
             }
         }
 
-        private void checkearFuncionalidadDeLaLista(String descripcion)
+        private void checkearFuncionalidadDeLaLista(String unaFuncionalidad)
         {
-            int index = funcionalidadesListBox.Items.IndexOf(descripcion);
-            funcionalidadesListBox.SetItemCheckState(index, CheckState.Checked);
+            int index = funcionalidadesCheckedListBox.Items.IndexOf(unaFuncionalidad);
+            funcionalidadesCheckedListBox.SetItemChecked(index, true);
         }
 
+        //Metodo implementado del abstract tanto para crear como modificar
         public override void guardarInformacion()
         {
             if (Util.EsNombreValido(nombreTextBox.Text))
@@ -108,6 +108,7 @@ namespace PagoAgilFrba.AbmRol
                 Util.ShowMessage("El nombre debe ser alfabético.", MessageBoxIcon.Exclamation);
         }
 
+        //Metodo de crear
         public override void Crear()
         {
             String queryRol = "INSERT INTO GAME_OF_CODE.Rol(nombre, estado_habilitacion) VALUES (@rol, 1)";
@@ -116,7 +117,7 @@ namespace PagoAgilFrba.AbmRol
             parametros.Add(new SqlParameter("@rol", nombreRol));
             QueryBuilder.Instance.build(queryRol, parametros).ExecuteNonQuery();
 
-            foreach (DataRowView funcionalidad in funcionalidadesListBox.CheckedItems)
+            foreach (DataRowView funcionalidad in funcionalidadesCheckedListBox.CheckedItems)
             {
                 parametros.Clear();
                 parametros.Add(new SqlParameter("@rol", nombreRol));
@@ -129,15 +130,97 @@ namespace PagoAgilFrba.AbmRol
             Util.ShowMessage("El rol fue creado correctamente.", MessageBoxIcon.Information);
         }
 
+        //Metodos de modificar
         public override void Modificar()
         {
-            //Implementar
+            if (nombreTextBox.Text != "")
+            {
+                renombrarRol();
+                actualizarFuncionalidades();
+            }
+            else
+                Util.ShowMessage("El campo nombre del rol no puede estar vacío.", MessageBoxIcon.Exclamation);
+
+            this.Close();
         }
 
+        private void renombrarRol()
+        {
+            String nuevoNombreRol = this.nombreTextBox.Text;
+
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_rol", idRol));
+            parametros.Add(new SqlParameter("@nombre_nuevo", nuevoNombreRol));
+
+            String queryUpdateRol = "UPDATE GAME_OF_CODE.Rol SET nombre = @nombre_nuevo WHERE id_rol = " + idRol.ToString();
+            int rowsAffected = QueryBuilder.Instance.build(queryUpdateRol, parametros).ExecuteNonQuery();
+            if (rowsAffected.Equals(1))
+                Util.ShowMessage("El rol fue modificado correctamente.", MessageBoxIcon.Information);
+            else
+                Util.ShowMessage("No se pudo modificar el rol.", MessageBoxIcon.Error);
+        }
+
+        private void actualizarFuncionalidades()
+        {
+            agregarFuncionalidadesSiCorresponde();
+            quitarFuncionalidadesSiCorresponde();
+        }
+
+        private void agregarFuncionalidadesSiCorresponde()
+        {
+            foreach (DataRowView funcionalidad in this.funcionalidadesCheckedListBox.CheckedItems)
+            {
+                if (verificarSiLaTiene(funcionalidad.Row["descripcion"] as String))
+                {
+
+                }
+                else
+                {
+                    parametros.Clear();
+                    parametros.Add(new SqlParameter("@rol", mapper.getNombreRol(idRol)));
+                    parametros.Add(new SqlParameter("@funcionalidad", funcionalidad.Row["descripcion"] as String));
+
+                    String queryRolXFuncionalidad = "INSERT INTO GAME_OF_CODE.Funcionalidad_por_rol(id_funcionalidad, id_rol) VALUES ((SELECT f.id_funcionalidad FROM GAME_OF_CODE.Funcionalidad f WHERE f.descripcion = @funcionalidad), (SELECT r.id_rol FROM GAME_OF_CODE.Rol r WHERE r.nombre = @rol))";
+
+                    QueryBuilder.Instance.build(queryRolXFuncionalidad, parametros).ExecuteNonQuery();
+                }
+            }
+        }
+        private void quitarFuncionalidadesSiCorresponde()
+        {
+            foreach (DataRowView funcionalidad in this.funcionalidadesCheckedListBox.Items)
+            {
+                int index = funcionalidadesCheckedListBox.Items.IndexOf(funcionalidad);
+                String estado = this.funcionalidadesCheckedListBox.GetItemCheckState(index).ToString();
+
+                if (estado == "Unchecked")
+                {
+                    parametros.Clear();
+                    parametros.Add(new SqlParameter("@rol", mapper.getNombreRol(idRol)));
+                    parametros.Add(new SqlParameter("@funcionalidad", funcionalidad.Row["descripcion"] as String));
+
+                    String queryBorrarRolXFuncionalidad = "DELETE GAME_OF_CODE.Funcionalidad_por_Rol WHERE id_funcionalidad = (SELECT f.id_funcionalidad FROM GAME_OF_CODE.Funcionalidad f WHERE f.descripcion = @funcionalidad) AND id_rol = (SELECT r.id_rol FROM GAME_OF_CODE.Rol r WHERE r.nombre = @rol)";
+
+                    QueryBuilder.Instance.build(queryBorrarRolXFuncionalidad, parametros).ExecuteNonQuery();
+                }
+            }
+        }
+        private bool verificarSiLaTiene(String funcionalidad)
+        {
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@rol", mapper.getNombreRol(idRol)));
+            parametros.Add(new SqlParameter("@funcionalidad", funcionalidad));
+
+            String queryCantidadRolXFuncionalidad = "SELECT COUNT(*) FROM GAME_OF_CODE.Funcionalidad_por_Rol rxf WHERE rxf.id_funcionalidad = (SELECT f.id_funcionalidad FROM GAME_OF_CODE.Funcionalidad f WHERE f.descripcion = @funcionalidad) AND rxf.id_rol = (SELECT r.id_rol FROM GAME_OF_CODE.Rol r WHERE r.nombre = @rol)";
+            int tieneLaFuncionalidad = (int)QueryBuilder.Instance.build(queryCantidadRolXFuncionalidad, parametros).ExecuteScalar();
+            return tieneLaFuncionalidad.Equals(1);
+        }
+
+        //----------------------------------------------------------------------
         private List<string> getDescripcionesListBox()
         {
             List<string> descripciones = new List<string>();
-            System.Windows.Forms.ListBox.SelectedObjectCollection coleccion = funcionalidadesListBox.SelectedItems;
+            System.Windows.Forms.ListBox.SelectedObjectCollection coleccion = funcionalidadesCheckedListBox.SelectedItems;
             foreach (Object objeto in coleccion)
             {
                 descripciones.Add(objeto.ToString());
@@ -172,8 +255,8 @@ namespace PagoAgilFrba.AbmRol
             command = QueryBuilder.Instance.build("SELECT DISTINCT descripcion FROM GAME_OF_CODE.Funcionalidad", parametros);
             adapter.SelectCommand = command;
             adapter.Fill(funcionalidades);
-            funcionalidadesListBox.DataSource = funcionalidades.Tables[0].DefaultView;
-            funcionalidadesListBox.ValueMember = "descripcion";
+            funcionalidadesCheckedListBox.DataSource = funcionalidades.Tables[0].DefaultView;
+            funcionalidadesCheckedListBox.ValueMember = "descripcion";
         }
     }
 }

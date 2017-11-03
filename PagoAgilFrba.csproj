@@ -123,7 +123,9 @@
     <Compile Include="Excepciones\CodigoPostalYaExisteException.cs" />
     <Compile Include="Excepciones\CuitYaExisteException.cs" />
     <Compile Include="Excepciones\FechaPasadaException.cs" />
+    <Compile Include="Excepciones\FechaFuturaException.cs" />
     <Compile Include="Excepciones\FormatoInvalidoException.cs" />
+    <Compile Include="Excepciones\YaExisteNumeroFacturaParaEmpresa.cs" />
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +156,8 @@
     <Compile Include="Modelo\Alta.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Empresa.cs" />
+    <Compile Include="Modelo\Factura.cs" />
+    <Compile Include="Modelo\ItemFactura.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
     <Compile Include="Modelo\Modificacion.cs" />
     <Compile Include="Modelo\Rol.cs" />

@@ -33,10 +33,10 @@
             this.nombreLabel = new System.Windows.Forms.Label();
             this.nombreTextBox = new System.Windows.Forms.TextBox();
             this.funcionalidadesLabel = new System.Windows.Forms.Label();
-            this.funcionalidadesListBox = new System.Windows.Forms.CheckedListBox();
             this.volverButton = new System.Windows.Forms.Button();
             this.actualizarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.funcionalidadesCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // tituloLabel
@@ -77,15 +77,6 @@
             this.funcionalidadesLabel.TabIndex = 3;
             this.funcionalidadesLabel.Text = "Funcionalidades";
             // 
-            // funcionalidadesListBox
-            // 
-            this.funcionalidadesListBox.CheckOnClick = true;
-            this.funcionalidadesListBox.FormattingEnabled = true;
-            this.funcionalidadesListBox.Location = new System.Drawing.Point(105, 88);
-            this.funcionalidadesListBox.Name = "funcionalidadesListBox";
-            this.funcionalidadesListBox.Size = new System.Drawing.Size(193, 184);
-            this.funcionalidadesListBox.TabIndex = 4;
-            // 
             // volverButton
             // 
             this.volverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -119,15 +110,24 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
+            // funcionalidadesCheckedListBox
+            // 
+            this.funcionalidadesCheckedListBox.CheckOnClick = true;
+            this.funcionalidadesCheckedListBox.FormattingEnabled = true;
+            this.funcionalidadesCheckedListBox.Location = new System.Drawing.Point(105, 88);
+            this.funcionalidadesCheckedListBox.Name = "funcionalidadesCheckedListBox";
+            this.funcionalidadesCheckedListBox.Size = new System.Drawing.Size(193, 199);
+            this.funcionalidadesCheckedListBox.TabIndex = 11;
+            // 
             // AltaModifRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 348);
+            this.Controls.Add(this.funcionalidadesCheckedListBox);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.actualizarButton);
             this.Controls.Add(this.volverButton);
-            this.Controls.Add(this.funcionalidadesListBox);
             this.Controls.Add(this.funcionalidadesLabel);
             this.Controls.Add(this.nombreTextBox);
             this.Controls.Add(this.nombreLabel);
@@ -147,10 +147,10 @@
         private System.Windows.Forms.Label nombreLabel;
         private System.Windows.Forms.TextBox nombreTextBox;
         private System.Windows.Forms.Label funcionalidadesLabel;
-        private System.Windows.Forms.CheckedListBox funcionalidadesListBox;
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Button actualizarButton;
         private System.Windows.Forms.Button limpiarButton;
+        private System.Windows.Forms.CheckedListBox funcionalidadesCheckedListBox;
 
     }
 }

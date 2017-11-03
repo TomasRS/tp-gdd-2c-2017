@@ -69,6 +69,7 @@
             this.guardarButton.TabIndex = 29;
             this.guardarButton.Text = "Guardar";
             this.guardarButton.UseVisualStyleBackColor = true;
+            this.guardarButton.Click += new System.EventHandler(this.guardarButton_Click);
             // 
             // volverButton
             // 
@@ -188,9 +189,9 @@
             this.clienteLabel.AutoSize = true;
             this.clienteLabel.Location = new System.Drawing.Point(6, 27);
             this.clienteLabel.Name = "clienteLabel";
-            this.clienteLabel.Size = new System.Drawing.Size(39, 13);
+            this.clienteLabel.Size = new System.Drawing.Size(77, 13);
             this.clienteLabel.TabIndex = 0;
-            this.clienteLabel.Text = "Cliente";
+            this.clienteLabel.Text = "Mail del cliente";
             // 
             // groupBox1
             // 
@@ -204,6 +205,7 @@
             // 
             // itemsDataGridView
             // 
+            this.itemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.itemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.itemsDataGridView.Location = new System.Drawing.Point(6, 22);
             this.itemsDataGridView.Name = "itemsDataGridView";
@@ -224,6 +226,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifFactura";
             this.Text = "Alta y modificación de factura";
+            this.Load += new System.EventHandler(this.AltaModifFactura_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);

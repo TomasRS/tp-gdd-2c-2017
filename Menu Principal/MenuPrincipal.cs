@@ -27,7 +27,7 @@ namespace PagoAgilFrba.Menu_Principal
             funcionalidades.Add("Modificación y baja de clientes", new AbmCliente.ListadoCliente());
             funcionalidades.Add("Alta de empresas", new AbmEmpresa.AltaModifEmpresa(new Alta()));
             funcionalidades.Add("Modificación y baja de empresas", new AbmEmpresa.ListadoEmpresa());
-            funcionalidades.Add("Alta de facturas", new AbmFactura.AltaModifFactura());
+            funcionalidades.Add("Alta de facturas", new AbmFactura.AltaModifFactura(new Alta()));
             funcionalidades.Add("Modificación y baja de facturas", new AbmFactura.ListadoFacturas());
             funcionalidades.Add("Alta de roles", new AbmRol.AltaModifRol(new Alta()));
             funcionalidades.Add("Modificación y baja de roles", new AbmRol.ListadoRol());

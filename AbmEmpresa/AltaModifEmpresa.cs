@@ -53,7 +53,6 @@ namespace PagoAgilFrba.AbmEmpresa
 
         public override void guardarInformacion()
         {
-            //Completar logica
             String nombre = nombreTextBox.Text;
             String cuit = cuitTextBox.Text;
             String direccion = direccionTextBox.Text;

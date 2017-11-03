@@ -122,6 +122,15 @@ namespace PagoAgilFrba.DataProvider
             return funcionalidades;
         }
 
+        public String getNombreRol(int idRol)
+        {
+            query = "SELECT nombre FROM GAME_OF_CODE.Rol WHERE id_rol = @id_rol";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_rol", idRol));
+            String descripcion = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return descripcion;
+        }
+
         public Sucursal ObtenerSucursal(int idSucursal)
         {
             Sucursal objeto = new Sucursal();
@@ -248,6 +257,15 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        public int getIDCliente(String mailCliente)
+        {
+            query = "SELECT id_cliente FROM GAME_OF_CODE.Cliente WHERE mail = @mail";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@mail", mailCliente));
+            int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return id;
+        }
+
         /** Empresas **/
 
         public int CrearEmpresa(Empresa empresa)
@@ -309,6 +327,32 @@ namespace PagoAgilFrba.DataProvider
             query = "SELECT COUNT(*) FROM GAME_OF_CODE.Sucursal WHERE codigo_postal = @codPostal";
             parametros.Clear();
             parametros.Add(new SqlParameter("@codPostal", codPostal));
+            return ControlDeUnicidad(query, parametros);
+        }
+
+        //* Facturas*//
+        public int CrearFactura(Factura factura)
+        {
+            if (existeFacturaParaEmpresa(factura))
+                throw new YaExisteNumeroFacturaParaEmpresa();
+
+            return this.Crear(factura);
+        }
+
+        public int CrearDetalleFactura(ItemFactura itemFactura, int idFactura)
+        {
+            return this.Crear(itemFactura);
+        }
+
+        public Boolean existeFacturaParaEmpresa(Factura factura)
+        {
+            String nroFactura = factura.getNumFactura();
+            int idEmpresa = factura.getIDEmpresa();
+
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
             return ControlDeUnicidad(query, parametros);
         }
 

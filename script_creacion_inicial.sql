@@ -174,7 +174,8 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_cliente] INT NOT NULL,
 	[id_empresa] INT NOT NULL,
 	[id_pago] INT,
-	[id_devolucion] INT
+	[id_devolucion] INT,
+	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
 
 CREATE TABLE [GAME_OF_CODE].[Cliente] (
@@ -286,6 +287,14 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_empresa') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_factura
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_item_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_item_factura
+GO
+
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_sucursal') IS NOT NULL)
 	DROP PROCEDURE GAME_OF_CODE.pr_crear_sucursal
 GO
@@ -394,10 +403,44 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_factura
+	@numero_factura int,
+	@fecha_alta DATETIME,
+	@monto_total int,
+	@fecha_vencimiento DATETIME,
+	@id_cliente int,
+	@id_empresa int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Factura
+		(numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente, id_empresa)
+	VALUES
+		(@numero_factura, @fecha_alta, @monto_total, @fecha_vencimiento, @id_cliente, @id_empresa);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_item_factura
+	@item_factura nvarchar(50),
+	@monto_unitario int,
+	@cantidad int,
+	@id_factura int,
+	@id int output
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Detalle_Factura
+		(item_factura, monto_unitario, cantidad, id_factura)
+	VALUES
+		(@item_factura, @monto_unitario, @cantidad, @id_factura)
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_sucursal
 	@nombre nvarchar(255),
-	@direccion nvarchar(50),
-	@codigo_postal nvarchar(255),
+	@direccion nvarchar(255),
+	@codigo_postal nvarchar(4),
 	@id int OUTPUT
 AS
 BEGIN
@@ -411,9 +454,9 @@ GO
 
 CREATE PROCEDURE GAME_OF_CODE.pr_modificar_sucursal
 	@nombre nvarchar(255),
-	@direccion nvarchar(50),
-	@codigo_postal nvarchar(255),
-	@id int,
+	@direccion nvarchar(255),
+	@codigo_postal nvarchar(4),
+	@id int, /*id_sucursal*/
 	@id_output int OUTPUT
 AS
 BEGIN
