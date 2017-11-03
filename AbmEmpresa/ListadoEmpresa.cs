@@ -131,7 +131,7 @@ namespace PagoAgilFrba.AbmEmpresa
             empresasDataGridView.Columns["id_empresa"].Visible = false;
         }
 
-        private void clientesDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void empresasDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Controla que la celda que se clickeo fue la de modificar
             if (e.ColumnIndex == empresasDataGridView.Columns["Modificar"].Index && e.RowIndex >= 0)

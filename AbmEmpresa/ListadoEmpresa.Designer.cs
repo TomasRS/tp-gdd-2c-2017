@@ -54,7 +54,7 @@
             this.empresasDataGridView.ReadOnly = true;
             this.empresasDataGridView.Size = new System.Drawing.Size(766, 288);
             this.empresasDataGridView.TabIndex = 3;
-            this.empresasDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientesDataGridView_CellContentClick);
+            this.empresasDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.empresasDataGridView_CellContentClick);
             // 
             // filtroGroupBox
             // 
