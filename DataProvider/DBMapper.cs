@@ -279,7 +279,7 @@ namespace PagoAgilFrba.DataProvider
             return this.Modificar(idCliente,cliente);
         }
 
-        private Boolean existeCliente(string mail)
+        public Boolean existeCliente(string mail)
         {
             query = "SELECT COUNT(*) FROM GAME_OF_CODE.Cliente WHERE mail = @mail";
             parametros.Clear();
@@ -390,6 +390,11 @@ namespace PagoAgilFrba.DataProvider
         public int CrearDetalleFactura(ItemFactura itemFactura, int idFactura)
         {
             return this.Crear(itemFactura);
+        }
+
+        public int ModificarFactura(Factura factura, int idFactura)
+        {
+            return this.Modificar(idFactura, factura);
         }
 
         public Boolean existeFacturaParaEmpresa(Factura factura)

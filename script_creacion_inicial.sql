@@ -291,6 +291,10 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_crear_factura') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_factura
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_factura
+GO
+
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_item_factura') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_item_factura
 GO
@@ -418,6 +422,24 @@ BEGIN
 	VALUES
 		(@numero_factura, @fecha_alta, @monto_total, @fecha_vencimiento, @id_cliente, @id_empresa);
 	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_factura
+	@numero_factura int,
+	@fecha_alta DATETIME,
+	@monto_total int,
+	@fecha_vencimiento DATETIME,
+	@id_cliente int,
+	@id_empresa int,
+	@id_factura int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Factura
+	SET numero_factura = @numero_factura, fecha_alta = @fecha_alta, monto_total = @monto_total, fecha_vencimiento = @fecha_vencimiento, id_cliente = @id_cliente, id_empresa = @id_empresa
+	WHERE id_factura = @id_factura
+	SET @id_output = SCOPE_IDENTITY();
 END
 GO
 

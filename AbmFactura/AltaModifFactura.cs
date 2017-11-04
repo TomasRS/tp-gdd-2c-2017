@@ -82,7 +82,12 @@ namespace PagoAgilFrba.AbmFactura
             DateTime.TryParse(fechaAltaFactDateTimePicker.Text, out fechaAlta);
             DateTime fechaVenc;
             DateTime.TryParse(fechaVencDateTimePicker.Text, out fechaVenc);
-            
+
+            if (!mapper.existeCliente(clienteTextBox.Text))
+            {
+                Util.ShowMessage("El mail del cliente no existe. Ingrese un mail existente.", MessageBoxIcon.Exclamation);
+                return;
+            }
             //Crear factura
             #region
             try
@@ -167,14 +172,19 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void Modificar()
         {
-            //idFactura = mapper.ModificarFactura(factura, idFactura);
+            idFactura = mapper.ModificarFactura(factura, idFactura);
             if (idFactura > 0)
             {
+                //itemsFactura.ForEach(unItemFactura => editarAgregarEliminar(unItemFactura));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
                 this.Close();
             }
         }
 
+        private void editarAgregarEliminar(ItemFactura itemFactura)
+        {
+            
+        }
 
         //--------------------Extras-------------------------------------
         private void AltaModifFactura_Load(object sender, EventArgs e)
@@ -231,9 +241,9 @@ namespace PagoAgilFrba.AbmFactura
                 if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
                 {
                     ItemFactura item = new ItemFactura();
-                    item.setDescripcion(itemsDataGridView.Rows[i].Cells["item_factura"].Value.ToString());
-                    item.setCantidad(itemsDataGridView.Rows[i].Cells["cantidad"].Value.ToString());
-                    item.setMontoUnitario(itemsDataGridView.Rows[i].Cells["monto_unitario"].Value.ToString());
+                    item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
+                    item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
+                    item.setMontoUnitario(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
@@ -246,7 +256,7 @@ namespace PagoAgilFrba.AbmFactura
 
         private Boolean camposDeItemLlenos(DataGridViewRow row)
         {
-            return row.Cells["item_factura"].Value != null && row.Cells["cantidad"].Value != null && row.Cells["monto_unitario"].Value != null;
+            return row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null;
         }
 
         private int calcularMontoTotal()
@@ -254,7 +264,7 @@ namespace PagoAgilFrba.AbmFactura
             int montoFinal = 0;
             for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
             {
-                montoFinal += (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["cantidad"].Value.ToString())) * (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells["monto_unitario"].Value.ToString()));
+                montoFinal += (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[1].Value.ToString())) * (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString()));
             }
             return montoFinal;
         }
