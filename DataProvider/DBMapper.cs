@@ -427,6 +427,36 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        //* Pago de facturas *//
+        public int CrearPagoFactura(PagoFactura pagoFactura)
+        {
+            return this.Crear(pagoFactura);
+        }
+
+        public void AgregarACadaFacturaElIDDelPago(PagoFactura pagoFactura, int idPago)
+        {
+            foreach (Factura factura in pagoFactura.getFacturasAPagar())
+            {
+                query = "UPDATE GAME_OF_CODE.Factura SET id_pago = @id_pago WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
+                parametros.Clear();
+                parametros.Add(new SqlParameter("@id_pago", idPago));
+                parametros.Add(new SqlParameter("@numero_factura", factura.getNumFactura()));
+                parametros.Add(new SqlParameter("@id_empresa", factura.getIDEmpresa()));
+                QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            }
+        }
+
+
+        //* Medio de pago *//
+        public int getIDMedioPago(String descripcion)
+        {
+            query = "SELECT id_medio_pago FROM GAME_OF_CODE.Medio_de_Pago WHERE descripcion = @descripcion";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@descripcion", descripcion));
+            int idMedioPago = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idMedioPago;
+        }
+
         /*
         *
         *   TABLE UNIQUE CONTROL 

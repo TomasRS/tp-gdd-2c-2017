@@ -1,5 +1,6 @@
 ﻿using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Menu_Principal;
+using PagoAgilFrba.Modelo;
 using PagoAgilFrba.Utils;
 using System;
 using System.Collections.Generic;
@@ -30,16 +31,19 @@ namespace PagoAgilFrba.RegistroPago
         {
             numFacturaTextBox.Clear();
             importeTextBox.Clear();
-            sucursalTextBox.Clear();
+            sucursalComboBox.SelectedIndex = -1;
             empresaComboBox.SelectedIndex = -1;
             clienteComboBox.SelectedIndex = -1;
             fechaCobroDateTimePicker.Text = "";
             fechaVencFactDateTimePicker.Text = "";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void limpiarListadoButton_Click(object sender, EventArgs e)
         {
-            facturasDataGridView.DataSource = null;
+            for (int i = 0; i < facturasDataGridView.Rows.Count; i++)
+            {
+                facturasDataGridView.Rows.RemoveAt(i);
+            }
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -59,9 +63,9 @@ namespace PagoAgilFrba.RegistroPago
                 return;
             }
 
-            if (empresaComboBox.SelectedIndex.Equals(-1) || clienteComboBox.SelectedIndex.Equals(-1))
+            if (empresaComboBox.SelectedIndex.Equals(-1) || clienteComboBox.SelectedIndex.Equals(-1) || sucursalComboBox.SelectedIndex.Equals(-1))
             {
-                Util.ShowMessage("Debe completar los campos empresa y cliente antes de continuar.", MessageBoxIcon.Exclamation);
+                Util.ShowMessage("Debe completar los campos empresa, cliente y sucursal antes de continuar.", MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -76,11 +80,16 @@ namespace PagoAgilFrba.RegistroPago
                 Util.ShowMessage("No se pueden registrar pagos a empresas que no estén activas.", MessageBoxIcon.Exclamation);
                 return;
             }
+            if (!Util.EsNumero(numFacturaTextBox.Text))
+            {
+                Util.ShowMessage("El número de factura debe tener formato numérico y sin espacios.", MessageBoxIcon.Exclamation);
+                return;
+            }
 
             DateTime fechaVenc;
             DateTime.TryParse(fechaVencFactDateTimePicker.Text, out fechaVenc);
 
-            if (!Util.EsFechaVencimientoValida(fechaVenc, DateConfig.getInstance().getCurrentDate()))
+            if (Util.EsFechaVencimientoValida(fechaVenc, DateConfig.getInstance().getCurrentDate()))
             {
                 Util.ShowMessage("La fecha de vencimiento de la factura debe ser menor o igual a la fecha del sistema.", MessageBoxIcon.Exclamation);
                 return;
@@ -101,7 +110,6 @@ namespace PagoAgilFrba.RegistroPago
         {
             campos.Add(numFacturaTextBox);
             campos.Add(importeTextBox);
-            campos.Add(sucursalTextBox);
 
             mediosPago.Add(tarjetaCreditoRadioButton);
             mediosPago.Add(efectivoRadioButton);
@@ -110,6 +118,8 @@ namespace PagoAgilFrba.RegistroPago
 
             CargarEmpresas();
             CargarClientes();
+            CargarSucursales();
+            DeshabilitarSortHeaders();
 
             fechaCobroDateTimePicker.Text = DateConfig.getInstance().getCurrentDate().ToString();
         }
@@ -119,9 +129,18 @@ namespace PagoAgilFrba.RegistroPago
             facturasDataGridView.Rows.Add();
             int indexLastRow = facturasDataGridView.Rows.Count - 1;
             facturasDataGridView.Rows[indexLastRow].Cells["NumeroDeFactura"].Value = numFacturaTextBox.Text;
+            facturasDataGridView.Rows[indexLastRow].Cells["id_empresa"].Value = empresaComboBox.SelectedValue;
             facturasDataGridView.Rows[indexLastRow].Cells["Empresa"].Value = empresaComboBox.Text;
-            facturasDataGridView.Rows[indexLastRow].Cells["Sucursal"].Value = sucursalTextBox.Text;
+            facturasDataGridView.Rows[indexLastRow].Cells["Sucursal"].Value = sucursalComboBox.Text;
             facturasDataGridView.Rows[indexLastRow].Cells["Importe"].Value = importeTextBox.Text;
+        }
+
+        private void DeshabilitarSortHeaders()
+        {
+            foreach (DataGridViewColumn column in facturasDataGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void CargarEmpresas()
@@ -154,11 +173,26 @@ namespace PagoAgilFrba.RegistroPago
             clienteComboBox.DataSource = clientes;
             clienteComboBox.SelectedIndex = 0;
         }
+        private void CargarSucursales()
+        {
+            string query = "SELECT id_sucursal, nombre from GAME_OF_CODE.Sucursal";
+
+            SqlCommand cmd = new SqlCommand(query, ConnectionManager.Instance.getConnection());
+
+            SqlDataAdapter data_adapter = new SqlDataAdapter(cmd);
+            DataTable clientes = new DataTable();
+            data_adapter.Fill(clientes);
+
+            sucursalComboBox.ValueMember = "id_sucursal";
+            sucursalComboBox.DisplayMember = "nombre";
+            sucursalComboBox.DataSource = clientes;
+            sucursalComboBox.SelectedIndex = 0;
+        }
 
         private void limpiarTodoButton_Click(object sender, EventArgs e)
         {
             limpiarButton_Click(this, null);
-            button1_Click(this, null);
+            limpiarListadoButton_Click(this, null);
 
             mediosPago.ForEach(unMedioPago => unMedioPago.Checked = false);
         }
@@ -170,6 +204,26 @@ namespace PagoAgilFrba.RegistroPago
                 Util.ShowMessage("Debe seleccionar un método de pago.", MessageBoxIcon.Exclamation);
                 return;
             }
+
+            //Creacion pago factura
+            PagoFactura pagoFactura = new PagoFactura();
+            pagoFactura.setFechaCobro(DateConfig.getInstance().getCurrentDate());
+            pagoFactura.setImporte(Util.getNumeroFromString(importeTextBox.Text));
+            pagoFactura.setIDSucursal((int)sucursalComboBox.SelectedValue);
+            pagoFactura.setIDMedioPago(mapper.getIDMedioPago(mediosPago.Find(mPago => mPago.Checked == true).Text));
+
+            foreach (DataGridViewRow row in facturasDataGridView.Rows)
+            {
+                Factura factura = new Factura();
+                factura.setNumeroFactura(row.Cells["NumeroDeFactura"].Value.ToString());
+                factura.setIDEmpresa((int)row.Cells["id_empresa"].Value);
+                pagoFactura.agregarFactura(factura);
+            }
+
+            int idPago = mapper.CrearPagoFactura(pagoFactura);
+            mapper.AgregarACadaFacturaElIDDelPago(pagoFactura, idPago);
+
+            Util.ShowMessage("Todas las facturas se han pagado correctamente.", MessageBoxIcon.Information);
         }
     }
 }

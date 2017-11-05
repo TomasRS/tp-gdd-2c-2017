@@ -160,6 +160,7 @@
     <Compile Include="Modelo\ItemFactura.cs" />
     <Compile Include="Modelo\Mapeable.cs" />
     <Compile Include="Modelo\Modificacion.cs" />
+    <Compile Include="Modelo\PagoFactura.cs" />
     <Compile Include="Modelo\Rol.cs" />
     <Compile Include="Modelo\Sucursal.cs" />
     <Compile Include="Modelo\TipoDeAccion.cs" />

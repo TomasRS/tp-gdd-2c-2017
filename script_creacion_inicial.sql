@@ -307,6 +307,10 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_sucursal') IS NOT NULL)
 	DROP PROCEDURE GAME_OF_CODE.pr_modificar_sucursal
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_pago_factura') IS NOT NULL)
+	DROP PROCEDURE GAME_OF_CODE.pr_crear_pago_factura
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -432,13 +436,13 @@ CREATE PROCEDURE GAME_OF_CODE.pr_modificar_factura
 	@fecha_vencimiento DATETIME,
 	@id_cliente int,
 	@id_empresa int,
-	@id_factura int,
+	@id int,
 	@id_output int OUTPUT
 AS
 BEGIN
 	UPDATE GAME_OF_CODE.Factura
 	SET numero_factura = @numero_factura, fecha_alta = @fecha_alta, monto_total = @monto_total, fecha_vencimiento = @fecha_vencimiento, id_cliente = @id_cliente, id_empresa = @id_empresa
-	WHERE id_factura = @id_factura
+	WHERE id_factura = @id
 	SET @id_output = SCOPE_IDENTITY();
 END
 GO
@@ -489,6 +493,19 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_pago_factura
+	@fecha_cobro datetime,
+	@importe int,
+	@id_sucursal int,
+	@id_medio_pago int,
+	@id int output
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Pago_de_Facturas (fecha_cobro, importe, id_sucursal, id_medio_pago)
+	VALUES (@fecha_cobro, @importe, @id_sucursal, @id_medio_pago);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 
