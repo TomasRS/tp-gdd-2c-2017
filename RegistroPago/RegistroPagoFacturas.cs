@@ -82,7 +82,7 @@ namespace PagoAgilFrba.RegistroPago
 
             if (!Util.EsFechaVencimientoValida(fechaVenc, DateConfig.getInstance().getCurrentDate()))
             {
-                Util.ShowMessage("La fecha de vencimiento de la factura debe ser mayor o igual a la fecha del sistema.", MessageBoxIcon.Exclamation);
+                Util.ShowMessage("La fecha de vencimiento de la factura debe ser menor o igual a la fecha del sistema.", MessageBoxIcon.Exclamation);
                 return;
             }
             #endregion
