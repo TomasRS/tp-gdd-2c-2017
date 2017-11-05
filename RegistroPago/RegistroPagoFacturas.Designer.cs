@@ -52,10 +52,19 @@
             this.pagarFacturasButton = new System.Windows.Forms.Button();
             this.facturasDataGridView = new System.Windows.Forms.DataGridView();
             this.NumeroDeFactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EditarFactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.medioDePagoGroupBox = new System.Windows.Forms.GroupBox();
+            this.tarjetaCreditoRadioButton = new System.Windows.Forms.RadioButton();
+            this.efectivoRadioButton = new System.Windows.Forms.RadioButton();
+            this.chequeRadioButton = new System.Windows.Forms.RadioButton();
+            this.tarjetaDebitoRadioButton = new System.Windows.Forms.RadioButton();
+            this.limpiarTodoButton = new System.Windows.Forms.Button();
             this.datosFacturaGroupBox.SuspendLayout();
             this.facturasRegistradasGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
+            this.medioDePagoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // datosFacturaGroupBox
@@ -78,14 +87,14 @@
             this.datosFacturaGroupBox.Controls.Add(this.numFacturaLabel);
             this.datosFacturaGroupBox.Location = new System.Drawing.Point(12, 12);
             this.datosFacturaGroupBox.Name = "datosFacturaGroupBox";
-            this.datosFacturaGroupBox.Size = new System.Drawing.Size(459, 279);
+            this.datosFacturaGroupBox.Size = new System.Drawing.Size(550, 279);
             this.datosFacturaGroupBox.TabIndex = 0;
             this.datosFacturaGroupBox.TabStop = false;
             this.datosFacturaGroupBox.Text = "Datos de la factura";
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(63, 237);
+            this.limpiarButton.Location = new System.Drawing.Point(83, 237);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(117, 32);
             this.limpiarButton.TabIndex = 15;
@@ -95,66 +104,66 @@
             // 
             // registrarFacturaButton
             // 
-            this.registrarFacturaButton.Location = new System.Drawing.Point(256, 237);
+            this.registrarFacturaButton.Location = new System.Drawing.Point(327, 237);
             this.registrarFacturaButton.Name = "registrarFacturaButton";
             this.registrarFacturaButton.Size = new System.Drawing.Size(117, 32);
             this.registrarFacturaButton.TabIndex = 14;
             this.registrarFacturaButton.Text = "Registrar factura";
             this.registrarFacturaButton.UseVisualStyleBackColor = true;
+            this.registrarFacturaButton.Click += new System.EventHandler(this.registrarFacturaButton_Click);
             // 
             // sucursalTextBox
             // 
-            this.sucursalTextBox.Location = new System.Drawing.Point(216, 209);
+            this.sucursalTextBox.Location = new System.Drawing.Point(248, 209);
             this.sucursalTextBox.Name = "sucursalTextBox";
-            this.sucursalTextBox.Size = new System.Drawing.Size(198, 20);
+            this.sucursalTextBox.Size = new System.Drawing.Size(270, 20);
             this.sucursalTextBox.TabIndex = 13;
             // 
             // importeTextBox
             // 
-            this.importeTextBox.Location = new System.Drawing.Point(216, 179);
+            this.importeTextBox.Location = new System.Drawing.Point(248, 179);
             this.importeTextBox.Name = "importeTextBox";
-            this.importeTextBox.Size = new System.Drawing.Size(198, 20);
+            this.importeTextBox.Size = new System.Drawing.Size(270, 20);
             this.importeTextBox.TabIndex = 12;
             // 
             // fechaVencFactDateTimePicker
             // 
-            this.fechaVencFactDateTimePicker.Enabled = false;
-            this.fechaVencFactDateTimePicker.Location = new System.Drawing.Point(216, 149);
+            this.fechaVencFactDateTimePicker.Location = new System.Drawing.Point(248, 149);
             this.fechaVencFactDateTimePicker.Name = "fechaVencFactDateTimePicker";
-            this.fechaVencFactDateTimePicker.Size = new System.Drawing.Size(198, 20);
+            this.fechaVencFactDateTimePicker.Size = new System.Drawing.Size(270, 20);
             this.fechaVencFactDateTimePicker.TabIndex = 11;
             // 
             // clienteComboBox
             // 
             this.clienteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.clienteComboBox.FormattingEnabled = true;
-            this.clienteComboBox.Location = new System.Drawing.Point(216, 119);
+            this.clienteComboBox.Location = new System.Drawing.Point(248, 119);
             this.clienteComboBox.Name = "clienteComboBox";
-            this.clienteComboBox.Size = new System.Drawing.Size(198, 21);
+            this.clienteComboBox.Size = new System.Drawing.Size(270, 21);
             this.clienteComboBox.TabIndex = 10;
             // 
             // empresaComboBox
             // 
             this.empresaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.empresaComboBox.FormattingEnabled = true;
-            this.empresaComboBox.Location = new System.Drawing.Point(216, 88);
+            this.empresaComboBox.Location = new System.Drawing.Point(248, 88);
             this.empresaComboBox.Name = "empresaComboBox";
-            this.empresaComboBox.Size = new System.Drawing.Size(198, 21);
+            this.empresaComboBox.Size = new System.Drawing.Size(270, 21);
             this.empresaComboBox.TabIndex = 9;
             // 
             // fechaCobroDateTimePicker
             // 
             this.fechaCobroDateTimePicker.Enabled = false;
-            this.fechaCobroDateTimePicker.Location = new System.Drawing.Point(216, 58);
+            this.fechaCobroDateTimePicker.Location = new System.Drawing.Point(248, 58);
             this.fechaCobroDateTimePicker.Name = "fechaCobroDateTimePicker";
-            this.fechaCobroDateTimePicker.Size = new System.Drawing.Size(198, 20);
+            this.fechaCobroDateTimePicker.Size = new System.Drawing.Size(270, 20);
             this.fechaCobroDateTimePicker.TabIndex = 8;
             // 
             // numFacturaTextBox
             // 
-            this.numFacturaTextBox.Location = new System.Drawing.Point(216, 29);
+            this.numFacturaTextBox.Location = new System.Drawing.Point(248, 29);
             this.numFacturaTextBox.Name = "numFacturaTextBox";
-            this.numFacturaTextBox.Size = new System.Drawing.Size(198, 20);
+            this.numFacturaTextBox.Size = new System.Drawing.Size(270, 20);
             this.numFacturaTextBox.TabIndex = 7;
             // 
             // sucursalLabel
@@ -223,19 +232,17 @@
             // facturasRegistradasGroupBox
             // 
             this.facturasRegistradasGroupBox.Controls.Add(this.button1);
-            this.facturasRegistradasGroupBox.Controls.Add(this.volverButton);
-            this.facturasRegistradasGroupBox.Controls.Add(this.pagarFacturasButton);
             this.facturasRegistradasGroupBox.Controls.Add(this.facturasDataGridView);
             this.facturasRegistradasGroupBox.Location = new System.Drawing.Point(12, 297);
             this.facturasRegistradasGroupBox.Name = "facturasRegistradasGroupBox";
-            this.facturasRegistradasGroupBox.Size = new System.Drawing.Size(459, 337);
+            this.facturasRegistradasGroupBox.Size = new System.Drawing.Size(550, 327);
             this.facturasRegistradasGroupBox.TabIndex = 16;
             this.facturasRegistradasGroupBox.TabStop = false;
             this.facturasRegistradasGroupBox.Text = "Facturas registradas";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(20, 292);
+            this.button1.Location = new System.Drawing.Point(216, 286);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 32);
             this.button1.TabIndex = 21;
@@ -245,7 +252,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(321, 292);
+            this.volverButton.Location = new System.Drawing.Point(445, 699);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(117, 32);
             this.volverButton.TabIndex = 20;
@@ -255,26 +262,28 @@
             // 
             // pagarFacturasButton
             // 
-            this.pagarFacturasButton.Location = new System.Drawing.Point(167, 292);
+            this.pagarFacturasButton.Location = new System.Drawing.Point(228, 699);
             this.pagarFacturasButton.Name = "pagarFacturasButton";
             this.pagarFacturasButton.Size = new System.Drawing.Size(117, 32);
             this.pagarFacturasButton.TabIndex = 19;
             this.pagarFacturasButton.Text = "Pagar facturas";
             this.pagarFacturasButton.UseVisualStyleBackColor = true;
+            this.pagarFacturasButton.Click += new System.EventHandler(this.pagarFacturasButton_Click);
             // 
             // facturasDataGridView
             // 
             this.facturasDataGridView.AllowUserToAddRows = false;
-            this.facturasDataGridView.AllowUserToDeleteRows = false;
             this.facturasDataGridView.AllowUserToResizeRows = false;
             this.facturasDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.facturasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.facturasDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NumeroDeFactura,
-            this.EditarFactura});
+            this.Empresa,
+            this.Sucursal,
+            this.Importe});
             this.facturasDataGridView.Location = new System.Drawing.Point(20, 19);
             this.facturasDataGridView.Name = "facturasDataGridView";
-            this.facturasDataGridView.Size = new System.Drawing.Size(418, 262);
+            this.facturasDataGridView.Size = new System.Drawing.Size(518, 262);
             this.facturasDataGridView.TabIndex = 18;
             // 
             // NumeroDeFactura
@@ -283,26 +292,110 @@
             this.NumeroDeFactura.Name = "NumeroDeFactura";
             this.NumeroDeFactura.ReadOnly = true;
             // 
-            // EditarFactura
+            // Empresa
             // 
-            this.EditarFactura.HeaderText = "Editar factura";
-            this.EditarFactura.Name = "EditarFactura";
-            this.EditarFactura.ReadOnly = true;
+            this.Empresa.HeaderText = "Empresa";
+            this.Empresa.Name = "Empresa";
+            this.Empresa.ReadOnly = true;
+            // 
+            // Sucursal
+            // 
+            this.Sucursal.HeaderText = "Sucursal";
+            this.Sucursal.Name = "Sucursal";
+            // 
+            // Importe
+            // 
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            // 
+            // medioDePagoGroupBox
+            // 
+            this.medioDePagoGroupBox.Controls.Add(this.tarjetaDebitoRadioButton);
+            this.medioDePagoGroupBox.Controls.Add(this.chequeRadioButton);
+            this.medioDePagoGroupBox.Controls.Add(this.efectivoRadioButton);
+            this.medioDePagoGroupBox.Controls.Add(this.tarjetaCreditoRadioButton);
+            this.medioDePagoGroupBox.Location = new System.Drawing.Point(12, 630);
+            this.medioDePagoGroupBox.Name = "medioDePagoGroupBox";
+            this.medioDePagoGroupBox.Size = new System.Drawing.Size(550, 63);
+            this.medioDePagoGroupBox.TabIndex = 17;
+            this.medioDePagoGroupBox.TabStop = false;
+            this.medioDePagoGroupBox.Text = "Medio de pago";
+            // 
+            // tarjetaCreditoRadioButton
+            // 
+            this.tarjetaCreditoRadioButton.AutoSize = true;
+            this.tarjetaCreditoRadioButton.Location = new System.Drawing.Point(9, 29);
+            this.tarjetaCreditoRadioButton.Name = "tarjetaCreditoRadioButton";
+            this.tarjetaCreditoRadioButton.Size = new System.Drawing.Size(108, 17);
+            this.tarjetaCreditoRadioButton.TabIndex = 0;
+            this.tarjetaCreditoRadioButton.TabStop = true;
+            this.tarjetaCreditoRadioButton.Text = "Tarjeta de crédito";
+            this.tarjetaCreditoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // efectivoRadioButton
+            // 
+            this.efectivoRadioButton.AutoSize = true;
+            this.efectivoRadioButton.Location = new System.Drawing.Point(166, 29);
+            this.efectivoRadioButton.Name = "efectivoRadioButton";
+            this.efectivoRadioButton.Size = new System.Drawing.Size(64, 17);
+            this.efectivoRadioButton.TabIndex = 1;
+            this.efectivoRadioButton.TabStop = true;
+            this.efectivoRadioButton.Text = "Efectivo";
+            this.efectivoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // chequeRadioButton
+            // 
+            this.chequeRadioButton.AutoSize = true;
+            this.chequeRadioButton.Location = new System.Drawing.Point(294, 29);
+            this.chequeRadioButton.Name = "chequeRadioButton";
+            this.chequeRadioButton.Size = new System.Drawing.Size(62, 17);
+            this.chequeRadioButton.TabIndex = 2;
+            this.chequeRadioButton.TabStop = true;
+            this.chequeRadioButton.Text = "Cheque";
+            this.chequeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // tarjetaDebitoRadioButton
+            // 
+            this.tarjetaDebitoRadioButton.AutoSize = true;
+            this.tarjetaDebitoRadioButton.Location = new System.Drawing.Point(421, 29);
+            this.tarjetaDebitoRadioButton.Name = "tarjetaDebitoRadioButton";
+            this.tarjetaDebitoRadioButton.Size = new System.Drawing.Size(105, 17);
+            this.tarjetaDebitoRadioButton.TabIndex = 3;
+            this.tarjetaDebitoRadioButton.TabStop = true;
+            this.tarjetaDebitoRadioButton.Text = "Tarjeta de débito";
+            this.tarjetaDebitoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // limpiarTodoButton
+            // 
+            this.limpiarTodoButton.Location = new System.Drawing.Point(12, 699);
+            this.limpiarTodoButton.Name = "limpiarTodoButton";
+            this.limpiarTodoButton.Size = new System.Drawing.Size(117, 32);
+            this.limpiarTodoButton.TabIndex = 16;
+            this.limpiarTodoButton.Text = "Limpiar todo";
+            this.limpiarTodoButton.UseVisualStyleBackColor = true;
+            this.limpiarTodoButton.Click += new System.EventHandler(this.limpiarTodoButton_Click);
             // 
             // RegistroPagoFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 645);
+            this.ClientSize = new System.Drawing.Size(574, 741);
+            this.Controls.Add(this.limpiarTodoButton);
+            this.Controls.Add(this.medioDePagoGroupBox);
+            this.Controls.Add(this.volverButton);
             this.Controls.Add(this.facturasRegistradasGroupBox);
+            this.Controls.Add(this.pagarFacturasButton);
             this.Controls.Add(this.datosFacturaGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistroPagoFacturas";
             this.Text = "Registro de Pago de Facturas";
+            this.Load += new System.EventHandler(this.RegistroPagoFacturas_Load);
             this.datosFacturaGroupBox.ResumeLayout(false);
             this.datosFacturaGroupBox.PerformLayout();
             this.facturasRegistradasGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).EndInit();
+            this.medioDePagoGroupBox.ResumeLayout(false);
+            this.medioDePagoGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -328,10 +421,18 @@
         private System.Windows.Forms.GroupBox facturasRegistradasGroupBox;
         private System.Windows.Forms.Button pagarFacturasButton;
         private System.Windows.Forms.DataGridView facturasDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroDeFactura;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EditarFactura;
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroDeFactura;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Empresa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
+        private System.Windows.Forms.GroupBox medioDePagoGroupBox;
+        private System.Windows.Forms.RadioButton tarjetaDebitoRadioButton;
+        private System.Windows.Forms.RadioButton chequeRadioButton;
+        private System.Windows.Forms.RadioButton efectivoRadioButton;
+        private System.Windows.Forms.RadioButton tarjetaCreditoRadioButton;
+        private System.Windows.Forms.Button limpiarTodoButton;
     }
 }

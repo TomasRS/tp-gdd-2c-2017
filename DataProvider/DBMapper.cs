@@ -320,6 +320,14 @@ namespace PagoAgilFrba.DataProvider
             return this.Modificar(idEmpresa, empresa);
         }
 
+        public Boolean empresaEstaActiva(int idEmpresa)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Empresa WHERE id_empresa = @id_empresa AND estado_habilitacion = 1";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            return ControlDeUnicidad(query, parametros);
+        }
+
         private Boolean existeEmpresaConCuit(String cuit)
         {
             query = "SELECT COUNT(*) FROM GAME_OF_CODE.Empresa WHERE emp_cuit = @cuit";
@@ -406,6 +414,16 @@ namespace PagoAgilFrba.DataProvider
             parametros.Clear();
             parametros.Add(new SqlParameter("@numero_factura", nroFactura));
             parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            return ControlDeUnicidad(query, parametros);
+        }
+
+        public Boolean ExisteFacturaParaEmpresaYCliente(String nroFactura, int idEmpresa, int idCliente)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa AND id_cliente = @id_cliente";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            parametros.Add(new SqlParameter("@id_cliente", idCliente));
             return ControlDeUnicidad(query, parametros);
         }
 

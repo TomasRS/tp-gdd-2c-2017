@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagoAgilFrba.DataProvider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace PagoAgilFrba.Utils
 {
     class Util
     {
+
         //Metodo para mostrar mensajes por pantalla
         public static void ShowMessage(string content, MessageBoxIcon icon)
         {
