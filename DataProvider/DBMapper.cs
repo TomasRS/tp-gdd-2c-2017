@@ -427,6 +427,15 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        public Boolean SeEncuentraPagaFactura(String nroFactura, int idEmpresa)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa AND id_pago IS NOT NULL";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            return ControlDeUnicidad(query, parametros);
+        }
+
         //* Pago de facturas *//
         public int CrearPagoFactura(PagoFactura pagoFactura)
         {

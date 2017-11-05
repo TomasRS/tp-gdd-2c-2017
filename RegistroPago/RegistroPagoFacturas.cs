@@ -86,6 +86,12 @@ namespace PagoAgilFrba.RegistroPago
                 return;
             }
 
+            if (mapper.SeEncuentraPagaFactura(numFacturaTextBox.Text, (int)empresaComboBox.SelectedValue))
+            {
+                Util.ShowMessage("La factura que quiere registrar ya se encuentra paga.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             DateTime fechaVenc;
             DateTime.TryParse(fechaVencFactDateTimePicker.Text, out fechaVenc);
 
