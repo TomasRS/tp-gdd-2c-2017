@@ -76,6 +76,15 @@ namespace PagoAgilFrba.RegistroPago
                 Util.ShowMessage("No se pueden registrar pagos a empresas que no estén activas.", MessageBoxIcon.Exclamation);
                 return;
             }
+
+            DateTime fechaVenc;
+            DateTime.TryParse(fechaVencFactDateTimePicker.Text, out fechaVenc);
+
+            if (!Util.EsFechaVencimientoValida(fechaVenc, DateConfig.getInstance().getCurrentDate()))
+            {
+                Util.ShowMessage("La fecha de vencimiento de la factura debe ser mayor o igual a la fecha del sistema.", MessageBoxIcon.Exclamation);
+                return;
+            }
             #endregion
             //Validaciones terminadas
 
@@ -101,6 +110,8 @@ namespace PagoAgilFrba.RegistroPago
 
             CargarEmpresas();
             CargarClientes();
+
+            fechaCobroDateTimePicker.Text = DateConfig.getInstance().getCurrentDate().ToString();
         }
 
         private void agregarFacturaAListado()
