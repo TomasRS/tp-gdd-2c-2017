@@ -47,7 +47,6 @@
             this.fechaCobroLabel = new System.Windows.Forms.Label();
             this.numFacturaLabel = new System.Windows.Forms.Label();
             this.facturasRegistradasGroupBox = new System.Windows.Forms.GroupBox();
-            this.limpiarListadoButton = new System.Windows.Forms.Button();
             this.facturasDataGridView = new System.Windows.Forms.DataGridView();
             this.NumeroDeFactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +61,7 @@
             this.efectivoRadioButton = new System.Windows.Forms.RadioButton();
             this.tarjetaCreditoRadioButton = new System.Windows.Forms.RadioButton();
             this.limpiarTodoButton = new System.Windows.Forms.Button();
+            this.borrarFacturaSeleccionadaButton = new System.Windows.Forms.Button();
             this.datosFacturaGroupBox.SuspendLayout();
             this.facturasRegistradasGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
@@ -234,7 +234,7 @@
             // 
             // facturasRegistradasGroupBox
             // 
-            this.facturasRegistradasGroupBox.Controls.Add(this.limpiarListadoButton);
+            this.facturasRegistradasGroupBox.Controls.Add(this.borrarFacturaSeleccionadaButton);
             this.facturasRegistradasGroupBox.Controls.Add(this.facturasDataGridView);
             this.facturasRegistradasGroupBox.Location = new System.Drawing.Point(12, 297);
             this.facturasRegistradasGroupBox.Name = "facturasRegistradasGroupBox";
@@ -242,16 +242,6 @@
             this.facturasRegistradasGroupBox.TabIndex = 16;
             this.facturasRegistradasGroupBox.TabStop = false;
             this.facturasRegistradasGroupBox.Text = "Facturas registradas";
-            // 
-            // limpiarListadoButton
-            // 
-            this.limpiarListadoButton.Location = new System.Drawing.Point(216, 286);
-            this.limpiarListadoButton.Name = "limpiarListadoButton";
-            this.limpiarListadoButton.Size = new System.Drawing.Size(117, 32);
-            this.limpiarListadoButton.TabIndex = 21;
-            this.limpiarListadoButton.Text = "Limpiar facturas";
-            this.limpiarListadoButton.UseVisualStyleBackColor = true;
-            this.limpiarListadoButton.Click += new System.EventHandler(this.limpiarListadoButton_Click);
             // 
             // facturasDataGridView
             // 
@@ -267,6 +257,7 @@
             this.Importe});
             this.facturasDataGridView.Location = new System.Drawing.Point(20, 19);
             this.facturasDataGridView.Name = "facturasDataGridView";
+            this.facturasDataGridView.ReadOnly = true;
             this.facturasDataGridView.Size = new System.Drawing.Size(518, 262);
             this.facturasDataGridView.TabIndex = 18;
             // 
@@ -280,6 +271,7 @@
             // 
             this.id_empresa.HeaderText = "id_empresa";
             this.id_empresa.Name = "id_empresa";
+            this.id_empresa.ReadOnly = true;
             this.id_empresa.Visible = false;
             // 
             // Empresa
@@ -292,11 +284,13 @@
             // 
             this.Sucursal.HeaderText = "Sucursal";
             this.Sucursal.Name = "Sucursal";
+            this.Sucursal.ReadOnly = true;
             // 
             // Importe
             // 
             this.Importe.HeaderText = "Importe";
             this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
             // 
             // volverButton
             // 
@@ -385,6 +379,16 @@
             this.limpiarTodoButton.UseVisualStyleBackColor = true;
             this.limpiarTodoButton.Click += new System.EventHandler(this.limpiarTodoButton_Click);
             // 
+            // borrarFacturaSeleccionadaButton
+            // 
+            this.borrarFacturaSeleccionadaButton.Location = new System.Drawing.Point(180, 287);
+            this.borrarFacturaSeleccionadaButton.Name = "borrarFacturaSeleccionadaButton";
+            this.borrarFacturaSeleccionadaButton.Size = new System.Drawing.Size(176, 32);
+            this.borrarFacturaSeleccionadaButton.TabIndex = 22;
+            this.borrarFacturaSeleccionadaButton.Text = "Limpiar facturas seleccionadas";
+            this.borrarFacturaSeleccionadaButton.UseVisualStyleBackColor = true;
+            this.borrarFacturaSeleccionadaButton.Click += new System.EventHandler(this.borrarFacturaSeleccionadaButton_Click);
+            // 
             // RegistroPagoFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -432,7 +436,6 @@
         private System.Windows.Forms.DataGridView facturasDataGridView;
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Button limpiarButton;
-        private System.Windows.Forms.Button limpiarListadoButton;
         private System.Windows.Forms.GroupBox medioDePagoGroupBox;
         private System.Windows.Forms.RadioButton tarjetaDebitoRadioButton;
         private System.Windows.Forms.RadioButton chequeRadioButton;
@@ -445,5 +448,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Empresa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
+        private System.Windows.Forms.Button borrarFacturaSeleccionadaButton;
     }
 }

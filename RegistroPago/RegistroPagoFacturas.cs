@@ -38,14 +38,6 @@ namespace PagoAgilFrba.RegistroPago
             fechaVencFactDateTimePicker.Text = "";
         }
 
-        private void limpiarListadoButton_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < facturasDataGridView.Rows.Count; i++)
-            {
-                facturasDataGridView.Rows.RemoveAt(i);
-            }
-        }
-
         private void volverButton_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -198,7 +190,8 @@ namespace PagoAgilFrba.RegistroPago
         private void limpiarTodoButton_Click(object sender, EventArgs e)
         {
             limpiarButton_Click(this, null);
-            limpiarListadoButton_Click(this, null);
+            facturasDataGridView.Rows.Clear();
+            facturasDataGridView.Refresh();
 
             mediosPago.ForEach(unMedioPago => unMedioPago.Checked = false);
         }
@@ -230,6 +223,14 @@ namespace PagoAgilFrba.RegistroPago
             mapper.AgregarACadaFacturaElIDDelPago(pagoFactura, idPago);
 
             Util.ShowMessage("Todas las facturas se han pagado correctamente.", MessageBoxIcon.Information);
+        }
+
+        private void borrarFacturaSeleccionadaButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in facturasDataGridView.SelectedRows)
+            {
+                facturasDataGridView.Rows.Remove(row);
+            }
         }
     }
 }
