@@ -50,6 +50,12 @@ namespace PagoAgilFrba.Utils
             return comparacion >= 0;
         }
 
+        public static Boolean FechaPrimeraMayorOIgualAFechaSegunda(DateTime fechaPrimera, DateTime fechaSegunda)
+        {
+            int comparacion = fechaPrimera.CompareTo(fechaSegunda);
+            return comparacion >= 0;
+        }
+
         public static Boolean EsEmailValido(string email)
         {
             try {
