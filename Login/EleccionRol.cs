@@ -26,13 +26,6 @@ namespace PagoAgilFrba.Login
             CenterToScreen();
         }
 
-        private void volverButton_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new LoginForm().ShowDialog();
-            this.Close();
-        }
-
         private void EleccionRol_Load(object sender, EventArgs e)
         {
             CargarRoles();
@@ -59,6 +52,19 @@ namespace PagoAgilFrba.Login
             adapter.Fill(rolesUsuario, "Rol");
             rolComboBox.DataSource = rolesUsuario.Tables[0].DefaultView;
             rolComboBox.ValueMember = "nombre";
+        }
+
+        private void cerrarSesionButton_Click(object sender, EventArgs e)
+        {
+            // Relleno la sesion con datos inexistentes para que no queden datos cacheados de un usuario del sistema
+            UsuarioSesion.Usuario.id = 0;
+            UsuarioSesion.Usuario.nombre = null;
+            UsuarioSesion.Usuario.rol = null;
+
+            // Redirect al Login
+            this.Hide();
+            new LoginForm().ShowDialog();
+            this.Close();
         }
     }
 }

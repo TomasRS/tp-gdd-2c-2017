@@ -263,6 +263,16 @@ namespace PagoAgilFrba.DataProvider
         }
 
         //-------------------------------------------------------------
+        /** Usuario **/
+        public int getIDUsuario(String username)
+        {
+            query = "SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@username", username));
+            int idUsuario = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idUsuario;
+        }
+        
         /** Clientes **/
 
         public int CrearCliente(Cliente cliente)
@@ -384,6 +394,15 @@ namespace PagoAgilFrba.DataProvider
             parametros.Clear();
             parametros.Add(new SqlParameter("@codPostal", codPostal));
             return ControlDeUnicidad(query, parametros);
+        }
+
+        public String getNombreSucursal(int idSucursal)
+        {
+            query = "SELECT nombre FROM GAME_OF_CODE.Sucursal WHERE id_sucursal = @id_sucursal";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_sucursal", idSucursal));
+            String nombreSucursal = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return nombreSucursal;
         }
 
         //* Facturas*//

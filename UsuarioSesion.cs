@@ -14,6 +14,7 @@ namespace PagoAgilFrba
         public String rol { get; set; }
         public String nombre { get; set; }
         private UsuarioSesion() { }
+        public int idSucursalElegida { get; set; }
 
         public static UsuarioSesion Usuario
         {

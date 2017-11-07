@@ -59,7 +59,7 @@
             this.efectivoRadioButton = new System.Windows.Forms.RadioButton();
             this.tarjetaCreditoRadioButton = new System.Windows.Forms.RadioButton();
             this.limpiarTodoButton = new System.Windows.Forms.Button();
-            this.sucursalComboBox = new System.Windows.Forms.ComboBox();
+            this.sucursalTextBox = new System.Windows.Forms.TextBox();
             this.datosFacturaGroupBox.SuspendLayout();
             this.facturasRegistradasGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
@@ -68,7 +68,7 @@
             // 
             // datosFacturaGroupBox
             // 
-            this.datosFacturaGroupBox.Controls.Add(this.sucursalComboBox);
+            this.datosFacturaGroupBox.Controls.Add(this.sucursalTextBox);
             this.datosFacturaGroupBox.Controls.Add(this.limpiarButton);
             this.datosFacturaGroupBox.Controls.Add(this.registrarFacturaButton);
             this.datosFacturaGroupBox.Controls.Add(this.fechaVencFactDateTimePicker);
@@ -360,14 +360,14 @@
             this.limpiarTodoButton.UseVisualStyleBackColor = true;
             this.limpiarTodoButton.Click += new System.EventHandler(this.limpiarTodoButton_Click);
             // 
-            // sucursalComboBox
+            // sucursalTextBox
             // 
-            this.sucursalComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sucursalComboBox.FormattingEnabled = true;
-            this.sucursalComboBox.Location = new System.Drawing.Point(248, 179);
-            this.sucursalComboBox.Name = "sucursalComboBox";
-            this.sucursalComboBox.Size = new System.Drawing.Size(270, 21);
-            this.sucursalComboBox.TabIndex = 16;
+            this.sucursalTextBox.Enabled = false;
+            this.sucursalTextBox.Location = new System.Drawing.Point(248, 179);
+            this.sucursalTextBox.Name = "sucursalTextBox";
+            this.sucursalTextBox.ReadOnly = true;
+            this.sucursalTextBox.Size = new System.Drawing.Size(270, 20);
+            this.sucursalTextBox.TabIndex = 16;
             // 
             // RegistroPagoFacturas
             // 
@@ -426,6 +426,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Sucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
         private System.Windows.Forms.Button borrarFacturaSeleccionadaButton;
-        private System.Windows.Forms.ComboBox sucursalComboBox;
+        private System.Windows.Forms.TextBox sucursalTextBox;
     }
 }

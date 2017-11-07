@@ -285,6 +285,10 @@ IF (OBJECT_ID('GAME_OF_CODE.get_cantidad_roles_de_usuario') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.get_cantidad_roles_de_usuario
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.get_cantidad_sucursales_de_usuario') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.get_cantidad_sucursales_de_usuario
+GO
+
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_cliente') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_cliente
 GO
@@ -349,7 +353,17 @@ CREATE PROCEDURE GAME_OF_CODE.get_cantidad_roles_de_usuario
 )
 AS
 BEGIN
-	SELECT COUNT(ru.id_rol) FROM GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Rol r WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = 'admin') = id_usuario AND ru.id_rol = r.id_rol AND r.estado_habilitacion = 1
+	SELECT COUNT(ru.id_rol) FROM GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Rol r WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario AND ru.id_rol = r.id_rol AND r.estado_habilitacion = 1
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.get_cantidad_sucursales_de_usuario
+(
+	@username nvarchar(50)
+)
+AS
+BEGIN
+	SELECT COUNT(su.id_sucursal) FROM GAME_OF_CODE.Usuario_por_Sucursal su, GAME_OF_CODE.Sucursal s WHERE (SELECT id_usuario FROM GAME_OF_CODE.Usuario WHERE username = @username) = id_usuario AND su.id_sucursal = s.id_sucursal AND s.estado_habilitacion = 1
 END
 GO
 
@@ -651,6 +665,10 @@ BEGIN TRANSACTION
                     VALUES (@cont, (SELECT id_rol FROM GAME_OF_CODE.Rol WHERE nombre = 'Administrador'))
         END
 COMMIT
+
+-- Le agrego al administrador la unica sucursal que hay en el sistema luego de la migracion
+INSERT INTO GAME_OF_CODE.Usuario_por_Sucursal (id_usuario, id_sucursal)
+	VALUES (1,1)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 

@@ -30,7 +30,6 @@ namespace PagoAgilFrba.RegistroPago
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             numFacturaTextBox.Clear();
-            sucursalComboBox.SelectedIndex = -1;
             empresaComboBox.SelectedIndex = -1;
             clienteComboBox.SelectedIndex = -1;
             fechaCobroDateTimePicker.Text = "";
@@ -54,9 +53,9 @@ namespace PagoAgilFrba.RegistroPago
                 return;
             }
 
-            if (empresaComboBox.SelectedIndex.Equals(-1) || clienteComboBox.SelectedIndex.Equals(-1) || sucursalComboBox.SelectedIndex.Equals(-1))
+            if (empresaComboBox.SelectedIndex.Equals(-1) || clienteComboBox.SelectedIndex.Equals(-1))
             {
-                Util.ShowMessage("Debe completar los campos empresa, cliente y sucursal antes de continuar.", MessageBoxIcon.Exclamation);
+                Util.ShowMessage("Debe completar los campos empresa y cliente antes de continuar.", MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -111,7 +110,7 @@ namespace PagoAgilFrba.RegistroPago
 
             CargarEmpresas();
             CargarClientes();
-            CargarSucursales();
+            CargarSucursal();
             DeshabilitarSortHeaders();
 
             fechaCobroDateTimePicker.Text = DateConfig.getInstance().getCurrentDate().ToString();
@@ -124,7 +123,7 @@ namespace PagoAgilFrba.RegistroPago
             facturasDataGridView.Rows[indexLastRow].Cells["NumeroDeFactura"].Value = numFacturaTextBox.Text;
             facturasDataGridView.Rows[indexLastRow].Cells["id_empresa"].Value = empresaComboBox.SelectedValue;
             facturasDataGridView.Rows[indexLastRow].Cells["Empresa"].Value = empresaComboBox.Text;
-            facturasDataGridView.Rows[indexLastRow].Cells["Sucursal"].Value = sucursalComboBox.Text;
+            facturasDataGridView.Rows[indexLastRow].Cells["Sucursal"].Value = sucursalTextBox.Text;
             facturasDataGridView.Rows[indexLastRow].Cells["Importe"].Value = mapper.getImporteFactura(numFacturaTextBox.Text, (int)empresaComboBox.SelectedValue);
         }
 
@@ -166,20 +165,9 @@ namespace PagoAgilFrba.RegistroPago
             clienteComboBox.DataSource = clientes;
             clienteComboBox.SelectedIndex = 0;
         }
-        private void CargarSucursales()
+        private void CargarSucursal()
         {
-            string query = "SELECT id_sucursal, nombre from GAME_OF_CODE.Sucursal";
-
-            SqlCommand cmd = new SqlCommand(query, ConnectionManager.Instance.getConnection());
-
-            SqlDataAdapter data_adapter = new SqlDataAdapter(cmd);
-            DataTable clientes = new DataTable();
-            data_adapter.Fill(clientes);
-
-            sucursalComboBox.ValueMember = "id_sucursal";
-            sucursalComboBox.DisplayMember = "nombre";
-            sucursalComboBox.DataSource = clientes;
-            sucursalComboBox.SelectedIndex = 0;
+            sucursalTextBox.Text = mapper.getNombreSucursal((UsuarioSesion.Usuario.idSucursalElegida));
         }
 
         private void limpiarTodoButton_Click(object sender, EventArgs e)
@@ -203,7 +191,7 @@ namespace PagoAgilFrba.RegistroPago
             PagoFactura pagoFactura = new PagoFactura();
             pagoFactura.setFechaCobro(DateConfig.getInstance().getCurrentDate());
             pagoFactura.setImporte(getImporteTotalAPagar());
-            pagoFactura.setIDSucursal((int)sucursalComboBox.SelectedValue);
+            pagoFactura.setIDSucursal(UsuarioSesion.Usuario.idSucursalElegida);
             pagoFactura.setIDMedioPago(mapper.getIDMedioPago(mediosPago.Find(mPago => mPago.Checked == true).Text));
 
             foreach (DataGridViewRow row in facturasDataGridView.Rows)

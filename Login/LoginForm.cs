@@ -17,6 +17,7 @@ namespace PagoAgilFrba
 {
     public partial class LoginForm : Form
     {
+        private DBMapper mapper = new DBMapper();
 
         public LoginForm()
         {
@@ -65,39 +66,61 @@ namespace PagoAgilFrba
                 String clearIntentosFallidos = "UPDATE GAME_OF_CODE.Usuario SET intentos_fallidos = 0 WHERE username = @username";
                 QueryBuilder.Instance.build(clearIntentosFallidos, parametros).ExecuteNonQuery();
 
-                //Consulta roles
+                //Consulta sucursales
                 parametros.Clear();
-                String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
-                int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
+                String consultaSucursales = "EXEC GAME_OF_CODE.get_cantidad_sucursales_de_usuario " + username;
+                int cantidadDeSucursales = (int)QueryBuilder.Instance.build(consultaSucursales, parametros).ExecuteScalar();
 
-                //Si es mas de un rol muestra la pantalla de eleccion de roles, sino no
-                if (cantidadDeRoles > 1)
+                //Si es mas de una sucursal muestra la pantalla de eleccion de sucursales
+                if (cantidadDeSucursales > 1)
                 {
                     this.Hide();
-                    new EleccionRol().ShowDialog();
+                    new EleccionSucursal().ShowDialog();
                     this.Close();
                 }
                 else
                 {
+                    //Hay una sola sucursal, calculo la cant de roles
                     parametros.Clear();
-                    parametros.Add(new SqlParameter("@username", username));
-                    String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username";
-                    String rolUser = (String)QueryBuilder.Instance.build(rolDeUsuario, parametros).ExecuteScalar();
+                    String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
+                    int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
 
-                    UsuarioSesion.Usuario.rol = rolUser;
-                    if (UsuarioSesion.Usuario.rol == null)
+                    //Si es mas de un rol muestra la pantalla de eleccion de roles, sino la principal
+                    if (cantidadDeRoles > 1)
                     {
-                        Util.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
-                        return;
+                        this.Hide();
+                        new EleccionRol().ShowDialog();
+                        this.Close();
                     }
+                    else
+                    {
+                        parametros.Clear();
+                        parametros.Add(new SqlParameter("@username", username));
+                        String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username";
+                        String rolUser = (String)QueryBuilder.Instance.build(rolDeUsuario, parametros).ExecuteScalar();
 
-                    this.Hide();
-                    new MenuPrincipal().ShowDialog();
-                    this.Close();
+                        UsuarioSesion.Usuario.rol = rolUser;
+                        if (UsuarioSesion.Usuario.rol == null)
+                        {
+                            Util.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
+                            return;
+                        }
+
+                        this.Hide();
+                        new MenuPrincipal().ShowDialog();
+                        this.Close();
+                    }
                 }
             }
             else
             {
+                //Si es admin no se le suma intentos fallidos ya que si se deshabilita el admin principal no lo puede habilitar nadie
+                if (mapper.getIDUsuario(usernameTextBox.Text).Equals(1))
+                {
+                    Util.ShowMessage("Contraseña incorrecta.", MessageBoxIcon.Exclamation);
+                    return;
+                }
+
                 //Chequea si el usuario era correcto
                 parametros.Clear();
                 parametros.Add(new SqlParameter("@username", username));
