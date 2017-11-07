@@ -30,7 +30,6 @@ namespace PagoAgilFrba.RegistroPago
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             numFacturaTextBox.Clear();
-            importeTextBox.Clear();
             sucursalComboBox.SelectedIndex = -1;
             empresaComboBox.SelectedIndex = -1;
             clienteComboBox.SelectedIndex = -1;
@@ -58,12 +57,6 @@ namespace PagoAgilFrba.RegistroPago
             if (empresaComboBox.SelectedIndex.Equals(-1) || clienteComboBox.SelectedIndex.Equals(-1) || sucursalComboBox.SelectedIndex.Equals(-1))
             {
                 Util.ShowMessage("Debe completar los campos empresa, cliente y sucursal antes de continuar.", MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            if (Util.getNumeroFromString(importeTextBox.Text) <= 0)
-            {
-                Util.ShowMessage("El importe de la factura no puede ser menor o igual a cero.", MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -99,7 +92,10 @@ namespace PagoAgilFrba.RegistroPago
             int idEmpresa = (int)empresaComboBox.SelectedValue;
             int idCliente = (int)clienteComboBox.SelectedValue;
             if (mapper.ExisteFacturaParaEmpresaYCliente(nroFactura, idEmpresa, idCliente))
-                agregarFacturaAListado();
+                if (mapper.FacturaEstaActiva(nroFactura, idEmpresa))
+                    agregarFacturaAListado();
+                else
+                    Util.ShowMessage("La factura que quiere registrar no se encuentra activa por lo que no se la puede pagar.", MessageBoxIcon.Exclamation);
             else
                 Util.ShowMessage("No existe el número de factura " + nroFactura + " para la empresa " + mapper.getNombreEmpresa(idEmpresa) + " y el cliente " + mapper.getMailCliente(idCliente), MessageBoxIcon.Error);
         }
@@ -107,7 +103,6 @@ namespace PagoAgilFrba.RegistroPago
         private void RegistroPagoFacturas_Load(object sender, EventArgs e)
         {
             campos.Add(numFacturaTextBox);
-            campos.Add(importeTextBox);
 
             mediosPago.Add(tarjetaCreditoRadioButton);
             mediosPago.Add(efectivoRadioButton);
@@ -130,7 +125,7 @@ namespace PagoAgilFrba.RegistroPago
             facturasDataGridView.Rows[indexLastRow].Cells["id_empresa"].Value = empresaComboBox.SelectedValue;
             facturasDataGridView.Rows[indexLastRow].Cells["Empresa"].Value = empresaComboBox.Text;
             facturasDataGridView.Rows[indexLastRow].Cells["Sucursal"].Value = sucursalComboBox.Text;
-            facturasDataGridView.Rows[indexLastRow].Cells["Importe"].Value = importeTextBox.Text;
+            facturasDataGridView.Rows[indexLastRow].Cells["Importe"].Value = mapper.getImporteFactura(numFacturaTextBox.Text, (int)empresaComboBox.SelectedValue);
         }
 
         private void DeshabilitarSortHeaders()
@@ -207,7 +202,7 @@ namespace PagoAgilFrba.RegistroPago
             //Creacion pago factura
             PagoFactura pagoFactura = new PagoFactura();
             pagoFactura.setFechaCobro(DateConfig.getInstance().getCurrentDate());
-            pagoFactura.setImporte(Util.getNumeroFromString(importeTextBox.Text));
+            pagoFactura.setImporte(getImporteTotalAPagar());
             pagoFactura.setIDSucursal((int)sucursalComboBox.SelectedValue);
             pagoFactura.setIDMedioPago(mapper.getIDMedioPago(mediosPago.Find(mPago => mPago.Checked == true).Text));
 
@@ -223,6 +218,8 @@ namespace PagoAgilFrba.RegistroPago
             mapper.AgregarACadaFacturaElIDDelPago(pagoFactura, idPago);
 
             Util.ShowMessage("Todas las facturas se han pagado correctamente.", MessageBoxIcon.Information);
+            facturasDataGridView.Rows.Clear();
+            facturasDataGridView.Refresh();
         }
 
         private void borrarFacturaSeleccionadaButton_Click(object sender, EventArgs e)
@@ -231,6 +228,16 @@ namespace PagoAgilFrba.RegistroPago
             {
                 facturasDataGridView.Rows.Remove(row);
             }
+        }
+
+        private int getImporteTotalAPagar()
+        {
+            int importeTotal = 0;
+            foreach (DataGridViewRow row in facturasDataGridView.Rows)
+            {
+                importeTotal += (int)row.Cells["Importe"].Value;
+            }
+            return importeTotal;
         }
     }
 }
