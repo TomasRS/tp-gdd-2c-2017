@@ -606,6 +606,15 @@ INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha
 GROUP BY Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
 		 C.id_cliente, E.id_empresa, Pago_nro
 
+UPDATE GAME_OF_CODE.Factura 
+	SET id_pago = Pago_nro
+	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Empresa E
+	WHERE Pago_nro IS NOT NULL
+	  AND Rendicion_Nro IS NULL
+	  AND numero_factura = TM.Nro_Factura
+	  AND TM.[Cliente-Dni] = C.dni
+	  AND TM.Empresa_Cuit = E.emp_cuit;
+
 INSERT INTO GAME_OF_CODE.Detalle_Factura (item_monto, cantidad, id_factura)
 	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad, F.id_factura
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Factura F
