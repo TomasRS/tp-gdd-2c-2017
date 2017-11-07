@@ -44,6 +44,7 @@ namespace PagoAgilFrba.AbmFactura
             fechaVencDateTimePicker.Text = "";
             empresaComboBox.SelectedIndex = -1;
             itemsDataGridView.Rows.Clear();
+            itemsDataGridView.Refresh();
         }
         private void volverButton_Click(object sender, EventArgs e)
         {
@@ -161,6 +162,7 @@ namespace PagoAgilFrba.AbmFactura
             {
                 itemsFactura.ForEach(unItemFactura => crearItemFactura(unItemFactura));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
+                limpiarButton_Click(this, null);
             }   
         }
 
@@ -218,7 +220,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             itemsDataGridView.Columns.Add("item_factura", "Item factura");
             itemsDataGridView.Columns.Add("cantidad", "Cantidad");
-            itemsDataGridView.Columns.Add("monto_unitario", "Monto unitario");
+            itemsDataGridView.Columns.Add("item_monto", "Importe");
         }
 
         private void guardarButton_Click(object sender, EventArgs e)
@@ -243,7 +245,7 @@ namespace PagoAgilFrba.AbmFactura
                     ItemFactura item = new ItemFactura();
                     item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
                     item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
-                    item.setMontoUnitario(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                    item.setImporte(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
@@ -264,7 +266,8 @@ namespace PagoAgilFrba.AbmFactura
             int montoFinal = 0;
             for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
             {
-                montoFinal += (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[1].Value.ToString())) * (Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString()));
+                //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
+                montoFinal += Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
             }
             return montoFinal;
         }

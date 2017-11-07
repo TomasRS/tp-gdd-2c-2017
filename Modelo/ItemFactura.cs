@@ -10,17 +10,17 @@ namespace PagoAgilFrba.Modelo
     public class ItemFactura : Mapeable
     {
         private String descripcion;
-        private String montoUnitario;
+        private String importe;
         private String cantidad;
         private int idFactura;
 
         public void setDescripcion(String descripcion)  { this.descripcion = descripcion; }
-        public void setMontoUnitario(String monto)      { this.montoUnitario = monto; }
+        public void setImporte(String monto)      { this.importe = monto; }
         public void setCantidad(String cantidad)        { this.cantidad = cantidad; }
         public void setIDFactura(int idFactura)         { this.idFactura = idFactura; }
 
         public String getDescripcion()      { return this.descripcion; }
-        public String getMontoUnitario()    { return this.montoUnitario; }
+        public String getMontoUnitario()    { return this.importe; }
         public String getCantidad()         { return this.cantidad; }
         public int getIDFactura()           { return this.idFactura; }
 
@@ -46,7 +46,7 @@ namespace PagoAgilFrba.Modelo
         {
             IList<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@item_factura", this.descripcion));
-            parametros.Add(new SqlParameter("@monto_unitario", this.montoUnitario));
+            parametros.Add(new SqlParameter("@item_monto", this.importe));
             parametros.Add(new SqlParameter("@cantidad", this.cantidad));
             parametros.Add(new SqlParameter("@id_factura", this.idFactura));
             return parametros;
@@ -55,7 +55,7 @@ namespace PagoAgilFrba.Modelo
         public void CargarInformacion(SqlDataReader reader)
         {
             this.descripcion = Convert.ToString(reader["item_factura"]);
-            this.montoUnitario = Convert.ToString(reader["monto_unitario"]);
+            this.importe = Convert.ToString(reader["item_monto"]);
             this.cantidad = Convert.ToString(reader["cantidad"]);
             this.idFactura = Convert.ToInt32(reader["id_factura"]);
         }
