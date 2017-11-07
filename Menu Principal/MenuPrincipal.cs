@@ -23,6 +23,7 @@ namespace PagoAgilFrba.Menu_Principal
             InitializeComponent();
             CenterToScreen();
 
+            funcionalidades.Add("Habilitación de usuarios deshabilitados", new HabilitacionUsuarios.HabilitacionUsuarios());
             funcionalidades.Add("Alta de clientes", new AbmCliente.AltaModifCliente(new Alta()));
             funcionalidades.Add("Modificación y baja de clientes", new AbmCliente.ListadoCliente());
             funcionalidades.Add("Alta de empresas", new AbmEmpresa.AltaModifEmpresa(new Alta()));

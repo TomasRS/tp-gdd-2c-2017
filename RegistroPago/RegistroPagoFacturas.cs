@@ -167,7 +167,7 @@ namespace PagoAgilFrba.RegistroPago
         }
         private void CargarSucursal()
         {
-            sucursalTextBox.Text = mapper.getNombreSucursal((UsuarioSesion.Usuario.idSucursalElegida));
+            sucursalTextBox.Text = mapper.getNombreSucursal((UsuarioSesion.Usuario.idSucursal));
         }
 
         private void limpiarTodoButton_Click(object sender, EventArgs e)
@@ -191,7 +191,7 @@ namespace PagoAgilFrba.RegistroPago
             PagoFactura pagoFactura = new PagoFactura();
             pagoFactura.setFechaCobro(DateConfig.getInstance().getCurrentDate());
             pagoFactura.setImporte(getImporteTotalAPagar());
-            pagoFactura.setIDSucursal(UsuarioSesion.Usuario.idSucursalElegida);
+            pagoFactura.setIDSucursal(UsuarioSesion.Usuario.idSucursal);
             pagoFactura.setIDMedioPago(mapper.getIDMedioPago(mediosPago.Find(mPago => mPago.Checked == true).Text));
 
             foreach (DataGridViewRow row in facturasDataGridView.Rows)

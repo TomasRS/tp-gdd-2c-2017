@@ -150,6 +150,15 @@ namespace PagoAgilFrba.DataProvider
          *  DELETE QUERIES (deshabilitar)
          *
          */
+        public Boolean CambiarHabilitacionUsuario(int id, String enDonde, int nuevoEstadoHabilitacion)
+        {
+            query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_usuario = @id";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id", id));
+            int filasAfectadas = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return filasAfectadas.Equals(1);
+        }
+
         public Boolean CambiarHabilitacionCliente(int id, String enDonde, int nuevoEstadoHabilitacion)
         {
             query = "UPDATE GAME_OF_CODE." + enDonde + " SET estado_habilitacion = " + nuevoEstadoHabilitacion.ToString() + "WHERE id_cliente = @id";
@@ -262,6 +271,11 @@ namespace PagoAgilFrba.DataProvider
                 , "I.id_factura = " + idFactura);
         }
 
+        public DataTable SelectUsuariosParaFiltro()
+        {
+            return this.SelectDataTable("id_usuario, username 'Username', estado_habilitacion 'Habilitar', intentos_fallidos 'Intentos fallidos'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
+        }
+
         //-------------------------------------------------------------
         /** Usuario **/
         public int getIDUsuario(String username)
@@ -271,6 +285,23 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@username", username));
             int idUsuario = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return idUsuario;
+        }
+
+        public int getIDUnicaSucursalUsuario(int idUsuario)
+        {
+            query = "SELECT id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal WHERE id_usuario = @id_usuario";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idSucursal;
+        }
+
+        public void ResetearIntentosFallidosUsuario(int idUsuario)
+        {
+            query = "UPDATE GAME_OF_CODE.Usuario SET intentos_fallidos = 0 WHERE id_usuario = @id_usuario";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
         }
         
         /** Clientes **/

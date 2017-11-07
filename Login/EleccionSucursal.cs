@@ -59,7 +59,7 @@ namespace PagoAgilFrba.Login
         private void aceptarButton_Click(object sender, EventArgs e)
         {
             int idSucursal = (int)sucursalComboBox.SelectedValue;
-            UsuarioSesion.Usuario.idSucursalElegida = idSucursal;
+            UsuarioSesion.Usuario.idSucursal = idSucursal;
 
             parametros.Clear();
             String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + UsuarioSesion.Usuario.nombre;

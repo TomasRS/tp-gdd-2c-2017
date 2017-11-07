@@ -81,6 +81,8 @@ namespace PagoAgilFrba
                 else
                 {
                     //Hay una sola sucursal, calculo la cant de roles
+                    UsuarioSesion.Usuario.idSucursal = mapper.getIDUnicaSucursalUsuario(UsuarioSesion.Usuario.id);
+
                     parametros.Clear();
                     String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
                     int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();

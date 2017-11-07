@@ -126,6 +126,12 @@
     <Compile Include="Excepciones\FechaFuturaException.cs" />
     <Compile Include="Excepciones\FormatoInvalidoException.cs" />
     <Compile Include="Excepciones\YaExisteNumeroFacturaParaEmpresa.cs" />
+    <Compile Include="HabilitacionUsuarios\HabilitacionUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HabilitacionUsuarios\HabilitacionUsuarios.Designer.cs">
+      <DependentUpon>HabilitacionUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\EleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\DevolucionFactura.resx">
       <DependentUpon>DevolucionFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HabilitacionUsuarios\HabilitacionUsuarios.resx">
+      <DependentUpon>HabilitacionUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>

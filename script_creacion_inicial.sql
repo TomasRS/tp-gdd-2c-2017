@@ -622,22 +622,30 @@ INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
 /** FIN MIGRACION **/
 
 -------------------------------------------------------------------------------------------------------------------------------------------
-/** Inserto usuario administrador para manejar la app (admin:w23e) **/
+/** Inserto roles Administrador y Cobrador **/
 INSERT INTO GAME_OF_CODE.Rol (nombre)
-	VALUES ('Administrador')
+	VALUES ('Administrador'),
+		   ('Cobrador')
 
-
+--Creo usuario administrador para manejar la app (admin:w23e) y tambien usuario cobrador (tom:123)
 DECLARE @id_admin INT
 EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'admin', 'e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', @id_admin output   
 
 INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
     VALUES	(1, @id_admin)
 
+DECLARE @id_cobrador INT
+EXEC GAME_OF_CODE.pr_crear_usuario_con_valores 'tom', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', @id_cobrador output   
+
+INSERT INTO GAME_OF_CODE.Rol_por_Usuario (id_rol, id_usuario)
+    VALUES	(2, @id_cobrador)
+
 
 /** Alta de Funcionalidades **/
 
 INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
-    VALUES  ('Alta de clientes'),
+    VALUES	('Habilitación de usuarios deshabilitados'),
+			('Alta de clientes'),
             ('Modificación y baja de clientes'),
             ('Alta de empresas'),
             ('Modificación y baja de empresas'),
@@ -647,10 +655,11 @@ INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
             ('Modificación y baja de roles'),
             ('Alta de sucursales'),
             ('Modificación y baja de sucursales'),
-            ('Devolución de facturas pagas'),
-            ('Listado estadístico'),
             ('Pagar facturas'),
-            ('Realizar rendición de facturas')
+			('Devolución de facturas pagas'),
+            ('Realizar rendición de facturas'),
+			('Listado estadístico')
+            
 
 -- Agrego al administrador todas las funcionalidades del sistema
 
@@ -666,9 +675,16 @@ BEGIN TRANSACTION
         END
 COMMIT
 
--- Le agrego al administrador la unica sucursal que hay en el sistema luego de la migracion
+-- Agrego al rol cobrador solo las funcionalidad de Pagar Facturas
+BEGIN TRANSACTION
+       INSERT INTO GAME_OF_CODE.Funcionalidad_por_Rol(id_funcionalidad, id_rol)
+       VALUES (12, (SELECT id_rol FROM GAME_OF_CODE.Rol WHERE nombre = 'Cobrador'))
+COMMIT
+
+-- Le agrego al administrador y al cobrador la unica sucursal que hay en el sistema luego de la migracion
 INSERT INTO GAME_OF_CODE.Usuario_por_Sucursal (id_usuario, id_sucursal)
-	VALUES (1,1)
+	VALUES (1,1),
+		   (2,1)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 
