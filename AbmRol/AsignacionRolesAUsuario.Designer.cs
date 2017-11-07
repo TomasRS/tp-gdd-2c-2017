@@ -119,6 +119,7 @@
             this.usuariosComboBox.Name = "usuariosComboBox";
             this.usuariosComboBox.Size = new System.Drawing.Size(193, 21);
             this.usuariosComboBox.TabIndex = 20;
+            this.usuariosComboBox.SelectedIndexChanged += new System.EventHandler(this.usuariosComboBox_SelectedIndexChanged);
             // 
             // AsignacionRolesAUsuario
             // 

@@ -122,6 +122,18 @@ namespace PagoAgilFrba.DataProvider
             return funcionalidades;
         }
 
+        public DataSet getRolesDelUsuario(int idUsuario)
+        {
+            DataSet roles = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            command = QueryBuilder.Instance.build("SELECT DISTINCT r.nombre from GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru WHERE r.id_rol = ru.id_rol AND ru.id_usuario = @id_usuario", parametros);
+            adapter.SelectCommand = command;
+            adapter.Fill(roles);
+            return roles;
+        }
+
         public String getNombreRol(int idRol)
         {
             query = "SELECT nombre FROM GAME_OF_CODE.Rol WHERE id_rol = @id_rol";
