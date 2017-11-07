@@ -33,7 +33,6 @@ namespace PagoAgilFrba.HabilitacionUsuarios
         private void CargarUsuariosDeshabilitados()
         {
             usuariosDataGridView.DataSource = mapper.SelectUsuariosParaFiltro();
-            CargarColumnaHabilitar();
             DeshabilitarSortHeaders();
             OcultarColumnasQueNoDebenVerse();
         }
@@ -51,33 +50,29 @@ namespace PagoAgilFrba.HabilitacionUsuarios
             usuariosDataGridView.Columns["id_usuario"].Visible = false;
         }
 
-        private void CargarColumnaHabilitar()
-        {
-            if (usuariosDataGridView.Columns.Contains("Habilitar"))
-                usuariosDataGridView.Columns.Remove("Habilitar");
-
-            DataGridViewButtonColumn botonColumnaHabilitar = new DataGridViewButtonColumn();
-            botonColumnaHabilitar.Text = "Habilitar";
-            botonColumnaHabilitar.Name = "Habilitar";
-            botonColumnaHabilitar.UseColumnTextForButtonValue = true;
-            usuariosDataGridView.Columns.Add(botonColumnaHabilitar);
-        }
-
-        private void usuariosDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            String idUsuarioAHabilitar = usuariosDataGridView.Rows[e.RowIndex].Cells["id_usuario"].Value.ToString();
-            mapper.CambiarHabilitacionUsuario(Util.getNumeroFromString(idUsuarioAHabilitar), "Usuario", 1);
-            mapper.ResetearIntentosFallidosUsuario(Util.getNumeroFromString(idUsuarioAHabilitar));
-            Util.ShowMessage("El usuario fue habilitado correctamente.", MessageBoxIcon.Information);
-            usuariosDataGridView.Rows.RemoveAt(e.RowIndex);
-            usuariosDataGridView.Refresh();
-        }
-
         private void volverButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             new MenuPrincipal().ShowDialog();
             this.Close();
+        }
+
+        private void habilitarUsuariosButton_Click(object sender, EventArgs e)
+        {
+            if (usuariosDataGridView.SelectedRows.Count >= 1)
+            {
+                foreach (DataGridViewRow row in usuariosDataGridView.SelectedRows)
+                {
+                    String idUsuarioAHabilitar = row.Cells["id_usuario"].Value.ToString();
+                    mapper.CambiarHabilitacionUsuario(Util.getNumeroFromString(idUsuarioAHabilitar), "Usuario", 1);
+                    mapper.ResetearIntentosFallidosUsuario(Util.getNumeroFromString(idUsuarioAHabilitar));
+                    usuariosDataGridView.Rows.Remove(row);
+                    usuariosDataGridView.Refresh();
+                }
+                Util.ShowMessage("Los usuarios seleccionados fueron habilitados correctamente.", MessageBoxIcon.Information);
+            }
+            else
+                Util.ShowMessage("Primero tiene que seleccionar al menos un usuario.", MessageBoxIcon.Exclamation);
         }
     }
 }

@@ -273,7 +273,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectUsuariosParaFiltro()
         {
-            return this.SelectDataTable("id_usuario, username 'Username', estado_habilitacion 'Habilitar', intentos_fallidos 'Intentos fallidos'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
+            return this.SelectDataTable("id_usuario, username 'Username'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
         }
 
         //-------------------------------------------------------------
