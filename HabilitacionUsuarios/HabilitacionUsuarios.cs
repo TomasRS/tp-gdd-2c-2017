@@ -26,6 +26,8 @@ namespace PagoAgilFrba.HabilitacionUsuarios
         private void HabilitacionUsuarios_Load(object sender, EventArgs e)
         {
             CargarUsuariosDeshabilitados();
+            if (!mapper.HayUsuariosDeshabilitados())
+                Util.ShowMessage("No hay usuarios deshabilitados en el sistema.", MessageBoxIcon.Information);
         }
 
         private void CargarUsuariosDeshabilitados()

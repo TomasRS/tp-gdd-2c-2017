@@ -303,6 +303,13 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@id_usuario", idUsuario));
             QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
         }
+
+        public Boolean HayUsuariosDeshabilitados()
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Usuario WHERE estado_habilitacion = 0";
+            parametros.Clear();
+            return ControlDeUnicidad(query, parametros);
+        }
         
         /** Clientes **/
 
