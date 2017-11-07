@@ -29,12 +29,18 @@ BEGIN
 	DROP TABLE GAME_OF_CODE.Detalle_Rendicion
 END
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
+BEGIN
+	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_factura;
+	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_pago_facturas;
+	DROP TABLE GAME_OF_CODE.Devolucion
+END
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Factura'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_cliente;
 	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_empresa;
-	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_devolucion;
-	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_Id_Pago;
+	ALTER TABLE GAME_OF_CODE.Factura DROP CONSTRAINT Factura_id_Pago;
 	DROP TABLE GAME_OF_CODE.Factura
 END
 
@@ -48,12 +54,6 @@ END
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
 BEGIN
 	DROP TABLE GAME_OF_CODE.Medio_de_Pago
-END
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
-BEGIN
-	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_usuario;
-	DROP TABLE GAME_OF_CODE.Devolucion
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario_por_Sucursal'))
@@ -163,12 +163,6 @@ CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 	[id_factura] INT NOT NULL
 )
 
-CREATE TABLE [GAME_OF_CODE].[Devolucion] (
-	[id_devolucion] INT IDENTITY(1,1) PRIMARY KEY,
-	[motivo] [nvarchar](255) NOT NULL,
-	[id_usuario] INT NOT NULL
-)
-
 CREATE TABLE [GAME_OF_CODE].[Pago_de_Facturas] (
 	[id_pago_facturas] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_cobro] [datetime] NOT NULL,
@@ -186,8 +180,14 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_cliente] INT NOT NULL,
 	[id_empresa] INT NOT NULL,
 	[id_pago] INT,
-	[id_devolucion] INT,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
+)
+
+CREATE TABLE [GAME_OF_CODE].[Devolucion] (
+	[id_devolucion] INT IDENTITY(1,1) PRIMARY KEY,
+	[motivo] [nvarchar](255) NOT NULL,
+	[id_factura] INT NOT NULL,
+	[id_pago_facturas] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Cliente] (
@@ -253,10 +253,6 @@ ALTER TABLE [GAME_OF_CODE].[Usuario_por_Sucursal] ADD CONSTRAINT Usuario_por_Suc
 
 ALTER TABLE [GAME_OF_CODE].[Detalle_Factura] ADD CONSTRAINT Detalle_Factura_id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
 
-ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT Devolucion_id_usuario FOREIGN KEY (id_usuario) REFERENCES [GAME_OF_CODE].[Usuario](id_usuario)
-
-ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_Id_Pago FOREIGN KEY (id_pago) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
-
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_sucursal FOREIGN KEY (id_sucursal) REFERENCES [GAME_OF_CODE].[Sucursal](id_sucursal)
 
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_medio_pago FOREIGN KEY (id_medio_pago) REFERENCES [GAME_OF_CODE].[Medio_de_Pago](id_medio_pago)
@@ -269,7 +265,11 @@ ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_cliente FOREIGN K
 
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
 
-ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_devolucion FOREIGN KEY (id_devolucion) REFERENCES [GAME_OF_CODE].[Devolucion](id_devolucion)
+ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_Pago FOREIGN KEY (id_pago) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
+
+ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT Devolucion_id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
+
+ALTER TABLE [GAME_OF_CODE].[Devolucion] ADD CONSTRAINT Devolucion_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
 ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
 
