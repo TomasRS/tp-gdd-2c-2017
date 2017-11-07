@@ -19,7 +19,7 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Factura'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Detalle_Factura DROP CONSTRAINT Detalle_Factura_id_factura;
-    DROP TABLE GAME_OF_CODE.Detalle_Factura
+	DROP TABLE GAME_OF_CODE.Detalle_Factura
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
@@ -47,13 +47,13 @@ END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Medio_de_Pago'))
 BEGIN
-    DROP TABLE GAME_OF_CODE.Medio_de_Pago
+	DROP TABLE GAME_OF_CODE.Medio_de_Pago
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Devolucion'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Devolucion DROP CONSTRAINT Devolucion_id_usuario;
-    DROP TABLE GAME_OF_CODE.Devolucion
+	DROP TABLE GAME_OF_CODE.Devolucion
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol_por_Usuario'))
@@ -68,35 +68,35 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_funcionalidad;
 	ALTER TABLE GAME_OF_CODE.Funcionalidad_por_Rol DROP CONSTRAINT Funcionalidad_por_Rol_id_rol;
-    DROP TABLE GAME_OF_CODE.Funcionalidad_por_Rol
+	DROP TABLE GAME_OF_CODE.Funcionalidad_por_Rol
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Empresa'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Empresa DROP CONSTRAINT Empresa_id_rubro;
-    DROP TABLE GAME_OF_CODE.Empresa
+	DROP TABLE GAME_OF_CODE.Empresa
 END
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Cliente'))
-    DROP TABLE GAME_OF_CODE.Cliente
+	DROP TABLE GAME_OF_CODE.Cliente
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Usuario'))
-    DROP TABLE GAME_OF_CODE.Usuario
+	DROP TABLE GAME_OF_CODE.Usuario
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol'))
-    DROP TABLE GAME_OF_CODE.Rol
+	DROP TABLE GAME_OF_CODE.Rol
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Funcionalidad'))
-    DROP TABLE GAME_OF_CODE.Funcionalidad
+	DROP TABLE GAME_OF_CODE.Funcionalidad
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rendicion'))
-    DROP TABLE GAME_OF_CODE.Rendicion
+	DROP TABLE GAME_OF_CODE.Rendicion
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Sucursal'))
-    DROP TABLE GAME_OF_CODE.Sucursal
+	DROP TABLE GAME_OF_CODE.Sucursal
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rubro'))
-    DROP TABLE GAME_OF_CODE.Rubro
+	DROP TABLE GAME_OF_CODE.Rubro
 	
 /** FIN VALIDACION DE TABLAS **/
 
@@ -561,7 +561,7 @@ INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas, fecha_cobro, id_sucu
 	WHERE ItemPago_nro IS NOT NULL
 	  AND S.nombre = TM.Sucursal_Nombre 
 	  AND MP.descripcion = TM.FormaPagoDescripcion
-	  AND TM.Rendicion_Nro IS NULL
+	  AND TM.Rendicion_Nro IS NOT NULL
 GROUP BY Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
@@ -569,12 +569,14 @@ INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha
 	SELECT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
 		   C.id_cliente, E.id_empresa, Pago_nro
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Empresa E
-	WHERE Pago_nro IS NULL
-	  AND Rendicion_Nro IS NULL
+	WHERE Pago_nro IS NOT NULL
+	  AND Rendicion_Nro IS NOT NULL
 	  AND Nro_Factura IS NOT NULL
 	  AND Factura_Total IS NOT NULL
 	  AND TM.[Cliente-Dni] = C.dni
 	  AND TM.Empresa_Cuit = E.emp_cuit
+GROUP BY Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
+		 C.id_cliente, E.id_empresa, Pago_nro
 
 INSERT INTO GAME_OF_CODE.Detalle_Factura (item_monto, cantidad, id_factura)
 	SELECT DISTINCT ItemFactura_Monto, ItemFactura_Cantidad, F.id_factura
