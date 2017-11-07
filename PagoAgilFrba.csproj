@@ -90,6 +90,12 @@
     <Compile Include="AbmRol\AltaModifRol.Designer.cs">
       <DependentUpon>AltaModifRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\AsignacionRolesAUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\AsignacionRolesAUsuario.Designer.cs">
+      <DependentUpon>AsignacionRolesAUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRol\ListadoRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\AltaModifRol.resx">
       <DependentUpon>AltaModifRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\AsignacionRolesAUsuario.resx">
+      <DependentUpon>AsignacionRolesAUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ListadoRol.resx">
       <DependentUpon>ListadoRol.cs</DependentUpon>

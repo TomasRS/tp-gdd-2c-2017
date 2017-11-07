@@ -120,8 +120,7 @@ CREATE TABLE [GAME_OF_CODE].[Usuario] (
 CREATE TABLE [GAME_OF_CODE].[Rol_por_Usuario] (
     [id_rol_por_usuario] INT IDENTITY(1,1) PRIMARY KEY,
 	[id_usuario] INT NOT NULL,
-	[id_rol] INT NOT NULL,
-	[id_sucursal] INT
+	[id_rol] INT NOT NULL
 )
 
 CREATE TABLE [GAME_OF_CODE].[Rol] (
@@ -661,8 +660,10 @@ INSERT INTO GAME_OF_CODE.Funcionalidad(descripcion)
             ('Alta de facturas'),
             ('Modificación y baja de facturas'),
             ('Alta de roles'),
+			('Asignación de roles a un usuario'),
             ('Modificación y baja de roles'),
             ('Alta de sucursales'),
+			('Asignación de sucursales a un usuario'),
             ('Modificación y baja de sucursales'),
             ('Pagar facturas'),
 			('Devolución de facturas pagas'),
