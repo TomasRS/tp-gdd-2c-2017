@@ -25,7 +25,7 @@ END
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Detalle_Rendicion'))
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_rendicion;
-	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_pago_facturas;
+	ALTER TABLE GAME_OF_CODE.Detalle_Rendicion DROP CONSTRAINT Detalle_Rendicion_id_factura;
 	DROP TABLE GAME_OF_CODE.Detalle_Rendicion
 END
 
@@ -60,7 +60,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.
 BEGIN
 	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_usuario;
 	ALTER TABLE GAME_OF_CODE.Usuario_por_Sucursal DROP CONSTRAINT Usuario_por_Sucursal_id_sucursal;
-    DROP TABLE GAME_OF_CODE.Usuario_por_Sucursal
+	DROP TABLE GAME_OF_CODE.Usuario_por_Sucursal
 END
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Rol_por_Usuario'))
@@ -82,7 +82,7 @@ BEGIN
 	ALTER TABLE GAME_OF_CODE.Empresa DROP CONSTRAINT Empresa_id_rubro;
 	DROP TABLE GAME_OF_CODE.Empresa
 END
-	
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'GAME_OF_CODE.Cliente'))
 	DROP TABLE GAME_OF_CODE.Cliente
 
@@ -214,7 +214,7 @@ CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 CREATE TABLE [GAME_OF_CODE].[Detalle_Rendicion] (
 	[id_detalle_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
 	[id_rendicion] INT NOT NULL,
-	[id_pago_facturas] INT NOT NULL,
+	[id_factura] INT NOT NULL,
 )
 
 CREATE TABLE [GAME_OF_CODE].[Medio_de_Pago] (
@@ -261,15 +261,15 @@ ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id
 
 ALTER TABLE [GAME_OF_CODE].[Pago_de_Facturas] ADD CONSTRAINT Pago_de_Facturas_id_medio_pago FOREIGN KEY (id_medio_pago) REFERENCES [GAME_OF_CODE].[Medio_de_Pago](id_medio_pago)
 
+ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
+
+ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_factura FOREIGN KEY (id_factura) REFERENCES [GAME_OF_CODE].[Factura](id_factura)
+
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_cliente FOREIGN KEY (id_cliente) REFERENCES [GAME_OF_CODE].[Cliente](id_cliente)
 
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_empresa FOREIGN KEY (id_empresa) REFERENCES [GAME_OF_CODE].[Empresa](id_empresa)
 
 ALTER TABLE [GAME_OF_CODE].[Factura] ADD CONSTRAINT Factura_id_devolucion FOREIGN KEY (id_devolucion) REFERENCES [GAME_OF_CODE].[Devolucion](id_devolucion)
-
-ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_rendicion FOREIGN KEY (id_rendicion) REFERENCES [GAME_OF_CODE].[Rendicion](id_rendicion)
-
-ALTER TABLE [GAME_OF_CODE].[Detalle_Rendicion] ADD CONSTRAINT Detalle_Rendicion_id_pago_facturas FOREIGN KEY (id_pago_facturas) REFERENCES [GAME_OF_CODE].[Pago_de_Facturas](id_pago_facturas)
 
 ALTER TABLE [GAME_OF_CODE].[Empresa] ADD CONSTRAINT Empresa_id_rubro FOREIGN KEY (id_rubro) REFERENCES [GAME_OF_CODE].[Rubro](id_rubro)
 
@@ -599,10 +599,10 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (item_monto, cantidad, id_factura)
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND TM.Nro_Factura = F.numero_factura
 	 
-INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_pago_facturas)
-	SELECT distinct id_rendicion, id_pago_facturas
+INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
+	SELECT distinct id_rendicion, id_factura
 	FROM gd_esquema.Maestra
-	INNER JOIN GAME_OF_CODE.Pago_de_Facturas ON  id_pago_facturas = Pago_nro
+	INNER JOIN GAME_OF_CODE.Factura ON  id_factura = Pago_nro
 	INNER JOIN GAME_OF_CODE.Rendicion C ON id_rendicion = Rendicion_Nro
 
 /** FIN MIGRACION **/
