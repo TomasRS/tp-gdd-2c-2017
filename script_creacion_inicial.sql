@@ -586,10 +586,10 @@ SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
 INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas, fecha_cobro, id_sucursal, importe, id_medio_pago)
 	SELECT Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Sucursal S, GAME_OF_CODE.Medio_de_Pago MP
-	WHERE ItemPago_nro IS NOT NULL
+	WHERE Pago_nro IS NOT NULL
 	  AND S.nombre = TM.Sucursal_Nombre 
 	  AND MP.descripcion = TM.FormaPagoDescripcion
-	  AND TM.Rendicion_Nro IS NOT NULL
+	  AND Rendicion_Nro IS NULL
 GROUP BY Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
@@ -597,9 +597,9 @@ INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha
 	SELECT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
 		   C.id_cliente, E.id_empresa, Pago_nro
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Empresa E
-	WHERE Pago_nro IS NOT NULL
-	  AND Rendicion_Nro IS NOT NULL
-	  AND Nro_Factura IS NOT NULL
+	WHERE Nro_Factura IS NOT NULL
+	  AND Rendicion_Nro IS NULL
+	  AND Pago_nro IS NULL
 	  AND Factura_Total IS NOT NULL
 	  AND TM.[Cliente-Dni] = C.dni
 	  AND TM.Empresa_Cuit = E.emp_cuit
