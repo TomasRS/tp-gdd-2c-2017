@@ -103,7 +103,7 @@ namespace PagoAgilFrba.AbmRol
             }
 
             guardarInformacion();
-            Util.ShowMessage("Nueva asignación de roles al usuario guardada correctamente.", MessageBoxIcon.Information);
+            Util.ShowMessage("Modificación de roles del usuario guardada correctamente.", MessageBoxIcon.Information);
             limpiarButton_Click(this, null);
         }
 

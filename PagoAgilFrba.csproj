@@ -108,6 +108,12 @@
     <Compile Include="AbmSucursal\AltaModifSucursal.Designer.cs">
       <DependentUpon>AltaModifSucursal.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmSucursal\AsignacionSucursalesAUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmSucursal\AsignacionSucursalesAUsuario.Designer.cs">
+      <DependentUpon>AsignacionSucursalesAUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmSucursal\ListadoSucursal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmSucursal\AltaModifSucursal.resx">
       <DependentUpon>AltaModifSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmSucursal\AsignacionSucursalesAUsuario.resx">
+      <DependentUpon>AsignacionSucursalesAUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmSucursal\ListadoSucursal.resx">
       <DependentUpon>ListadoSucursal.cs</DependentUpon>
