@@ -329,6 +329,14 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_crear_pago_factura') IS NOT NULL)
 	DROP PROCEDURE GAME_OF_CODE.pr_crear_pago_factura
 GO
 
+IF (OBJECT_ID('dbo.totalFacturasPagasDeUnaEmpresa') IS NOT NULL)
+    DROP FUNCTION dbo.totalFacturasPagasDeUnaEmpresa
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -534,6 +542,33 @@ BEGIN
 	SET @id = SCOPE_IDENTITY();
 END
 GO
+
+CREATE FUNCTION totalFacturasPagasDeUnaEmpresa(@id_empresa INT) RETURNS INT
+AS
+BEGIN
+	DECLARE @total INT
+	SET @total = (SELECT COUNT(F.numero_factura)
+				FROM GAME_OF_CODE.Factura F
+				WHERE F.id_pago IS NOT NULL
+				AND F.id_empresa = @id_empresa);
+	RETURN @total
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa
+	@id_empresa INT,
+	@cantSinRendir INT OUTPUT
+AS
+BEGIN
+
+SET @cantSinRendir = (SELECT COUNT(F.numero_factura) - dbo.totalFacturasPagasDeUnaEmpresa(@id_empresa)
+						FROM GAME_OF_CODE.Factura F, GAME_OF_CODE.Detalle_Rendicion DR
+						WHERE F.id_pago IS NOT NULL
+						  AND F.id_empresa = @id_empresa
+						  AND F.id_factura = DR.id_factura)	
+END
+GO
+
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 
@@ -621,12 +656,21 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (item_monto, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND TM.Nro_Factura = F.numero_factura
-	 
+
+/* 
 INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
 	SELECT distinct id_rendicion, id_factura
 	FROM gd_esquema.Maestra
-	INNER JOIN GAME_OF_CODE.Factura ON  id_factura = Pago_nro
+	INNER JOIN GAME_OF_CODE.Factura ON  id_factura = Nro_Factura
 	INNER JOIN GAME_OF_CODE.Rendicion C ON id_rendicion = Rendicion_Nro
+*/
+
+INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
+	SELECT DISTINCT  id_rendicion, id_factura
+	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Rendicion R, GAME_OF_CODE.Factura F
+	WHERE Rendicion_Nro IS NOT NULL
+	  AND R.id_rendicion = TM.Rendicion_Nro
+	  AND F.numero_factura = TM.Nro_Factura
 
 /** FIN MIGRACION **/
 
