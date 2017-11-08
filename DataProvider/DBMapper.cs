@@ -122,6 +122,30 @@ namespace PagoAgilFrba.DataProvider
             return funcionalidades;
         }
 
+        public DataSet getRolesDelUsuario(int idUsuario)
+        {
+            DataSet roles = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            command = QueryBuilder.Instance.build("SELECT DISTINCT r.nombre from GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru WHERE r.id_rol = ru.id_rol AND ru.id_usuario = @id_usuario", parametros);
+            adapter.SelectCommand = command;
+            adapter.Fill(roles);
+            return roles;
+        }
+
+        public DataSet getSucursalesDelUsuario(int idUsuario)
+        {
+            DataSet sucursales = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            command = QueryBuilder.Instance.build("SELECT DISTINCT s.nombre from GAME_OF_CODE.Sucursal s, GAME_OF_CODE.Usuario_por_Sucursal su WHERE s.id_sucursal = su.id_sucursal AND su.id_usuario = @id_usuario", parametros);
+            adapter.SelectCommand = command;
+            adapter.Fill(sucursales);
+            return sucursales;
+        }
+
         public String getNombreRol(int idRol)
         {
             query = "SELECT nombre FROM GAME_OF_CODE.Rol WHERE id_rol = @id_rol";
@@ -273,7 +297,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectUsuariosParaFiltro()
         {
-            return this.SelectDataTable("id_usuario, username 'Username', estado_habilitacion 'Habilitar', intentos_fallidos 'Intentos fallidos'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
+            return this.SelectDataTable("id_usuario, username 'Username'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
         }
 
         //-------------------------------------------------------------
@@ -292,6 +316,15 @@ namespace PagoAgilFrba.DataProvider
             query = "SELECT id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal WHERE id_usuario = @id_usuario";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id_usuario", idUsuario));
+            int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idSucursal;
+        }
+
+        public int getIDSucursal(String nombreSucursal)
+        {
+            query = "SELECT id_sucursal FROM GAME_OF_CODE.Sucursal WHERE nombre = @nombre";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@nombre", nombreSucursal));
             int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return idSucursal;
         }

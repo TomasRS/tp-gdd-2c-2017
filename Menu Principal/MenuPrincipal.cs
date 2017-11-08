@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Modelo;
+using PagoAgilFrba.AbmRol;
+using PagoAgilFrba.AbmSucursal;
 
 namespace PagoAgilFrba.Menu_Principal
 {
@@ -31,8 +33,10 @@ namespace PagoAgilFrba.Menu_Principal
             funcionalidades.Add("Alta de facturas", new AbmFactura.AltaModifFactura(new Alta()));
             funcionalidades.Add("Modificación y baja de facturas", new AbmFactura.ListadoFacturas());
             funcionalidades.Add("Alta de roles", new AbmRol.AltaModifRol(new Alta()));
+            funcionalidades.Add("Asignación de roles a un usuario", new AsignacionRolesAUsuario());
             funcionalidades.Add("Modificación y baja de roles", new AbmRol.ListadoRol());
             funcionalidades.Add("Alta de sucursales", new AbmSucursal.AltaModifSucursal(new Alta()));
+            funcionalidades.Add("Asignación de sucursales a un usuario", new AsignacionSucursalesAUsuario());
             funcionalidades.Add("Modificación y baja de sucursales", new AbmSucursal.ListadoSucursal());
             funcionalidades.Add("Devolución de facturas pagas", new Devolucion.DevolucionFactura());
             funcionalidades.Add("Listado estadístico", new ListadoEstadistico.ListadoEstadistico());

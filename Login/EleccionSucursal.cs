@@ -18,6 +18,7 @@ namespace PagoAgilFrba.Login
     {
         private SqlCommand command { get; set; }
         private IList<SqlParameter> parametros = new List<SqlParameter>();
+        private DBMapper mapper = new DBMapper();
 
         public EleccionSucursal()
         {
@@ -58,7 +59,7 @@ namespace PagoAgilFrba.Login
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-            int idSucursal = (int)sucursalComboBox.SelectedValue;
+            int idSucursal = mapper.getIDSucursal(sucursalComboBox.Text);
             UsuarioSesion.Usuario.idSucursal = idSucursal;
 
             parametros.Clear();
