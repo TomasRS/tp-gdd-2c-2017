@@ -125,7 +125,7 @@ CREATE TABLE [GAME_OF_CODE].[Rol_por_Usuario] (
 
 CREATE TABLE [GAME_OF_CODE].[Rol] (
     [id_rol] INT IDENTITY(1,1) PRIMARY KEY,
-    [nombre] [nvarchar](20) NOT NULL,  
+    [nombre] [nvarchar](20) UNIQUE NOT NULL,  
     [estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
 
