@@ -111,8 +111,15 @@ namespace PagoAgilFrba.AbmRol
         //Metodo de crear
         public override void Crear()
         {
+
             String queryRol = "INSERT INTO GAME_OF_CODE.Rol(nombre, estado_habilitacion) VALUES (@rol, 1)";
             String nombreRol = this.nombreTextBox.Text;
+
+            if (mapper.ExisteNombreRol(nombreRol))
+            {
+                Util.ShowMessage("Ya existe un rol con ese nombre, escoja otro nombre.", MessageBoxIcon.Exclamation);
+                return;
+            }
             parametros.Clear();
             parametros.Add(new SqlParameter("@rol", nombreRol));
             QueryBuilder.Instance.build(queryRol, parametros).ExecuteNonQuery();

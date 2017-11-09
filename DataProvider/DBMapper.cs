@@ -169,6 +169,23 @@ namespace PagoAgilFrba.DataProvider
             return (Factura)this.Obtener(idFactura, clase);
         }
 
+        public int getIDRol(String nombreRol)
+        {
+            query = "SELECT id_rol FROM GAME_OF_CODE.Rol WHERE nombre = @nombre";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@nombre", nombreRol));
+            int idRol = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idRol;
+        }
+
+        public Boolean ExisteNombreRol(String nombreRol)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Rol WHERE nombre = @nombre";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@nombre", nombreRol));
+            return ControlDeUnicidad(query, parametros);
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -456,7 +473,16 @@ namespace PagoAgilFrba.DataProvider
 
         public Boolean EmpresaTieneTodasSusFacturasRendidas(int idEmpresa)
         {
-            return true;
+            query = "GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            parametroOutput = new SqlParameter("@cantSinRendir", SqlDbType.Int);
+            parametroOutput.Direction = ParameterDirection.Output;
+            parametros.Add(parametroOutput);
+            command = QueryBuilder.Instance.build(query, parametros);
+            command.CommandType = CommandType.StoredProcedure;
+            command.ExecuteNonQuery();
+            return ((int)parametroOutput.Value).Equals(0);
         }
 
         /** Sucursales **/
@@ -576,6 +602,24 @@ namespace PagoAgilFrba.DataProvider
             command = QueryBuilder.Instance.build(query, parametros);
             command.CommandType = CommandType.StoredProcedure;
             command.ExecuteNonQuery();
+        }
+
+        public int getIDFacturaParaEmpresa(String nroFactura, int idEmpresa)
+        {
+            query = "SELECT id_factura FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            int idFactura = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idFactura;  
+        }
+
+        public Boolean FacturaEstaRendida(int idFactura)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Detalle_Rendicion WHERE id_factura = @id_factura";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_factura", idFactura));
+            return ControlDeUnicidad(query, parametros);
         }
 
         //* Pago de facturas *//
