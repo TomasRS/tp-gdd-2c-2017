@@ -178,6 +178,14 @@ namespace PagoAgilFrba.DataProvider
             return idRol;
         }
 
+        public Boolean ExisteNombreRol(String nombreRol)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Rol WHERE nombre = @nombre";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@nombre", nombreRol));
+            return ControlDeUnicidad(query, parametros);
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
