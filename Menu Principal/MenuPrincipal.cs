@@ -43,7 +43,7 @@ namespace PagoAgilFrba.Menu_Principal
             funcionalidades.Add("Devolución de facturas pagas", new Devolucion.DevolucionFactura());
             funcionalidades.Add("Listado estadístico", new ListadoEstadistico.ListadoEstadistico());
             funcionalidades.Add("Pagar facturas", new RegistroPago.RegistroPagoFacturas());
-            funcionalidades.Add("Realizar rendicion de facturas", new Rendicion.RendicionFacturas());
+            funcionalidades.Add("Realizar rendición de facturas", new Rendicion.RendicionFacturas());
         }
 
         private void cerrarSesionButton_Click(object sender, EventArgs e)

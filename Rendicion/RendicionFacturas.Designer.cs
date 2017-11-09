@@ -42,12 +42,12 @@
             this.limpiarButton = new System.Windows.Forms.Button();
             this.rendirFacturasButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.importeComisionTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.fechaInicioTextBox = new System.Windows.Forms.TextBox();
-            this.fechaFinTextBox = new System.Windows.Forms.TextBox();
+            this.importeComisionTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.fechaInicioDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fechaFinDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.datosFacturaGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -55,8 +55,8 @@
             // 
             // datosFacturaGroupBox
             // 
-            this.datosFacturaGroupBox.Controls.Add(this.fechaFinTextBox);
-            this.datosFacturaGroupBox.Controls.Add(this.fechaInicioTextBox);
+            this.datosFacturaGroupBox.Controls.Add(this.fechaFinDateTimePicker);
+            this.datosFacturaGroupBox.Controls.Add(this.fechaInicioDateTimePicker);
             this.datosFacturaGroupBox.Controls.Add(this.porcentajeComisionTextBox);
             this.datosFacturaGroupBox.Controls.Add(this.label2);
             this.datosFacturaGroupBox.Controls.Add(this.label1);
@@ -191,25 +191,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos sobre la rendición";
             // 
-            // importeComisionTextBox
-            // 
-            this.importeComisionTextBox.Enabled = false;
-            this.importeComisionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.importeComisionTextBox.Location = new System.Drawing.Point(144, 28);
-            this.importeComisionTextBox.Name = "importeComisionTextBox";
-            this.importeComisionTextBox.ReadOnly = true;
-            this.importeComisionTextBox.Size = new System.Drawing.Size(141, 20);
-            this.importeComisionTextBox.TabIndex = 42;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 13);
-            this.label3.TabIndex = 41;
-            this.label3.Text = "Importe de la comisión";
-            // 
             // textBox1
             // 
             this.textBox1.Enabled = false;
@@ -229,21 +210,38 @@
             this.label4.TabIndex = 43;
             this.label4.Text = "Importe total de la rendición";
             // 
-            // fechaInicioTextBox
+            // importeComisionTextBox
             // 
-            this.fechaInicioTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fechaInicioTextBox.Location = new System.Drawing.Point(106, 28);
-            this.fechaInicioTextBox.Name = "fechaInicioTextBox";
-            this.fechaInicioTextBox.Size = new System.Drawing.Size(200, 20);
-            this.fechaInicioTextBox.TabIndex = 41;
+            this.importeComisionTextBox.Enabled = false;
+            this.importeComisionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importeComisionTextBox.Location = new System.Drawing.Point(144, 28);
+            this.importeComisionTextBox.Name = "importeComisionTextBox";
+            this.importeComisionTextBox.ReadOnly = true;
+            this.importeComisionTextBox.Size = new System.Drawing.Size(141, 20);
+            this.importeComisionTextBox.TabIndex = 42;
             // 
-            // fechaFinTextBox
+            // label3
             // 
-            this.fechaFinTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fechaFinTextBox.Location = new System.Drawing.Point(457, 28);
-            this.fechaFinTextBox.Name = "fechaFinTextBox";
-            this.fechaFinTextBox.Size = new System.Drawing.Size(200, 20);
-            this.fechaFinTextBox.TabIndex = 42;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 13);
+            this.label3.TabIndex = 41;
+            this.label3.Text = "Importe de la comisión";
+            // 
+            // fechaInicioDateTimePicker
+            // 
+            this.fechaInicioDateTimePicker.Location = new System.Drawing.Point(106, 25);
+            this.fechaInicioDateTimePicker.Name = "fechaInicioDateTimePicker";
+            this.fechaInicioDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.fechaInicioDateTimePicker.TabIndex = 41;
+            // 
+            // fechaFinDateTimePicker
+            // 
+            this.fechaFinDateTimePicker.Location = new System.Drawing.Point(457, 25);
+            this.fechaFinDateTimePicker.Name = "fechaFinDateTimePicker";
+            this.fechaFinDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.fechaFinDateTimePicker.TabIndex = 42;
             // 
             // RendicionFacturas
             // 
@@ -289,7 +287,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox importeComisionTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox fechaFinTextBox;
-        private System.Windows.Forms.TextBox fechaInicioTextBox;
+        private System.Windows.Forms.DateTimePicker fechaFinDateTimePicker;
+        private System.Windows.Forms.DateTimePicker fechaInicioDateTimePicker;
     }
 }
