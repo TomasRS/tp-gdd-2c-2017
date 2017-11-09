@@ -169,6 +169,15 @@ namespace PagoAgilFrba.DataProvider
             return (Factura)this.Obtener(idFactura, clase);
         }
 
+        public int getIDRol(String nombreRol)
+        {
+            query = "SELECT id_rol FROM GAME_OF_CODE.Rol WHERE nombre = @nombre";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@nombre", nombreRol));
+            int idRol = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idRol;
+        }
+
         /*
          * 
          *  DELETE QUERIES (deshabilitar)
@@ -456,6 +465,12 @@ namespace PagoAgilFrba.DataProvider
 
         public Boolean EmpresaTieneTodasSusFacturasRendidas(int idEmpresa)
         {
+            query = "GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            command = QueryBuilder.Instance.build(query, parametros);
+            command.CommandType = CommandType.StoredProcedure;
+            command.ExecuteNonQuery();
             return true;
         }
 

@@ -12,6 +12,7 @@ using PagoAgilFrba.DataProvider;
 using PagoAgilFrba.Modelo;
 using PagoAgilFrba.AbmRol;
 using PagoAgilFrba.AbmSucursal;
+using PagoAgilFrba.Utils;
 
 namespace PagoAgilFrba.Menu_Principal
 {
@@ -19,6 +20,7 @@ namespace PagoAgilFrba.Menu_Principal
     {
         private SqlCommand command { get; set; }
         private Dictionary<String, Form> funcionalidades = new Dictionary<String, Form>();
+        private DBMapper mapper = new DBMapper();
 
         public MenuPrincipal()
         {
@@ -76,6 +78,13 @@ namespace PagoAgilFrba.Menu_Principal
         private void aceptarButton_Click(object sender, EventArgs e)
         {
             String accionElegida = accionesComboBox.SelectedValue.ToString();
+            int idRol = mapper.getIDRol(UsuarioSesion.Usuario.rol);
+
+            if (accionElegida.Equals("Devolución de facturas pagas") && !idRol.Equals(1))
+            {
+                Util.ShowMessage("Solo los administradores pueden devolver facturas pagas.", MessageBoxIcon.Error);
+                return;
+            }
 
             this.Hide();
             funcionalidades[accionElegida].ShowDialog();
