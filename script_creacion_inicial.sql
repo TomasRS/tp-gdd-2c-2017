@@ -206,6 +206,7 @@ CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 	[id_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_rendicion] [datetime] NOT NULL,
 	[total_rendicion] INT NOT NULL,
+	[porcentaje_comision] INT NOT NULL,
 	[importe_comision] INT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
 )
@@ -226,6 +227,7 @@ CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
+	[porcentaje_comision] INT NOT NULL,
 	[id_rubro] INT NOT NULL,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
@@ -426,13 +428,14 @@ CREATE PROCEDURE GAME_OF_CODE.pr_crear_empresa
 	@emp_cuit nvarchar(50),
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
+	@porcentaje_comision int,
 	@id int OUTPUT
 AS
 BEGIN
 	INSERT INTO GAME_OF_CODE.Empresa
-		(nombre, emp_cuit, emp_direccion, id_rubro)
+		(nombre, emp_cuit, emp_direccion, id_rubro, porcentaje_comision)
 	VALUES
-		(@nombre, @emp_cuit, @emp_direccion, @id_rubro);
+		(@nombre, @emp_cuit, @emp_direccion, @id_rubro, @porcentaje_comision);
 	SET @id = SCOPE_IDENTITY();
 END
 GO
@@ -443,11 +446,12 @@ CREATE PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
 	@id int, /*id_empresa*/
+	@porcentaje_comision int,
 	@id_output int OUTPUT
 AS
 BEGIN
 	UPDATE GAME_OF_CODE.Empresa
-	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro
+	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro, porcentaje_comision = @porcentaje_comision
 	WHERE id_empresa = @id
 	SET @id_output = SCOPE_IDENTITY();
 END
@@ -624,8 +628,8 @@ INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
 	   AND Sucursal_Codigo_Postal IS NOT NULL
 
 SET IDENTITY_INSERT GAME_OF_CODE.Rendicion ON;
-INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, total_rendicion, importe_comision, cant_facturas_rendidas)
-	SELECT Rendicion_Nro, Rendicion_Fecha, Total, ItemRendicion_Importe, 1
+INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, total_rendicion, porcentaje_comision,importe_comision, cant_facturas_rendidas)
+	SELECT Rendicion_Nro, Rendicion_Fecha, Total, 10, ItemRendicion_Importe, 1
 	FROM gd_esquema.Maestra
 	WHERE Rendicion_Nro IS NOT NULL
 GROUP BY Rendicion_Nro, Rendicion_Fecha, Total, ItemRendicion_Importe
@@ -639,8 +643,8 @@ INSERT INTO GAME_OF_CODE.Cliente (nombre, apellido, dni, mail, direccion, codigo
 	   AND [Cliente-Dni] IS NOT NULL
 	   AND Cliente_Mail IS NOT NULL
 
-INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, id_rubro)
-   SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, Empresa_Rubro
+INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, porcentaje_comision ,id_rubro)
+   SELECT DISTINCT Empresa_Nombre, Empresa_Cuit, Empresa_Direccion, 10, Empresa_Rubro
      FROM gd_esquema.Maestra
     WHERE Empresa_Nombre IS NOT NULL
       AND Empresa_Cuit IS NOT NULL
