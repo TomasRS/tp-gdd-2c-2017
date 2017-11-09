@@ -34,6 +34,8 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.camposObligatoriosLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox = new System.Windows.Forms.GroupBox();
+            this.porcentajeComisionUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.rubroComboBox = new System.Windows.Forms.ComboBox();
             this.rubroLabel = new System.Windows.Forms.Label();
             this.direccionTextBox = new System.Windows.Forms.TextBox();
@@ -43,11 +45,12 @@
             this.cuitLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.porcentajeComisionUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(12, 200);
+            this.limpiarButton.Location = new System.Drawing.Point(12, 235);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(100, 30);
             this.limpiarButton.TabIndex = 30;
@@ -57,7 +60,7 @@
             // 
             // guardarButton
             // 
-            this.guardarButton.Location = new System.Drawing.Point(138, 200);
+            this.guardarButton.Location = new System.Drawing.Point(138, 235);
             this.guardarButton.Name = "guardarButton";
             this.guardarButton.Size = new System.Drawing.Size(100, 30);
             this.guardarButton.TabIndex = 29;
@@ -67,7 +70,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(265, 200);
+            this.volverButton.Location = new System.Drawing.Point(265, 235);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 28;
@@ -79,7 +82,7 @@
             // 
             this.camposObligatoriosLabel.AutoSize = true;
             this.camposObligatoriosLabel.ForeColor = System.Drawing.Color.Red;
-            this.camposObligatoriosLabel.Location = new System.Drawing.Point(12, 171);
+            this.camposObligatoriosLabel.Location = new System.Drawing.Point(12, 206);
             this.camposObligatoriosLabel.Name = "camposObligatoriosLabel";
             this.camposObligatoriosLabel.Size = new System.Drawing.Size(169, 13);
             this.camposObligatoriosLabel.TabIndex = 27;
@@ -87,6 +90,8 @@
             // 
             // datosPersonalesGroupBox
             // 
+            this.datosPersonalesGroupBox.Controls.Add(this.porcentajeComisionUpDown);
+            this.datosPersonalesGroupBox.Controls.Add(this.label1);
             this.datosPersonalesGroupBox.Controls.Add(this.rubroComboBox);
             this.datosPersonalesGroupBox.Controls.Add(this.rubroLabel);
             this.datosPersonalesGroupBox.Controls.Add(this.direccionTextBox);
@@ -98,10 +103,27 @@
             this.datosPersonalesGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datosPersonalesGroupBox.Location = new System.Drawing.Point(12, 12);
             this.datosPersonalesGroupBox.Name = "datosPersonalesGroupBox";
-            this.datosPersonalesGroupBox.Size = new System.Drawing.Size(351, 149);
+            this.datosPersonalesGroupBox.Size = new System.Drawing.Size(351, 179);
             this.datosPersonalesGroupBox.TabIndex = 25;
             this.datosPersonalesGroupBox.TabStop = false;
             this.datosPersonalesGroupBox.Text = "Datos de la empresa";
+            // 
+            // porcentajeComisionUpDown
+            // 
+            this.porcentajeComisionUpDown.Location = new System.Drawing.Point(117, 147);
+            this.porcentajeComisionUpDown.Name = "porcentajeComisionUpDown";
+            this.porcentajeComisionUpDown.ReadOnly = true;
+            this.porcentajeComisionUpDown.Size = new System.Drawing.Size(217, 20);
+            this.porcentajeComisionUpDown.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Porcentaje comisión";
             // 
             // rubroComboBox
             // 
@@ -173,7 +195,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 241);
+            this.ClientSize = new System.Drawing.Size(377, 273);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
             this.Controls.Add(this.volverButton);
@@ -185,6 +207,7 @@
             this.Load += new System.EventHandler(this.AltaModifEmpresa_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.porcentajeComisionUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,5 +228,7 @@
         private System.Windows.Forms.Label nombreLabel;
         private System.Windows.Forms.ComboBox rubroComboBox;
         private System.Windows.Forms.Label rubroLabel;
+        private System.Windows.Forms.NumericUpDown porcentajeComisionUpDown;
+        private System.Windows.Forms.Label label1;
     }
 }

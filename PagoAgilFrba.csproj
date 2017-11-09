@@ -137,6 +137,7 @@
     <Compile Include="Excepciones\FechaPasadaException.cs" />
     <Compile Include="Excepciones\FechaFuturaException.cs" />
     <Compile Include="Excepciones\FormatoInvalidoException.cs" />
+    <Compile Include="Excepciones\PorcentajeNoValidoException.cs" />
     <Compile Include="Excepciones\YaExisteNumeroFacturaParaEmpresa.cs" />
     <Compile Include="HabilitacionUsuarios\HabilitacionUsuarios.cs">
       <SubType>Form</SubType>

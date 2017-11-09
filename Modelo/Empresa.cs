@@ -18,6 +18,7 @@ namespace PagoAgilFrba.Modelo
         private String direccion;
         private int idRubro;
         private Boolean activo;
+        private int porcentajeComision;
 
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private DBMapper mapper = new DBMapper();
@@ -34,17 +35,24 @@ namespace PagoAgilFrba.Modelo
             else
                 throw new FormatoInvalidoException("CUIT. El formato válido para CUIT es numérico y con guiones: xx-xxxxxxxx-x ó x-xxxxxxxx-x.");
         }
-
         public void setDireccion(String direccion)
         { this.direccion = direccion; }
         public void setIDRubro(int idRubro)
         { this.idRubro = idRubro; }
+        public void setPorcentajeComision(int porcentajeComision)
+        {
+            if (Util.EstaEntre0y100(porcentajeComision))
+                this.porcentajeComision = porcentajeComision;
+            else
+                throw new PorcentajeNoValidoException();
+        }
 
-        public int getID()              { return this.id; }
-        public String getNombre()       { return this.nombre; }
-        public String getCuit()         { return this.cuit; }
-        public String getDireccion()    { return this.direccion; }
-        public int getIDRubro()         { return this.idRubro; }
+        public int getID()                  { return this.id; }
+        public String getNombre()           { return this.nombre; }
+        public String getCuit()             { return this.cuit; }
+        public String getDireccion()        { return this.direccion; }
+        public int getIDRubro()             { return this.idRubro; }
+        public int getPorcentajeComision()  { return this.porcentajeComision; }
 
 
 
@@ -72,6 +80,7 @@ namespace PagoAgilFrba.Modelo
             parametros.Add(new SqlParameter("@emp_cuit", this.cuit));
             parametros.Add(new SqlParameter("@emp_direccion", this.direccion));
             parametros.Add(new SqlParameter("@id_rubro", this.idRubro));
+            parametros.Add(new SqlParameter("@porcentaje_comision", this.porcentajeComision));
             return parametros;
         }
 
@@ -82,6 +91,7 @@ namespace PagoAgilFrba.Modelo
             this.direccion = Convert.ToString(reader["emp_direccion"]);
             this.idRubro = Convert.ToInt32(reader["id_rubro"]);
             this.activo = Convert.ToBoolean(reader["estado_habilitacion"]);
+            this.porcentajeComision = Convert.ToInt32(reader["porcentaje_comision"]);
         }
 
         #endregion

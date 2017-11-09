@@ -42,6 +42,8 @@ namespace PagoAgilFrba.AbmEmpresa
             nombreTextBox.Clear();
             cuitTextBox.Clear();
             direccionTextBox.Clear();
+            rubroComboBox.SelectedIndex = -1;
+            porcentajeComisionUpDown.Value = 0;
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -57,6 +59,7 @@ namespace PagoAgilFrba.AbmEmpresa
             String cuit = cuitTextBox.Text;
             String direccion = direccionTextBox.Text;
             String rubro = rubroComboBox.Text;
+            int porcentajeComision = (int)porcentajeComisionUpDown.Value;
 
             //Crear empresa
             #region
@@ -67,6 +70,7 @@ namespace PagoAgilFrba.AbmEmpresa
                 empresa.setCuit(cuit);
                 empresa.setDireccion(direccion);
                 empresa.setIDRubro(mapper.getIDRubro(rubro));
+                empresa.setPorcentajeComision(porcentajeComision);
 
                 tipoAccion.trigger(this);
             }
@@ -78,6 +82,11 @@ namespace PagoAgilFrba.AbmEmpresa
             catch (FormatoInvalidoException exception)
             {
                 Util.ShowMessage("Datos mal ingresados en: " + exception.Message, MessageBoxIcon.Error);
+                return;
+            }
+            catch (PorcentajeNoValidoException)
+            {
+                Util.ShowMessage("El valor del porcentaje de comisión debe estar entre 0 y 100.", MessageBoxIcon.Error);
                 return;
             }
             #endregion
@@ -122,6 +131,7 @@ namespace PagoAgilFrba.AbmEmpresa
             cuitTextBox.Text = empresa.getCuit();
             direccionTextBox.Text = empresa.getDireccion();
             rubroComboBox.Text = mapper.getDescripcionRubro(empresa.getIDRubro());
+            porcentajeComisionUpDown.Value = empresa.getPorcentajeComision();
         }
 
         private void guardarButton_Click(object sender, EventArgs e)
