@@ -336,6 +336,13 @@ IF (OBJECT_ID('GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.TotalDeFacturasPorRendirDeUnaEmpresa
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_devolucion') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_devolucion
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_set_id_pago_factura_null') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_set_id_pago_factura_null
+GO
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -568,6 +575,28 @@ SET @cantSinRendir = (SELECT COUNT(F.numero_factura) - dbo.totalFacturasPagasDeU
 END
 GO
 
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_devolucion
+	@motivo nvarchar(255),
+    @id_factura int,
+    @id_pago_facturas int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Devolucion
+		(motivo, id_factura, id_pago_facturas)
+	VALUES
+		(@motivo, @id_factura, @id_pago_facturas);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_set_id_pago_factura_null
+	@id_factura int
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = id_factura
+END
+GO
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 

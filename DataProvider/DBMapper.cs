@@ -568,13 +568,14 @@ namespace PagoAgilFrba.DataProvider
             return facturaDT;
         }
 
-        public int BorrarIDPagoDeLaFactura(int idFactura)
+        public void BorrarIDPagoDeLaFactura(int idFactura)
         {
-            query = "UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = @id_factura";
+            query = "GAME_OF_CODE.pr_set_id_pago_factura_null";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id_factura", idFactura));
-            int rowsAffected = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
-            return rowsAffected;
+            command = QueryBuilder.Instance.build(query, parametros);
+            command.CommandType = CommandType.StoredProcedure;
+            command.ExecuteNonQuery();
         }
 
         //* Pago de facturas *//

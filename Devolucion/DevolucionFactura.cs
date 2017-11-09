@@ -37,8 +37,7 @@ namespace PagoAgilFrba.Devolucion
         {
             numFacturaTextBox.Text = "";
             empresaComboBox.SelectedIndex = -1;
-            facturaDataGridView.Rows.Clear();
-            facturaDataGridView.Refresh();
+            facturaDataGridView.DataSource = null;
             errorDeCobroRadioButton.Checked = false;
             retrotraerPagoRadioButton.Checked = false;
         }
@@ -89,6 +88,12 @@ namespace PagoAgilFrba.Devolucion
                 return;
             }
 
+            if (!Util.EsNumero(nroFactura))
+            {
+                Util.ShowMessage("El número de factura debe ser numérico y sin espacios.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             if (!mapper.ExisteFacturaParaEmpresaYCliente(nroFactura, idEmpresa, idCliente))
             {
                 Util.ShowMessage("No existe la factura con número " + nroFactura + " para la empresa " + empresaComboBox.Text + ".", MessageBoxIcon.Exclamation);
@@ -116,6 +121,11 @@ namespace PagoAgilFrba.Devolucion
 
         private void devolverFacturaButton_Click(object sender, EventArgs e)
         {
+            if (facturaDataGridView.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("Primero debe buscar una factura.", MessageBoxIcon.Exclamation);
+                return;
+            }
             if (errorDeCobroRadioButton.Checked.Equals(false) && retrotraerPagoRadioButton.Checked.Equals(false))
             {
                 Util.ShowMessage("Debe escoger un motivo para la devolución", MessageBoxIcon.Exclamation);
@@ -134,12 +144,10 @@ namespace PagoAgilFrba.Devolucion
             int idDevolucion = mapper.CrearDevolucion(devolucion);
             if (idDevolucion > 0)
             {
-                int rowsAffected = mapper.BorrarIDPagoDeLaFactura(devolucion.getIDFactura());
-                if (rowsAffected.Equals(1))
-                    Util.ShowMessage("Se ha devuelto la factura correctamente.", MessageBoxIcon.Information);
-                else
-                    Util.ShowMessage("No se pudo devolver la factura.", MessageBoxIcon.Information);
-            }   
+                mapper.BorrarIDPagoDeLaFactura(devolucion.getIDFactura());
+                Util.ShowMessage("Se ha devuelto la factura correctamente.", MessageBoxIcon.Information);
+                limpiarButton_Click(this, null);
+            }
         }
     }
 }
