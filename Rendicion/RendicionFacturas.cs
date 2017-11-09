@@ -41,5 +41,10 @@ namespace PagoAgilFrba.Rendicion
         {
 
         }
+
+        private void RendicionFacturas_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
