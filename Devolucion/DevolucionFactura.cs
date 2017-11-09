@@ -112,6 +112,12 @@ namespace PagoAgilFrba.Devolucion
                 return;
             }
 
+            if (mapper.FacturaEstaRendida(mapper.getIDFacturaParaEmpresa(nroFactura, idEmpresa)))
+            {
+                Util.ShowMessage("No se puede devolver la factura porque se encuentra rendida.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             DataTable factura = mapper.getFactura(nroFactura, idEmpresa, idCliente);
             facturaDataGridView.DataSource = factura;
 
