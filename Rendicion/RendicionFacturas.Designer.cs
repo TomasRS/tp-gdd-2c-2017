@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RendicionFacturas));
             this.datosFacturaGroupBox = new System.Windows.Forms.GroupBox();
+            this.fechaFinDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fechaInicioDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.porcentajeComisionTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.importeComisionTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.fechaInicioDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.fechaFinDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.datosFacturaGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -70,6 +70,20 @@
             this.datosFacturaGroupBox.TabIndex = 1;
             this.datosFacturaGroupBox.TabStop = false;
             this.datosFacturaGroupBox.Text = "Datos para buscar facturas pagas para rendir";
+            // 
+            // fechaFinDateTimePicker
+            // 
+            this.fechaFinDateTimePicker.Location = new System.Drawing.Point(457, 25);
+            this.fechaFinDateTimePicker.Name = "fechaFinDateTimePicker";
+            this.fechaFinDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.fechaFinDateTimePicker.TabIndex = 42;
+            // 
+            // fechaInicioDateTimePicker
+            // 
+            this.fechaInicioDateTimePicker.Location = new System.Drawing.Point(106, 25);
+            this.fechaInicioDateTimePicker.Name = "fechaInicioDateTimePicker";
+            this.fechaInicioDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.fechaInicioDateTimePicker.TabIndex = 41;
             // 
             // porcentajeComisionTextBox
             // 
@@ -117,6 +131,7 @@
             this.empresaComboBox.Name = "empresaComboBox";
             this.empresaComboBox.Size = new System.Drawing.Size(200, 21);
             this.empresaComboBox.TabIndex = 3;
+            this.empresaComboBox.SelectedIndexChanged += new System.EventHandler(this.empresaComboBox_SelectedIndexChanged);
             // 
             // empresaLabel
             // 
@@ -228,20 +243,6 @@
             this.label3.Size = new System.Drawing.Size(112, 13);
             this.label3.TabIndex = 41;
             this.label3.Text = "Importe de la comisión";
-            // 
-            // fechaInicioDateTimePicker
-            // 
-            this.fechaInicioDateTimePicker.Location = new System.Drawing.Point(106, 25);
-            this.fechaInicioDateTimePicker.Name = "fechaInicioDateTimePicker";
-            this.fechaInicioDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.fechaInicioDateTimePicker.TabIndex = 41;
-            // 
-            // fechaFinDateTimePicker
-            // 
-            this.fechaFinDateTimePicker.Location = new System.Drawing.Point(457, 25);
-            this.fechaFinDateTimePicker.Name = "fechaFinDateTimePicker";
-            this.fechaFinDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.fechaFinDateTimePicker.TabIndex = 42;
             // 
             // RendicionFacturas
             // 

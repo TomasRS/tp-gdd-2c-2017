@@ -317,6 +317,13 @@ namespace PagoAgilFrba.DataProvider
             return this.SelectDataTable("id_usuario, username 'Username'", "GAME_OF_CODE.Usuario", "estado_habilitacion = 0");
         }
 
+        public DataTable SelectFacturasParaRendir(DateTime fechaInicio, DateTime fechaFin, int idEmpresa)
+        {
+            return SelectDataTable("F.id_factura, F.numero_factura 'Número factura', F.fecha_alta 'Fecha de alta', F.monto_total 'Monto total', F.fecha_vencimiento 'Fecha de vencimiento', C.mail 'Mail cliente'"
+                        ,"GAME_OF_CODE.Factura F, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Pago_de_Facturas PF"
+                        , "(F.id_empresa = " + idEmpresa.ToString() + ")" + " AND (F.id_cliente = C.id_cliente) AND ((SELECT COUNT(*) FROM GAME_OF_CODE.Detalle_Rendicion WHERE id_factura = F.id_factura) = 0) AND (F.id_pago = PF.id_pago_facturas) AND (PF.fecha_cobro BETWEEN " + fechaInicio.ToShortDateString() + " and " + fechaFin.ToShortDateString() + ")");
+        }
+
         //-------------------------------------------------------------
         /** Usuario **/
         public int getIDUsuario(String username)
