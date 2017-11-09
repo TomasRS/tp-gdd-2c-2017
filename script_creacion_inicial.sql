@@ -206,6 +206,7 @@ CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 	[id_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_rendicion] [datetime] NOT NULL,
 	[total_rendicion] INT NOT NULL,
+	[porcentaje_comision] INT NOT NULL,
 	[importe_comision] INT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
 )
@@ -226,6 +227,7 @@ CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
+	[porcentaje_comision] INT NOT NULL,
 	[id_rubro] INT NOT NULL,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
@@ -426,13 +428,14 @@ CREATE PROCEDURE GAME_OF_CODE.pr_crear_empresa
 	@emp_cuit nvarchar(50),
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
+	@porcentaje_comision int,
 	@id int OUTPUT
 AS
 BEGIN
 	INSERT INTO GAME_OF_CODE.Empresa
-		(nombre, emp_cuit, emp_direccion, id_rubro)
+		(nombre, emp_cuit, emp_direccion, id_rubro, porcentaje_comision)
 	VALUES
-		(@nombre, @emp_cuit, @emp_direccion, @id_rubro);
+		(@nombre, @emp_cuit, @emp_direccion, @id_rubro, @porcentaje_comision);
 	SET @id = SCOPE_IDENTITY();
 END
 GO
@@ -443,11 +446,12 @@ CREATE PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
 	@id int, /*id_empresa*/
+	@porcentaje_comision int,
 	@id_output int OUTPUT
 AS
 BEGIN
 	UPDATE GAME_OF_CODE.Empresa
-	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro
+	SET nombre = @nombre, emp_cuit = @emp_cuit, emp_direccion = @emp_direccion, id_rubro = @id_rubro, porcentaje_comision = @porcentaje_comision
 	WHERE id_empresa = @id
 	SET @id_output = SCOPE_IDENTITY();
 END
