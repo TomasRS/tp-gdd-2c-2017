@@ -66,6 +66,28 @@ namespace PagoAgilFrba.Rendicion
             facturasDataGridView.DataSource = facturasParaRendir;
             DeshabilitarSortHeaders();
             OcultarColumnasQueNoDebenVerse();
+
+            popularImporteComisionEImporteTotalRendicion();
+        }
+
+        private void popularImporteComisionEImporteTotalRendicion()
+        {
+            int importeTotalRendicion = getImporteTotalDeLaRendicion();
+            importeTotalRendicionTextBox.Text = importeTotalRendicion.ToString();
+
+            int porcentajeComision = Util.getNumeroFromString(porcentajeComisionTextBox.Text);
+            double importeComision = importeTotalRendicion * ((double)porcentajeComision / 100);
+            importeComisionTextBox.Text = importeComision.ToString();
+        }
+
+        private int getImporteTotalDeLaRendicion()
+        {
+            int importeTotalRendicion = 0;
+            foreach (DataGridViewRow factura in facturasDataGridView.Rows)
+            {
+                importeTotalRendicion += (int)factura.Cells[2].Value;
+            }
+            return importeTotalRendicion;
         }
 
         private void DeshabilitarSortHeaders()

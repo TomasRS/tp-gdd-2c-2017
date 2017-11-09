@@ -44,7 +44,7 @@
             this.limpiarButton = new System.Windows.Forms.Button();
             this.rendirFacturasButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.importeTotalRendicionTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.importeComisionTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -195,7 +195,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.importeTotalRendicionTextBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.importeComisionTextBox);
             this.groupBox1.Controls.Add(this.label3);
@@ -206,15 +206,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos sobre la rendición";
             // 
-            // textBox1
+            // importeTotalRendicionTextBox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(490, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(141, 20);
-            this.textBox1.TabIndex = 44;
+            this.importeTotalRendicionTextBox.Enabled = false;
+            this.importeTotalRendicionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importeTotalRendicionTextBox.Location = new System.Drawing.Point(490, 28);
+            this.importeTotalRendicionTextBox.Name = "importeTotalRendicionTextBox";
+            this.importeTotalRendicionTextBox.ReadOnly = true;
+            this.importeTotalRendicionTextBox.Size = new System.Drawing.Size(141, 20);
+            this.importeTotalRendicionTextBox.TabIndex = 44;
             // 
             // label4
             // 
@@ -284,7 +284,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox porcentajeComisionTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox importeTotalRendicionTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox importeComisionTextBox;
         private System.Windows.Forms.Label label3;
