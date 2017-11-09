@@ -48,6 +48,7 @@
             // 
             this.empresasDataGridView.AllowUserToAddRows = false;
             this.empresasDataGridView.AllowUserToDeleteRows = false;
+            this.empresasDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.empresasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.empresasDataGridView.Location = new System.Drawing.Point(12, 202);
             this.empresasDataGridView.Name = "empresasDataGridView";

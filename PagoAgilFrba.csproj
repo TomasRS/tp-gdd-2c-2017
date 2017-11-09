@@ -179,6 +179,7 @@
     </Compile>
     <Compile Include="Modelo\Alta.cs" />
     <Compile Include="Modelo\Cliente.cs" />
+    <Compile Include="Modelo\Devolucion.cs" />
     <Compile Include="Modelo\Empresa.cs" />
     <Compile Include="Modelo\Factura.cs" />
     <Compile Include="Modelo\ItemFactura.cs" />

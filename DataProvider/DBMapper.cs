@@ -386,6 +386,16 @@ namespace PagoAgilFrba.DataProvider
             return mailDelCliente;
         }
 
+        public int getIDClienteEnBaseA(String nroFactura, int idEmpresa)
+        {
+            query = "SELECT id_cliente FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@numero_factura", nroFactura));
+            parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
+            int idCliente = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idCliente;
+        }
+
         /** Empresas **/
 
         public int CrearEmpresa(Empresa empresa)
@@ -442,6 +452,11 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@id", idEmpresa));
             String descripcionRubro = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return descripcionRubro;
+        }
+
+        public Boolean EmpresaTieneTodasSusFacturasRendidas(int idEmpresa)
+        {
+            return true;
         }
 
         /** Sucursales **/
@@ -545,6 +560,23 @@ namespace PagoAgilFrba.DataProvider
             return importe;    
         }
 
+        public DataTable getFactura(String nroFactura, int idEmpresa, int idCliente)
+        {
+            DataTable facturaDT = SelectDataTable("f.id_factura, f.id_pago, f.numero_factura 'Número factura', f.fecha_alta 'Fecha de alta', f.monto_total 'Monto total', f.fecha_vencimiento 'Fecha de vencimiento', c.mail 'Mail cliente', e.nombre 'Nombre empresa'"
+                                                    ,"GAME_OF_CODE.Factura f, GAME_OF_CODE.Cliente c, GAME_OF_CODE.Empresa e"
+                                                    , "f.numero_factura = " + nroFactura + " AND e.id_empresa = '" + idEmpresa.ToString() + "' AND c.id_cliente = '" + idCliente.ToString() + "'");
+            return facturaDT;
+        }
+
+        public int BorrarIDPagoDeLaFactura(int idFactura)
+        {
+            query = "UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = @id_factura";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_factura", idFactura));
+            int rowsAffected = QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return rowsAffected;
+        }
+
         //* Pago de facturas *//
         public int CrearPagoFactura(PagoFactura pagoFactura)
         {
@@ -573,6 +605,12 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@descripcion", descripcion));
             int idMedioPago = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return idMedioPago;
+        }
+
+        //* Devolucion *//
+        public int CrearDevolucion(PagoAgilFrba.Modelo.Devolucion devolucion)
+        {
+            return this.Crear(devolucion);
         }
 
         /*

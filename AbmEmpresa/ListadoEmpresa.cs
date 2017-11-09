@@ -93,8 +93,6 @@ namespace PagoAgilFrba.AbmEmpresa
             if (empresasDataGridView.Columns.Contains("Modificar"))
                 empresasDataGridView.Columns.Remove("Modificar");
 
-            //clientesDataGridView.Columns.Add("Modificar", "Modificación");
-            //agregarBotonesModificar();
             DataGridViewButtonColumn botonColumnaModificar = new DataGridViewButtonColumn();
             botonColumnaModificar.Text = "Modificar";
             botonColumnaModificar.Name = "Modificar";
@@ -147,9 +145,16 @@ namespace PagoAgilFrba.AbmEmpresa
                 Boolean valorHabilitacion = (Boolean)empresasDataGridView.Rows[e.RowIndex].Cells["Habilitado"].Value;
                 if (valorHabilitacion)
                 {
-                    //Chequear que no tenga facturas pendientes de rendicion
-                    Boolean resultado = mapper.CambiarHabilitacionEmpresa(Convert.ToInt32(idEmpresaAModificar), "Empresa", 0);
-                    Util.ShowMessage("Se eliminó la empresa correctamente.", MessageBoxIcon.Information);
+                    if (mapper.EmpresaTieneTodasSusFacturasRendidas(Util.getNumeroFromString(idEmpresaAModificar)))
+                    {
+                        Boolean resultado = mapper.CambiarHabilitacionEmpresa(Convert.ToInt32(idEmpresaAModificar), "Empresa", 0);
+                        Util.ShowMessage("Se eliminó la empresa correctamente.", MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        Util.ShowMessage("No se puede eliminar la empresa porque tiene facturas pendientes de rendición.", MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 else
                 {
