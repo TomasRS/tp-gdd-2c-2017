@@ -2,6 +2,7 @@
 using PagoAgilFrba.Modelo;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace PagoAgilFrba.DataProvider
         private IList<SqlParameter> parametros = new List<SqlParameter>();
         private SqlParameter parametroOutput;
         private SqlCommand command;
+
+        public String getConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["GD2C2017"].ConnectionString;
+        }
 
         //GENERICOS
         public int Crear(Mapeable objeto)
@@ -663,6 +669,12 @@ namespace PagoAgilFrba.DataProvider
         public int CrearDevolucion(PagoAgilFrba.Modelo.Devolucion devolucion)
         {
             return this.Crear(devolucion);
+        }
+
+        //* Rendiciones *//
+        public int CrearRendicion(PagoAgilFrba.Modelo.Rendicion rendicion)
+        {
+            return this.Crear(rendicion);
         }
 
         /*

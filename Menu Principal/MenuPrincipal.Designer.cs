@@ -84,6 +84,7 @@
             this.Controls.Add(this.aceptarButton);
             this.Controls.Add(this.accionesComboBox);
             this.Controls.Add(this.accionLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuPrincipal";
             this.Text = "Menú Principal";

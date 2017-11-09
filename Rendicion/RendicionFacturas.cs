@@ -1,4 +1,5 @@
 ﻿using PagoAgilFrba.DataProvider;
+using PagoAgilFrba.Excepciones;
 using PagoAgilFrba.Menu_Principal;
 using PagoAgilFrba.Utils;
 using System;
@@ -17,6 +18,11 @@ namespace PagoAgilFrba.Rendicion
     public partial class RendicionFacturas : Form
     {
         DBMapper mapper = new DBMapper();
+        private String query;
+        private IList<SqlParameter> parametros = new List<SqlParameter>();
+        private SqlParameter parametroOutput;
+        private SqlCommand command;
+
 
         public RendicionFacturas()
         {
@@ -27,7 +33,12 @@ namespace PagoAgilFrba.Rendicion
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             empresaComboBox.SelectedIndex = -1;
+            fechaInicioDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaFinDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
             facturasDataGridView.DataSource = null;
+            porcentajeComisionTextBox.Text = "";
+            importeComisionTextBox.Text = "";
+            importeTotalRendicionTextBox.Text = "";
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -39,7 +50,71 @@ namespace PagoAgilFrba.Rendicion
 
         private void rendirFacturasButton_Click(object sender, EventArgs e)
         {
+            if (facturasDataGridView.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("Primero debe buscar las facturas para una empresa y período.", MessageBoxIcon.Exclamation);
+                return;
+            }
 
+            int idRendicion = crearRendicion();
+            if (idRendicion > 0)
+            {
+                try
+                {
+                    crearDetallesRendicion(idRendicion);
+                    Util.ShowMessage("Se ha realizado la rendición correctamente.", MessageBoxIcon.Information);
+                    limpiarButton_Click(this, null);
+                }
+                catch (NoSePudoCrearDetalleRendicionException)
+                {
+                    Util.ShowMessage("Hubo un error al crear los detalles de rendición, vuelva a intentarlo.", MessageBoxIcon.Error);
+                }
+            }
+            else
+                Util.ShowMessage("No se pudo crear la rendición.", MessageBoxIcon.Error);
+        }
+
+        private int crearRendicion()
+        {
+            PagoAgilFrba.Modelo.Rendicion rendicion = new PagoAgilFrba.Modelo.Rendicion();
+            rendicion.setFechaRendicion(DateConfig.getInstance().getCurrentDate());
+            rendicion.setPorcentajeComision(Util.getNumeroFromString(porcentajeComisionTextBox.Text));
+            rendicion.setImporteComision(Util.getNumeroDoubleFromString(importeComisionTextBox.Text));
+            rendicion.setTotalRendicion(Util.getNumeroFromString(importeTotalRendicionTextBox.Text));
+            rendicion.setCantFacturasRendidas(facturasDataGridView.Rows.Count);
+
+            return mapper.CrearRendicion(rendicion);
+        }
+
+        private void crearDetallesRendicion(int idRendicion)
+        {
+            DataTable DTforDB = new DataTable();
+            DTforDB.Columns.Add("id_detalle_rendicion");
+            DTforDB.Columns.Add("id_rendicion");
+            DTforDB.Columns.Add("id_factura");
+            foreach (DataGridViewRow row in facturasDataGridView.Rows)
+            {
+                DataRow dRow = DTforDB.NewRow();
+                dRow["id_rendicion"] = idRendicion;
+                dRow["id_factura"] = row.Cells[0].Value;
+
+                DTforDB.Rows.Add(dRow);
+            }
+
+            using (SqlConnection connection = new SqlConnection(mapper.getConnectionString())){
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(mapper.getConnectionString())){
+                    connection.Open();
+                    bulkCopy.DestinationTableName = "GAME_OF_CODE.Detalle_Rendicion";
+                    try
+                    {
+                        bulkCopy.WriteToServer(DTforDB);
+                    }
+                    catch (Exception)
+                    {
+                        Util.ShowMessage("No se pudieron crear los detalles de rendición.", MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void buscarFacturaButton_Click(object sender, EventArgs e)
@@ -63,6 +138,12 @@ namespace PagoAgilFrba.Rendicion
             }
 
             DataTable facturasParaRendir = mapper.SelectFacturasParaRendir(fechaInicio, fechaFin, idEmpresa);
+            if (facturasParaRendir.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("No hay facturas pendientes de rendición para el período y empresa seleccionados.", MessageBoxIcon.Information);
+                return;
+            }
+
             facturasDataGridView.DataSource = facturasParaRendir;
             DeshabilitarSortHeaders();
             OcultarColumnasQueNoDebenVerse();
