@@ -318,6 +318,10 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_crear_item_factura') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_crear_item_factura
 GO
 
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_item_factura') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_item_factura
+GO
+
 IF (OBJECT_ID('GAME_OF_CODE.pr_crear_sucursal') IS NOT NULL)
 	DROP PROCEDURE GAME_OF_CODE.pr_crear_sucursal
 GO
@@ -345,6 +349,23 @@ GO
 IF (OBJECT_ID('GAME_OF_CODE.pr_set_id_pago_factura_null') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_set_id_pago_factura_null
 GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_rendicion') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_rendicion
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_rendicion') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_rendicion
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_crear_detalle_rendicion') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_crear_detalle_rendicion
+GO
+
+IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_detalle_rendicion') IS NOT NULL)
+    DROP PROCEDURE GAME_OF_CODE.pr_modificar_detalle_rendicion
+GO
+
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
 
 
@@ -509,6 +530,22 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_item_factura
+	@item_factura nvarchar(50),
+	@item_monto int,
+	@cantidad int,
+	@id_factura int,
+	@id int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Detalle_Factura
+	SET item_factura = @item_factura, item_monto = @item_monto, cantidad = @cantidad, id_factura = @id_factura
+	WHERE id_detalle_factura = @id
+	SET @id_output = SCOPE_IDENTITY();
+END
+GO
+
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_sucursal
 	@nombre nvarchar(255),
 	@direccion nvarchar(255),
@@ -603,6 +640,69 @@ END
 GO
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_rendicion
+	@fecha_rendicion DATETIME,
+	@total_rendicion int,
+	@porcentaje_comision int,
+	@importe_comision int,
+	@cant_facturas_rendidas int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Rendicion
+		(fecha_rendicion, total_rendicion, porcentaje_comision, importe_comision, cant_facturas_rendidas)
+	VALUES
+		(@fecha_rendicion, @total_rendicion, @porcentaje_comision, @importe_comision, @cant_facturas_rendidas);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_rendicion
+	@fecha_rendicion DATETIME,
+	@total_rendicion int,
+	@porcentaje_comision int,
+	@importe_comision int,
+	@cant_facturas_rendidas int,
+	@id int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Rendicion
+	SET @fecha_rendicion = @fecha_rendicion, total_rendicion = @total_rendicion,
+		porcentaje_comision = @porcentaje_comision, importe_comision = @importe_comision,
+		cant_facturas_rendidas = @cant_facturas_rendidas
+	WHERE id_rendicion = @id
+	SET @id_output = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_detalle_rendicion
+	@id_rendicion int,
+	@id_factura int,
+	@id int output
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Detalle_Rendicion
+		(id_rendicion, id_factura)
+	VALUES
+		(@id_rendicion, @id_factura)
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_modificar_detalle_rendicion
+	@id_rendicion int,
+	@id_factura int,
+	@id int,
+	@id_output int OUTPUT
+AS
+BEGIN
+	UPDATE GAME_OF_CODE.Detalle_Rendicion
+	SET id_rendicion = @id_rendicion, id_factura = @id_factura
+	WHERE id_detalle_rendicion = @id
+	SET @id_output = SCOPE_IDENTITY();
+END
+GO
 
 /******************************
 *         MIGRACION           *
