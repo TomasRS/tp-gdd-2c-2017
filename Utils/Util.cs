@@ -108,5 +108,10 @@ namespace PagoAgilFrba.Utils
         {
             return numero >= 0 && numero <= 100;
         }
+
+        public static Boolean EsAnioValidoEnBaseAFechaSistema(String anio)
+        {
+            return getNumeroFromString(anio) <= DateConfig.getInstance().getCurrentDate().Year;
+        }
     }
 }

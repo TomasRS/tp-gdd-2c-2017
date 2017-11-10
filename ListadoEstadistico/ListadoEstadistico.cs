@@ -84,6 +84,12 @@ namespace PagoAgilFrba.ListadoEstadistico
                 return;
             }
 
+            if (!Util.EsAnioValidoEnBaseAFechaSistema(anioTextBox.Text))
+            {
+                Util.ShowMessage("El año no puede ser un año futuro.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             if (trimestreComboBox.SelectedIndex.Equals(-1))
             {
                 Util.ShowMessage("Debe seleccionar un trimestre.", MessageBoxIcon.Exclamation);
@@ -116,6 +122,8 @@ namespace PagoAgilFrba.ListadoEstadistico
                         break;
                 default: break;
             }
+
+            DeshabilitarSortHeaders();
         }
 
         private void mostrarPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
@@ -187,6 +195,14 @@ namespace PagoAgilFrba.ListadoEstadistico
                 case "3": return "30";
                 case "4": return "31";
                 default: return null;
+            }
+        }
+
+        private void DeshabilitarSortHeaders()
+        {
+            foreach (DataGridViewColumn column in estadisticasDataGridView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
     }

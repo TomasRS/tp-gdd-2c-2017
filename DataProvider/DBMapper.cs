@@ -334,24 +334,30 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("TOP 5 E.nombre, E.emp_cuit, CAST(CONVERT(DECIMAL(15,2),COUNT(numero_factura)) * 100 / dbo.TotalFacturasDeUnaEmpresa(E.id_empresa, '2017-01-14', '2018-01-14') AS DECIMAL(7,2)) AS 'Porcentaje de Facturas pagas'"
-                                , "GAME_OF_CODE.Empresa E, GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF"
-                                ,"E.id_empresa = F.id_empresa AND F.id_pago IS NOT NULL AND F.id_pago = PF.id_pago_facturas AND PF.fecha_cobro BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' GROUP BY E.id_empresa, E.nombre, E.emp_cuit ORDER BY 3 DESC, 1");
+            return SelectDataTable("TOP 5 E.nombre 'Nombre de empresa', E.emp_cuit 'CUIT de empresa', dbo.PorcentajeDeCobro(E.id_empresa, " + fechaInicio + ", " + fechaFin + ") 'Porcentaje de facturas cobradas'"
+                                    , "GAME_OF_CODE.Empresa E"
+                                    , "id_empresa IS NOT NULL GROUP BY E.id_empresa, E.nombre, E.emp_cuit ORDER BY 3 DESC, 1");
         }
 
         public DataTable SelectEmpresasConMayorMontoRendido(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("", "", "");
+            return SelectDataTable("TOP 5 E.nombre 'Nombre de empresa', E.emp_cuit 'CUIT de empresa', SUM(R.total_rendicion) 'Rendición Total'"
+                            ,"GAME_OF_CODE.Empresa E, GAME_OF_CODE.Factura F, GAME_OF_CODE.Rendicion R, GAME_OF_CODE.Detalle_Rendicion D"
+                            ,"F.id_empresa = E.id_empresa AND F.id_pago IS NOT NULL AND D.id_factura = F.id_factura AND R.id_rendicion = D.id_rendicion AND R.fecha_rendicion BETWEEN " + fechaInicio + " AND " + fechaFin + " GROUP BY E.nombre, E.emp_cuit ORDER BY 3 DESC, 1");
         }
 
         public DataTable SelectClientesConMasPagos(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("", "", "");
+            return SelectDataTable("TOP 5 C.apellido, C.nombre, C.dni, COUNT(F.id_pago) 'Facturas Pagas'"
+                                ,"GAME_OF_CODE.Cliente C, GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF"
+                                ,"C.id_cliente = F.id_cliente AND F.id_pago IS NOT NULL AND PF.id_pago_facturas = F.id_pago AND PF.fecha_cobro BETWEEN " + fechaInicio + " AND " + fechaFin + " GROUP BY C.id_cliente, C.nombre, C.apellido, C.dni ORDER BY 4 DESC, 1");
         }
 
         public DataTable SelectClientesConMayorPorcentajeDeFacturasPagadas(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("", "", "");
+            return SelectDataTable("TOP 5 C.apellido 'Apellido del cliente', C.nombre 'Nombre del cliente', C.dni 'DNI del cliente', dbo.MayorPorcentajeFacturasPagas(C.id_cliente, " + fechaInicio + ", " + fechaFin + ") 'Porcentaje de facturas pagas'"
+                                    ,"GAME_OF_CODE.Cliente C"
+                                    ,"id_cliente IS NOT NULL GROUP BY C.id_cliente, C.apellido, C.nombre, C.dni ORDER BY 4 DESC, 1");
         }
 
         //-------------------------------------------------------------
