@@ -646,6 +646,37 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_rendicion
+	@fecha_rendicion DATETIME,
+	@total_rendicion int,
+	@porcentaje_comision int,
+	@importe_comision float,
+	@cant_facturas_rendidas int,
+	@id int OUTPUT
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Rendicion
+		(fecha_rendicion, total_rendicion, porcentaje_comision, importe_comision, cant_facturas_rendidas)
+	VALUES
+		(@fecha_rendicion, @total_rendicion, @porcentaje_comision, @importe_comision, @cant_facturas_rendidas);
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROCEDURE GAME_OF_CODE.pr_crear_detalle_rendicion
+	@id_rendicion int,
+	@id_factura int,
+	@id int output
+AS
+BEGIN
+	INSERT INTO GAME_OF_CODE.Detalle_Rendicion
+		(id_rendicion, id_factura)
+	VALUES
+		(@id_rendicion, @id_factura)
+	SET @id = SCOPE_IDENTITY();
+END
+GO
+
 CREATE FUNCTION PorcentajeDeCobro(@id_empresa INT, @fecha_inicio DATETIME, @fecha_fin DATETIME) 
 	RETURNS DECIMAL(15,2)
 AS
@@ -667,7 +698,7 @@ BEGIN
 	IF(@totalFacturas <1)
 		SET @porcentajeDeCobro = 0
 	ELSE
-		SET @porcentajeDeCobro = @totalCobradas * 100 / @totalFacturas	
+		SET @porcentajeDeCobro = @totalCobradas * 100 / (@totalFacturas + @totalCobradas)	
 	RETURN @porcentajeDeCobro
 END
 GO
@@ -695,7 +726,7 @@ BEGIN
 	IF(@totalFacturas < 1)
 		SET @mayorPorcentajeFacturasPagas = 0;
 	ELSE
-		SET @mayorPorcentajeFacturasPagas = @totalPagas * 100 / @totalFacturas;
+		SET @mayorPorcentajeFacturasPagas = @totalPagas * 100 / (@totalFacturas + @totalPagas);
 	
 	RETURN @mayorPorcentajeFacturasPagas
 END
@@ -703,69 +734,6 @@ GO
 
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
-CREATE PROCEDURE GAME_OF_CODE.pr_crear_rendicion
-	@fecha_rendicion DATETIME,
-	@total_rendicion int,
-	@porcentaje_comision int,
-	@importe_comision float,
-	@cant_facturas_rendidas int,
-	@id int OUTPUT
-AS
-BEGIN
-	INSERT INTO GAME_OF_CODE.Rendicion
-		(fecha_rendicion, total_rendicion, porcentaje_comision, importe_comision, cant_facturas_rendidas)
-	VALUES
-		(@fecha_rendicion, @total_rendicion, @porcentaje_comision, @importe_comision, @cant_facturas_rendidas);
-	SET @id = SCOPE_IDENTITY();
-END
-GO
-
-CREATE PROCEDURE GAME_OF_CODE.pr_modificar_rendicion
-	@fecha_rendicion DATETIME,
-	@total_rendicion int,
-	@porcentaje_comision int,
-	@importe_comision float,
-	@cant_facturas_rendidas int,
-	@id int,
-	@id_output int OUTPUT
-AS
-BEGIN
-	UPDATE GAME_OF_CODE.Rendicion
-	SET @fecha_rendicion = @fecha_rendicion, total_rendicion = @total_rendicion,
-		porcentaje_comision = @porcentaje_comision, importe_comision = @importe_comision,
-		cant_facturas_rendidas = @cant_facturas_rendidas
-	WHERE id_rendicion = @id
-	SET @id_output = SCOPE_IDENTITY();
-END
-GO
-
-CREATE PROCEDURE GAME_OF_CODE.pr_crear_detalle_rendicion
-	@id_rendicion int,
-	@id_factura int,
-	@id int output
-AS
-BEGIN
-	INSERT INTO GAME_OF_CODE.Detalle_Rendicion
-		(id_rendicion, id_factura)
-	VALUES
-		(@id_rendicion, @id_factura)
-	SET @id = SCOPE_IDENTITY();
-END
-GO
-
-CREATE PROCEDURE GAME_OF_CODE.pr_modificar_detalle_rendicion
-	@id_rendicion int,
-	@id_factura int,
-	@id int,
-	@id_output int OUTPUT
-AS
-BEGIN
-	UPDATE GAME_OF_CODE.Detalle_Rendicion
-	SET id_rendicion = @id_rendicion, id_factura = @id_factura
-	WHERE id_detalle_rendicion = @id
-	SET @id_output = SCOPE_IDENTITY();
-END
-GO
 
 /******************************
 *         MIGRACION           *
