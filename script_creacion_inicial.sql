@@ -207,7 +207,7 @@ CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 	[fecha_rendicion] [datetime] NOT NULL,
 	[total_rendicion] INT NOT NULL,
 	[porcentaje_comision] INT NOT NULL,
-	[importe_comision] INT NOT NULL,
+	[importe_comision] FLOAT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
 )
 
@@ -364,6 +364,14 @@ GO
 
 IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_detalle_rendicion') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_detalle_rendicion
+GO
+
+IF (OBJECT_ID('dbo.TotalFacturasDeUnaEmpresa') IS NOT NULL)
+    DROP FUNCTION dbo.TotalFacturasDeUnaEmpresa
+GO
+
+IF (OBJECT_ID('dbo.TotalFacturasDeUnCliente') IS NOT NULL)
+    DROP FUNCTION dbo.TotalFacturasDeUnCliente
 GO
 
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
@@ -638,13 +646,36 @@ BEGIN
 	UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = id_factura
 END
 GO
+
+CREATE FUNCTION TotalFacturasDeUnaEmpresa(@id_empresa INT) RETURNS DECIMAL(15,2)
+AS
+BEGIN
+	DECLARE @total DECIMAL(15,2)
+	SET @total = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.id_pago))
+					FROM GAME_OF_CODE.Factura F 
+					WHERE F.id_empresa = @id_empresa);
+	RETURN @total
+END
+GO
+
+CREATE FUNCTION dbo.TotalFacturasDeUnCliente(@id_cliente INT) RETURNS DECIMAL(15,2)
+AS
+BEGIN
+	DECLARE @total DECIMAL(15,2)
+	SET @total = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.id_pago))
+					FROM GAME_OF_CODE.Factura F 
+					WHERE F.id_cliente = @id_cliente);
+	RETURN @total
+END
+GO
+
 /** FIN CREACION DE FUNCIONES Y PROCEDURES **/
 
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_rendicion
 	@fecha_rendicion DATETIME,
 	@total_rendicion int,
 	@porcentaje_comision int,
-	@importe_comision int,
+	@importe_comision float,
 	@cant_facturas_rendidas int,
 	@id int OUTPUT
 AS
@@ -661,7 +692,7 @@ CREATE PROCEDURE GAME_OF_CODE.pr_modificar_rendicion
 	@fecha_rendicion DATETIME,
 	@total_rendicion int,
 	@porcentaje_comision int,
-	@importe_comision int,
+	@importe_comision float,
 	@cant_facturas_rendidas int,
 	@id int,
 	@id_output int OUTPUT
@@ -788,14 +819,6 @@ INSERT INTO GAME_OF_CODE.Detalle_Factura (item_monto, cantidad, id_factura)
 	WHERE ItemFactura_Monto IS NOT NULL
 	  AND ItemFactura_Cantidad IS NOT NULL
 	  AND TM.Nro_Factura = F.numero_factura
-
-/* 
-INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
-	SELECT distinct id_rendicion, id_factura
-	FROM gd_esquema.Maestra
-	INNER JOIN GAME_OF_CODE.Factura ON  id_factura = Nro_Factura
-	INNER JOIN GAME_OF_CODE.Rendicion C ON id_rendicion = Rendicion_Nro
-*/
 
 INSERT INTO GAME_OF_CODE.Detalle_Rendicion(id_rendicion, id_factura)
 	SELECT DISTINCT  id_rendicion, id_factura
