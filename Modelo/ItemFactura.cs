@@ -13,6 +13,7 @@ namespace PagoAgilFrba.Modelo
         private String importe;
         private String cantidad;
         private int idFactura;
+        private int idItem;
 
         public void setDescripcion(String descripcion)  { this.descripcion = descripcion; }
         public void setImporte(String monto)      { this.importe = monto; }
@@ -23,6 +24,7 @@ namespace PagoAgilFrba.Modelo
         public String getMontoUnitario()    { return this.importe; }
         public String getCantidad()         { return this.cantidad; }
         public int getIDFactura()           { return this.idFactura; }
+        public int getIDItem()              { return this.idItem; }
 
 
         #region Miembros de Comunicable
@@ -49,6 +51,7 @@ namespace PagoAgilFrba.Modelo
             parametros.Add(new SqlParameter("@item_monto", this.importe));
             parametros.Add(new SqlParameter("@cantidad", this.cantidad));
             parametros.Add(new SqlParameter("@id_factura", this.idFactura));
+            parametros.Add(new SqlParameter("@id_detalle_factura", this.idItem));
             return parametros;
         }
 
@@ -58,6 +61,7 @@ namespace PagoAgilFrba.Modelo
             this.importe = Convert.ToString(reader["item_monto"]);
             this.cantidad = Convert.ToString(reader["cantidad"]);
             this.idFactura = Convert.ToInt32(reader["id_factura"]);
+            this.idItem = Convert.ToInt32(reader["id_detalle_factura"]);
         }
 
         #endregion

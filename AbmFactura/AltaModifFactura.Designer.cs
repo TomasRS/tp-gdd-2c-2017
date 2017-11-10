@@ -45,6 +45,8 @@
             this.empresaLabel = new System.Windows.Forms.Label();
             this.clienteLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.borrarSeleccionadosButton = new System.Windows.Forms.Button();
+            this.agregarItemButton = new System.Windows.Forms.Button();
             this.itemsDataGridView = new System.Windows.Forms.DataGridView();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -53,7 +55,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(25, 377);
+            this.limpiarButton.Location = new System.Drawing.Point(12, 421);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(100, 30);
             this.limpiarButton.TabIndex = 30;
@@ -63,7 +65,7 @@
             // 
             // guardarButton
             // 
-            this.guardarButton.Location = new System.Drawing.Point(151, 377);
+            this.guardarButton.Location = new System.Drawing.Point(156, 421);
             this.guardarButton.Name = "guardarButton";
             this.guardarButton.Size = new System.Drawing.Size(100, 30);
             this.guardarButton.TabIndex = 29;
@@ -73,7 +75,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(278, 377);
+            this.volverButton.Location = new System.Drawing.Point(297, 421);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 28;
@@ -85,7 +87,7 @@
             // 
             this.camposObligatoriosLabel.AutoSize = true;
             this.camposObligatoriosLabel.ForeColor = System.Drawing.Color.Red;
-            this.camposObligatoriosLabel.Location = new System.Drawing.Point(25, 351);
+            this.camposObligatoriosLabel.Location = new System.Drawing.Point(9, 397);
             this.camposObligatoriosLabel.Name = "camposObligatoriosLabel";
             this.camposObligatoriosLabel.Size = new System.Drawing.Size(169, 13);
             this.camposObligatoriosLabel.TabIndex = 27;
@@ -195,28 +197,52 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.borrarSeleccionadosButton);
+            this.groupBox1.Controls.Add(this.agregarItemButton);
             this.groupBox1.Controls.Add(this.itemsDataGridView);
             this.groupBox1.Location = new System.Drawing.Point(12, 190);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(385, 149);
+            this.groupBox1.Size = new System.Drawing.Size(385, 199);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Total";
             // 
+            // borrarSeleccionadosButton
+            // 
+            this.borrarSeleccionadosButton.Location = new System.Drawing.Point(209, 20);
+            this.borrarSeleccionadosButton.Name = "borrarSeleccionadosButton";
+            this.borrarSeleccionadosButton.Size = new System.Drawing.Size(117, 30);
+            this.borrarSeleccionadosButton.TabIndex = 36;
+            this.borrarSeleccionadosButton.Text = "Borrar seleccionados";
+            this.borrarSeleccionadosButton.UseVisualStyleBackColor = true;
+            this.borrarSeleccionadosButton.Click += new System.EventHandler(this.borrarSeleccionadosButton_Click);
+            // 
+            // agregarItemButton
+            // 
+            this.agregarItemButton.Location = new System.Drawing.Point(65, 20);
+            this.agregarItemButton.Name = "agregarItemButton";
+            this.agregarItemButton.Size = new System.Drawing.Size(117, 30);
+            this.agregarItemButton.TabIndex = 35;
+            this.agregarItemButton.Text = "Agregar item";
+            this.agregarItemButton.UseVisualStyleBackColor = true;
+            this.agregarItemButton.Click += new System.EventHandler(this.agregarItemButton_Click);
+            // 
             // itemsDataGridView
             // 
+            this.itemsDataGridView.AllowUserToAddRows = false;
+            this.itemsDataGridView.AllowUserToDeleteRows = false;
             this.itemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.itemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.itemsDataGridView.Location = new System.Drawing.Point(6, 22);
+            this.itemsDataGridView.Location = new System.Drawing.Point(6, 59);
             this.itemsDataGridView.Name = "itemsDataGridView";
-            this.itemsDataGridView.Size = new System.Drawing.Size(373, 119);
+            this.itemsDataGridView.Size = new System.Drawing.Size(373, 134);
             this.itemsDataGridView.TabIndex = 0;
             // 
             // AltaModifFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 417);
+            this.ClientSize = new System.Drawing.Size(409, 464);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.guardarButton);
@@ -256,5 +282,7 @@
         private System.Windows.Forms.Label clienteLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView itemsDataGridView;
+        private System.Windows.Forms.Button borrarSeleccionadosButton;
+        private System.Windows.Forms.Button agregarItemButton;
     }
 }

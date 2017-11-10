@@ -23,7 +23,10 @@ namespace PagoAgilFrba.AbmFactura
         private IList<TextBox> campos = new List<TextBox>();
         private TipoDeAccion tipoAccion;
         private Factura factura;
+        private DataTable itemsDataTable;
         private List<ItemFactura> itemsFactura;
+        private List<ItemFactura> itemsEliminados;
+        private List<int> indicesDeAgregados;
 
         public AltaModifFactura(TipoDeAccion tipoAccion)
         {
@@ -149,10 +152,10 @@ namespace PagoAgilFrba.AbmFactura
 
         private void popularItems()
         {
-            DataTable facturasDataTable = mapper.SelectItemsFactura(idFactura);
+            itemsDataTable = mapper.SelectItemsFactura(idFactura);
             itemsDataGridView.Columns.Clear();
             itemsDataGridView.DataSource = null;
-            itemsDataGridView.DataSource = facturasDataTable;
+            itemsDataGridView.DataSource = itemsDataTable;
         }
 
         public override void Crear()
@@ -177,13 +180,25 @@ namespace PagoAgilFrba.AbmFactura
             idFactura = mapper.ModificarFactura(factura, idFactura);
             if (idFactura > 0)
             {
-                //itemsFactura.ForEach(unItemFactura => editarAgregarEliminar(unItemFactura));
+                itemsFactura.ForEach(unItemFactura => editar(unItemFactura));
+                itemsEliminados.ForEach(unEliminado => eliminar(unEliminado));
+                indicesDeAgregados.ForEach(unIndice => agregarItemFacturaDeIndice(unIndice));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
                 this.Close();
             }
         }
 
-        private void editarAgregarEliminar(ItemFactura itemFactura)
+        private void editar(ItemFactura itemFactura)
+        {
+            mapper.Modificar(itemFactura.getIDItem(), itemFactura);
+        }
+
+        private void eliminar(ItemFactura itemFactura)
+        {
+            
+        }
+
+        private void agregarItemFacturaDeIndice(int indice)
         {
             
         }
@@ -238,14 +253,14 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
             {
-                if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
+                if (camposDeItemLlenos(itemsDataTable.Rows[i]))
                 {
                     ItemFactura item = new ItemFactura();
-                    item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
-                    item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
-                    item.setImporte(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                    item.setDescripcion(itemsDataTable.Rows[i][0].ToString());
+                    item.setCantidad(itemsDataTable.Rows[i][1].ToString());
+                    item.setImporte(itemsDataTable.Rows[i][2].ToString());
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
@@ -256,20 +271,52 @@ namespace PagoAgilFrba.AbmFactura
             return items;
         }
 
-        private Boolean camposDeItemLlenos(DataGridViewRow row)
+        private Boolean camposDeItemLlenos(DataRow row)
         {
-            return row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null;
+            return row[0].ToString() != "" && row[1].ToString() != "" && row[2].ToString() != "";
         }
 
         private int calcularMontoTotal()
         {
             int montoFinal = 0;
-            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
             {
                 //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
-                montoFinal += Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                montoFinal += Util.getNumeroFromString(itemsDataTable.Rows[i][2].ToString());
             }
             return montoFinal;
+        }
+
+        private void agregarItemButton_Click(object sender, EventArgs e)
+        {
+            if (itemsDataTable.Rows.Count.Equals(0))
+            {
+                itemsDataTable.Rows.Add();
+                //Agregar a la lista de agregados
+                return;
+            }
+
+            int indexUltimaRow = itemsDataTable.Rows.Count-1;
+            if (!camposDeItemLlenos(itemsDataTable.Rows[indexUltimaRow]))
+            {
+                Util.ShowMessage("Primero complete todos los datos del último item de la lista.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+            {
+                itemsDataTable.Rows.Add();
+                //agregar a la lista de agregados
+            }
+        }
+
+        private void borrarSeleccionadosButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in itemsDataGridView.SelectedRows)
+            {
+                int indexRow = row.Index;
+                itemsDataTable.Rows.RemoveAt(indexRow);
+                //Agregar a la lista de eliminados
+            }
         }
     }
 }
