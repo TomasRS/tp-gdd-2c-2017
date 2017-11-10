@@ -348,7 +348,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectClientesConMasPagos(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("TOP 5 C.apellido, C.nombre, C.dni, COUNT(F.id_pago) 'Facturas Pagas'"
+            return SelectDataTable("TOP 5 C.apellido 'Apellido del cliente', C.nombre 'Nombre del cliente', C.dni 'DNI del cliente', COUNT(F.id_pago) 'Facturas Pagas'"
                                 ,"GAME_OF_CODE.Cliente C, GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF"
                                 ,"C.id_cliente = F.id_cliente AND F.id_pago IS NOT NULL AND PF.id_pago_facturas = F.id_pago AND PF.fecha_cobro BETWEEN " + fechaInicio + " AND " + fechaFin + " GROUP BY C.id_cliente, C.nombre, C.apellido, C.dni ORDER BY 4 DESC, 1");
         }
