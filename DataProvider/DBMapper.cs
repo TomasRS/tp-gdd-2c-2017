@@ -334,7 +334,9 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
         {
-            return SelectDataTable("", "", "");
+            return SelectDataTable("TOP 5 E.nombre, E.emp_cuit, CAST(CONVERT(DECIMAL(15,2),COUNT(numero_factura)) * 100 / dbo.TotalFacturasDeUnaEmpresa(E.id_empresa, '2017-01-14', '2018-01-14') AS DECIMAL(7,2)) AS 'Porcentaje de Facturas pagas'"
+                                , "GAME_OF_CODE.Empresa E, GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF"
+                                ,"E.id_empresa = F.id_empresa AND F.id_pago IS NOT NULL AND F.id_pago = PF.id_pago_facturas AND PF.fecha_cobro BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' GROUP BY E.id_empresa, E.nombre, E.emp_cuit ORDER BY 3 DESC, 1");
         }
 
         public DataTable SelectEmpresasConMayorMontoRendido(String fechaInicio, String fechaFin)
