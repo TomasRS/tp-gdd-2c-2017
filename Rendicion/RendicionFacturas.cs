@@ -79,7 +79,7 @@ namespace PagoAgilFrba.Rendicion
             PagoAgilFrba.Modelo.Rendicion rendicion = new PagoAgilFrba.Modelo.Rendicion();
             rendicion.setFechaRendicion(DateConfig.getInstance().getCurrentDate());
             rendicion.setPorcentajeComision(Util.getNumeroFromString(porcentajeComisionTextBox.Text));
-            rendicion.setImporteComision(Util.getNumeroDoubleFromString(importeComisionTextBox.Text));
+            rendicion.setImporteComision(Util.getNumeroFloatFromString(importeComisionTextBox.Text));
             rendicion.setTotalRendicion(Util.getNumeroFromString(importeTotalRendicionTextBox.Text));
             rendicion.setCantFacturasRendidas(facturasDataGridView.Rows.Count);
 
@@ -119,6 +119,8 @@ namespace PagoAgilFrba.Rendicion
 
         private void buscarFacturaButton_Click(object sender, EventArgs e)
         {
+            facturasDataGridView.DataSource = null;
+
             DateTime fechaInicio;
             DateTime.TryParse(fechaInicioDateTimePicker.Text, out fechaInicio);
             DateTime fechaFin;
@@ -133,7 +135,7 @@ namespace PagoAgilFrba.Rendicion
 
             if (!HayMesesEnterosDeDiferencia(fechaInicio, fechaFin))
             {
-                Util.ShowMessage("La fechas ingresadas son incorrectas, no hay meses enteros de diferencia.", MessageBoxIcon.Exclamation);
+                Util.ShowMessage("El período de fechas debe tener al menos un mes entero de diferencia.", MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -157,7 +159,7 @@ namespace PagoAgilFrba.Rendicion
             importeTotalRendicionTextBox.Text = importeTotalRendicion.ToString();
 
             int porcentajeComision = Util.getNumeroFromString(porcentajeComisionTextBox.Text);
-            double importeComision = importeTotalRendicion * ((double)porcentajeComision / 100);
+            float importeComision = importeTotalRendicion * ((float)porcentajeComision / 100);
             importeComisionTextBox.Text = importeComision.ToString();
         }
 
@@ -200,7 +202,41 @@ namespace PagoAgilFrba.Rendicion
         public Boolean HayMesesEnterosDeDiferencia(DateTime lValue, DateTime rValue)
         {
             //Falta calcular que coincidan los dias para meses distintos..
-            return Math.Abs((lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year)) > 0 && (lValue.Day.Equals(rValue.Day));
+            int diaSeleccionadoDelMesInicio = lValue.Day;
+
+            if (diaSeleccionadoDelMesInicio >= 1 && diaSeleccionadoDelMesInicio <= 28)
+                return Math.Abs((lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year)) > 0 && ((lValue.Day.Equals(rValue.Day)) || (DateTime.DaysInMonth(lValue.Year, lValue.Month).Equals(lValue.Day) && DateTime.DaysInMonth(rValue.Year, rValue.Month).Equals(rValue.Day)));
+            else
+            {
+                //El dia en fechaInicio es 29,30,31
+                //Si los dias en ambas fechas son iguales
+                if (lValue.Day.Equals(rValue.Day))
+                {
+                    return Math.Abs((lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year)) > 0;
+                }
+                else
+                {
+                    //El dia de inicio es menor al de fin
+                    if (lValue.Day < rValue.Day)
+                        return false;
+                    else
+                    {
+                        //Pregunto si el dia inicio es el ultimo dia del mes
+                        if (DateTime.DaysInMonth(lValue.Year, lValue.Month).Equals(lValue.Day))
+                        {
+                            //Si el dia de fin tambien es ultimo dia del mes
+                            if (DateTime.DaysInMonth(rValue.Year, rValue.Month).Equals(rValue.Day))
+                                return true;
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                }
+            }
+
+            //return Math.Abs((lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year)) > 0 && (lValue.Day.Equals(rValue.Day));
         }
 
         private void CargarEmpresas()
