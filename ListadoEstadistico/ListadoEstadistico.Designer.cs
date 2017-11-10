@@ -46,10 +46,14 @@
             // 
             // estadisticasDataGridView
             // 
+            this.estadisticasDataGridView.AllowUserToAddRows = false;
+            this.estadisticasDataGridView.AllowUserToDeleteRows = false;
+            this.estadisticasDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.estadisticasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.estadisticasDataGridView.Location = new System.Drawing.Point(3, 195);
+            this.estadisticasDataGridView.Location = new System.Drawing.Point(12, 196);
             this.estadisticasDataGridView.Name = "estadisticasDataGridView";
-            this.estadisticasDataGridView.Size = new System.Drawing.Size(638, 233);
+            this.estadisticasDataGridView.ReadOnly = true;
+            this.estadisticasDataGridView.Size = new System.Drawing.Size(638, 196);
             this.estadisticasDataGridView.TabIndex = 7;
             // 
             // filtroGroupBox
@@ -63,7 +67,7 @@
             this.filtroGroupBox.Controls.Add(this.tipoListadoLabel);
             this.filtroGroupBox.Controls.Add(this.trimestreLabel);
             this.filtroGroupBox.Controls.Add(this.anioLabel);
-            this.filtroGroupBox.Location = new System.Drawing.Point(3, 5);
+            this.filtroGroupBox.Location = new System.Drawing.Point(12, 6);
             this.filtroGroupBox.Name = "filtroGroupBox";
             this.filtroGroupBox.Size = new System.Drawing.Size(638, 184);
             this.filtroGroupBox.TabIndex = 6;
@@ -156,9 +160,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 436);
+            this.ClientSize = new System.Drawing.Size(660, 404);
             this.Controls.Add(this.estadisticasDataGridView);
             this.Controls.Add(this.filtroGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoEstadistico";
             this.Text = "Listado estadístico";

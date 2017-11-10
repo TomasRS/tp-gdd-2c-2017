@@ -36,10 +36,10 @@ namespace PagoAgilFrba.Utils
             return number;
         }
 
-        public static double getNumeroDoubleFromString(String numero)
+        public static float getNumeroFloatFromString(String numero)
         {
-            double number = 0.0;
-            double.TryParse(numero, out number);
+            float number = 0.0f;
+            float.TryParse(numero, out number);
             return number;
         }
 

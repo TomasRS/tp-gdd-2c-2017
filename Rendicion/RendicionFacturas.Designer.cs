@@ -48,6 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.importeComisionTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.sucursalLabel = new System.Windows.Forms.Label();
             this.datosFacturaGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // datosFacturaGroupBox
             // 
+            this.datosFacturaGroupBox.Controls.Add(this.sucursalLabel);
             this.datosFacturaGroupBox.Controls.Add(this.fechaFinDateTimePicker);
             this.datosFacturaGroupBox.Controls.Add(this.fechaInicioDateTimePicker);
             this.datosFacturaGroupBox.Controls.Add(this.porcentajeComisionTextBox);
@@ -66,21 +68,21 @@
             this.datosFacturaGroupBox.Controls.Add(this.numFacturaLabel);
             this.datosFacturaGroupBox.Location = new System.Drawing.Point(12, 12);
             this.datosFacturaGroupBox.Name = "datosFacturaGroupBox";
-            this.datosFacturaGroupBox.Size = new System.Drawing.Size(677, 151);
+            this.datosFacturaGroupBox.Size = new System.Drawing.Size(677, 175);
             this.datosFacturaGroupBox.TabIndex = 1;
             this.datosFacturaGroupBox.TabStop = false;
             this.datosFacturaGroupBox.Text = "Datos para buscar facturas pagas para rendir";
             // 
             // fechaFinDateTimePicker
             // 
-            this.fechaFinDateTimePicker.Location = new System.Drawing.Point(457, 25);
+            this.fechaFinDateTimePicker.Location = new System.Drawing.Point(457, 55);
             this.fechaFinDateTimePicker.Name = "fechaFinDateTimePicker";
             this.fechaFinDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.fechaFinDateTimePicker.TabIndex = 42;
             // 
             // fechaInicioDateTimePicker
             // 
-            this.fechaInicioDateTimePicker.Location = new System.Drawing.Point(106, 25);
+            this.fechaInicioDateTimePicker.Location = new System.Drawing.Point(106, 55);
             this.fechaInicioDateTimePicker.Name = "fechaInicioDateTimePicker";
             this.fechaInicioDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.fechaInicioDateTimePicker.TabIndex = 41;
@@ -89,7 +91,7 @@
             // 
             this.porcentajeComisionTextBox.Enabled = false;
             this.porcentajeComisionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.porcentajeComisionTextBox.Location = new System.Drawing.Point(457, 66);
+            this.porcentajeComisionTextBox.Location = new System.Drawing.Point(457, 96);
             this.porcentajeComisionTextBox.Name = "porcentajeComisionTextBox";
             this.porcentajeComisionTextBox.ReadOnly = true;
             this.porcentajeComisionTextBox.Size = new System.Drawing.Size(200, 20);
@@ -98,7 +100,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(338, 69);
+            this.label2.Location = new System.Drawing.Point(338, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 39;
@@ -107,7 +109,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(338, 31);
+            this.label1.Location = new System.Drawing.Point(338, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 37;
@@ -115,7 +117,7 @@
             // 
             // buscarFacturaButton
             // 
-            this.buscarFacturaButton.Location = new System.Drawing.Point(287, 104);
+            this.buscarFacturaButton.Location = new System.Drawing.Point(287, 134);
             this.buscarFacturaButton.Name = "buscarFacturaButton";
             this.buscarFacturaButton.Size = new System.Drawing.Size(100, 30);
             this.buscarFacturaButton.TabIndex = 35;
@@ -127,7 +129,7 @@
             // 
             this.empresaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.empresaComboBox.FormattingEnabled = true;
-            this.empresaComboBox.Location = new System.Drawing.Point(106, 66);
+            this.empresaComboBox.Location = new System.Drawing.Point(106, 96);
             this.empresaComboBox.Name = "empresaComboBox";
             this.empresaComboBox.Size = new System.Drawing.Size(200, 21);
             this.empresaComboBox.TabIndex = 3;
@@ -136,7 +138,7 @@
             // empresaLabel
             // 
             this.empresaLabel.AutoSize = true;
-            this.empresaLabel.Location = new System.Drawing.Point(6, 69);
+            this.empresaLabel.Location = new System.Drawing.Point(6, 99);
             this.empresaLabel.Name = "empresaLabel";
             this.empresaLabel.Size = new System.Drawing.Size(48, 13);
             this.empresaLabel.TabIndex = 1;
@@ -145,7 +147,7 @@
             // numFacturaLabel
             // 
             this.numFacturaLabel.AutoSize = true;
-            this.numFacturaLabel.Location = new System.Drawing.Point(6, 31);
+            this.numFacturaLabel.Location = new System.Drawing.Point(6, 61);
             this.numFacturaLabel.Name = "numFacturaLabel";
             this.numFacturaLabel.Size = new System.Drawing.Size(79, 13);
             this.numFacturaLabel.TabIndex = 0;
@@ -157,7 +159,7 @@
             this.facturasDataGridView.AllowUserToDeleteRows = false;
             this.facturasDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.facturasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.facturasDataGridView.Location = new System.Drawing.Point(12, 169);
+            this.facturasDataGridView.Location = new System.Drawing.Point(12, 201);
             this.facturasDataGridView.Name = "facturasDataGridView";
             this.facturasDataGridView.ReadOnly = true;
             this.facturasDataGridView.Size = new System.Drawing.Size(677, 228);
@@ -165,7 +167,7 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(588, 481);
+            this.volverButton.Location = new System.Drawing.Point(588, 514);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(100, 30);
             this.volverButton.TabIndex = 42;
@@ -175,7 +177,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(12, 481);
+            this.limpiarButton.Location = new System.Drawing.Point(12, 514);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(100, 30);
             this.limpiarButton.TabIndex = 41;
@@ -185,7 +187,7 @@
             // 
             // rendirFacturasButton
             // 
-            this.rendirFacturasButton.Location = new System.Drawing.Point(299, 481);
+            this.rendirFacturasButton.Location = new System.Drawing.Point(299, 514);
             this.rendirFacturasButton.Name = "rendirFacturasButton";
             this.rendirFacturasButton.Size = new System.Drawing.Size(100, 30);
             this.rendirFacturasButton.TabIndex = 43;
@@ -199,7 +201,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.importeComisionTextBox);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 403);
+            this.groupBox1.Location = new System.Drawing.Point(12, 436);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(676, 66);
             this.groupBox1.TabIndex = 44;
@@ -244,11 +246,21 @@
             this.label3.TabIndex = 41;
             this.label3.Text = "Importe de la comisión";
             // 
+            // sucursalLabel
+            // 
+            this.sucursalLabel.AutoSize = true;
+            this.sucursalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sucursalLabel.Location = new System.Drawing.Point(6, 29);
+            this.sucursalLabel.Name = "sucursalLabel";
+            this.sucursalLabel.Size = new System.Drawing.Size(380, 13);
+            this.sucursalLabel.TabIndex = 43;
+            this.sucursalLabel.Text = "Recuerde que las rendiciones se realizan por períodos mensuales";
+            // 
             // RendicionFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(701, 522);
+            this.ClientSize = new System.Drawing.Size(701, 554);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rendirFacturasButton);
             this.Controls.Add(this.volverButton);
@@ -290,5 +302,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker fechaFinDateTimePicker;
         private System.Windows.Forms.DateTimePicker fechaInicioDateTimePicker;
+        private System.Windows.Forms.Label sucursalLabel;
     }
 }

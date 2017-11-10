@@ -330,6 +330,28 @@ namespace PagoAgilFrba.DataProvider
                         , "(F.id_empresa = " + idEmpresa.ToString() + ")" + " AND ((SELECT COUNT(*) FROM GAME_OF_CODE.Detalle_Rendicion WHERE id_factura = F.id_factura) = 0) AND (F.id_pago = PF.id_pago_facturas) AND (PF.fecha_cobro BETWEEN '" + fechaInicio.ToString("yyyy-MM-dd") + "' and '" + fechaFin.ToString("yyyy-MM-dd") + "')");
         }
 
+        //---------------PARA LISTADO ESTADISTICO----------------
+
+        public DataTable SelectPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
+        {
+            return SelectDataTable("", "", "");
+        }
+
+        public DataTable SelectEmpresasConMayorMontoRendido(String fechaInicio, String fechaFin)
+        {
+            return SelectDataTable("", "", "");
+        }
+
+        public DataTable SelectClientesConMasPagos(String fechaInicio, String fechaFin)
+        {
+            return SelectDataTable("", "", "");
+        }
+
+        public DataTable SelectClientesConMayorPorcentajeDeFacturasPagadas(String fechaInicio, String fechaFin)
+        {
+            return SelectDataTable("", "", "");
+        }
+
         //-------------------------------------------------------------
         /** Usuario **/
         public int getIDUsuario(String username)

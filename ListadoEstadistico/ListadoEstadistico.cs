@@ -17,9 +17,6 @@ namespace PagoAgilFrba.ListadoEstadistico
     public partial class ListadoEstadistico : Form
     {
         private DBMapper mapper = new DBMapper();
-        private IList<SqlParameter> parametros = new List<SqlParameter>();
-        private SqlCommand command;
-
 
         public ListadoEstadistico()
         {
@@ -78,92 +75,119 @@ namespace PagoAgilFrba.ListadoEstadistico
         //Metodo buscar
         private void buscarButton_Click(object sender, EventArgs e)
         {
+            estadisticasDataGridView.DataSource = null;
+
+            #region validaciones
             if (!Util.EsNumero(anioTextBox.Text))
             {
                 Util.ShowMessage("El formato del año debe ser numérico.", MessageBoxIcon.Exclamation);
                 return;
             }
-                
+
+            if (trimestreComboBox.SelectedIndex.Equals(-1))
+            {
+                Util.ShowMessage("Debe seleccionar un trimestre.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (tipoListadoComboBox.SelectedIndex.Equals(-1))
+            {
+                Util.ShowMessage("Debe seleccionar un tipo de listado.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            #endregion
+
             String anio = anioTextBox.Text;
-            String trimestre = trimestreComboBox.Text;
+            String trimestre = (trimestreComboBox.SelectedIndex + 1).ToString();
             String tipoDeListado = tipoListadoComboBox.Text;
 
-            String fechaDeInicio = ObtenerFechaDeInicio(anio, trimestre);
-            String fechaDeFin = ObtenerFechaDeFin(anio, trimestre);
-            String fechaMedia = ObtenerFechaMedia(anio, trimestre);
+            String fechaInicio = getFechaInicio(anio, trimestre);
+            String fechaFin = getFechaFin(anio, trimestre);
 
-
-        }
-
-
-        //Metodos extras
-        private String ObtenerFechaDeInicio(string anio, string trimestre)
-        {
-            String dia = "01";
-            String mes = ObtenerMesInicio(trimestre);
-            return dia + "/" + mes + "/" + anio;
-        }
-
-        private string ObtenerMesInicio(string trimestre)
-        {
-            switch (trimestre[0])
+            switch (tipoListadoComboBox.SelectedIndex)
             {
-                case '1':
-                    return "01"; //Enero
-                case '2':
-                    return "04"; //Abril
-                case '3':
-                    return "07"; //Julio
-                case '4':
-                    return "10"; //Octubre
+                case 0: mostrarPorcentajeFacturasCobradasPorEmpresa(fechaInicio, fechaFin);
+                        break;
+                case 1: mostrarEmpresasConMayorMontoRendido(fechaInicio, fechaFin);
+                        break;
+                case 2: mostrarClientesConMasPagos(fechaInicio, fechaFin);
+                        break;
+                case 3: mostrarClientesConMayorPorcentajeDeFacturasPagas(fechaInicio, fechaFin);
+                        break;
+                default: break;
             }
-            throw new Exception("No se pudo obtener el mes");
         }
 
-        private String ObtenerFechaDeFin(string anio, string trimestre)
+        private void mostrarPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
         {
-            String dia = "01";
-            String mes = ObtenerMesFin(trimestre);
-            return dia + "/" + mes + "/" + anio;
+            DataTable DT = mapper.SelectPorcentajeFacturasCobradasPorEmpresa(fechaInicio, fechaFin);
+            estadisticasDataGridView.DataSource = DT;
         }
 
-        private string ObtenerMesFin(string trimestre)
+        private void mostrarEmpresasConMayorMontoRendido(String fechaInicio, String fechaFin)
         {
-            switch (trimestre[0])
+            DataTable DT = mapper.SelectEmpresasConMayorMontoRendido(fechaInicio, fechaFin);
+            estadisticasDataGridView.DataSource = DT;
+        }
+
+        private void mostrarClientesConMasPagos(String fechaInicio, String fechaFin)
+        {
+            DataTable DT = mapper.SelectClientesConMasPagos(fechaInicio, fechaFin);
+            estadisticasDataGridView.DataSource = DT;
+        }
+
+        private void mostrarClientesConMayorPorcentajeDeFacturasPagas(String fechaInicio, String fechaFin)
+        {
+            DataTable DT = mapper.SelectClientesConMayorPorcentajeDeFacturasPagadas(fechaInicio, fechaFin);
+            estadisticasDataGridView.DataSource = DT;
+        }
+
+
+        //Obtencion de fechas
+        //Fecha inicio
+        private String getFechaInicio(String anio, String trimestre)
+        {
+            return "'" + anio + "-" + getMesInicioTrimestre(trimestre) + "-01'";
+        }
+        private String getMesInicioTrimestre(String trimestre)
+        {
+            switch (trimestre)
             {
-                case '1':
-                    return "03"; //Marzo
-                case '2':
-                    return "06"; //Junio
-                case '3':
-                    return "09"; //Septiembre
-                case '4':
-                    return "12"; //Diciembre
+                case "1": return "01";
+                case "2": return "04";
+                case "3": return "07";
+                case "4": return "10";
+                default: return null;
             }
-            throw new Exception("No se pudo obtener el mes");
         }
 
-        private String ObtenerFechaMedia(string anio, string trimestre)
+        //Fecha fin
+        private String getFechaFin(String anio, String trimestre)
         {
-            String dia = "01";
-            String mes = ObtenerMesMedio(trimestre);
-            return dia + "/" + mes + "/" + anio;
+            return "'" + anio + "-" + getMesFinTrimestre(trimestre) + "-" + getDiaFinUltimoMesTrimestre(trimestre) + "'";
         }
 
-        private string ObtenerMesMedio(string trimestre)
+        private String getMesFinTrimestre(String trimestre)
         {
-            switch (trimestre[0])
+            switch (trimestre)
             {
-                case '1':
-                    return "02";
-                case '2':
-                    return "05";
-                case '3':
-                    return "08";
-                case '4':
-                    return "11";
+                case "1": return "03";
+                case "2": return "06";
+                case "3": return "09";
+                case "4": return "12";
+                default: return null;
             }
-            throw new Exception("No se pudo obtener el mes");
+        }
+        private String getDiaFinUltimoMesTrimestre(String trimestre)
+        {
+            switch (trimestre)
+            {
+                case "1": return "31";
+                case "2": return "30";
+                case "3": return "30";
+                case "4": return "31";
+                default: return null;
+            }
         }
     }
 }

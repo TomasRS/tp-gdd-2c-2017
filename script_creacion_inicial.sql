@@ -928,12 +928,3 @@ INSERT INTO GAME_OF_CODE.Usuario_por_Sucursal (id_usuario, id_sucursal)
 	VALUES (1,1),
 		   (2,1)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
--- CREACION DE VISTAS
-
--- FIN DE CREACION DE VISTAS
-
--- CREACION DE TRIGGERS
