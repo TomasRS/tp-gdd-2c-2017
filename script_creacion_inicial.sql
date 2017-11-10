@@ -366,12 +366,11 @@ IF (OBJECT_ID('GAME_OF_CODE.pr_modificar_detalle_rendicion') IS NOT NULL)
     DROP PROCEDURE GAME_OF_CODE.pr_modificar_detalle_rendicion
 GO
 
-IF (OBJECT_ID('dbo.TotalFacturasDeUnaEmpresa') IS NOT NULL)
-    DROP FUNCTION dbo.TotalFacturasDeUnaEmpresa
-GO
+IF (OBJECT_ID('dbo.PorcentajeDeCobro') IS NOT NULL)
+    DROP FUNCTION dbo.PorcentajeDeCobro
 
-IF (OBJECT_ID('dbo.TotalFacturasDeUnCliente') IS NOT NULL)
-    DROP FUNCTION dbo.TotalFacturasDeUnCliente
+IF (OBJECT_ID('dbo.MayorPorcentajeFacturasPagas') IS NOT NULL)
+    DROP FUNCTION dbo.MayorPorcentajeFacturasPagas
 GO
 
 /** FIN VALIDACION DE FUNCIONES, PROCEDURES, VISTAS Y TRIGGERS **/
@@ -647,25 +646,58 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION TotalFacturasDeUnaEmpresa(@id_empresa INT) RETURNS DECIMAL(15,2)
+CREATE FUNCTION PorcentajeDeCobro(@id_empresa INT, @fecha_inicio DATETIME, @fecha_fin DATETIME) 
+	RETURNS DECIMAL(15,2)
 AS
 BEGIN
-	DECLARE @total DECIMAL(15,2)
-	SET @total = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.id_pago))
+	DECLARE @totalCobradas DECIMAL(15,2)
+	DECLARE @totalFacturas DECIMAL(15,2)
+	DECLARE @porcentajeDeCobro DECIMAL(15,2)
+
+	SET @totalCobradas = (SELECT CONVERT(DECIMAL(15,2),COUNT(numero_factura))
+							FROM GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF
+							WHERE F.id_empresa = @id_empresa
+							  AND F.id_pago IS NOT NULL
+	  						  AND F.id_pago = PF.id_pago_facturas
+							  AND PF.fecha_cobro BETWEEN @fecha_inicio AND @fecha_fin);
+	SET @totalFacturas = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.numero_factura))
 					FROM GAME_OF_CODE.Factura F 
-					WHERE F.id_empresa = @id_empresa);
-	RETURN @total
+					WHERE F.id_empresa = @id_empresa
+					  AND F.fecha_alta BETWEEN @fecha_inicio AND @fecha_fin);
+	IF(@totalFacturas <1)
+		SET @porcentajeDeCobro = 0
+	ELSE
+		SET @porcentajeDeCobro = @totalCobradas * 100 / @totalFacturas	
+	RETURN @porcentajeDeCobro
 END
 GO
 
-CREATE FUNCTION dbo.TotalFacturasDeUnCliente(@id_cliente INT) RETURNS DECIMAL(15,2)
+CREATE FUNCTION MayorPorcentajeFacturasPagas(@id_cliente INT, @fecha_inicio DATETIME, @fecha_fin DATETIME)
+	RETURNS DECIMAL(15,2)
 AS
 BEGIN
-	DECLARE @total DECIMAL(15,2)
-	SET @total = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.id_pago))
-					FROM GAME_OF_CODE.Factura F 
-					WHERE F.id_cliente = @id_cliente);
-	RETURN @total
+	DECLARE @totalPagas DECIMAL(15,2)
+	DECLARE @totalFacturas DECIMAL(15,2)
+	DECLARE @mayorPorcentajeFacturasPagas DECIMAL(15,2)
+	
+	SET @totalPagas = (SELECT CONVERT(DECIMAL(15,2),COUNT(@id_cliente))
+						FROM GAME_OF_CODE.Factura F, GAME_OF_CODE.Pago_de_Facturas PF
+						WHERE F.id_cliente = @id_cliente
+						  AND F.id_pago IS NOT NULL
+						  AND F.id_pago = PF.id_pago_facturas
+						  AND PF.fecha_cobro BETWEEN @fecha_inicio AND @fecha_fin);
+
+	SET @totalFacturas = (SELECT CONVERT(DECIMAL(15,2), COUNT(F.id_pago))
+							FROM GAME_OF_CODE.Factura F 
+							WHERE F.id_cliente = @id_cliente 
+							  AND F.fecha_alta BETWEEN @fecha_inicio AND @fecha_fin);
+	
+	IF(@totalFacturas < 1)
+		SET @mayorPorcentajeFacturasPagas = 0;
+	ELSE
+		SET @mayorPorcentajeFacturasPagas = @totalPagas * 100 / @totalFacturas;
+	
+	RETURN @mayorPorcentajeFacturasPagas
 END
 GO
 
