@@ -150,7 +150,7 @@ CREATE TABLE [GAME_OF_CODE].[Sucursal] (
 	[id_sucursal] INT IDENTITY(1,1) PRIMARY KEY,
 	[nombre] [nvarchar](50) NOT NULL,
 	[direccion] [nvarchar](150) NOT NULL,
-	[codigo_postal] INT NOT NULL,
+	[codigo_postal] INT UNIQUE NOT NULL,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
 
@@ -225,7 +225,7 @@ CREATE TABLE [GAME_OF_CODE].[Medio_de_Pago] (
 CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [id_empresa] INT IDENTITY(1,1) PRIMARY KEY,
     [nombre] [nvarchar](255) NOT NULL,
-    [emp_cuit] [nvarchar](50) NOT NULL,
+    [emp_cuit] [nvarchar](50) UNIQUE NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
 	[porcentaje_comision] INT NOT NULL,
 	[id_rubro] INT NOT NULL,
