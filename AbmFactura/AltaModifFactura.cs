@@ -41,7 +41,7 @@ namespace PagoAgilFrba.AbmFactura
         }
         private void limpiarButton_Click(object sender, EventArgs e)
         {
-            clienteTextBox.Clear();
+            clienteComboBox.SelectedIndex = -1;
             nroFacturaTextBox.Clear();
             fechaAltaFactDateTimePicker.Text = "";
             fechaVencDateTimePicker.Text = "";
@@ -79,7 +79,7 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void guardarInformacion()
         {
-            String mailCliente = clienteTextBox.Text;
+            String mailCliente = clienteComboBox.Text;
             String empresa = empresaComboBox.Text;
             String numeroFactura = nroFacturaTextBox.Text;
             DateTime fechaAlta;
@@ -87,7 +87,7 @@ namespace PagoAgilFrba.AbmFactura
             DateTime fechaVenc;
             DateTime.TryParse(fechaVencDateTimePicker.Text, out fechaVenc);
 
-            if (!mapper.existeCliente(clienteTextBox.Text))
+            if (!mapper.existeCliente(clienteComboBox.Text))
             {
                 Util.ShowMessage("El mail del cliente no existe. Ingrese un mail existente.", MessageBoxIcon.Exclamation);
                 return;
@@ -141,7 +141,7 @@ namespace PagoAgilFrba.AbmFactura
         {
             Factura factura = mapper.ObtenerFactura(idFactura);
 
-            clienteTextBox.Text = mapper.getMailCliente(factura.getIDCliente());
+            clienteComboBox.SelectedText = mapper.getMailCliente(factura.getIDCliente());
             empresaComboBox.SelectedText = mapper.getNombreEmpresa(factura.getIDEmpresa());
             nroFacturaTextBox.Text = factura.getNumFactura();
             fechaAltaFactDateTimePicker.Text = factura.getFechaAlta().ToString();
@@ -208,14 +208,30 @@ namespace PagoAgilFrba.AbmFactura
         //--------------------Extras-------------------------------------
         private void AltaModifFactura_Load(object sender, EventArgs e)
         {
-            campos.Add(clienteTextBox);
             campos.Add(nroFacturaTextBox);
 
+            CargarClientes();
             CargarEmpresas();
             CargarColumnasItems();
             DeshabilitarSortHeaders();
             tipoAccion.cargarDatosSiCorresponde(this);
             tipoAccion.setearTituloVentana(this);
+        }
+
+        private void CargarClientes()
+        {
+            string query = "SELECT id_cliente, mail from GAME_OF_CODE.Cliente";
+
+            SqlCommand cmd = new SqlCommand(query, ConnectionManager.Instance.getConnection());
+
+            SqlDataAdapter data_adapter = new SqlDataAdapter(cmd);
+            DataTable clientes = new DataTable();
+            data_adapter.Fill(clientes);
+
+            clienteComboBox.ValueMember = "id_cliente";
+            clienteComboBox.DisplayMember = "mail";
+            clienteComboBox.DataSource = clientes;
+            clienteComboBox.SelectedIndex = 0;
         }
 
         private void CargarEmpresas()

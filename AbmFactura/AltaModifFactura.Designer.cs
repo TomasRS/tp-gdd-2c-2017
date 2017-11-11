@@ -39,7 +39,6 @@
             this.empresaComboBox = new System.Windows.Forms.ComboBox();
             this.fechaAltaFactDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.nroFacturaTextBox = new System.Windows.Forms.TextBox();
-            this.clienteTextBox = new System.Windows.Forms.TextBox();
             this.fechaAltaFactLabel = new System.Windows.Forms.Label();
             this.numeroFacturaLabel = new System.Windows.Forms.Label();
             this.empresaLabel = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@
             this.borrarSeleccionadosButton = new System.Windows.Forms.Button();
             this.agregarItemButton = new System.Windows.Forms.Button();
             this.itemsDataGridView = new System.Windows.Forms.DataGridView();
+            this.clienteComboBox = new System.Windows.Forms.ComboBox();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.itemsDataGridView)).BeginInit();
@@ -95,12 +95,12 @@
             // 
             // datosPersonalesGroupBox
             // 
+            this.datosPersonalesGroupBox.Controls.Add(this.clienteComboBox);
             this.datosPersonalesGroupBox.Controls.Add(this.fechaVencDateTimePicker);
             this.datosPersonalesGroupBox.Controls.Add(this.fechaVencLabel);
             this.datosPersonalesGroupBox.Controls.Add(this.empresaComboBox);
             this.datosPersonalesGroupBox.Controls.Add(this.fechaAltaFactDateTimePicker);
             this.datosPersonalesGroupBox.Controls.Add(this.nroFacturaTextBox);
-            this.datosPersonalesGroupBox.Controls.Add(this.clienteTextBox);
             this.datosPersonalesGroupBox.Controls.Add(this.fechaAltaFactLabel);
             this.datosPersonalesGroupBox.Controls.Add(this.numeroFacturaLabel);
             this.datosPersonalesGroupBox.Controls.Add(this.empresaLabel);
@@ -151,13 +151,6 @@
             this.nroFacturaTextBox.Name = "nroFacturaTextBox";
             this.nroFacturaTextBox.Size = new System.Drawing.Size(217, 20);
             this.nroFacturaTextBox.TabIndex = 3;
-            // 
-            // clienteTextBox
-            // 
-            this.clienteTextBox.Location = new System.Drawing.Point(158, 27);
-            this.clienteTextBox.Name = "clienteTextBox";
-            this.clienteTextBox.Size = new System.Drawing.Size(217, 20);
-            this.clienteTextBox.TabIndex = 1;
             // 
             // fechaAltaFactLabel
             // 
@@ -238,6 +231,15 @@
             this.itemsDataGridView.Size = new System.Drawing.Size(373, 134);
             this.itemsDataGridView.TabIndex = 0;
             // 
+            // clienteComboBox
+            // 
+            this.clienteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clienteComboBox.FormattingEnabled = true;
+            this.clienteComboBox.Location = new System.Drawing.Point(158, 24);
+            this.clienteComboBox.Name = "clienteComboBox";
+            this.clienteComboBox.Size = new System.Drawing.Size(217, 21);
+            this.clienteComboBox.TabIndex = 11;
+            // 
             // AltaModifFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,7 +277,6 @@
         private System.Windows.Forms.ComboBox empresaComboBox;
         private System.Windows.Forms.DateTimePicker fechaAltaFactDateTimePicker;
         private System.Windows.Forms.TextBox nroFacturaTextBox;
-        private System.Windows.Forms.TextBox clienteTextBox;
         private System.Windows.Forms.Label fechaAltaFactLabel;
         private System.Windows.Forms.Label numeroFacturaLabel;
         private System.Windows.Forms.Label empresaLabel;
@@ -284,5 +285,6 @@
         private System.Windows.Forms.DataGridView itemsDataGridView;
         private System.Windows.Forms.Button borrarSeleccionadosButton;
         private System.Windows.Forms.Button agregarItemButton;
+        private System.Windows.Forms.ComboBox clienteComboBox;
     }
 }
