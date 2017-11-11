@@ -17,5 +17,6 @@ namespace PagoAgilFrba.Modelo
         void setearTituloVentana(AbstractForm form);
         void agregarItem(AltaModifFactura form);
         void borrarSeleccionados(AltaModifFactura form);
+        int calcularMontoTotalFactura(AltaModifFactura form);
     }
 }

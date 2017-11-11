@@ -233,7 +233,6 @@ namespace PagoAgilFrba.AbmFactura
             clienteComboBox.DataSource = clientes;
             clienteComboBox.SelectedIndex = 0;
         }
-
         private void CargarEmpresas()
         {
             string query = "SELECT id_empresa, nombre from GAME_OF_CODE.Empresa";
@@ -267,6 +266,7 @@ namespace PagoAgilFrba.AbmFactura
             tipoAccion.accion(this);
         }
 
+
         private List<ItemFactura> armarListaItemsFactura()
         {
             List<ItemFactura> items = new List<ItemFactura>();
@@ -293,13 +293,28 @@ namespace PagoAgilFrba.AbmFactura
         {
             return row[0].ToString() != "" && row[1].ToString() != "" && row[2].ToString() != "";
         }
-
         private Boolean camposDeItemLlenos(DataGridViewRow row)
         {
             return row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null;
         }
 
+        //Calcular monto total
         private int calcularMontoTotal()
+        {
+            return tipoAccion.calcularMontoTotalFactura(this);
+
+        }
+        public int calcularMontoTotalEnCreacion()
+        {
+            int montoFinal = 0;
+            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            {
+                //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
+                montoFinal += Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+            }
+            return montoFinal;
+        }
+        public int calcularMontoTotalEnModificacion()
         {
             int montoFinal = 0;
             for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
@@ -309,7 +324,6 @@ namespace PagoAgilFrba.AbmFactura
             }
             return montoFinal;
         }
-
 
         //Agregar y borrar items
         public void agregarItemEnCreacion()
