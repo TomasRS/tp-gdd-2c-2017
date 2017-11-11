@@ -546,6 +546,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarSucursal(Sucursal sucursal, int idSucursal)
         {
+            if (existeSucursalConCodPostal(sucursal.getCodPostal()))
+                throw new CodigoPostalYaExisteException();
+
             return this.Modificar(idSucursal, sucursal);
         }
 
