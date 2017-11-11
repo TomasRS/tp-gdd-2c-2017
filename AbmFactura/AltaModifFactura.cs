@@ -182,12 +182,12 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void Modificar()
         {
-            idFactura = mapper.ModificarFactura(factura, idFactura);
-            if (idFactura > 0)
+            int todoBien = mapper.ModificarFactura(factura, idFactura);
+            if (todoBien > 0)
             {
                 itemsFactura.ForEach(unItemFactura => editar(unItemFactura));
                 itemsEliminados.ForEach(unEliminado => eliminar(unEliminado));
-                indicesDeAgregados.ForEach(unIndice => agregarItemFacturaDeIndice(unIndice));
+                agregarItemsParaIndicesAgregados();
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
                 this.Close();
             }
@@ -201,18 +201,25 @@ namespace PagoAgilFrba.AbmFactura
         {
             mapper.EliminarDetalleFactura(itemFactura.getIDItem());
         }
-        private void agregarItemFacturaDeIndice(int indice)
+        private void agregarItemsParaIndicesAgregados()
         {
-            String descripcionItem = itemsDataTable.Rows[indice][0].ToString();
-            String cantidad = itemsDataTable.Rows[indice][1].ToString();
-            String importe = itemsDataTable.Rows[indice][2].ToString();
+            for (int i = 0; i <= itemsDataTable.Rows.Count - 1; i++)
+            {
+                //Chequeo que sea un item creado (id_detalle_factura seria "")
+                if (itemsDataTable.Rows[i][3].ToString() == "")
+                {
+                    String descripcionItem = itemsDataTable.Rows[i][0].ToString();
+                    String cantidad = itemsDataTable.Rows[i][1].ToString();
+                    String importe = itemsDataTable.Rows[i][2].ToString();
 
-            ItemFactura itemNuevo = new ItemFactura();
-            itemNuevo.setDescripcion(descripcionItem);
-            itemNuevo.setCantidad(cantidad);
-            itemNuevo.setImporte(importe);
+                    ItemFactura itemNuevo = new ItemFactura();
+                    itemNuevo.setDescripcion(descripcionItem);
+                    itemNuevo.setCantidad(cantidad);
+                    itemNuevo.setImporte(importe);
 
-            crearItemFactura(itemNuevo);
+                    crearItemFactura(itemNuevo);
+                }
+            }
         }
 
         //--------------------Extras-------------------------------------
@@ -377,7 +384,7 @@ namespace PagoAgilFrba.AbmFactura
         public int calcularMontoTotalEnCreacion()
         {
             int montoFinal = 0;
-            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            for (int i = 0; i <= itemsDataGridView.Rows.Count - 1; i++)
             {
                 //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
                 montoFinal += Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
@@ -387,7 +394,7 @@ namespace PagoAgilFrba.AbmFactura
         public int calcularMontoTotalEnModificacion()
         {
             int montoFinal = 0;
-            for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
+            for (int i = 0; i <= itemsDataTable.Rows.Count - 1; i++)
             {
                 //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
                 montoFinal += Util.getNumeroFromString(itemsDataTable.Rows[i][2].ToString());
@@ -459,6 +466,7 @@ namespace PagoAgilFrba.AbmFactura
             foreach (DataGridViewRow row in itemsDataGridView.SelectedRows)
             {
                 int indexRow = row.Index;
+
 
                 //Si el que se elimina es en realidad un agregado en UI no se hace DELETE porque nunca se agregó a la base
                 if (indicesDeAgregados.Contains(indexRow))
