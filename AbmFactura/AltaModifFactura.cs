@@ -141,8 +141,8 @@ namespace PagoAgilFrba.AbmFactura
         {
             Factura factura = mapper.ObtenerFactura(idFactura);
 
-            clienteComboBox.SelectedText = mapper.getMailCliente(factura.getIDCliente());
-            empresaComboBox.SelectedText = mapper.getNombreEmpresa(factura.getIDEmpresa());
+            clienteComboBox.Text = mapper.getMailCliente(factura.getIDCliente());
+            empresaComboBox.Text = mapper.getNombreEmpresa(factura.getIDEmpresa());
             nroFacturaTextBox.Text = factura.getNumFactura();
             fechaAltaFactDateTimePicker.Text = factura.getFechaAlta().ToString();
             fechaVencDateTimePicker.Text = factura.getFechaVenc().ToString();
