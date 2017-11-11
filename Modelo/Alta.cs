@@ -1,4 +1,5 @@
 ﻿using PagoAgilFrba.AbmCliente;
+using PagoAgilFrba.AbmFactura;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,16 @@ namespace PagoAgilFrba.Modelo
         public void setearTituloVentana(AbstractForm form)
         {
             form.setearTituloCreacion();
+        }
+
+        public void agregarItem(AltaModifFactura form)
+        {
+            form.agregarItemEnCreacion();
+        }
+
+        public void borrarSeleccionados(AltaModifFactura form)
+        {
+            form.borrarItemsEnCreacion();
         }
     }
 }

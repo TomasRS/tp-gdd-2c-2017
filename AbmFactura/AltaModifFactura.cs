@@ -294,6 +294,11 @@ namespace PagoAgilFrba.AbmFactura
             return row[0].ToString() != "" && row[1].ToString() != "" && row[2].ToString() != "";
         }
 
+        private Boolean camposDeItemLlenos(DataGridViewRow row)
+        {
+            return row.Cells[0].Value != null && row.Cells[1].Value != null && row.Cells[2].Value != null;
+        }
+
         private int calcularMontoTotal()
         {
             int montoFinal = 0;
@@ -305,7 +310,40 @@ namespace PagoAgilFrba.AbmFactura
             return montoFinal;
         }
 
-        private void agregarItemButton_Click(object sender, EventArgs e)
+
+        //Agregar y borrar items
+        public void agregarItemEnCreacion()
+        {
+            if (itemsDataGridView.Rows.Count.Equals(0))
+            {
+                itemsDataGridView.Rows.Add();
+                return;
+            }
+            int indexUltimaRow = itemsDataGridView.Rows.Count - 1;
+            if (!camposDeItemLlenos(itemsDataGridView.Rows[indexUltimaRow]))
+            {
+                Util.ShowMessage("Primero complete todos los datos del último item de la lista.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+                itemsDataGridView.Rows.Add();
+        }
+        public void borrarItemsEnCreacion()
+        {
+            if (itemsDataGridView.SelectedRows.Count.Equals(0) && itemsDataGridView.Rows.Count >= 1)
+            {
+                Util.ShowMessage("Debe seleccionar al menos una fila para borrar.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            foreach (DataGridViewRow row in itemsDataGridView.SelectedRows)
+            {
+                int indexRow = row.Index;
+                itemsDataGridView.Rows.RemoveAt(indexRow);
+            }
+        }
+
+        public void agregarItemEnModificacion()
         {
             if (itemsDataTable.Rows.Count.Equals(0))
             {
@@ -314,7 +352,7 @@ namespace PagoAgilFrba.AbmFactura
                 return;
             }
 
-            int indexUltimaRow = itemsDataTable.Rows.Count-1;
+            int indexUltimaRow = itemsDataTable.Rows.Count - 1;
             if (!camposDeItemLlenos(itemsDataTable.Rows[indexUltimaRow]))
             {
                 Util.ShowMessage("Primero complete todos los datos del último item de la lista.", MessageBoxIcon.Exclamation);
@@ -326,15 +364,29 @@ namespace PagoAgilFrba.AbmFactura
                 //agregar a la lista de agregados
             }
         }
-
-        private void borrarSeleccionadosButton_Click(object sender, EventArgs e)
+        public void borrarItemsEnModificacion()
         {
+            if (itemsDataGridView.SelectedRows.Count.Equals(0) && itemsDataGridView.Rows.Count >= 1)
+            {
+                Util.ShowMessage("Debe seleccionar al menos una fila para borrar.", MessageBoxIcon.Exclamation);
+                return;
+            }
+
             foreach (DataGridViewRow row in itemsDataGridView.SelectedRows)
             {
                 int indexRow = row.Index;
                 itemsDataTable.Rows.RemoveAt(indexRow);
                 //Agregar a la lista de eliminados
             }
+        }
+
+        private void agregarItemButton_Click(object sender, EventArgs e)
+        {
+            tipoAccion.agregarItem(this);
+        }
+        private void borrarSeleccionadosButton_Click(object sender, EventArgs e)
+        {
+            tipoAccion.borrarSeleccionados(this);
         }
     }
 }

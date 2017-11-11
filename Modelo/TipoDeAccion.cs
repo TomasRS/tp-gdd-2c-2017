@@ -1,4 +1,5 @@
 ﻿using PagoAgilFrba.AbmCliente;
+using PagoAgilFrba.AbmFactura;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace PagoAgilFrba.Modelo
         void cargarDatosSiCorresponde(AbstractForm form);
         void trigger(AbstractForm form);
         void setearTituloVentana(AbstractForm form);
+        void agregarItem(AltaModifFactura form);
+        void borrarSeleccionados(AltaModifFactura form);
     }
 }
