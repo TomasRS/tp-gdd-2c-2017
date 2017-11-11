@@ -665,6 +665,15 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
+        public int EliminarDetalleFactura(String idDetalleFactura)
+        {
+            query = "DELETE GAME_OF_CODE.Detalle_Factura WHERE id_detalle_factura = @id_detalle_factura";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_detalle_factura", idDetalleFactura));
+            int rowsAffected = (int)QueryBuilder.Instance.build(query, parametros).ExecuteNonQuery();
+            return rowsAffected;  
+        }
+
         //* Pago de facturas *//
         public int CrearPagoFactura(PagoFactura pagoFactura)
         {

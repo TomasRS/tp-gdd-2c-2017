@@ -25,8 +25,8 @@ namespace PagoAgilFrba.AbmFactura
         private Factura factura;
         private DataTable itemsDataTable;
         private List<ItemFactura> itemsFactura;
-        private List<ItemFactura> itemsEliminados;
-        private List<int> indicesDeAgregados;
+        private List<ItemFactura> itemsEliminados = new List<ItemFactura>();
+        private List<int> indicesDeAgregados = new List<int>();
 
         public AltaModifFactura(TipoDeAccion tipoAccion)
         {
@@ -174,7 +174,6 @@ namespace PagoAgilFrba.AbmFactura
                 limpiarButton_Click(this, null);
             }   
         }
-
         public void crearItemFactura(ItemFactura item)
         {
             item.setIDFactura(idFactura);
@@ -198,15 +197,22 @@ namespace PagoAgilFrba.AbmFactura
         {
             mapper.Modificar(Util.getNumeroFromString(itemFactura.getIDItem()), itemFactura);
         }
-
         private void eliminar(ItemFactura itemFactura)
         {
-            
+            mapper.EliminarDetalleFactura(itemFactura.getIDItem());
         }
-
         private void agregarItemFacturaDeIndice(int indice)
         {
-            //
+            String descripcionItem = itemsDataTable.Rows[indice][0].ToString();
+            String cantidad = itemsDataTable.Rows[indice][1].ToString();
+            String importe = itemsDataTable.Rows[indice][2].ToString();
+
+            ItemFactura itemNuevo = new ItemFactura();
+            itemNuevo.setDescripcion(descripcionItem);
+            itemNuevo.setCantidad(cantidad);
+            itemNuevo.setImporte(importe);
+
+            crearItemFactura(itemNuevo);
         }
 
         //--------------------Extras-------------------------------------
@@ -282,22 +288,22 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            if (itemsDataGridView.Rows.Count.Equals(1))
-            {
-                if (camposDeItemLlenos(itemsDataGridView.Rows[0]))
-                {
-                    ItemFactura item = new ItemFactura();
-                    item.setDescripcion(itemsDataGridView.Rows[0].Cells[0].Value.ToString());
-                    item.setCantidad(itemsDataGridView.Rows[0].Cells[1].Value.ToString());
-                    item.setImporte(itemsDataGridView.Rows[0].Cells[2].Value.ToString());
-                    item.setIDFactura(idFactura);
-                    items.Add(item);
-                }
-                else
-                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
-            }
+            //if (itemsDataGridView.Rows.Count.Equals(1))
+            //{
+            //    if (camposDeItemLlenos(itemsDataGridView.Rows[0]))
+            //    {
+            //        ItemFactura item = new ItemFactura();
+            //        item.setDescripcion(itemsDataGridView.Rows[0].Cells[0].Value.ToString());
+            //        item.setCantidad(itemsDataGridView.Rows[0].Cells[1].Value.ToString());
+            //        item.setImporte(itemsDataGridView.Rows[0].Cells[2].Value.ToString());
+            //        item.setIDFactura(idFactura);
+            //        items.Add(item);
+            //    }
+            //    else
+            //        throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            //}
 
-            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            for (int i = 0; i <= itemsDataGridView.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
                 {
@@ -318,23 +324,23 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            if (itemsDataTable.Rows.Count.Equals(1))
-            {
-                if (camposDeItemLlenos(itemsDataTable.Rows[0]))
-                {
-                    ItemFactura item = new ItemFactura();
-                    item.setDescripcion(itemsDataTable.Rows[0][0].ToString());
-                    item.setCantidad(itemsDataTable.Rows[0][1].ToString());
-                    item.setImporte(itemsDataTable.Rows[0][2].ToString());
-                    item.setIDItem(itemsDataTable.Rows[0][3].ToString());
-                    item.setIDFactura(idFactura);
-                    items.Add(item);
-                }
-                else
-                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
-            }
+            //if (itemsDataTable.Rows.Count.Equals(1))
+            //{
+            //    if (camposDeItemLlenos(itemsDataTable.Rows[0]))
+            //    {
+            //        ItemFactura item = new ItemFactura();
+            //        item.setDescripcion(itemsDataTable.Rows[0][0].ToString());
+            //        item.setCantidad(itemsDataTable.Rows[0][1].ToString());
+            //        item.setImporte(itemsDataTable.Rows[0][2].ToString());
+            //        item.setIDItem(itemsDataTable.Rows[0][3].ToString());
+            //        item.setIDFactura(idFactura);
+            //        items.Add(item);
+            //    }
+            //    else
+            //        throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            //}
 
-            for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
+            for (int i = 0; i <= itemsDataTable.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataTable.Rows[i]))
                 {
@@ -453,7 +459,6 @@ namespace PagoAgilFrba.AbmFactura
             foreach (DataGridViewRow row in itemsDataGridView.SelectedRows)
             {
                 int indexRow = row.Index;
-                itemsDataTable.Rows.RemoveAt(indexRow);
 
                 //Si el que se elimina es en realidad un agregado en UI no se hace DELETE porque nunca se agregó a la base
                 if (indicesDeAgregados.Contains(indexRow))
@@ -466,6 +471,8 @@ namespace PagoAgilFrba.AbmFactura
                     itemsEliminados.Add(itemABorrar);
                     itemsFactura.RemoveAll(unItem => unItem.getIDItem().Equals(idDetalleFactura));
                 }
+
+                itemsDataTable.Rows.RemoveAt(indexRow);
             }
         }
 
