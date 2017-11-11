@@ -18,5 +18,6 @@ namespace PagoAgilFrba.Modelo
         void agregarItem(AltaModifFactura form);
         void borrarSeleccionados(AltaModifFactura form);
         int calcularMontoTotalFactura(AltaModifFactura form);
+        List<ItemFactura> armarListaDeItems(AltaModifFactura form);
     }
 }

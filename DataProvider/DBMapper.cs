@@ -313,7 +313,7 @@ namespace PagoAgilFrba.DataProvider
 
         public DataTable SelectItemsFactura(int idFactura)
         {
-            return this.SelectDataTable("I.item_factura 'Item factura', I.cantidad 'Cantidad', I.item_monto 'Importe'"
+            return this.SelectDataTable("I.item_factura 'Item factura', I.cantidad 'Cantidad', I.item_monto 'Importe', I.id_detalle_factura"
                 , "GAME_OF_CODE.Detalle_Factura I"
                 , "I.id_factura = " + idFactura);
         }

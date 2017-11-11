@@ -45,5 +45,10 @@ namespace PagoAgilFrba.Modelo
         {
             return form.calcularMontoTotalEnCreacion();
         }
+
+        public List<ItemFactura> armarListaDeItems(AltaModifFactura form)
+        {
+            return form.armarListaItemsFacturaEnCreacion();
+        }
     }
 }

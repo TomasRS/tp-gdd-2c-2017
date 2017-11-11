@@ -76,6 +76,10 @@ namespace PagoAgilFrba.AbmFactura
             limpiarButton.Visible = false;
             volverButton.Visible = false;
         }
+        private void OcultarColumnasQueNoDebenVerse()
+        {
+            itemsDataGridView.Columns[3].Visible = false;
+        }
 
         public override void guardarInformacion()
         {
@@ -96,7 +100,6 @@ namespace PagoAgilFrba.AbmFactura
             #region
             try
             {
-                
                 factura = new Factura();
                 factura.setIDCliente(mapper.getIDCliente(mailCliente));
                 factura.setIDEmpresa((int)empresaComboBox.SelectedValue);
@@ -104,7 +107,6 @@ namespace PagoAgilFrba.AbmFactura
                 factura.setMontoTotal(calcularMontoTotal());
                 factura.setFechaAltaFactura(fechaAlta);
                 factura.setFechaVencimientoFactura(fechaVenc);
-
 
                 if (itemsFactura.Count.Equals(0))
                 {
@@ -148,8 +150,8 @@ namespace PagoAgilFrba.AbmFactura
             fechaVencDateTimePicker.Text = factura.getFechaVenc().ToString();
 
             popularItems();
+            OcultarColumnasQueNoDebenVerse();
         }
-
         private void popularItems()
         {
             itemsDataTable = mapper.SelectItemsFactura(idFactura);
@@ -158,6 +160,7 @@ namespace PagoAgilFrba.AbmFactura
             itemsDataGridView.DataSource = itemsDataTable;
         }
 
+        //Metodos Crear, Modificar, Eliminar
         public override void Crear()
         {
             idFactura = mapper.CrearFactura(factura);
@@ -214,6 +217,7 @@ namespace PagoAgilFrba.AbmFactura
             CargarEmpresas();
             CargarColumnasItems();
             DeshabilitarSortHeaders();
+
             tipoAccion.cargarDatosSiCorresponde(this);
             tipoAccion.setearTituloVentana(this);
         }
@@ -267,7 +271,34 @@ namespace PagoAgilFrba.AbmFactura
         }
 
 
+        //Armado de lista de items
         private List<ItemFactura> armarListaItemsFactura()
+        {
+            return tipoAccion.armarListaDeItems(this);
+        }
+
+        public List<ItemFactura> armarListaItemsFacturaEnCreacion()
+        {
+            List<ItemFactura> items = new List<ItemFactura>();
+
+            for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
+            {
+                if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
+                {
+                    ItemFactura item = new ItemFactura();
+                    item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
+                    item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
+                    item.setImporte(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                    item.setIDFactura(idFactura);
+                    items.Add(item);
+                }
+                else
+                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            }
+
+            return items;
+        }
+        public List<ItemFactura> armarListaItemsFacturaEnModificacion()
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
@@ -362,7 +393,7 @@ namespace PagoAgilFrba.AbmFactura
             if (itemsDataTable.Rows.Count.Equals(0))
             {
                 itemsDataTable.Rows.Add();
-                //Agregar a la lista de agregados
+                indicesDeAgregados.Add(itemsDataTable.Rows.Count - 1);
                 return;
             }
 
@@ -375,7 +406,7 @@ namespace PagoAgilFrba.AbmFactura
             else
             {
                 itemsDataTable.Rows.Add();
-                //agregar a la lista de agregados
+                indicesDeAgregados.Add(itemsDataTable.Rows.Count - 1);
             }
         }
         public void borrarItemsEnModificacion()
@@ -390,7 +421,14 @@ namespace PagoAgilFrba.AbmFactura
             {
                 int indexRow = row.Index;
                 itemsDataTable.Rows.RemoveAt(indexRow);
-                //Agregar a la lista de eliminados
+
+                //Si el que se elimina es en realidad un agregado en UI no se hace DELETE porque nunca se agregó a la base
+                if (indicesDeAgregados.Contains(indexRow))
+                    indicesDeAgregados.Remove(indexRow);
+                else
+                {
+                    //Lo saco de la lista de modificados porque se va a borrar, no a modificar y lo agrego en lista de eliminados
+                }
             }
         }
 
