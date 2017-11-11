@@ -417,6 +417,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarCliente(Cliente cliente, int idCliente)
         {
+            if (existeCliente(cliente.getMail()))
+                throw new ClienteYaExisteException();
+
             return this.Modificar(idCliente,cliente);
         }
 
@@ -468,6 +471,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarEmpresa(Empresa empresa, int idEmpresa)
         {
+            if (existeEmpresaConCuit(empresa.getCuit()))
+                throw new CuitYaExisteException();
+
             return this.Modificar(idEmpresa, empresa);
         }
 
