@@ -96,7 +96,7 @@ namespace PagoAgilFrba.AbmFactura
             #region
             try
             {
-                itemsFactura = armarListaItemsFactura();
+                
                 factura = new Factura();
                 factura.setIDCliente(mapper.getIDCliente(mailCliente));
                 factura.setIDEmpresa((int)empresaComboBox.SelectedValue);
@@ -104,7 +104,7 @@ namespace PagoAgilFrba.AbmFactura
                 factura.setMontoTotal(calcularMontoTotal());
                 factura.setFechaAltaFactura(fechaAlta);
                 factura.setFechaVencimientoFactura(fechaVenc);
-                factura.setItemsFactura(itemsFactura);
+
 
                 if (itemsFactura.Count.Equals(0))
                 {
@@ -163,6 +163,8 @@ namespace PagoAgilFrba.AbmFactura
             idFactura = mapper.CrearFactura(factura);
             if (idFactura > 0)
             {
+                itemsFactura = armarListaItemsFactura();
+                factura.setItemsFactura(itemsFactura);
                 itemsFactura.ForEach(unItemFactura => crearItemFactura(unItemFactura));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
                 limpiarButton_Click(this, null);
@@ -190,17 +192,17 @@ namespace PagoAgilFrba.AbmFactura
 
         private void editar(ItemFactura itemFactura)
         {
-            mapper.Modificar(itemFactura.getIDItem(), itemFactura);
+            //mapper.Modificar(itemFactura.getIDItem(), itemFactura);
         }
 
         private void eliminar(ItemFactura itemFactura)
         {
-            
+            //
         }
 
         private void agregarItemFacturaDeIndice(int indice)
         {
-            
+            //
         }
 
         //--------------------Extras-------------------------------------
