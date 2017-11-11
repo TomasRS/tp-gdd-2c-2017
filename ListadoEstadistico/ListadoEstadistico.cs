@@ -129,24 +129,44 @@ namespace PagoAgilFrba.ListadoEstadistico
         private void mostrarPorcentajeFacturasCobradasPorEmpresa(String fechaInicio, String fechaFin)
         {
             DataTable DT = mapper.SelectPorcentajeFacturasCobradasPorEmpresa(fechaInicio, fechaFin);
+            if (DT.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("No se registró ninguna empresa que haya realizado algún cobro en el período seleccionado.", MessageBoxIcon.Exclamation);
+                return;
+            }
             estadisticasDataGridView.DataSource = DT;
         }
 
         private void mostrarEmpresasConMayorMontoRendido(String fechaInicio, String fechaFin)
         {
             DataTable DT = mapper.SelectEmpresasConMayorMontoRendido(fechaInicio, fechaFin);
+            if (DT.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("No se realizó ninguna rendición en el período seleccionado.", MessageBoxIcon.Exclamation);
+                return;
+            }
             estadisticasDataGridView.DataSource = DT;
         }
 
         private void mostrarClientesConMasPagos(String fechaInicio, String fechaFin)
         {
             DataTable DT = mapper.SelectClientesConMasPagos(fechaInicio, fechaFin);
+            if (DT.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("No se registró el pago de ningún cliente en el período seleccionado.", MessageBoxIcon.Exclamation);
+                return;
+            }
             estadisticasDataGridView.DataSource = DT;
         }
 
         private void mostrarClientesConMayorPorcentajeDeFacturasPagas(String fechaInicio, String fechaFin)
         {
             DataTable DT = mapper.SelectClientesConMayorPorcentajeDeFacturasPagadas(fechaInicio, fechaFin);
+            if (DT.Rows.Count.Equals(0))
+            {
+                Util.ShowMessage("No se registró el pago de ningún cliente en el período seleccionado.", MessageBoxIcon.Exclamation);
+                return;
+            }
             estadisticasDataGridView.DataSource = DT;
         }
 
