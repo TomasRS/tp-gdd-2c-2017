@@ -107,6 +107,7 @@ namespace PagoAgilFrba.AbmFactura
                 factura.setMontoTotal(calcularMontoTotal());
                 factura.setFechaAltaFactura(fechaAlta);
                 factura.setFechaVencimientoFactura(fechaVenc);
+                itemsFactura = armarListaItemsFactura();
 
                 if (itemsFactura.Count.Equals(0))
                 {
@@ -141,7 +142,7 @@ namespace PagoAgilFrba.AbmFactura
 
         public override void CargarDatos()
         {
-            Factura factura = mapper.ObtenerFactura(idFactura);
+            factura = mapper.ObtenerFactura(idFactura);
 
             clienteComboBox.Text = mapper.getMailCliente(factura.getIDCliente());
             empresaComboBox.Text = mapper.getNombreEmpresa(factura.getIDEmpresa());
@@ -150,6 +151,7 @@ namespace PagoAgilFrba.AbmFactura
             fechaVencDateTimePicker.Text = factura.getFechaVenc().ToString();
 
             popularItems();
+            itemsFactura = armarListaItemsFactura();
             OcultarColumnasQueNoDebenVerse();
         }
         private void popularItems()
@@ -166,7 +168,6 @@ namespace PagoAgilFrba.AbmFactura
             idFactura = mapper.CrearFactura(factura);
             if (idFactura > 0)
             {
-                itemsFactura = armarListaItemsFactura();
                 factura.setItemsFactura(itemsFactura);
                 itemsFactura.ForEach(unItemFactura => crearItemFactura(unItemFactura));
                 Util.ShowMessage("Factura guardada correctamente.", MessageBoxIcon.Information);
@@ -195,12 +196,12 @@ namespace PagoAgilFrba.AbmFactura
 
         private void editar(ItemFactura itemFactura)
         {
-            //mapper.Modificar(itemFactura.getIDItem(), itemFactura);
+            mapper.Modificar(Util.getNumeroFromString(itemFactura.getIDItem()), itemFactura);
         }
 
         private void eliminar(ItemFactura itemFactura)
         {
-            //
+            
         }
 
         private void agregarItemFacturaDeIndice(int indice)
@@ -271,7 +272,7 @@ namespace PagoAgilFrba.AbmFactura
         }
 
 
-        //Armado de lista de items
+        //Armado de lista de items (en creacion es para guardarlos todos en la base, en modificacion es para tener una lista de items con los que me traigo de la base antes de empezar a tocar las listas)
         private List<ItemFactura> armarListaItemsFactura()
         {
             return tipoAccion.armarListaDeItems(this);
@@ -280,6 +281,21 @@ namespace PagoAgilFrba.AbmFactura
         public List<ItemFactura> armarListaItemsFacturaEnCreacion()
         {
             List<ItemFactura> items = new List<ItemFactura>();
+
+            if (itemsDataGridView.Rows.Count.Equals(1))
+            {
+                if (camposDeItemLlenos(itemsDataGridView.Rows[0]))
+                {
+                    ItemFactura item = new ItemFactura();
+                    item.setDescripcion(itemsDataGridView.Rows[0].Cells[0].Value.ToString());
+                    item.setCantidad(itemsDataGridView.Rows[0].Cells[1].Value.ToString());
+                    item.setImporte(itemsDataGridView.Rows[0].Cells[2].Value.ToString());
+                    item.setIDFactura(idFactura);
+                    items.Add(item);
+                }
+                else
+                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            }
 
             for (int i = 0; i < itemsDataGridView.Rows.Count - 1; i++)
             {
@@ -302,6 +318,22 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
+            if (itemsDataTable.Rows.Count.Equals(1))
+            {
+                if (camposDeItemLlenos(itemsDataTable.Rows[0]))
+                {
+                    ItemFactura item = new ItemFactura();
+                    item.setDescripcion(itemsDataTable.Rows[0][0].ToString());
+                    item.setCantidad(itemsDataTable.Rows[0][1].ToString());
+                    item.setImporte(itemsDataTable.Rows[0][2].ToString());
+                    item.setIDItem(itemsDataTable.Rows[0][3].ToString());
+                    item.setIDFactura(idFactura);
+                    items.Add(item);
+                }
+                else
+                    throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
+            }
+
             for (int i = 0; i < itemsDataTable.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataTable.Rows[i]))
@@ -310,6 +342,7 @@ namespace PagoAgilFrba.AbmFactura
                     item.setDescripcion(itemsDataTable.Rows[i][0].ToString());
                     item.setCantidad(itemsDataTable.Rows[i][1].ToString());
                     item.setImporte(itemsDataTable.Rows[i][2].ToString());
+                    item.setIDItem(itemsDataTable.Rows[i][3].ToString());
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
@@ -427,7 +460,11 @@ namespace PagoAgilFrba.AbmFactura
                     indicesDeAgregados.Remove(indexRow);
                 else
                 {
-                    //Lo saco de la lista de modificados porque se va a borrar, no a modificar y lo agrego en lista de eliminados
+                    //lo agrego en lista de eliminados y lo saco de la lista de modificados porque se va a borrar 
+                    String idDetalleFactura = itemsDataTable.Rows[indexRow][3].ToString();
+                    ItemFactura itemABorrar = itemsFactura.Find(unItem => unItem.getIDItem().Equals(idDetalleFactura));
+                    itemsEliminados.Add(itemABorrar);
+                    itemsFactura.RemoveAll(unItem => unItem.getIDItem().Equals(idDetalleFactura));
                 }
             }
         }
