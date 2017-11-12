@@ -301,7 +301,7 @@ namespace PagoAgilFrba.AbmFactura
                     ItemFactura item = new ItemFactura();
                     item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
                     item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
-                    item.setImporte((Double)itemsDataGridView.Rows[i].Cells[2].Value);
+                    item.setImporte(Util.getNumeroDoubleFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString()));
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
