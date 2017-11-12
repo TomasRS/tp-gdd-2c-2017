@@ -760,7 +760,7 @@ INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
 
 SET IDENTITY_INSERT GAME_OF_CODE.Rendicion ON;
 INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, total_rendicion, porcentaje_comision,importe_comision, cant_facturas_rendidas)
-	SELECT Rendicion_Nro, Rendicion_Fecha, Total, 10, ItemRendicion_Importe, 1
+	SELECT Rendicion_Nro, Rendicion_Fecha, SUM(ItemFactura_Monto), 10, ItemRendicion_Importe, 1
 	FROM gd_esquema.Maestra
 	WHERE Rendicion_Nro IS NOT NULL
 GROUP BY Rendicion_Nro, Rendicion_Fecha, Total, ItemRendicion_Importe
@@ -782,7 +782,7 @@ INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, porcentaje_co
 
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
 INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas, fecha_cobro, id_sucursal, importe, id_medio_pago)
-	SELECT Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
+	SELECT Pago_nro, Pago_Fecha, S.id_sucursal, SUM(ItemFactura_Monto), MP.id_medio_pago
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Sucursal S, GAME_OF_CODE.Medio_de_Pago MP
 	WHERE Pago_nro IS NOT NULL
 	  AND S.nombre = TM.Sucursal_Nombre 
@@ -792,7 +792,7 @@ GROUP BY Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa, id_pago) 
-	SELECT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto), Factura_Fecha_Vencimiento,
 		   C.id_cliente, E.id_empresa, Pago_nro
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Empresa E
 	WHERE Nro_Factura IS NOT NULL
