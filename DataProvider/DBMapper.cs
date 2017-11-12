@@ -380,11 +380,20 @@ namespace PagoAgilFrba.DataProvider
             return idSucursal;
         }
 
-        public int getIDSucursal(String nombreSucursal)
+        public int getIDSucursalByNombre(String nombreSucursal)
         {
             query = "SELECT id_sucursal FROM GAME_OF_CODE.Sucursal WHERE nombre = @nombre";
             parametros.Clear();
             parametros.Add(new SqlParameter("@nombre", nombreSucursal));
+            int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return idSucursal;
+        }
+
+        public int getIDSucursal(String codigoPostal)
+        {
+            query = "SELECT id_sucursal FROM GAME_OF_CODE.Sucursal WHERE codigo_postal = @codigo_postal";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@codigo_postal", codigoPostal));
             int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return idSucursal;
         }
@@ -487,6 +496,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarEmpresa(Empresa empresa, int idEmpresa)
         {
+            if (existeEmpresaConCuit(empresa.getCuit()) && !getIDEmpresa(empresa.getCuit()).Equals(idEmpresa))
+                throw new CuitYaExisteException();
+
             return this.Modificar(idEmpresa, empresa);
         }
 
@@ -504,6 +516,15 @@ namespace PagoAgilFrba.DataProvider
             parametros.Clear();
             parametros.Add(new SqlParameter("@cuit", cuit));
             return ControlDeUnicidad(query, parametros);
+        }
+
+        private int getIDEmpresa(String cuit)
+        {
+            query = "SELECT id_empresa FROM GAME_OF_CODE.Empresa WHERE emp_cuit = @emp_cuit";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@emp_cuit", cuit));
+            int id = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return id;
         }
 
         public int getIDRubro(String rubroDescripcion)
@@ -559,6 +580,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarSucursal(Sucursal sucursal, int idSucursal)
         {
+            if (existeSucursalConCodPostal(sucursal.getCodPostal()) && !getIDSucursalByNombre(sucursal.getCodPostal()).Equals(idSucursal))
+                throw new CodigoPostalYaExisteException();
+
             return this.Modificar(idSucursal, sucursal);
         }
 

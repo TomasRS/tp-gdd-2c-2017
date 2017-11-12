@@ -59,7 +59,7 @@ namespace PagoAgilFrba.Login
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-            int idSucursal = mapper.getIDSucursal(sucursalComboBox.Text);
+            int idSucursal = mapper.getIDSucursalByNombre(sucursalComboBox.Text);
             UsuarioSesion.Usuario.idSucursal = idSucursal;
 
             parametros.Clear();
