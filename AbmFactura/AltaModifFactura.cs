@@ -147,8 +147,8 @@ namespace PagoAgilFrba.AbmFactura
             clienteComboBox.Text = mapper.getMailCliente(factura.getIDCliente());
             empresaComboBox.Text = mapper.getNombreEmpresa(factura.getIDEmpresa());
             nroFacturaTextBox.Text = factura.getNumFactura();
-            fechaAltaFactDateTimePicker.Text = factura.getFechaAlta().ToString();
-            fechaVencDateTimePicker.Text = factura.getFechaVenc().ToString();
+            fechaAltaFactDateTimePicker.Value = factura.getFechaAlta();
+            fechaVencDateTimePicker.Value = factura.getFechaVenc();
 
             popularItems();
             itemsFactura = armarListaItemsFactura();
@@ -210,7 +210,7 @@ namespace PagoAgilFrba.AbmFactura
                 {
                     String descripcionItem = itemsDataTable.Rows[i][0].ToString();
                     String cantidad = itemsDataTable.Rows[i][1].ToString();
-                    String importe = itemsDataTable.Rows[i][2].ToString();
+                    Double importe = (Double)itemsDataTable.Rows[i][2];
 
                     ItemFactura itemNuevo = new ItemFactura();
                     itemNuevo.setDescripcion(descripcionItem);
@@ -284,7 +284,6 @@ namespace PagoAgilFrba.AbmFactura
             tipoAccion.accion(this);
         }
 
-
         //Armado de lista de items (en creacion es para guardarlos todos en la base, en modificacion es para tener una lista de items con los que me traigo de la base antes de empezar a tocar las listas)
         private List<ItemFactura> armarListaItemsFactura()
         {
@@ -295,21 +294,6 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            //if (itemsDataGridView.Rows.Count.Equals(1))
-            //{
-            //    if (camposDeItemLlenos(itemsDataGridView.Rows[0]))
-            //    {
-            //        ItemFactura item = new ItemFactura();
-            //        item.setDescripcion(itemsDataGridView.Rows[0].Cells[0].Value.ToString());
-            //        item.setCantidad(itemsDataGridView.Rows[0].Cells[1].Value.ToString());
-            //        item.setImporte(itemsDataGridView.Rows[0].Cells[2].Value.ToString());
-            //        item.setIDFactura(idFactura);
-            //        items.Add(item);
-            //    }
-            //    else
-            //        throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
-            //}
-
             for (int i = 0; i <= itemsDataGridView.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataGridView.Rows[i]))
@@ -317,7 +301,7 @@ namespace PagoAgilFrba.AbmFactura
                     ItemFactura item = new ItemFactura();
                     item.setDescripcion(itemsDataGridView.Rows[i].Cells[0].Value.ToString());
                     item.setCantidad(itemsDataGridView.Rows[i].Cells[1].Value.ToString());
-                    item.setImporte(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                    item.setImporte((Double)itemsDataGridView.Rows[i].Cells[2].Value);
                     item.setIDFactura(idFactura);
                     items.Add(item);
                 }
@@ -331,22 +315,6 @@ namespace PagoAgilFrba.AbmFactura
         {
             List<ItemFactura> items = new List<ItemFactura>();
 
-            //if (itemsDataTable.Rows.Count.Equals(1))
-            //{
-            //    if (camposDeItemLlenos(itemsDataTable.Rows[0]))
-            //    {
-            //        ItemFactura item = new ItemFactura();
-            //        item.setDescripcion(itemsDataTable.Rows[0][0].ToString());
-            //        item.setCantidad(itemsDataTable.Rows[0][1].ToString());
-            //        item.setImporte(itemsDataTable.Rows[0][2].ToString());
-            //        item.setIDItem(itemsDataTable.Rows[0][3].ToString());
-            //        item.setIDFactura(idFactura);
-            //        items.Add(item);
-            //    }
-            //    else
-            //        throw new FormatoInvalidoException("listado de items. No puede haber ningún dato vacío.");
-            //}
-
             for (int i = 0; i <= itemsDataTable.Rows.Count - 1; i++)
             {
                 if (camposDeItemLlenos(itemsDataTable.Rows[i]))
@@ -354,7 +322,7 @@ namespace PagoAgilFrba.AbmFactura
                     ItemFactura item = new ItemFactura();
                     item.setDescripcion(itemsDataTable.Rows[i][0].ToString());
                     item.setCantidad(itemsDataTable.Rows[i][1].ToString());
-                    item.setImporte(itemsDataTable.Rows[i][2].ToString());
+                    item.setImporte((Double)itemsDataTable.Rows[i][2]);
                     item.setIDItem(itemsDataTable.Rows[i][3].ToString());
                     item.setIDFactura(idFactura);
                     items.Add(item);
