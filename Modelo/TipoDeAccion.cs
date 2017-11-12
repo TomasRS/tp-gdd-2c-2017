@@ -19,6 +19,6 @@ namespace PagoAgilFrba.Modelo
         void borrarSeleccionados(AltaModifFactura form);
         double calcularMontoTotalFactura(AltaModifFactura form);
         List<ItemFactura> armarListaDeItems(AltaModifFactura form);
-        void mostrarMensajeDNI(AltaModifCliente form);
+        int mostrarMensajeDNI(AltaModifCliente form);
     }
 }

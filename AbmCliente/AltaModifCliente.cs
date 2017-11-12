@@ -41,17 +41,19 @@ namespace PagoAgilFrba.AbmCliente
             this.ShowDialog();
         }
 
-        public void mostrarMensajeDNIExistente()
+        public int mostrarMensajeDNIExistente()
         {
-            Util.ShowMessage("El DNI ya existe, ingrese otro DNI.", MessageBoxIcon.Exclamation);
+            return -1;
         }
 
-        public void chequarSiDNIEsElMismoQueClienteQueSeModifica()
+        public int chequarSiDNIEsElMismoQueClienteQueSeModifica()
         {
-            if (!dniTextBox.Text.Equals(mapper.getDNICliente(idUsuario)))
+            if (!dniTextBox.Text.Equals(mapper.getDNICliente(idCliente)))
             {
-                Util.ShowMessage("El DNI ya existe, ingrese otro DNI.", MessageBoxIcon.Exclamation);
+                return -1;
             }
+            else
+                return 0;
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -127,9 +129,11 @@ namespace PagoAgilFrba.AbmCliente
             }
             if (mapper.existeDNI(dni))
             {
-                //Si es pantalla de creacion tiene que tirar que ingrese otro dni, si es modificacion ver si es el mismo dni
-                tipoAccion.mostrarMensajeDNI(this);
-                return;
+                if (tipoAccion.mostrarMensajeDNI(this).Equals(-1))
+                {
+                    Util.ShowMessage("El DNI ya existe, ingrese otro DNI.", MessageBoxIcon.Exclamation);
+                    return;
+                }
             }
 
             // Crear Cliente

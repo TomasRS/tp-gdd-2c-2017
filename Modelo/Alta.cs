@@ -51,9 +51,9 @@ namespace PagoAgilFrba.Modelo
             return form.armarListaItemsFacturaEnCreacion();
         }
 
-        public void mostrarMensajeDNI(AltaModifCliente form)
+        public int mostrarMensajeDNI(AltaModifCliente form)
         {
-            form.mostrarMensajeDNIExistente();
+            return form.mostrarMensajeDNIExistente();
         }
     }
 }
