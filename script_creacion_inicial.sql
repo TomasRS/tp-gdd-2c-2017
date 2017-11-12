@@ -193,7 +193,11 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
     [id_cliente] INT IDENTITY(1,1) PRIMARY KEY,
     [nombre] [nvarchar](255) NOT NULL,
     [apellido] [nvarchar](255) NOT NULL,
+<<<<<<< HEAD
     [dni] [nvarchar](18) UNIQUE NOT NULL,
+=======
+    [dni] [nvarchar](10) UNIQUE NOT NULL,
+>>>>>>> 3f323584e6bd959ec07c382097be44f070e17697
 	[mail] [nvarchar](255) NOT NULL,
 	[telefono] [NUMERIC](18,0) NOT NULL DEFAULT 0,
 	[direccion] [nvarchar](150) NOT NULL,
@@ -414,7 +418,7 @@ GO
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_cliente
     @nombre nvarchar(255),
     @apellido nvarchar(255),
-    @dni numeric(18,0),
+    @dni nvarchar(10),
     @mail nvarchar(255),
     @telefono numeric(18,0),
 	@direccion nvarchar(150),
@@ -434,7 +438,7 @@ GO
 CREATE PROCEDURE GAME_OF_CODE.pr_modificar_cliente
 	@nombre nvarchar(255),
     @apellido nvarchar(255),
-    @dni numeric(18,0),
+    @dni nvarchar(10),
     @mail nvarchar(255),
     @telefono numeric(18,0),
 	@direccion nvarchar(150),
