@@ -642,7 +642,7 @@ CREATE PROCEDURE GAME_OF_CODE.pr_set_id_pago_factura_null
 	@id_factura int
 AS
 BEGIN
-	UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = id_factura
+	UPDATE GAME_OF_CODE.Factura SET id_pago = NULL WHERE id_factura = @id_factura
 END
 GO
 
