@@ -218,12 +218,12 @@ namespace PagoAgilFrba.RegistroPago
             }
         }
 
-        private int getImporteTotalAPagar()
+        private double getImporteTotalAPagar()
         {
-            int importeTotal = 0;
+            double importeTotal = 0;
             foreach (DataGridViewRow row in facturasDataGridView.Rows)
             {
-                importeTotal += (int)row.Cells["Importe"].Value;
+                importeTotal += (double)row.Cells["Importe"].Value;
             }
             return importeTotal;
         }

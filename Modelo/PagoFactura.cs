@@ -10,14 +10,14 @@ namespace PagoAgilFrba.Modelo
     public class PagoFactura : Mapeable
     {
         private DateTime fechaCobro;
-        private int importe;
+        private double importe;
         private int idSucursal;
         private int idMedioPago;
         private List<Factura> facturasAPagar = new List<Factura>();
 
 
         public void setFechaCobro(DateTime fechaCobro)      { this.fechaCobro = fechaCobro; }
-        public void setImporte(int importe)                 { this.importe = importe; }
+        public void setImporte(double importe) { this.importe = importe; }
         public void setIDSucursal(int idSucursal)           { this.idSucursal = idSucursal; }
         public void setIDMedioPago(int idMedioPago)         { this.idMedioPago = idMedioPago; }
         public void agregarFactura(Factura unaFactura)
@@ -26,7 +26,7 @@ namespace PagoAgilFrba.Modelo
         }
 
         public DateTime getFechaCobro()                     { return this.fechaCobro; }
-        public int getImporte()                             { return this.importe; }
+        public double getImporte() { return this.importe; }
         public int getIDSucursal()                          { return this.idSucursal; }
         public int getIDMedioPago()                         { return this.idMedioPago; }
         public List<Factura> getFacturasAPagar()            { return this.facturasAPagar; }
@@ -66,7 +66,7 @@ namespace PagoAgilFrba.Modelo
         {
             //Por ahora no lo usamos
             this.fechaCobro = Convert.ToDateTime(reader["fecha_cobro"]);
-            this.importe = Convert.ToInt32(reader["importe"]);
+            this.importe = Convert.ToDouble(reader["importe"]);
             this.idSucursal = Convert.ToInt32(reader["id_sucursal"]);
             this.idMedioPago = Convert.ToInt32(reader["id_medio_pago"]);
         }
