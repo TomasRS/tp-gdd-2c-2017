@@ -157,7 +157,7 @@ CREATE TABLE [GAME_OF_CODE].[Sucursal] (
 CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 	[id_detalle_factura] INT IDENTITY(1,1) PRIMARY KEY,
 	[item_factura] [nvarchar](50) NOT NULL DEFAULT 'Producto',
-	[item_monto] INT NOT NULL,
+	[item_monto] FLOAT NOT NULL,
 	[cantidad] INT NOT NULL,
 	[id_factura] INT NOT NULL
 )
@@ -165,7 +165,7 @@ CREATE TABLE [GAME_OF_CODE].[Detalle_Factura] (
 CREATE TABLE [GAME_OF_CODE].[Pago_de_Facturas] (
 	[id_pago_facturas] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_cobro] [datetime] NOT NULL,
-	[importe] INT NOT NULL,
+	[importe] FLOAT NOT NULL,
 	[id_sucursal] INT NOT NULL,
 	[id_medio_pago] INT
 )
@@ -174,7 +174,7 @@ CREATE TABLE [GAME_OF_CODE].[Factura] (
 	[id_factura] INT IDENTITY(1,1) PRIMARY KEY,
 	[numero_factura] INT NOT NULL,
 	[fecha_alta] [datetime] NOT NULL,
-	[monto_total] INT NOT NULL,
+	[monto_total] FLOAT NOT NULL,
 	[fecha_vencimiento] [datetime] NOT NULL,
 	[id_cliente] INT NOT NULL,
 	[id_empresa] INT NOT NULL,
@@ -205,8 +205,8 @@ CREATE TABLE [GAME_OF_CODE].[Cliente] (
 CREATE TABLE [GAME_OF_CODE].[Rendicion] (
 	[id_rendicion] INT IDENTITY(1,1) PRIMARY KEY,
 	[fecha_rendicion] [datetime] NOT NULL,
-	[total_rendicion] INT NOT NULL,
-	[porcentaje_comision] INT NOT NULL,
+	[total_rendicion] FLOAT NOT NULL,
+	[porcentaje_comision] FLOAT NOT NULL,
 	[importe_comision] FLOAT NOT NULL,
 	[cant_facturas_rendidas] INT NOT NULL
 )
@@ -227,7 +227,7 @@ CREATE TABLE [GAME_OF_CODE].[Empresa] (
     [nombre] [nvarchar](255) NOT NULL,
     [emp_cuit] [nvarchar](50) UNIQUE NOT NULL,
     [emp_direccion] [nvarchar](255) NOT NULL,
-	[porcentaje_comision] INT NOT NULL,
+	[porcentaje_comision] FLOAT NOT NULL,
 	[id_rubro] INT NOT NULL,
 	[estado_habilitacion] [bit] NOT NULL DEFAULT 1
 )
@@ -456,7 +456,7 @@ CREATE PROCEDURE GAME_OF_CODE.pr_crear_empresa
 	@emp_cuit nvarchar(50),
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
-	@porcentaje_comision int,
+	@porcentaje_comision float,
 	@id int OUTPUT
 AS
 BEGIN
@@ -474,7 +474,7 @@ CREATE PROCEDURE GAME_OF_CODE.pr_modificar_empresa
 	@emp_direccion nvarchar(255),
 	@id_rubro int,
 	@id int, /*id_empresa*/
-	@porcentaje_comision int,
+	@porcentaje_comision float,
 	@id_output int OUTPUT
 AS
 BEGIN
@@ -488,7 +488,7 @@ GO
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_factura
 	@numero_factura int,
 	@fecha_alta DATETIME,
-	@monto_total int,
+	@monto_total float,
 	@fecha_vencimiento DATETIME,
 	@id_cliente int,
 	@id_empresa int,
@@ -506,7 +506,7 @@ GO
 CREATE PROCEDURE GAME_OF_CODE.pr_modificar_factura
 	@numero_factura int,
 	@fecha_alta DATETIME,
-	@monto_total int,
+	@monto_total float,
 	@fecha_vencimiento DATETIME,
 	@id_cliente int,
 	@id_empresa int,
@@ -523,7 +523,7 @@ GO
 
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_item_factura
 	@item_factura nvarchar(50),
-	@item_monto int,
+	@item_monto float,
 	@cantidad int,
 	@id_factura int,
 	@id int output
@@ -539,7 +539,7 @@ GO
 
 CREATE PROCEDURE GAME_OF_CODE.pr_modificar_item_factura
 	@item_factura nvarchar(50),
-	@item_monto int,
+	@item_monto float,
 	@cantidad int,
 	@id_factura int,
 	@id int,
@@ -585,7 +585,7 @@ GO
 
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_pago_factura
 	@fecha_cobro datetime,
-	@importe int,
+	@importe float,
 	@id_sucursal int,
 	@id_medio_pago int,
 	@id int output
@@ -648,8 +648,8 @@ GO
 
 CREATE PROCEDURE GAME_OF_CODE.pr_crear_rendicion
 	@fecha_rendicion DATETIME,
-	@total_rendicion int,
-	@porcentaje_comision int,
+	@total_rendicion float,
+	@porcentaje_comision float,
 	@importe_comision float,
 	@cant_facturas_rendidas int,
 	@id int OUTPUT
@@ -760,7 +760,7 @@ INSERT INTO GAME_OF_CODE.Sucursal (nombre, direccion, codigo_postal)
 
 SET IDENTITY_INSERT GAME_OF_CODE.Rendicion ON;
 INSERT INTO GAME_OF_CODE.Rendicion (id_rendicion, fecha_rendicion, total_rendicion, porcentaje_comision,importe_comision, cant_facturas_rendidas)
-	SELECT Rendicion_Nro, Rendicion_Fecha, Total, 10, ItemRendicion_Importe, 1
+	SELECT Rendicion_Nro, Rendicion_Fecha, SUM(ItemFactura_Monto), 10, ItemRendicion_Importe, 1
 	FROM gd_esquema.Maestra
 	WHERE Rendicion_Nro IS NOT NULL
 GROUP BY Rendicion_Nro, Rendicion_Fecha, Total, ItemRendicion_Importe
@@ -782,7 +782,7 @@ INSERT INTO GAME_OF_CODE.Empresa (nombre, emp_cuit, emp_direccion, porcentaje_co
 
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas ON;
 INSERT INTO GAME_OF_CODE.Pago_de_Facturas(id_pago_facturas, fecha_cobro, id_sucursal, importe, id_medio_pago)
-	SELECT Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
+	SELECT Pago_nro, Pago_Fecha, S.id_sucursal, SUM(ItemFactura_Monto), MP.id_medio_pago
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Sucursal S, GAME_OF_CODE.Medio_de_Pago MP
 	WHERE Pago_nro IS NOT NULL
 	  AND S.nombre = TM.Sucursal_Nombre 
@@ -792,7 +792,7 @@ GROUP BY Pago_nro, Pago_Fecha, S.id_sucursal, Total, MP.id_medio_pago
 SET IDENTITY_INSERT GAME_OF_CODE.Pago_de_Facturas OFF;
 
 INSERT INTO GAME_OF_CODE.Factura (numero_factura, fecha_alta, monto_total, fecha_vencimiento, id_cliente,id_empresa, id_pago) 
-	SELECT Nro_Factura, Factura_Fecha, Factura_Total, Factura_Fecha_Vencimiento,
+	SELECT Nro_Factura, Factura_Fecha, SUM(ItemFactura_Monto), Factura_Fecha_Vencimiento,
 		   C.id_cliente, E.id_empresa, Pago_nro
 	FROM gd_esquema.Maestra TM, GAME_OF_CODE.Cliente C, GAME_OF_CODE.Empresa E
 	WHERE Nro_Factura IS NOT NULL
