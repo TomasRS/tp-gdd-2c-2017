@@ -111,7 +111,7 @@ namespace PagoAgilFrba.Utils
             return listBox.CheckedItems.Count >= 1;
         }
 
-        public static Boolean EstaEntre0y100(int numero)
+        public static Boolean EstaEntre0y100(double numero)
         {
             return numero >= 0 && numero <= 100;
         }

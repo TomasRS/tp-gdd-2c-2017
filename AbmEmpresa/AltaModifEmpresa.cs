@@ -43,7 +43,7 @@ namespace PagoAgilFrba.AbmEmpresa
             cuitTextBox.Clear();
             direccionTextBox.Clear();
             rubroComboBox.SelectedIndex = -1;
-            porcentajeComisionUpDown.Value = 0;
+            porcentajeComisionTextBox.Text = "";
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -59,7 +59,7 @@ namespace PagoAgilFrba.AbmEmpresa
             String cuit = cuitTextBox.Text;
             String direccion = direccionTextBox.Text;
             String rubro = rubroComboBox.Text;
-            int porcentajeComision = (int)porcentajeComisionUpDown.Value;
+            double porcentajeComision = Util.getNumeroDoubleFromString(porcentajeComisionTextBox.Text);
 
             //Crear empresa
             #region
@@ -131,7 +131,7 @@ namespace PagoAgilFrba.AbmEmpresa
             cuitTextBox.Text = empresa.getCuit();
             direccionTextBox.Text = empresa.getDireccion();
             rubroComboBox.Text = mapper.getDescripcionRubro(empresa.getIDRubro());
-            porcentajeComisionUpDown.Value = empresa.getPorcentajeComision();
+            porcentajeComisionTextBox.Text = empresa.getPorcentajeComision().ToString();
         }
 
         private void guardarButton_Click(object sender, EventArgs e)

@@ -34,7 +34,6 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.camposObligatoriosLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox = new System.Windows.Forms.GroupBox();
-            this.porcentajeComisionUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.rubroComboBox = new System.Windows.Forms.ComboBox();
             this.rubroLabel = new System.Windows.Forms.Label();
@@ -44,8 +43,8 @@
             this.direccionLabel = new System.Windows.Forms.Label();
             this.cuitLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
+            this.porcentajeComisionTextBox = new System.Windows.Forms.TextBox();
             this.datosPersonalesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.porcentajeComisionUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // limpiarButton
@@ -90,7 +89,7 @@
             // 
             // datosPersonalesGroupBox
             // 
-            this.datosPersonalesGroupBox.Controls.Add(this.porcentajeComisionUpDown);
+            this.datosPersonalesGroupBox.Controls.Add(this.porcentajeComisionTextBox);
             this.datosPersonalesGroupBox.Controls.Add(this.label1);
             this.datosPersonalesGroupBox.Controls.Add(this.rubroComboBox);
             this.datosPersonalesGroupBox.Controls.Add(this.rubroLabel);
@@ -107,14 +106,6 @@
             this.datosPersonalesGroupBox.TabIndex = 25;
             this.datosPersonalesGroupBox.TabStop = false;
             this.datosPersonalesGroupBox.Text = "Datos de la empresa";
-            // 
-            // porcentajeComisionUpDown
-            // 
-            this.porcentajeComisionUpDown.Location = new System.Drawing.Point(117, 147);
-            this.porcentajeComisionUpDown.Name = "porcentajeComisionUpDown";
-            this.porcentajeComisionUpDown.ReadOnly = true;
-            this.porcentajeComisionUpDown.Size = new System.Drawing.Size(217, 20);
-            this.porcentajeComisionUpDown.TabIndex = 8;
             // 
             // label1
             // 
@@ -191,6 +182,13 @@
             this.nombreLabel.TabIndex = 0;
             this.nombreLabel.Text = "Nombre";
             // 
+            // porcentajeComisionTextBox
+            // 
+            this.porcentajeComisionTextBox.Location = new System.Drawing.Point(117, 146);
+            this.porcentajeComisionTextBox.Name = "porcentajeComisionTextBox";
+            this.porcentajeComisionTextBox.Size = new System.Drawing.Size(217, 20);
+            this.porcentajeComisionTextBox.TabIndex = 8;
+            // 
             // AltaModifEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,7 +205,6 @@
             this.Load += new System.EventHandler(this.AltaModifEmpresa_Load);
             this.datosPersonalesGroupBox.ResumeLayout(false);
             this.datosPersonalesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.porcentajeComisionUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,7 +225,7 @@
         private System.Windows.Forms.Label nombreLabel;
         private System.Windows.Forms.ComboBox rubroComboBox;
         private System.Windows.Forms.Label rubroLabel;
-        private System.Windows.Forms.NumericUpDown porcentajeComisionUpDown;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox porcentajeComisionTextBox;
     }
 }

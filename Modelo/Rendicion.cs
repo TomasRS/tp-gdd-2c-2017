@@ -10,20 +10,20 @@ namespace PagoAgilFrba.Modelo
     public class Rendicion : Mapeable
     {
         private DateTime fechaRendicion;
-        private int totalRendicion;
-        private int porcentajeComision;
+        private float totalRendicion;
+        private double porcentajeComision;
         private float importeComision;
         private int cantFacturasRendidas;
 
         public void setFechaRendicion(DateTime unaFecha)    { this.fechaRendicion = unaFecha; }
-        public void setTotalRendicion(int unTotal)          { this.totalRendicion = unTotal; }
-        public void setPorcentajeComision(int porc)         { this.porcentajeComision = porc; }
+        public void setTotalRendicion(float unTotal)          { this.totalRendicion = unTotal; }
+        public void setPorcentajeComision(double porc)         { this.porcentajeComision = porc; }
         public void setImporteComision(float importe)       { this.importeComision = importe; }
         public void setCantFacturasRendidas(int cant)       { this.cantFacturasRendidas = cant; }
 
         public DateTime getFechaRendicion()     { return this.fechaRendicion; }
-        public int getTotalRendicion()          { return this.totalRendicion; }
-        public int getPorcentajeComision()      { return this.porcentajeComision; }
+        public float getTotalRendicion()          { return this.totalRendicion; }
+        public double getPorcentajeComision()      { return this.porcentajeComision; }
         public float getImporteComision()       { return this.importeComision; }
         public int getCantFactRendidas()        { return this.cantFacturasRendidas; }
 
@@ -63,7 +63,7 @@ namespace PagoAgilFrba.Modelo
         {
             this.fechaRendicion = Convert.ToDateTime(reader["fecha_rendicion"]);
             this.totalRendicion = Convert.ToInt32(reader["total_rendicion"]);
-            this.porcentajeComision = Convert.ToInt32(reader["porcentaje_comision"]);
+            this.porcentajeComision = Convert.ToDouble(reader["porcentaje_comision"]);
             this.importeComision = Convert.ToInt32(reader["importe_comision"]);
             this.cantFacturasRendidas = Convert.ToInt32(reader["cant_facturas_rendidas"]);
         }

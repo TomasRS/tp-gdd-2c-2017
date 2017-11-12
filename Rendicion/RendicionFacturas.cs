@@ -78,9 +78,9 @@ namespace PagoAgilFrba.Rendicion
         {
             PagoAgilFrba.Modelo.Rendicion rendicion = new PagoAgilFrba.Modelo.Rendicion();
             rendicion.setFechaRendicion(DateConfig.getInstance().getCurrentDate());
-            rendicion.setPorcentajeComision(Util.getNumeroFromString(porcentajeComisionTextBox.Text));
+            rendicion.setPorcentajeComision(Util.getNumeroDoubleFromString(porcentajeComisionTextBox.Text));
             rendicion.setImporteComision(Util.getNumeroFloatFromString(importeComisionTextBox.Text));
-            rendicion.setTotalRendicion(Util.getNumeroFromString(importeTotalRendicionTextBox.Text));
+            rendicion.setTotalRendicion(Util.getNumeroFloatFromString(importeTotalRendicionTextBox.Text));
             rendicion.setCantFacturasRendidas(facturasDataGridView.Rows.Count);
 
             return mapper.CrearRendicion(rendicion);
@@ -155,20 +155,20 @@ namespace PagoAgilFrba.Rendicion
 
         private void popularImporteComisionEImporteTotalRendicion()
         {
-            int importeTotalRendicion = getImporteTotalDeLaRendicion();
+            double importeTotalRendicion = getImporteTotalDeLaRendicion();
             importeTotalRendicionTextBox.Text = importeTotalRendicion.ToString();
 
-            int porcentajeComision = Util.getNumeroFromString(porcentajeComisionTextBox.Text);
-            float importeComision = importeTotalRendicion * ((float)porcentajeComision / 100);
+            double porcentajeComision = Util.getNumeroDoubleFromString(porcentajeComisionTextBox.Text);
+            double importeComision = importeTotalRendicion * ((double)porcentajeComision / 100);
             importeComisionTextBox.Text = importeComision.ToString();
         }
 
-        private int getImporteTotalDeLaRendicion()
+        private double getImporteTotalDeLaRendicion()
         {
-            int importeTotalRendicion = 0;
+            double importeTotalRendicion = 0;
             foreach (DataGridViewRow factura in facturasDataGridView.Rows)
             {
-                importeTotalRendicion += (int)factura.Cells[2].Value;
+                importeTotalRendicion += (double)factura.Cells[2].Value;
             }
             return importeTotalRendicion;
         }
