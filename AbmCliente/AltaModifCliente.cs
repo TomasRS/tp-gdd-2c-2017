@@ -41,6 +41,19 @@ namespace PagoAgilFrba.AbmCliente
             this.ShowDialog();
         }
 
+        public void mostrarMensajeDNIExistente()
+        {
+            Util.ShowMessage("El DNI ya existe, ingrese otro DNI.", MessageBoxIcon.Exclamation);
+        }
+
+        public void chequarSiDNIEsElMismoQueClienteQueSeModifica()
+        {
+            if (!dniTextBox.Text.Equals(mapper.getDNICliente(idUsuario)))
+            {
+                Util.ShowMessage("El DNI ya existe, ingrese otro DNI.", MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             nombreTextBox.Clear();
@@ -110,6 +123,12 @@ namespace PagoAgilFrba.AbmCliente
             if (!Util.EsEmailValido(mail))
             {
                 Util.ShowMessage("El email tiene un formato no válido.", MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (mapper.existeDNI(dni))
+            {
+                //Si es pantalla de creacion tiene que tirar que ingrese otro dni, si es modificacion ver si es el mismo dni
+                tipoAccion.mostrarMensajeDNI(this);
                 return;
             }
 

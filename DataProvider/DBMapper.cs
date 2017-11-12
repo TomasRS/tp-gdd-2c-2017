@@ -408,7 +408,6 @@ namespace PagoAgilFrba.DataProvider
 
         public int CrearCliente(Cliente cliente)
         {
-
             if (existeCliente(cliente.getMail()))
                 throw new ClienteYaExisteException();
 
@@ -417,6 +416,9 @@ namespace PagoAgilFrba.DataProvider
 
         public int ModificarCliente(Cliente cliente, int idCliente)
         {
+            if (existeCliente(cliente.getMail()) && !getIDCliente(cliente.getMail()).Equals(idCliente))
+                throw new ClienteYaExisteException();
+
             return this.Modificar(idCliente,cliente);
         }
 
@@ -426,6 +428,23 @@ namespace PagoAgilFrba.DataProvider
             parametros.Clear();
             parametros.Add(new SqlParameter("@mail", mail));
             return ControlDeUnicidad(query, parametros);
+        }
+
+        public Boolean existeDNI(String dni)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Cliente WHERE dni = @dni";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@dni", dni));
+            return ControlDeUnicidad(query, parametros);
+        }
+
+        public String getDNICliente(int idUsuario)
+        {
+            query = "SELECT dni FROM GAME_OF_CODE.Cliente WHERE id_usuario = @id_usuario";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_cliente", idUsuario));
+            String dni = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            return dni;
         }
 
         public int getIDCliente(String mailCliente)
