@@ -52,6 +52,7 @@ namespace PagoAgilFrba.Menu_Principal
             UsuarioSesion.Usuario.id = 0;
             UsuarioSesion.Usuario.nombre = null;
             UsuarioSesion.Usuario.rol = null;
+            UsuarioSesion.Usuario.idSucursal = -1;
 
             // Redirect al Login
             this.Hide();
