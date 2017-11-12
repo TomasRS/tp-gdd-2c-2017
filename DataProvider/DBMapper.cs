@@ -447,11 +447,11 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
-        public String getDNICliente(int idUsuario)
+        public String getDNICliente(int idCliente)
         {
-            query = "SELECT dni FROM GAME_OF_CODE.Cliente WHERE id_usuario = @id_usuario";
+            query = "SELECT dni FROM GAME_OF_CODE.Cliente WHERE id_cliente = @id_cliente";
             parametros.Clear();
-            parametros.Add(new SqlParameter("@id_cliente", idUsuario));
+            parametros.Add(new SqlParameter("@id_cliente", idCliente));
             String dni = (String)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return dni;
         }
