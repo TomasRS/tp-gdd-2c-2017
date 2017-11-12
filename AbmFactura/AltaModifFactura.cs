@@ -376,28 +376,28 @@ namespace PagoAgilFrba.AbmFactura
         }
 
         //Calcular monto total
-        private int calcularMontoTotal()
+        private double calcularMontoTotal()
         {
             return tipoAccion.calcularMontoTotalFactura(this);
 
         }
-        public int calcularMontoTotalEnCreacion()
+        public double calcularMontoTotalEnCreacion()
         {
-            int montoFinal = 0;
+            double montoFinal = 0;
             for (int i = 0; i <= itemsDataGridView.Rows.Count - 1; i++)
             {
                 //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
-                montoFinal += Util.getNumeroFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
+                montoFinal += Util.getNumeroDoubleFromString(itemsDataGridView.Rows[i].Cells[2].Value.ToString());
             }
             return montoFinal;
         }
-        public int calcularMontoTotalEnModificacion()
+        public double calcularMontoTotalEnModificacion()
         {
-            int montoFinal = 0;
+            double montoFinal = 0;
             for (int i = 0; i <= itemsDataTable.Rows.Count - 1; i++)
             {
                 //MontoFinal es la suma de los importes de cada item (el importe ya es el total para ese item)
-                montoFinal += Util.getNumeroFromString(itemsDataTable.Rows[i][2].ToString());
+                montoFinal += Util.getNumeroDoubleFromString(itemsDataTable.Rows[i][2].ToString());
             }
             return montoFinal;
         }

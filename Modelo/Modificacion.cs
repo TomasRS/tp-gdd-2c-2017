@@ -40,7 +40,7 @@ namespace PagoAgilFrba.Modelo
             form.borrarItemsEnModificacion();
         }
 
-        public int calcularMontoTotalFactura(AltaModifFactura form)
+        public double calcularMontoTotalFactura(AltaModifFactura form)
         {
             return form.calcularMontoTotalEnModificacion();
         }

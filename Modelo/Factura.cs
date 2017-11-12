@@ -19,7 +19,7 @@ namespace PagoAgilFrba.Modelo
         private DateTime fechaAltaFactura;
         private DateTime fechaVencimientoFactura;
         private Boolean activo;
-        private int montoTotal;
+        private double montoTotal;
         private List<ItemFactura> itemsFactura;
 
         private IList<SqlParameter> parametros = new List<SqlParameter>();
@@ -57,7 +57,7 @@ namespace PagoAgilFrba.Modelo
         { this.itemsFactura = items; }
         public void setActivo(Boolean activo)
         { this.activo = activo; }
-        public void setMontoTotal(int montoTotal)
+        public void setMontoTotal(double montoTotal)
         { this.montoTotal = montoTotal; }
 
         //--------------------Getters---------------------
@@ -69,7 +69,7 @@ namespace PagoAgilFrba.Modelo
         public DateTime getFechaVenc()              { return this.fechaVencimientoFactura; }
         public List<ItemFactura> getItemsFactura()  { return this.itemsFactura; }
         public Boolean getActivo()                  { return this.activo; }
-        public int getMontoTotal()                  { return this.montoTotal; }
+        public double getMontoTotal()                  { return this.montoTotal; }
 
 
 
@@ -108,7 +108,7 @@ namespace PagoAgilFrba.Modelo
         {
             this.numeroFactura = Convert.ToString(reader["numero_factura"]);
             this.fechaAltaFactura = Convert.ToDateTime(reader["fecha_alta"]);
-            this.montoTotal = Convert.ToInt32(reader["monto_total"]);
+            this.montoTotal = Convert.ToDouble(reader["monto_total"]);
             this.fechaVencimientoFactura = Convert.ToDateTime(reader["fecha_vencimiento"]);
             this.idCliente = Convert.ToInt32(reader["id_cliente"]);
             this.idEmpresa = Convert.ToInt32(reader["id_empresa"]);
