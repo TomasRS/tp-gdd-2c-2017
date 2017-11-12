@@ -662,13 +662,13 @@ namespace PagoAgilFrba.DataProvider
             return ControlDeUnicidad(query, parametros);
         }
 
-        public int getImporteFactura(String nroFactura, int idEmpresa)
+        public double getImporteFactura(String nroFactura, int idEmpresa)
         {
             query = "SELECT monto_total FROM GAME_OF_CODE.Factura WHERE numero_factura = @numero_factura AND id_empresa = @id_empresa";
             parametros.Clear();
             parametros.Add(new SqlParameter("@numero_factura", nroFactura));
             parametros.Add(new SqlParameter("@id_empresa", idEmpresa));
-            int importe = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
+            double importe = (double)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return importe;    
         }
 
