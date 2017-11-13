@@ -132,6 +132,7 @@
             this.Controls.Add(this.nombreTextBox);
             this.Controls.Add(this.nombreLabel);
             this.Controls.Add(this.tituloLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifRol";
             this.Text = "Alta y modificación de Rol";

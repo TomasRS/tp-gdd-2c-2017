@@ -162,6 +162,7 @@
             this.ClientSize = new System.Drawing.Size(793, 501);
             this.Controls.Add(this.empresasDataGridView);
             this.Controls.Add(this.filtroGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoEmpresa";
             this.Text = "Listado de Empresas";

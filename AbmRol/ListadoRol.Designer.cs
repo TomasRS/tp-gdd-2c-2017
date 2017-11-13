@@ -76,6 +76,7 @@
             this.Controls.Add(this.RolesDataGridView);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.elegirRolLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoRol";
             this.Text = "Listado de roles";

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroPagoFacturas));
             this.datosFacturaGroupBox = new System.Windows.Forms.GroupBox();
+            this.sucursalTextBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.registrarFacturaButton = new System.Windows.Forms.Button();
             this.fechaVencFactDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -59,7 +60,6 @@
             this.efectivoRadioButton = new System.Windows.Forms.RadioButton();
             this.tarjetaCreditoRadioButton = new System.Windows.Forms.RadioButton();
             this.limpiarTodoButton = new System.Windows.Forms.Button();
-            this.sucursalTextBox = new System.Windows.Forms.TextBox();
             this.datosFacturaGroupBox.SuspendLayout();
             this.facturasRegistradasGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.facturasDataGridView)).BeginInit();
@@ -88,6 +88,15 @@
             this.datosFacturaGroupBox.TabIndex = 0;
             this.datosFacturaGroupBox.TabStop = false;
             this.datosFacturaGroupBox.Text = "Datos de la factura";
+            // 
+            // sucursalTextBox
+            // 
+            this.sucursalTextBox.Enabled = false;
+            this.sucursalTextBox.Location = new System.Drawing.Point(248, 179);
+            this.sucursalTextBox.Name = "sucursalTextBox";
+            this.sucursalTextBox.ReadOnly = true;
+            this.sucursalTextBox.Size = new System.Drawing.Size(270, 20);
+            this.sucursalTextBox.TabIndex = 16;
             // 
             // limpiarButton
             // 
@@ -360,15 +369,6 @@
             this.limpiarTodoButton.UseVisualStyleBackColor = true;
             this.limpiarTodoButton.Click += new System.EventHandler(this.limpiarTodoButton_Click);
             // 
-            // sucursalTextBox
-            // 
-            this.sucursalTextBox.Enabled = false;
-            this.sucursalTextBox.Location = new System.Drawing.Point(248, 179);
-            this.sucursalTextBox.Name = "sucursalTextBox";
-            this.sucursalTextBox.ReadOnly = true;
-            this.sucursalTextBox.Size = new System.Drawing.Size(270, 20);
-            this.sucursalTextBox.TabIndex = 16;
-            // 
             // RegistroPagoFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +380,7 @@
             this.Controls.Add(this.facturasRegistradasGroupBox);
             this.Controls.Add(this.pagarFacturasButton);
             this.Controls.Add(this.datosFacturaGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistroPagoFacturas";
             this.Text = "Registro de Pago de Facturas";

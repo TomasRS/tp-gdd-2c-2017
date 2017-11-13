@@ -34,6 +34,7 @@
             this.volverButton = new System.Windows.Forms.Button();
             this.camposObligatoriosLabel = new System.Windows.Forms.Label();
             this.datosPersonalesGroupBox = new System.Windows.Forms.GroupBox();
+            this.porcentajeComisionTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.rubroComboBox = new System.Windows.Forms.ComboBox();
             this.rubroLabel = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.direccionLabel = new System.Windows.Forms.Label();
             this.cuitLabel = new System.Windows.Forms.Label();
             this.nombreLabel = new System.Windows.Forms.Label();
-            this.porcentajeComisionTextBox = new System.Windows.Forms.TextBox();
             this.datosPersonalesGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,6 +106,13 @@
             this.datosPersonalesGroupBox.TabIndex = 25;
             this.datosPersonalesGroupBox.TabStop = false;
             this.datosPersonalesGroupBox.Text = "Datos de la empresa";
+            // 
+            // porcentajeComisionTextBox
+            // 
+            this.porcentajeComisionTextBox.Location = new System.Drawing.Point(117, 146);
+            this.porcentajeComisionTextBox.Name = "porcentajeComisionTextBox";
+            this.porcentajeComisionTextBox.Size = new System.Drawing.Size(217, 20);
+            this.porcentajeComisionTextBox.TabIndex = 8;
             // 
             // label1
             // 
@@ -182,13 +189,6 @@
             this.nombreLabel.TabIndex = 0;
             this.nombreLabel.Text = "Nombre";
             // 
-            // porcentajeComisionTextBox
-            // 
-            this.porcentajeComisionTextBox.Location = new System.Drawing.Point(117, 146);
-            this.porcentajeComisionTextBox.Name = "porcentajeComisionTextBox";
-            this.porcentajeComisionTextBox.Size = new System.Drawing.Size(217, 20);
-            this.porcentajeComisionTextBox.TabIndex = 8;
-            // 
             // AltaModifEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +199,7 @@
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.camposObligatoriosLabel);
             this.Controls.Add(this.datosPersonalesGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AltaModifEmpresa";
             this.Text = "Alta y modificación de empresa";

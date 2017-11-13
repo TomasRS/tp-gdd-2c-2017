@@ -54,7 +54,7 @@
             this.sucursalesDataGridView.ReadOnly = true;
             this.sucursalesDataGridView.Size = new System.Drawing.Size(638, 288);
             this.sucursalesDataGridView.TabIndex = 5;
-            this.sucursalesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sucursalesDataGridView_CellContentClick );
+            this.sucursalesDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.sucursalesDataGridView_CellContentClick);
             // 
             // filtroGroupBox
             // 
@@ -73,6 +73,13 @@
             this.filtroGroupBox.TabIndex = 4;
             this.filtroGroupBox.TabStop = false;
             this.filtroGroupBox.Text = "Filtro de búsqueda";
+            // 
+            // codPostalTextBox
+            // 
+            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
+            this.codPostalTextBox.Name = "codPostalTextBox";
+            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
+            this.codPostalTextBox.TabIndex = 5;
             // 
             // limpiarButton
             // 
@@ -104,13 +111,6 @@
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
-            // codPostalTextBox
-            // 
-            this.codPostalTextBox.Location = new System.Drawing.Point(242, 91);
-            this.codPostalTextBox.Name = "codPostalTextBox";
-            this.codPostalTextBox.Size = new System.Drawing.Size(184, 20);
-            this.codPostalTextBox.TabIndex = 5;
-            // 
             // direccionTextBox
             // 
             this.direccionTextBox.Location = new System.Drawing.Point(242, 57);
@@ -130,7 +130,7 @@
             this.codPostalLabel.AutoSize = true;
             this.codPostalLabel.Location = new System.Drawing.Point(172, 94);
             this.codPostalLabel.Name = "codPostalLabel";
-            this.codPostalLabel.Size = new System.Drawing.Size(36, 13);
+            this.codPostalLabel.Size = new System.Drawing.Size(72, 13);
             this.codPostalLabel.TabIndex = 2;
             this.codPostalLabel.Text = "Codigo Postal";
             // 
@@ -159,6 +159,7 @@
             this.ClientSize = new System.Drawing.Size(660, 497);
             this.Controls.Add(this.sucursalesDataGridView);
             this.Controls.Add(this.filtroGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoSucursal";
             this.Text = "Listado de Sucursales";
