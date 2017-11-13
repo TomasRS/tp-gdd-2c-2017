@@ -123,6 +123,9 @@ namespace PagoAgilFrba.AbmSucursal
                 if (valorHabilitacion)
                 {
                     Boolean resultado = mapper.CambiarHabilitacionSucursal(Convert.ToInt32(idSucursalAModificar), "Sucursal", 0);
+                    if (idSucursalAModificar.Equals(UsuarioSesion.Usuario.idSucursal))
+                        UsuarioSesion.Usuario.idSucursal = -1;
+
                     Util.ShowMessage("Se eliminó la sucursal correctamente.", MessageBoxIcon.Information);
                 }
                 else
