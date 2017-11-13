@@ -373,7 +373,7 @@ namespace PagoAgilFrba.DataProvider
 
         public int getIDUnicaSucursalUsuario(int idUsuario)
         {
-            query = "SELECT id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal WHERE id_usuario = @id_usuario";
+            query = "SELECT uxs.id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal uxs, GAME_OF_CODE.Sucursal s WHERE uxs.id_usuario = @id_usuario AND s.id_sucursal = uxs.id_sucursal AND s.estado_habilitacion = 1";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id_usuario", idUsuario));
             int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
