@@ -78,7 +78,7 @@ namespace PagoAgilFrba.Login
             {
                 parametros.Clear();
                 parametros.Add(new SqlParameter("@username", UsuarioSesion.Usuario.nombre));
-                String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username";
+                String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username AND r.estado_habilitacion = 1";
                 String rolUser = (String)QueryBuilder.Instance.build(rolDeUsuario, parametros).ExecuteScalar();
 
                 UsuarioSesion.Usuario.rol = rolUser;

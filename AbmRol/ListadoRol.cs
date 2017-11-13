@@ -115,6 +115,13 @@ namespace PagoAgilFrba.AbmRol
                 {
                     Boolean resultado = mapper.CambiarHabilitacionRol(Convert.ToInt32(idRolAModificar), "Rol", 0);
                     Util.ShowMessage("Se eliminó el rol correctamente.", MessageBoxIcon.Information);
+                    if (idRolAModificar.Equals(mapper.getIDRol(RolesDataGridView.Rows[e.RowIndex].Cells["nombre"].Value.ToString()).ToString()))
+                    {
+                        UsuarioSesion.Usuario.rol = null;
+                        this.Hide();
+                        new LoginForm().ShowDialog();
+                        this.Close();
+                    } 
                 }
                 else
                 {
