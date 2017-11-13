@@ -76,6 +76,7 @@ namespace PagoAgilFrba.Menu_Principal
             accionesComboBox.ValueMember = "descripcion";
 
             rolLogueadoLabel.Text = UsuarioSesion.Usuario.rol;
+            sucursalPlaceholderLabel.Text = mapper.getNombreSucursal(UsuarioSesion.Usuario.idSucursal);
         }
 
         private void aceptarButton_Click(object sender, EventArgs e)

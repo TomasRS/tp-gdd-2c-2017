@@ -35,13 +35,15 @@
             this.cerrarSesionButton = new System.Windows.Forms.Button();
             this.rolSeleccionadoLabel = new System.Windows.Forms.Label();
             this.rolLogueadoLabel = new System.Windows.Forms.Label();
+            this.sucursalLabel = new System.Windows.Forms.Label();
+            this.sucursalPlaceholderLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // accionLabel
             // 
             this.accionLabel.AutoSize = true;
             this.accionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.accionLabel.Location = new System.Drawing.Point(45, 51);
+            this.accionLabel.Location = new System.Drawing.Point(45, 64);
             this.accionLabel.Name = "accionLabel";
             this.accionLabel.Size = new System.Drawing.Size(222, 16);
             this.accionLabel.TabIndex = 0;
@@ -51,14 +53,14 @@
             // 
             this.accionesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.accionesComboBox.FormattingEnabled = true;
-            this.accionesComboBox.Location = new System.Drawing.Point(42, 87);
+            this.accionesComboBox.Location = new System.Drawing.Point(42, 100);
             this.accionesComboBox.Name = "accionesComboBox";
             this.accionesComboBox.Size = new System.Drawing.Size(230, 21);
             this.accionesComboBox.TabIndex = 1;
             // 
             // aceptarButton
             // 
-            this.aceptarButton.Location = new System.Drawing.Point(118, 124);
+            this.aceptarButton.Location = new System.Drawing.Point(118, 137);
             this.aceptarButton.Name = "aceptarButton";
             this.aceptarButton.Size = new System.Drawing.Size(75, 23);
             this.aceptarButton.TabIndex = 2;
@@ -83,24 +85,45 @@
             this.rolSeleccionadoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rolSeleccionadoLabel.Location = new System.Drawing.Point(12, 17);
             this.rolSeleccionadoLabel.Name = "rolSeleccionadoLabel";
-            this.rolSeleccionadoLabel.Size = new System.Drawing.Size(92, 13);
+            this.rolSeleccionadoLabel.Size = new System.Drawing.Size(26, 13);
             this.rolSeleccionadoLabel.TabIndex = 4;
-            this.rolSeleccionadoLabel.Text = "Rol seleccionado:";
+            this.rolSeleccionadoLabel.Text = "Rol:";
             // 
             // rolLogueadoLabel
             // 
             this.rolLogueadoLabel.AutoSize = true;
-            this.rolLogueadoLabel.Location = new System.Drawing.Point(104, 17);
+            this.rolLogueadoLabel.Location = new System.Drawing.Point(69, 17);
             this.rolLogueadoLabel.Name = "rolLogueadoLabel";
             this.rolLogueadoLabel.Size = new System.Drawing.Size(62, 13);
             this.rolLogueadoLabel.TabIndex = 5;
             this.rolLogueadoLabel.Text = "placeholder";
+            // 
+            // sucursalLabel
+            // 
+            this.sucursalLabel.AutoSize = true;
+            this.sucursalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sucursalLabel.Location = new System.Drawing.Point(12, 40);
+            this.sucursalLabel.Name = "sucursalLabel";
+            this.sucursalLabel.Size = new System.Drawing.Size(51, 13);
+            this.sucursalLabel.TabIndex = 6;
+            this.sucursalLabel.Text = "Sucursal:";
+            // 
+            // sucursalPlaceholderLabel
+            // 
+            this.sucursalPlaceholderLabel.AutoSize = true;
+            this.sucursalPlaceholderLabel.Location = new System.Drawing.Point(69, 40);
+            this.sucursalPlaceholderLabel.Name = "sucursalPlaceholderLabel";
+            this.sucursalPlaceholderLabel.Size = new System.Drawing.Size(62, 13);
+            this.sucursalPlaceholderLabel.TabIndex = 7;
+            this.sucursalPlaceholderLabel.Text = "placeholder";
             // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 174);
+            this.Controls.Add(this.sucursalPlaceholderLabel);
+            this.Controls.Add(this.sucursalLabel);
             this.Controls.Add(this.rolLogueadoLabel);
             this.Controls.Add(this.rolSeleccionadoLabel);
             this.Controls.Add(this.cerrarSesionButton);
@@ -125,5 +148,7 @@
         private System.Windows.Forms.Button cerrarSesionButton;
         private System.Windows.Forms.Label rolSeleccionadoLabel;
         private System.Windows.Forms.Label rolLogueadoLabel;
+        private System.Windows.Forms.Label sucursalLabel;
+        private System.Windows.Forms.Label sucursalPlaceholderLabel;
     }
 }
