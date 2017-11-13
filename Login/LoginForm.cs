@@ -80,45 +80,54 @@ namespace PagoAgilFrba
                 }
                 else
                 {
-                    //Hay una sola sucursal, calculo la cant de roles
-                    UsuarioSesion.Usuario.idSucursal = mapper.getIDUnicaSucursalUsuario(UsuarioSesion.Usuario.id);
-
-                    if (mapper.SucursalEstaDeshabilitada(UsuarioSesion.Usuario.idSucursal))
+                    if (cantidadDeSucursales.Equals(1))
                     {
-                        UsuarioSesion.Usuario.idSucursal = -1;
-                        Util.ShowMessage("No se puede iniciar sesión porque no tiene asignada una sucursal habilitada.", MessageBoxIcon.Exclamation);
-                        return;
-                    }
+                        //Hay una sola sucursal, calculo la cant de roles
+                        UsuarioSesion.Usuario.idSucursal = mapper.getIDUnicaSucursalUsuario(UsuarioSesion.Usuario.id);
 
-                    parametros.Clear();
-                    String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
-                    int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
-
-                    //Si es mas de un rol muestra la pantalla de eleccion de roles, sino la principal
-                    if (cantidadDeRoles > 1)
-                    {
-                        this.Hide();
-                        new EleccionRol().ShowDialog();
-                        this.Close();
-                    }
-                    else
-                    {
-                        parametros.Clear();
-                        parametros.Add(new SqlParameter("@username", username));
-                        String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username";
-                        String rolUser = (String)QueryBuilder.Instance.build(rolDeUsuario, parametros).ExecuteScalar();
-
-                        UsuarioSesion.Usuario.rol = rolUser;
-                        if (UsuarioSesion.Usuario.rol == null)
+                        if (mapper.SucursalEstaDeshabilitada(UsuarioSesion.Usuario.idSucursal))
                         {
-                            Util.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
+                            UsuarioSesion.Usuario.idSucursal = -1;
+                            Util.ShowMessage("No se puede iniciar sesión porque no tiene asignada una sucursal habilitada.", MessageBoxIcon.Exclamation);
                             return;
                         }
 
-                        this.Hide();
-                        new MenuPrincipal().ShowDialog();
-                        this.Close();
+                        parametros.Clear();
+                        String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
+                        int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
+
+                        //Si es mas de un rol muestra la pantalla de eleccion de roles, sino la principal
+                        if (cantidadDeRoles > 1)
+                        {
+                            this.Hide();
+                            new EleccionRol().ShowDialog();
+                            this.Close();
+                        }
+                        else
+                        {
+                            parametros.Clear();
+                            parametros.Add(new SqlParameter("@username", username));
+                            String rolDeUsuario = "SELECT r.nombre FROM GAME_OF_CODE.Rol r, GAME_OF_CODE.Rol_por_Usuario ru, GAME_OF_CODE.Usuario u WHERE r.id_rol = ru.id_rol AND ru.id_usuario = u.id_usuario AND u.username = @username";
+                            String rolUser = (String)QueryBuilder.Instance.build(rolDeUsuario, parametros).ExecuteScalar();
+
+                            UsuarioSesion.Usuario.rol = rolUser;
+                            if (UsuarioSesion.Usuario.rol == null)
+                            {
+                                Util.ShowMessage("No existen roles para iniciar sesión.", MessageBoxIcon.Exclamation);
+                                return;
+                            }
+
+                            this.Hide();
+                            new MenuPrincipal().ShowDialog();
+                            this.Close();
+                        }
                     }
+                    else
+                    {
+                        Util.ShowMessage("El usuario no posee ninguna sucursal habilitada por lo que no se puede loguear.", MessageBoxIcon.Error);
+                        return;
+                    }
+                    
                 }
             }
             else
