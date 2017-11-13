@@ -74,6 +74,8 @@ namespace PagoAgilFrba.Menu_Principal
             adapter.Fill(actions, "Funcionalidad");
             accionesComboBox.DataSource = actions.Tables[0].DefaultView;
             accionesComboBox.ValueMember = "descripcion";
+
+            rolLogueadoLabel.Text = UsuarioSesion.Usuario.rol;
         }
 
         private void aceptarButton_Click(object sender, EventArgs e)

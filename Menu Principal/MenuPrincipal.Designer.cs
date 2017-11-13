@@ -33,6 +33,8 @@
             this.accionesComboBox = new System.Windows.Forms.ComboBox();
             this.aceptarButton = new System.Windows.Forms.Button();
             this.cerrarSesionButton = new System.Windows.Forms.Button();
+            this.rolSeleccionadoLabel = new System.Windows.Forms.Label();
+            this.rolLogueadoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // accionLabel
@@ -75,11 +77,32 @@
             this.cerrarSesionButton.UseVisualStyleBackColor = true;
             this.cerrarSesionButton.Click += new System.EventHandler(this.cerrarSesionButton_Click);
             // 
+            // rolSeleccionadoLabel
+            // 
+            this.rolSeleccionadoLabel.AutoSize = true;
+            this.rolSeleccionadoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rolSeleccionadoLabel.Location = new System.Drawing.Point(12, 17);
+            this.rolSeleccionadoLabel.Name = "rolSeleccionadoLabel";
+            this.rolSeleccionadoLabel.Size = new System.Drawing.Size(92, 13);
+            this.rolSeleccionadoLabel.TabIndex = 4;
+            this.rolSeleccionadoLabel.Text = "Rol seleccionado:";
+            // 
+            // rolLogueadoLabel
+            // 
+            this.rolLogueadoLabel.AutoSize = true;
+            this.rolLogueadoLabel.Location = new System.Drawing.Point(104, 17);
+            this.rolLogueadoLabel.Name = "rolLogueadoLabel";
+            this.rolLogueadoLabel.Size = new System.Drawing.Size(62, 13);
+            this.rolLogueadoLabel.TabIndex = 5;
+            this.rolLogueadoLabel.Text = "placeholder";
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 174);
+            this.Controls.Add(this.rolLogueadoLabel);
+            this.Controls.Add(this.rolSeleccionadoLabel);
             this.Controls.Add(this.cerrarSesionButton);
             this.Controls.Add(this.aceptarButton);
             this.Controls.Add(this.accionesComboBox);
@@ -100,5 +123,7 @@
         private System.Windows.Forms.ComboBox accionesComboBox;
         private System.Windows.Forms.Button aceptarButton;
         private System.Windows.Forms.Button cerrarSesionButton;
+        private System.Windows.Forms.Label rolSeleccionadoLabel;
+        private System.Windows.Forms.Label rolLogueadoLabel;
     }
 }
