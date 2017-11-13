@@ -115,7 +115,7 @@ namespace PagoAgilFrba.AbmRol
                 {
                     Boolean resultado = mapper.CambiarHabilitacionRol(Convert.ToInt32(idRolAModificar), "Rol", 0);
                     Util.ShowMessage("Se eliminó el rol correctamente.", MessageBoxIcon.Information);
-                    if (idRolAModificar.Equals(mapper.getIDRol(RolesDataGridView.Rows[e.RowIndex].Cells["nombre"].Value.ToString()).ToString()))
+                    if (idRolAModificar.Equals(mapper.getIDRol(UsuarioSesion.Usuario.rol).ToString()))
                     {
 
                         Util.ShowMessage("Se cierra sesión debido a que el rol seleccionado al loguearse se encuentra desahabilitado.", MessageBoxIcon.Exclamation);
