@@ -113,7 +113,7 @@ namespace PagoAgilFrba.Utils
 
         public static Boolean EstaEntre0y100(double numero)
         {
-            return numero >= 0 && numero <= 100;
+            return numero >= 0.0 && numero <= 100.0;
         }
 
         public static Boolean EsAnioValidoEnBaseAFechaSistema(String anio)
