@@ -373,7 +373,7 @@ namespace PagoAgilFrba.DataProvider
 
         public int getIDUnicaSucursalUsuario(int idUsuario)
         {
-            query = "SELECT uxs.id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal uxs, GAME_OF_CODE.Sucursal s WHERE uxs.id_usuario = @id_usuario AND s.id_sucursal = uxs.id_sucursal AND s.estado_habilitacion = 1";
+            query = "SELECT id_sucursal FROM GAME_OF_CODE.Usuario_por_Sucursal WHERE id_usuario = @id_usuario";
             parametros.Clear();
             parametros.Add(new SqlParameter("@id_usuario", idUsuario));
             int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
@@ -396,6 +396,14 @@ namespace PagoAgilFrba.DataProvider
             parametros.Add(new SqlParameter("@codigo_postal", codigoPostal));
             int idSucursal = (int)QueryBuilder.Instance.build(query, parametros).ExecuteScalar();
             return idSucursal;
+        }
+
+        public Boolean SucursalEstaDeshabilitada(int idSucursal)
+        {
+            query = "SELECT COUNT(*) FROM GAME_OF_CODE.Sucursal WHERE id_sucursal = @id_sucursal AND estado_habilitacion = 0";
+            parametros.Clear();
+            parametros.Add(new SqlParameter("@id_sucursal", idSucursal));
+            return ControlDeUnicidad(query, parametros);
         }
 
         public void ResetearIntentosFallidosUsuario(int idUsuario)

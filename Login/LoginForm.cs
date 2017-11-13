@@ -83,6 +83,13 @@ namespace PagoAgilFrba
                     //Hay una sola sucursal, calculo la cant de roles
                     UsuarioSesion.Usuario.idSucursal = mapper.getIDUnicaSucursalUsuario(UsuarioSesion.Usuario.id);
 
+                    if (mapper.SucursalEstaDeshabilitada(UsuarioSesion.Usuario.idSucursal))
+                    {
+                        UsuarioSesion.Usuario.idSucursal = -1;
+                        Util.ShowMessage("No se puede iniciar sesión porque no tiene asignada una sucursal habilitada.", MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
                     parametros.Clear();
                     String consultaRoles = "EXEC GAME_OF_CODE.get_cantidad_roles_de_usuario " + username;
                     int cantidadDeRoles = (int)QueryBuilder.Instance.build(consultaRoles, parametros).ExecuteScalar();
