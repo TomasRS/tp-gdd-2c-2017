@@ -89,7 +89,7 @@ namespace PagoAgilFrba.Menu_Principal
 
             if (accionElegida.Equals("Pagar facturas") && UsuarioSesion.Usuario.idSucursal.Equals(-1))
             {
-                Util.ShowMessage("No se puede pagar facturas porque no se tiene asignada ninguna sucursal activa.", MessageBoxIcon.Exclamation);
+                Util.ShowMessage("No se puede pagar facturas porque la sucursal con la que se logueó no se encuentra activa. Cierre sesión y escoja una sucursal activa.", MessageBoxIcon.Exclamation);
                 return;
             }
 
