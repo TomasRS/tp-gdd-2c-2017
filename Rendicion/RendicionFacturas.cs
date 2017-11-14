@@ -187,6 +187,9 @@ namespace PagoAgilFrba.Rendicion
 
         private void RendicionFacturas_Load(object sender, EventArgs e)
         {
+            fechaInicioDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaFinDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+
             CargarEmpresas();
             empresaComboBox.SelectedIndex = 0;
         }

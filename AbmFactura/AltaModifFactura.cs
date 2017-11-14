@@ -43,8 +43,8 @@ namespace PagoAgilFrba.AbmFactura
         {
             clienteComboBox.SelectedIndex = -1;
             nroFacturaTextBox.Clear();
-            fechaAltaFactDateTimePicker.Text = "";
-            fechaVencDateTimePicker.Text = "";
+            fechaAltaFactDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaVencDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
             empresaComboBox.SelectedIndex = -1;
             itemsDataGridView.Rows.Clear();
             itemsDataGridView.Refresh();
@@ -226,6 +226,8 @@ namespace PagoAgilFrba.AbmFactura
         private void AltaModifFactura_Load(object sender, EventArgs e)
         {
             campos.Add(nroFacturaTextBox);
+            fechaAltaFactDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaVencDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
 
             CargarClientes();
             CargarEmpresas();

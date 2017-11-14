@@ -32,8 +32,8 @@ namespace PagoAgilFrba.RegistroPago
             numFacturaTextBox.Clear();
             empresaComboBox.SelectedIndex = -1;
             clienteComboBox.SelectedIndex = -1;
-            fechaCobroDateTimePicker.Text = "";
-            fechaVencFactDateTimePicker.Text = "";
+            fechaCobroDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaVencFactDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();;
         }
 
         private void volverButton_Click(object sender, EventArgs e)
@@ -113,7 +113,8 @@ namespace PagoAgilFrba.RegistroPago
             CargarSucursal();
             DeshabilitarSortHeaders();
 
-            fechaCobroDateTimePicker.Text = DateConfig.getInstance().getCurrentDate().ToString();
+            fechaCobroDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
+            fechaVencFactDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
         }
 
         private void agregarFacturaAListado()

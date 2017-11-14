@@ -61,7 +61,7 @@ namespace PagoAgilFrba.AbmCliente
             nombreTextBox.Clear();
             apellidoTextBox.Clear();
             dniTextBox.Clear();
-            fechaNacDateTimePicker.Text = "";
+            fechaNacDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
             mailTextBox.Clear();
             telefonoTextBox.Clear();
             calleTextBox.Clear();
@@ -233,6 +233,8 @@ namespace PagoAgilFrba.AbmCliente
             campos.Add(departamentoTextBox);
             campos.Add(localidadTextBox);
             campos.Add(codPostalTextBox);
+
+            fechaNacDateTimePicker.Value = DateConfig.getInstance().getCurrentDate();
 
             tipoAccion.cargarDatosSiCorresponde(this);
             tipoAccion.setearTituloVentana(this);
