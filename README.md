@@ -18,4 +18,4 @@ Julián Romero Llanos | 141.456-2 | romerollanos.julian@gmail.com | [Click acá]
 * [Enunciado TP-2C-2017](https://drive.google.com/file/d/0B_t8j3nOHeJcbXFQdVhfN1FyX1E/view)
 * [Git Cheatsheet](https://drive.google.com/file/d/0B_k1QNSnaW5UcTFTTlFoY3h5NWM/view?usp=sharing)
 * [MarkDown CheatSheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf) (Hoja de estilo Markdown, para que se vean bien los README.md como este)
-* [Google Drive - Estrategia](https://docs.google.com/document/d/1bDcIU4IbteI8onxQYTK2v4LGKrlOMhyKwyyvvBcFl24/edit?usp=sharing) (Convertir a PDF una vez terminado y borrar este link)
+* [Google Drive - Estrategia](https://docs.google.com/document/d/1W1PRoN627P0yTlISTS3T5d4qvkzzpkH5gNKkwPJUolQ/edit?usp=sharing) (Convertir a PDF una vez terminado y borrar este link)
