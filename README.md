@@ -1,4 +1,4 @@
-﻿# TP-GDD-2C-2017
+﻿# TP-GDD-2C-2017: Aprobado
 [![Build Status](https://travis-ci.com/TomasRS/tp-gdd-2c-2017.svg?token=x8i3wwaW3bUTi6cU8yZK&branch=master)](https://travis-ci.com/TomasRS/tp-gdd-2c-2017)
 ## Importante
 > Recordar usar el .NET Framework 4.5 cuando importen el proyecto de Visual Studio. Pueden chequearlo dándole click derecho al proyecto -> Propiedades
